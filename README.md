@@ -1,4 +1,4 @@
-# Derived - PaWdopt
+# PaWdopt
 ![image](https://user-images.githubusercontent.com/100368346/166647786-7a5fe66f-80f6-4122-bfaa-a66e7688e9f2.png)
 
 <a href= "https://github.com/COS301-SE-2022/PaWdopt/pulls"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/COS301-SE-2022/PaWdopt?style=plastic"></a>
