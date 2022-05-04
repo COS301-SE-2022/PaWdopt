@@ -1,6 +1,6 @@
 # Derived - PaWdopt
 
-<a href= ""><img alt="GitHub pull requests" src=""></a>
+<a href= "https://github.com/COS301-SE-2022/PaWdopt/pulls"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/COS301-SE-2022/PaWdopt?style=plastic"></a>
 <a href = "https://github.com/COS301-SE-2022/PaWdopt/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/COS301-SE-2022/PaWdopt?style=plastic"></a>
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/COS301-SE-2022/PaWdopt?style=plastic">
 
