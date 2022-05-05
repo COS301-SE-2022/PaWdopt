@@ -32,8 +32,32 @@ Undecided
 Undecided
 ```
 
-## Software Engineering Model
-Under Construction
+# Software Engineering Model
+
+### At Cloud5 we will approach the PaWdopt system using the agile development methodology which is an iterative approach to project management and software development that will help our team deliver value to our stakeholders faster and with fewer headaches. It delivers work in small, but consumable increments. The requirements, plans, and results are evaluated continuously so that our teams have a natural mechanism for responding to change quickly.
+Thus, our manifesto for agile software development will be as follows:
+- Individuals and interactions over processes and tools.
+- Working software over comprehensive documentation.
+- Customer collaboration over contract negotiation.
+- Responding to change over following a plan.
+### We will start by defining the users for a particular product and documenting a vision statement for the scope of problems, opportunities, and values to be addressed. The product owner, Epi-Use Africa, captures this vision and works with our multidisciplinary team to deliver on it. Several roles are involved in an agile development process.
+## Users
+### An agile process always begins with the user or customer in mind. We will define user personas to illustrate different workflow roles or types of customer needs and behaviors.
+
+## Product Owner
+### This person creates insights, ideas, and feedback to create a product vision. Product visions are often short and straightforward, but they nonetheless paint a picture of who the customer or user is, what values are being addressed, and a strategy for addressing them.
+
+## Software Development Team
+### Our agile development approach will focus on teams that are delivering working software, so they must complete end-to-end functioning applications, integrations, and other deliverables that impact users—not just the technical components. Team members must align on what they are building, who is doing what, and how the software will be developed.
+
+### For team meetings and collaborative coding practices we will make use of the scrum techniques that adopt agile principles that were identified in the manifesto. Cloud5 will organize the work in cadences called sprints, which usually last one or two weeks. The product owner writes the requirements as user stories, then prioritizes them in a backlog based on their business value. The team then reviews the backlog and commits to the top user stories they can complete during the sprint.
+We will have several meetings over the course of the sprint, initially starting with one a week and later increasing the amount as needed. These are sometimes called scrum ceremonies or scrum rituals. This will help our team commit to sprint priorities, complete the work during the sprint, and end each sprint successfully. Each meeting these topics will be discussed:
+- Sprint planning is where the product owner shares priorities, and the team decides how much work it can complete during the sprint.
+- Daily stand-up meetings help teams discuss the status of user stories; teammates share their daily goals, and anyone can escalate issues that impede the team’s progress.
+- Sprint reviews are demo meetings at the end of the sprint, where the functionality is shown to the product owner to gain acceptance on completed work.
+- Retrospective meetings are where the team discusses what went well and what needs improvement in their agile and software development processes.
+### Thus, Cloud5 will fulfill all the needs of the product owner using agile development techniques to deliver a high-end product that can be used to the best of its ability by users of the application.
+
 
 
 ## Video Demo Links:
