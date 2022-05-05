@@ -103,7 +103,10 @@ I am currently enlisted in my third year of studies at the University of Pretori
 
 <!--Aryan-->
 
-Under Construction
+## [Aryan Ramnand (u20443626)](https://github.com/Aramnand) <a href="https://www.linkedin.com/in/aryanramnand/"><img height="30px" src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/linkedin.png"></img></a>
+<img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/aryan.jpg" alt="Image" align="left" height="180px"/>
+
+A conscientious, disciplined, hardworking, results-driven individual with enthusiasm, commitment and determination to succeed. Passionate about all frontend development including UI/UX and literate with JavaScript, TypeScript, HTML, SQL (Database programming), Java, C++, and Python. These will be used for the functionality for the frontend and backend so that they can cooperate effectively. I believe this project will broaden my horizons professionally.
 
 <br clear="left"/>
 
