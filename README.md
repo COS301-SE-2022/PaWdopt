@@ -123,8 +123,10 @@ Under Construction
 <br clear="left"/>
 
 <!--Kearon-->
+## [Kearon Foba (u13312694)](https://github.com/KearonF) <a href="https://www.linkedin.com/in/KearonF/"><img height="30px" src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/linkedin.png"></img></a>
+<img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/Kearon.jpg" alt="Image" align="left" height="180px"/>
 
-Under Construction
+I am currently in my final year of BSc Computer Science at University of Pretoria. I am well versed in many industry standard languages such as Python, Java and C++. I am literate in various webstack technologies and languages, and as such, can apply my skills in both front and backend development. I am passionate about ML, AI and Computer Security. This project will provide a platform in which I can hone my skills and apply them in a professional context.
 
 <br clear="left"/>
 
