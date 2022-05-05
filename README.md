@@ -118,7 +118,7 @@ Under Construction
 
 <!--Chris-->
 
-Under Construction.
+Under Construction
 
 <br clear="left"/>
 
