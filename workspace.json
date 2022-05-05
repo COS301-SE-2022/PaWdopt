@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "pawdopt": "apps/pawdopt",
+    "pawdopt-e2e": "apps/pawdopt-e2e"
+  }
+}
