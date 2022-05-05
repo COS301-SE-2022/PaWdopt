@@ -83,7 +83,7 @@ We will have several meetings over the course of the sprint, initially starting 
 
 - Under Construction
 
-## Project Board: [click here](https://github.com/COS301-SE-2022/PaWdopt/projects/1)
+## Project Board: [click here](https://github.com/COS301-SE-2022/PaWdopt/projects/2)
 
 <br />
 
