@@ -92,7 +92,7 @@ We will have several meetings over the course of the sprint, initially starting 
 <!-- -------------------------------------------------------------- -->
 <!--RAYDEN-->
 ## [Rayden Burger (u20424622)](https://github.com/rayden96) <a href="https://www.linkedin.com/in/rayden-burger-214b1b1b1/"><img height="30px" src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/linkedin.png"></img></a>
-<img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/rayden.png" alt="Image" align="left" height="180px"/>
+<img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/rayden.jpg" alt="Image" align="left" height="180px"/>
 
 I am currently enlisted in my third year of studies at the University of Pretoria studying Computer Science. My passions include ML, AI, Problem Solving and Team Management. I am competent in most modern industry languages and concepts. I am the Team Lead of this project and I am keen to lead this project into something great!
 
