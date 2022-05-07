@@ -1,0 +1,23 @@
+{
+  "root": "libs/mobile/signup/feature",
+  "sourceRoot": "libs/mobile/signup/feature/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/mobile/signup/feature/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/mobile/signup/feature"],
+      "options": {
+        "jestConfig": "libs/mobile/signup/feature/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
