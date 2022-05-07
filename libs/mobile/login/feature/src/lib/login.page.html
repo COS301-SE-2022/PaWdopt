@@ -1,9 +1,33 @@
-<ion-content [fullscreen]="true">
-  <div id="container">
-    <p>Welcome to PaWdopt Login Screen!</p>
-    <ion-button id="login-button">Login</ion-button>
-    <p>Don't have an account? <a href="/signup">Click Here</a> to signup! </p>
-  </div>
+<ion-content id="outer-container">
+    <ion-grid justify-content-center align-items-center id="login-grid">
+      <ion-row id="login-logo-container">
+        <ion-col>
+          <img
+            src=""
+            alt="login-logo"
+            id="login-logo"
+          />
+          <p>Welcome to PaWdopt Login Screen!</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row id="login-button-container">
+        <ion-col>
+          <ion-button expand="block" id="login-button">Login</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row id="login-providers">
+        <ion-col id="login-google">
+          <ion-button expand="block" id="login-google-button">Login with Google</ion-button>
+        </ion-col>  
+          <ion-col id="login-apple">
+          <ion-button expand="block" id="login-apple-button">Login with Apple</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="signup-container">Don't have an account? <a href="/signup">Click Here</a> to signup!
+      </ion-row>
+  </ion-grid>
 </ion-content>
 
 
