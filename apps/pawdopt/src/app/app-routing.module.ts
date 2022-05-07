@@ -12,6 +12,13 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('@pawdopt/mobile/signup/feature').then(
+        (m) => m.SignupPageComponentModule
+      ),
+  },
 ];
 
 @NgModule({

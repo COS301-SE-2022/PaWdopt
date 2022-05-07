@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "mobile-signup-feature": "libs/mobile/signup/feature",
     "pawdopt": "apps/pawdopt",
     "pawdopt-e2e": "apps/pawdopt-e2e"
   }
