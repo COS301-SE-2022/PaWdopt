@@ -27,28 +27,35 @@
 </ion-content> -->
 
 
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home">
-    <ion-icon name="home"></ion-icon>
-    </ion-tab-button>
-    <ion-tab-button tab="liked">
-      <ion-icon name="paw"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button tab="chats">
-        <ion-icon name="chatbox"></ion-icon>
-        </ion-tab-button>
-  </ion-tab-bar>
-  <ion-tab-bar slot="top">
-    <ion-tab-button tab="settings">
-    <ion-icon name="settings"></ion-icon>
-    </ion-tab-button>
-    <ion-text>PAWDOPT</ion-text>
-      <ion-tab-button tab="account">
-        <ion-icon name="person"></ion-icon>
-        </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+<!-- <ion-tabs class="signup-page" slot="start">
+  
+</ion-tabs> -->
 
-
-
+<div class="container">
+  <img class="logo" src="..\..\..\..\..\..\apps\pawdopt\src\assets\Capture.PNG">
+  <ion-list class="form">
+    <ion-item-group class="form-border">
+        <ion-item class="form-item form-start">
+            <ion-label position="floating" class="form-input-label">Username</ion-label>
+            <ion-input class="form-input" clear-on-edit=true></ion-input>
+        </ion-item>
+        <ion-item class="form-item">
+            <ion-label position="floating" class="form-input-label">Password</ion-label>
+            <ion-input class="form-input" clear-on-edit=true></ion-input>
+        </ion-item>
+        <ion-item class="form-item">
+            <ion-label position="floating" class="form-input-label">Re-enter Password</ion-label>
+            <ion-input class="form-input" clear-on-edit=true></ion-input>
+        </ion-item>
+        <ion-item class="form-item">
+            <ion-label position="floating" class="form-input-label">Date of birth</ion-label>
+            <ion-input class="form-input" clear-on-edit=true></ion-input>
+        </ion-item>
+        <ion-item class="form-item form-end" lines="none">
+            <ion-label position="floating">Email address</ion-label>
+            <ion-input class="form-input" clear-on-edit=true></ion-input>
+        </ion-item>
+    </ion-item-group>
+  </ion-list>
+  <ion-button class="greyButton">Create account</ion-button>
+</div>
