@@ -119,7 +119,7 @@ Under Construction
 <!--Chris-->
 
 ## [Christian Magerat (u19029242)](https://github.com/ChrisMagerat) <a href="https://www.linkedin.com/in/christian-magerat-81395b239/"><img height="30px" src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/linkedin.png"></img></a>
-<img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/Chris.jepg" alt="Image" align="left" height="180px"/>
+<img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/Chris.jpeg" alt="Image" align="left" height="180px"/>
 
 Being in the last year of Bsc Computer Science, I am well versed with most computer knowledge. I am an al rounder with knwolegde of backend and frontend. I'm component in most industry languanges. My passion is with cyber security and front end design. My knowledge will be a creat help to the dovelopment of the project.
 
