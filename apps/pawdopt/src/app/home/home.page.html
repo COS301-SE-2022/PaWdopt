@@ -1,23 +1,23 @@
 
-<ion-header>
-  <ion-toolbar>
+<ion-header >
+  <ion-toolbar color = "primary">
     <ion-buttons slot="start">
-      <ion-button fill="clear" color="medium">
+      <ion-button fill="clear" color="dark">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title class="ion-text-center">
-      <img class="logo" src="../../assets/Capture.PNG">
+      <img class="logo" src="../../assets/logonopicture.PNG">
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button fill="clear" color="medium">
+      <ion-button fill="clear" color="dark">
         <ion-icon slot="icon-only" name="chatbubbles"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>  
+<ion-content color = "primary" >  
 
   <sw-card-wrapper #cardWrapper>
     <div class="card" *ngFor="let avatar of avatars, let index = index"
@@ -28,7 +28,8 @@
       [orientation]="'x'"
       (swiped)="swiped($event, index)">
       <img [src]="avatar.image" [alt]="avatar.name">
-      <h2>{{avatar.name}}, {{avatar.age}}</h2>
+      <h2>{{avatar.name}}, {{avatar.age}}  <ion-icon slot="icon-only" color="tertiary" name="checkmark-circle"></ion-icon></h2>
+     
     </div>
   </sw-card-wrapper>
 
@@ -47,31 +48,33 @@
     <ion-button class="large_button" mode="ios" shape="round" fill="outline" >
     <ion-icon color="warning" name="refresh"></ion-icon>
     </ion-button>
+    <div class="space"></div>
     <ion-button (click)="swipeleft()" mode="ios" class="large_button" shape="round" fill="outline" >
-    <ion-icon color="danger" name="close"></ion-icon>
+    <ion-icon color="light" name="close"></ion-icon>
     </ion-button>
     <div class="space"></div>
     <ion-button (click)="swiperight()" mode="ios" class="large_button" shape="round" fill="outline">
-      <ion-icon color="success" name="heart"></ion-icon>
+      <ion-icon color="danger" name="heart"></ion-icon>
     </ion-button>
+    <div class="space"></div>
     <ion-button class="large_button" mode="ios" shape="round" fill="outline">
-      <ion-icon color="primary" name="location-sharp"></ion-icon>
+      <ion-icon color="tertiary" name="location-sharp"></ion-icon>
     </ion-button>
   </div>
-  
- 
 </ion-content>
 
-  <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="home">
-      <ion-icon name="home"></ion-icon>
+<ion-tabs>
+  <ion-tab-bar color="secondary" slot="bottom">
+    <ion-tab-button tab="home">
+    <ion-icon color = "dark" name="home"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="liked">
+      <ion-icon color = "dark" name="paw"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="liked">
-        <ion-icon name="paw"></ion-icon>
+      <ion-tab-button tab="chats">
+        <ion-icon color = "dark" name="chatbox"></ion-icon>
         </ion-tab-button>
-        <ion-tab-button tab="chats">
-          <ion-icon name="chatbox"></ion-icon>
-          </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
+  </ion-tab-bar>
+</ion-tabs>
+
+
