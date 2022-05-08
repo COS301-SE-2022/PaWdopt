@@ -25,3 +25,102 @@
 #container a {
   text-decoration: none;
 }
+
+
+.logo {
+  height: 40px;
+}
+
+
+sw-card-wrapper {
+  height: 550px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+.card {
+  box-shadow: 0px 1px 3px #e6e6e6;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  position: absolute;
+  background-color: white;
+}
+.card img{
+  height: 450px;
+  min-width: 100%;
+  max-width: none;
+}
+.card h2{
+  background-color: white;
+  font-size: 20px;
+  margin: 10px 15px;
+}
+.visible {
+  display: block;
+}
+.hidden {
+  display: none;
+}
+
+
+.card_bg_box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card_bg_1 {
+  position: absolute;
+  box-shadow: 0px 1px 4px #cecece;
+  background-color: white;
+  height: 481px;
+  width: 340px;
+  top: 50px;
+  border-radius: 10px;
+  z-index: 1;
+}
+.card_bg_2 {
+  position: absolute;
+  box-shadow: 0px 1px 4px #cecece;
+  background-color: white;
+  height: 481px;
+  width: 330px;
+  top: 55px;
+  border-radius: 10px;
+  z-index: 0;
+}
+
+
+.button_box {
+  width: 90%;
+  display: flex;
+  align-items: flex-start;
+  margin-left: 5%;
+  justify-content: center;
+}
+.small_button {
+  font-size: 20px;
+  --border-radius: 50%;
+  --border-width: 8px;
+  --border-color: #f3f3f3;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --background-activated: #f3f3f3;
+}
+.large_button {
+  font-size: 30px;
+  --border-radius: 50%;
+  --border-width: 8px;
+  --border-color: #f3f3f3;
+  --padding-start: 15px;
+  --padding-end: 15px;
+  margin-right: -2px;
+  margin-left: -3px;
+  --background-activated: #f3f3f3;
+}
+.space {
+  width: 12px;
+}
