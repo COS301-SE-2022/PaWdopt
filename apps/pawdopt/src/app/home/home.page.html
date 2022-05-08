@@ -1,54 +1,80 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title> PaWdopt </ion-title>
+
+<ion-header >
+  <ion-toolbar color = "primary">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <img class="logo" src="../../assets/logonopicture.PNG">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="chatbubbles"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">PaWdopt</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content color = "primary" >  
 
-  <div id="container">
-    <h1>Welcome to PaWdopt!</h1>
-    <strong>Ready to create an app?</strong>
-    <p>
-      Start with Ionic
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://ionicframework.com/docs/components"
-        >UI Components</a
-      >
-    </p>
+  <sw-card-wrapper #cardWrapper>
+    <div class="card" *ngFor="let avatar of avatars, let index = index"
+      [class.visible]="avatar.visible" [class.hidden]="!avatar.visible"
+      swSwipeable
+      [width]="350"
+      [height]="500"
+      [orientation]="'x'"
+      (swiped)="swiped($event, index)">
+      <img [src]="avatar.image" [alt]="avatar.name">
+      <h2>{{avatar.name}}, {{avatar.age}}  <ion-icon slot="icon-only" color="tertiary" name="checkmark-circle"></ion-icon></h2>
+     
+    </div>
+  </sw-card-wrapper>
+
+
+  <div class="card_bg_box">
+    <div class="card_bg_1">
+      <ion-item  *ngFor="let result of results">
+        <ion-label>{{ result }}</ion-label>
+      </ion-item>
+    </div>
+    <div class="card_bg_2"></div>
   </div>
-</ion-content> -->
 
+
+  <div class="button_box">
+    <ion-button class="large_button" mode="ios" shape="round" fill="outline" >
+    <ion-icon color="warning" name="refresh"></ion-icon>
+    </ion-button>
+    <div class="space"></div>
+    <ion-button (click)="swipeleft()" mode="ios" class="large_button" shape="round" fill="outline" >
+    <ion-icon color="light" name="close"></ion-icon>
+    </ion-button>
+    <div class="space"></div>
+    <ion-button (click)="swiperight()" mode="ios" class="large_button" shape="round" fill="outline">
+      <ion-icon color="danger" name="heart"></ion-icon>
+    </ion-button>
+    <div class="space"></div>
+    <ion-button class="large_button" mode="ios" shape="round" fill="outline">
+      <ion-icon color="tertiary" name="location-sharp"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>
 
 <ion-tabs>
-  <ion-tab-bar slot="bottom">
+  <ion-tab-bar color="secondary" slot="bottom">
     <ion-tab-button tab="home">
-    <ion-icon name="home"></ion-icon>
+    <ion-icon color = "dark" name="home"></ion-icon>
     </ion-tab-button>
     <ion-tab-button tab="liked">
-      <ion-icon name="paw"></ion-icon>
+      <ion-icon color = "dark" name="paw"></ion-icon>
       </ion-tab-button>
       <ion-tab-button tab="chats">
-        <ion-icon name="chatbox"></ion-icon>
-        </ion-tab-button>
-  </ion-tab-bar>
-  <ion-tab-bar slot="top">
-    <ion-tab-button tab="settings">
-    <ion-icon name="settings"></ion-icon>
-    </ion-tab-button>
-    <ion-text>PAWDOPT</ion-text>
-      <ion-tab-button tab="account">
-        <ion-icon name="person"></ion-icon>
+        <ion-icon color = "dark" name="chatbox"></ion-icon>
         </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
-
 
 
