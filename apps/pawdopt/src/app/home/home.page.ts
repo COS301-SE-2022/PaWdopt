@@ -36,7 +36,7 @@ export class HomePage {
   swiped(event: any, index: number) {
     console.log(this.avatars[index].name + ' swiped ' + event);
     this.avatars[index].visible = false;
-    // this.results.push(this.avatars[index].name + ' swiped ' + event);
+    //this.results.push(this.avatars[index].name + ' swiped ' + event);
     this.currentIndex--;
   }
 
