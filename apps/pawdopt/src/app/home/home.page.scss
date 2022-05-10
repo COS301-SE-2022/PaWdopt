@@ -111,8 +111,40 @@ sw-card-wrapper {
   --padding-end: 15px;
   margin-right: -2px;
   margin-left: -3px;
-  --background-activated: #f3f3f3;
+  --background-activated: #7A7265;
 }
 .space {
   width: 12px;
+}
+ion-slides{
+  box-shadow: 0px 1px 3px #000000;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  background-color: #7A7265;
+  margin: 15px 15px;
+}
+
+ion-slide{
+  // border-radius: 20px;
+}
+
+.bg-1{
+  height:400px;
+ width: 400px;
+}
+
+.centered {
+  position: absolute;
+  top: 90%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+}
+
+.wrap-text {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
 }
