@@ -19,6 +19,13 @@ const routes: Routes = [
         (m) => m.SignupPageComponentModule
       ),
   },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('@pawdopt/mobile/login/feature').then(
+        (m) => m.LoginPageComponentModule
+      )
+  }
 ];
 
 @NgModule({
