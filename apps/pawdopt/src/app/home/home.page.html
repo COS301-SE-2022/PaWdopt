@@ -18,42 +18,32 @@
 </ion-header>
 
 <ion-content color = "primary" >  
-
-  <sw-card-wrapper #cardWrapper>
-    <div class="card" *ngFor="let avatar of avatars, let index = index"
-      [class.visible]="avatar.visible" [class.hidden]="!avatar.visible"
-      swSwipeable
-      [width]="350"
-      [height]="500"
-      [orientation]="'x'"
-      (swiped)="swiped($event, index)">
-      <img [src]="avatar.image" [alt]="avatar.name">
-      <h2>{{avatar.name}}, {{avatar.age}}  <ion-icon slot="icon-only" color="tertiary" name="checkmark-circle"></ion-icon></h2>
-     
-    </div>
-  </sw-card-wrapper>
-
-
-  <div class="card_bg_box">
-    <div class="card_bg_1">
-      <ion-item  *ngFor="let result of results">
-        <ion-label>{{ result }}</ion-label>
-      </ion-item>
-    </div>
-    <div class="card_bg_2"></div>
-  </div>
-
-
+  <ion-slides pager="true">
+    <ion-slide class="bg-1">
+      <img src="../../assets/husky.jpg">
+      <h4 class="centered wrap-text"><b>Millie, 3 </b><ion-icon name="checkmark-circle" color="tertiary"></ion-icon>
+        </h4>
+    </ion-slide>
+    <ion-slide class="bg-1">
+      <img src="../../assets/grbreed.jpg">
+      <h4 class="centered wrap-text"><b>Rene, 2</b><ion-icon name="checkmark-circle" color="tertiary"></ion-icon></h4>
+    </ion-slide>
+    <ion-slide class="bg-1">
+      <img src="../../assets/pembrokewelsh.jpg">
+      <h4 class="centered wrap-text"><b>Jock, 4</b><ion-icon name="checkmark-circle" color="tertiary"></ion-icon></h4>
+    </ion-slide>
+  </ion-slides>
+ 
   <div class="button_box">
     <ion-button class="large_button" mode="ios" shape="round" fill="outline" >
     <ion-icon color="warning" name="refresh"></ion-icon>
     </ion-button>
     <div class="space"></div>
-    <ion-button (click)="swipeleft()" mode="ios" class="large_button" shape="round" fill="outline" >
+    <ion-button  mode="ios" class="large_button" shape="round" fill="outline" >
     <ion-icon color="light" name="close"></ion-icon>
     </ion-button>
     <div class="space"></div>
-    <ion-button (click)="swiperight()" mode="ios" class="large_button" shape="round" fill="outline">
+    <ion-button mode="ios" class="large_button" shape="round" fill="outline">
       <ion-icon color="danger" name="heart"></ion-icon>
     </ion-button>
     <div class="space"></div>
@@ -63,7 +53,7 @@
   </div>
 </ion-content>
 
-<ion-tabs>
+
   <ion-tab-bar color="secondary" slot="bottom">
     <ion-tab-button tab="home">
     <ion-icon color = "dark" name="home"></ion-icon>
@@ -75,6 +65,6 @@
         <ion-icon color = "dark" name="chatbox"></ion-icon>
         </ion-tab-button>
   </ion-tab-bar>
-</ion-tabs>
+
 
 
