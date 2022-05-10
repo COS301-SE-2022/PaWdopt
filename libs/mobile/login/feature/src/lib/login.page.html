@@ -11,12 +11,25 @@
         </ion-col>
       </ion-row>
 
-      <ion-row id="login-button-container">
+      <ion-row id="login-form-container">
         <ion-col>
-          <ion-button expand="block" id="login-button">Login</ion-button>
+          <ion-list id="login-form">
+            <ion-item>
+              <ion-input type="email" placeholder="Email" id="login-email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="password" placeholder="Password" id="login-password"></ion-input>
+            </ion-item>
+          </ion-list>
         </ion-col>
       </ion-row>
 
+      <ion-row id="login-button-container">
+        <ion-col>
+          <ion-button expand="block" id="login-button" (click)="login()">Login</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="signup-container" align-right><p>Don't have an account? <a href="/signup">Click Here</a> to signup!</p></ion-row>
       <ion-row id="login-providers">
         <ion-col id="login-google">
           <ion-button expand="block" id="login-google-button">Login with Google</ion-button>
@@ -24,8 +37,6 @@
           <ion-col id="login-apple">
           <ion-button expand="block" id="login-apple-button">Login with Apple</ion-button>
         </ion-col>
-      </ion-row>
-      <ion-row class="signup-container">Don't have an account? <a href="/signup">Click Here</a> to signup!
       </ion-row>
   </ion-grid>
 </ion-content>
