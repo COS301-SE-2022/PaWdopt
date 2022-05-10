@@ -47,7 +47,7 @@
     "@capacitor/cli": "^3.2.5",
     "@capacitor/ios": "^3.2.5",
     "@nestjs/core": "^8.4.4",
-    "@nrwl/angular": "13.0.0",
+    "@nrwl/angular": "^14.1.4",
     "@nrwl/cli": "14.0.5",
     "@nrwl/cypress": "14.0.5",
     "@nrwl/eslint-plugin-nx": "14.0.5",

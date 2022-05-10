@@ -1,0 +1,38 @@
+<ion-content id="login-container">
+    <ion-grid justify-content-center align-items-center id="login-grid">
+      <ion-row id="login-form-container">
+        <ion-col>
+          <ion-img
+          src="../../assets/PaWdopt_transparent.png"
+          alt="login-logo"
+          id="login-logo"></ion-img>
+          <ion-list id="login-form">
+            <ion-item>
+              <ion-input type="email" placeholder="Email" id="login-email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="password" placeholder="Password" id="login-password"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row id="login-button-container">
+        <ion-col>
+          <ion-button expand="block" id="login-button" (click)="login()">Login</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="signup-container" align-right><p>Don't have an account? <a href="/signup">Click Here</a> to signup!</p></ion-row>
+      <ion-row id="login-providers">
+        <ion-col id="login-google">
+          <ion-button expand="block" id="login-google-button">Login with Google</ion-button>
+        </ion-col>  
+          <ion-col id="login-apple">
+          <ion-button expand="block" id="login-apple-button">Login with Apple</ion-button>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+
