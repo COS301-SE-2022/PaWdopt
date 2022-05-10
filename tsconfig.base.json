@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@pawdopt/mobile/addorg/feature": [
+        "libs/mobile/addorg/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/login/feature": [
         "libs/mobile/login/feature/src/index.ts"
       ],

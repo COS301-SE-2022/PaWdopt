@@ -25,6 +25,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/login/feature').then(
         (m) => m.LoginPageComponentModule
       )
+  },
+  {
+    path: 'addorg',
+    loadChildren: () =>
+      import('@pawdopt/mobile/addorg/feature').then(
+        (m) => m.AddorgPageComponentModule
+      )
   }
 ];
 
