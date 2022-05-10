@@ -23,7 +23,11 @@
 .form-item {
     color: #020300;
     --background: #8e6e53;
-    --highlight-color-focused: #2a0800;
+    --highlight-color-focused: #2a0800 !important;
+}
+
+.back{
+    color: #020300;
 }
 
 .form-start {

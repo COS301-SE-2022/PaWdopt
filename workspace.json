@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "mobile-addorg-feature": "libs/mobile/addorg/feature",
     "mobile-login-feature": "libs/mobile/login/feature",
     "mobile-signup-feature": "libs/mobile/signup/feature",
     "pawdopt": "apps/pawdopt",
