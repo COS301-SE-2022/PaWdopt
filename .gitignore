@@ -43,3 +43,7 @@ Thumbs.db
 
 # NPM
 /package-lock.json
+
+#Ignore mobile builds
+/apps/pawdopt/android
+/apps/pawdopt/ios

@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -38,6 +38,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('@pawdopt/mobile/dashboard/feature').then(
         (m) => m.dashboardPageComponentModule
+      )
+  },
+  {
+    path: 'adddog',
+    loadChildren: () =>
+      import('@pawdopt/mobile/adddog/feature').then(
+        (m) => m.AdddogPageComponentModule
       )
   }
 ];
