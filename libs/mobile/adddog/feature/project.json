@@ -1,0 +1,23 @@
+{
+  "root": "libs/mobile/adddog/feature",
+  "sourceRoot": "libs/mobile/adddog/feature/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/mobile/adddog/feature/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/mobile/adddog/feature"],
+      "options": {
+        "jestConfig": "libs/mobile/adddog/feature/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
