@@ -1,0 +1,56 @@
+<ion-header ><!--Header-->
+  <ion-toolbar color = "primary">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <img class="logo" src="../../assets/logonopicture.PNG">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content color="primary">
+  <ion-button color="dark" expand="block">Add a Dog</ion-button>
+  <ion-button color="dark" expand="block">Remove a Dog</ion-button>
+  <ion-card>
+    <ion-list color="secondary">
+        <ion-item >
+          <ion-label color="dark" type="floating">John Sins</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mark Zuck</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Elon Tusk</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Jerry Smith</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Gear Head</ion-label>
+        </ion-item>
+      </ion-list>
+  </ion-card>
+</ion-content>
+
+<ion-tab-bar color="secondary" slot="bottom"><!--Header-->
+  <ion-tab-button tab="home">
+  <ion-icon color = "dark" name="home"></ion-icon>
+  </ion-tab-button>
+  <ion-tab-button tab="liked">
+    <ion-icon color = "dark" name="paw"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="chats">
+      <ion-icon color = "dark" name="chatbox"></ion-icon>
+      </ion-tab-button>
+</ion-tab-bar>
+
+

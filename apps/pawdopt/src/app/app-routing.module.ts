@@ -32,6 +32,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/addorg/feature').then(
         (m) => m.AddorgPageComponentModule
       )
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('@pawdopt/mobile/dashboard/feature').then(
+        (m) => m.dashboardPageComponentModule
+      )
   }
 ];
 
