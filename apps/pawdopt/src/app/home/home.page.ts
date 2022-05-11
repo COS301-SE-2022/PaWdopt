@@ -7,9 +7,10 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
  
-  constructor() {
-    
-  }
+  constructor() {}
 
+  // next(slides){
+  //   slides.slideNext(); 
+  // }
  
 }
