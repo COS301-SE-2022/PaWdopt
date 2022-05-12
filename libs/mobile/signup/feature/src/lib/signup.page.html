@@ -4,26 +4,26 @@
     <ion-item-group class="form-border">
         <ion-item class="form-item form-start">
             <ion-label position="floating" class="form-input-label">Username</ion-label>
-            <ion-input class="form-input" clear-on-edit=true></ion-input>
+            <ion-input class="form-input" id="username-field" clear-on-edit=true></ion-input>
         </ion-item>
         <ion-item class="form-item">
             <ion-label position="floating" class="form-input-label">Password</ion-label>
-            <ion-input class="form-input" clear-on-edit=true></ion-input>
+            <ion-input class="form-input" id="password-field" clear-on-edit=true></ion-input>
         </ion-item>
         <ion-item class="form-item">
             <ion-label position="floating" class="form-input-label">Re-enter Password</ion-label>
-            <ion-input class="form-input" clear-on-edit=true></ion-input>
+            <ion-input class="form-input" id="re-enter-password-field" clear-on-edit=true></ion-input>
         </ion-item>
         <ion-item class="form-item">
             <ion-label position="floating" class="form-input-label">Date of birth</ion-label>
-            <ion-input class="form-input" clear-on-edit=true></ion-input>
+            <ion-input class="form-input" id="dob-field"clear-on-edit=true></ion-input>
         </ion-item>
         <ion-item class="form-item form-end" lines="none">
             <ion-label position="floating">Email address</ion-label>
-            <ion-input class="form-input" clear-on-edit=true></ion-input>
+            <ion-input class="form-input" id="email-field" clear-on-edit=true></ion-input>
         </ion-item>
     </ion-item-group>
   </ion-list>
-  <ion-button class="greyButton" (click)="signUp()">Create account</ion-button>
-  <a href="/login" class="back">Back</a>
+  <ion-button class="greyButton" id="create-account-button" (click)="signUp()">Create account</ion-button>
+  <a id="login-link" href="/login" class="back">Back</a>
 </div>
