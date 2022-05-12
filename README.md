@@ -120,7 +120,7 @@ A conscientious, disciplined, hardworking, results-driven individual with enthus
 <!--Alex-->
 
 ## [Alex Küsel (u19236183)](https://github.com/AlexK2010) <a href="https://www.linkedin.com/in/alex-k%C3%BCsel-2ba962239/"><img height="30px" src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/linkedin.png"></img></a>
-<img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/Alex.jpeg" alt="Image" align="left" height="180px"/>
+<img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/Alex.jpg" alt="Image" align="left" height="180px"/>
 
 I am a quiet, conscientious student in my final year of BSc Computer Science. I am self-driven and always hold my work to a great degree of quality. My passion lies with data science and database work, I am competent with most industry languages and have skills in most computer science related fields. I have high hopes and expectations for what we can achieve in this project.
 
