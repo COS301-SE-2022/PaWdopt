@@ -1,6 +1,13 @@
 # PaWdopt
 ![image](https://user-images.githubusercontent.com/100368346/166647786-7a5fe66f-80f6-4122-bfaa-a66e7688e9f2.png)
 
+The PawDopt application will work like the well-known tinder app, except between dogs and people. It will allow users to view and adopt dogs on a mobile application.
+
+Rescue organizations will create a profile and add members that will manage the adoption process and upload the dogs to be adopted. We will implement an AI solution using machine learning that will automatically recognise the breed of a dog from a photo of the dog and prefill some of the characteristics of the dog based on the breed. The organizations will be able to report users that have a fake account or users that should not be allowed to adopt dogs due to their home not being suitable. Rescue organization members can approve or reject user applications for dogs.
+
+Dogs displayed to the user will be filtered based on the characteristics they are looking for. The users will also be able to change these filters to requirements, ensuring that they are met. The application will allow users to report organizations, in case of it being a fake profile. If the user swipes left on the dog, the dog will not be shown to the user again until they request for this to be reset. When the user swipes right on the dog, the application process will begin. During the process, appointments can be made to view the dog and a chat functionality between the user and the rescue organization is made available. If the user finds a dog, they will be able to report this on the system to get recommendations of the closest rescue organizations that can be contacted.
+
+
 <a href= "https://github.com/COS301-SE-2022/PaWdopt/pulls"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/COS301-SE-2022/PaWdopt?style=plastic"></a>
 <a href = "https://github.com/COS301-SE-2022/PaWdopt/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/COS301-SE-2022/PaWdopt?style=plastic"></a>
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/COS301-SE-2022/PaWdopt?style=plastic">
