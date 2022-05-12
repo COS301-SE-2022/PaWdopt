@@ -69,7 +69,7 @@ We will have several meetings over the course of the sprint, initially starting 
 
 ## Video Demo Links:
 
-## Functional Requirements (SRS): [click here](https://github.com/COS301-SE-2022/PaWdopt/wiki/Documentation)
+## SRS Documentation: [click here](https://github.com/COS301-SE-2022/PaWdopt/wiki/Documentation)
  
 
 ## Project Board: [click here](https://github.com/COS301-SE-2022/PaWdopt/projects/2)
