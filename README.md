@@ -119,7 +119,10 @@ A conscientious, disciplined, hardworking, results-driven individual with enthus
 
 <!--Alex-->
 
-Under Construction
+## [Alex Küsel (u19236183)](https://github.com/AlexK2010) <a href="https://www.linkedin.com/in/alex-k%C3%BCsel-2ba962239/"><img height="30px" src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/linkedin.png"></img></a>
+<img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/Alex.jpeg" alt="Image" align="left" height="180px"/>
+
+I am a quiet, conscientious student in my final year of BSc Computer Science. I am self-driven and always hold my work to a great degree of quality. My passion lies with data science and database work, I am competent with most industry languages and have skills in most computer science related fields. I have high hopes and expectations for what we can achieve in this project.
 
 <br clear="left"/>
 
@@ -128,7 +131,7 @@ Under Construction
 ## [Christian Magerat (u19029242)](https://github.com/ChrisMagerat) <a href="https://www.linkedin.com/in/christian-magerat-81395b239/"><img height="30px" src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/linkedin.png"></img></a>
 <img src="https://github.com/COS301-SE-2022/PaWdopt/blob/develop/profileimages/Chris.jpeg" alt="Image" align="left" height="180px"/>
 
-Being in the last year of Bsc Computer Science, I am well versed with most computer knowledge. I am an al rounder with knwolegde of backend and frontend. I'm component in most industry languanges. My passion is with cyber security and front end design. My knowledge will be a creat help to the dovelopment of the project.
+Being in the last year of Bsc Computer Science, I am well versed with most computer knowledge. I am an all-rounder with knowledge of backend and frontend. I am competent in most industry languanges. My passion is with cyber security and front end design. My knowledge will be a great help to the development of the project.
 
 <br clear="left"/>
 
