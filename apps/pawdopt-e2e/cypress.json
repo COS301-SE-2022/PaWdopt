@@ -8,5 +8,8 @@
   "video": true,
   "videosFolder": "../../dist/cypress/apps/pawdopt-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/pawdopt-e2e/screenshots",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "experimentalStudio": true,
+  "viewportWidth": 660,
+  "viewportHeight": 1000
 }
