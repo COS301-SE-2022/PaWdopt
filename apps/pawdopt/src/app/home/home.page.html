@@ -47,19 +47,19 @@
   </ion-slides>
  
   <div class="button_box">
-    <ion-button (click)="slides.slideTo(0)" class="large_button" mode="ios" shape="round" fill="outline" >
+    <ion-button id="refresh-button" (click)="slides.slideTo(0)" class="large_button" mode="ios" shape="round" fill="outline" >
     <ion-icon color="warning" name="refresh"></ion-icon>
     </ion-button>
     <div class="space"></div>
-    <ion-button (click)="slides.slideNext()"  mode="ios" class="large_button" shape="round" fill="outline" >
+    <ion-button id="dislike-button" (click)="slides.slideNext()"  mode="ios" class="large_button" shape="round" fill="outline" >
     <ion-icon color="light" name="close"></ion-icon>
     </ion-button>
     <div class="space"></div>
-    <ion-button (click)="slides.slideNext()" mode="ios" class="large_button" shape="round" fill="outline">
+    <ion-button id="like-button" (click)="slides.slideNext()" mode="ios" class="large_button" shape="round" fill="outline">
       <ion-icon color="danger" name="heart"></ion-icon>
     </ion-button>
     <div class="space"></div>
-    <ion-button class="large_button" mode="ios" shape="round" fill="outline">
+    <ion-button id="location-button" class="large_button" mode="ios" shape="round" fill="outline">
       <ion-icon color="tertiary" name="location-sharp"></ion-icon>
     </ion-button>
   </div>
