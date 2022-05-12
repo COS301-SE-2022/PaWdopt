@@ -10,10 +10,10 @@ export class AdddogPageComponent {
   constructor(private router: Router, public actionSheetController: ActionSheetController) {}
 
   addDog(){
-    // TODO Complete login validation
+    // TODO Complete add dog validation
     console.log("organisation validation");
     
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/dashboard"]);
   }
 
   async uploadPic(){
