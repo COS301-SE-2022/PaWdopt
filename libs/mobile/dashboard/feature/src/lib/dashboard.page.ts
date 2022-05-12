@@ -16,5 +16,9 @@ export class dashboardPageComponent {
     this.router.navigate(["/home"]);
   }
 
+  addDog(){
+    this.router.navigate(["/adddog"]);
+  }
+
 }
 

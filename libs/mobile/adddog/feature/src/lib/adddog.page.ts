@@ -11,8 +11,6 @@ export class AdddogPageComponent {
 
   addDog(){
     // TODO Complete add dog validation
-    console.log("organisation validation");
-    
     this.router.navigate(["/dashboard"]);
   }
 
