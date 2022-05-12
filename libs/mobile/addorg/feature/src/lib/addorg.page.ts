@@ -12,6 +12,6 @@ export class AddorgPageComponent {
     // TODO Complete login validation
     console.log("organisation validation");
     
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/dashboard"]);
   }
 }

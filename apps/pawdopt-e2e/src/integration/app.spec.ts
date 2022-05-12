@@ -182,9 +182,8 @@ describe("Dashboard Page Tests", () => {
   it("is on dashboard page", () => {
     cy.url().should("include", "/dashboard");
   });
-
   it("should test add dog", () => {
-    cy.get("#add-dog-button").click();
+    cy.get('#add-dog-button').click();
     cy.url().should("include", "/adddog");
   });
 
