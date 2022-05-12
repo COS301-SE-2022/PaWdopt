@@ -67,7 +67,7 @@ Thus, Cloud5 will fulfill all the needs of the product owner using agile develop
 
 
 
-## Video Demo Links:
+## Video Demo Links: [Demo 1 Recording](https://drive.google.com/file/d/1iaBgYNGSPX5TUirRWoS_G6keQmwbSxT9/view?usp=sharing)
 
 ## SRS Documentation: [click here](https://github.com/COS301-SE-2022/PaWdopt/wiki/Documentation)
  
