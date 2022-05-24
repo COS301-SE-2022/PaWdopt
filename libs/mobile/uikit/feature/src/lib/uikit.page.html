@@ -5,81 +5,95 @@
 </ion-header>
 
 <ion-content>
-
-  <div class="buttons">
-    <ion-title ><b><u>Buttons:</u></b></ion-title>
-    <ion-button class="greyButton" id="generic-button">Button</ion-button>
+  <div class="major">
+    <div class="buttons">
+      <ion-title ><b><u>Buttons:</u></b></ion-title>
+      <ion-button class="greyButton" id="generic-button">Button</ion-button>
+    </div>
+  
+    <div>&nbsp;</div>
+  
+    <div class="forms">
+      <ion-title ><b><u>Forms:</u></b></ion-title>
+      <ion-list class="form">
+        <ion-item-group class="form-border">
+            <ion-item class="form-item form-start">
+                <ion-label position="floating" class="form-input-label"><b>Example field</b></ion-label>
+                <ion-input class="form-input" id="generic-field" clear-on-edit=true></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label"><b>Enter field data here</b></ion-label>
+                <ion-input class="form-input" id="generic-field" clear-on-edit=true></ion-input>
+            </ion-item>
+        </ion-item-group>
+        </ion-list>
+    </div> 
+  
+    <div>&nbsp;</div>
+  
+    <div class="imageresources">
+      <ion-title ><b><u>Image Resources:</u></b></ion-title>
+      <!-- <ion-title ><b><u>Logo:</u></b></ion-title> -->
+      <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
+      <!-- <ion-title ><b><u>Header logo:</u></b></ion-title> -->
+      <img class="mainpagelogo" src="../../assets/logonopicture.PNG">
+    </div>
+  
+    <div>&nbsp;</div>
+    
+    <div class="header">
+      <ion-title ><b><u>Header:</u></b></ion-title>
+      <ion-toolbar color = "primary" class="headertop">
+        <ion-buttons slot="start">
+          <ion-button fill="clear" color="dark">
+            <ion-icon slot="icon-only" name="settings"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+          <img class="logo" src="../../assets/logonopicture.PNG">
+        </ion-title>
+        <ion-buttons slot="end">
+          <ion-button fill="clear" color="dark">
+            <ion-icon slot="icon-only" name="person"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </div>
+  
+    <div>&nbsp;</div>
+  
+    <div class="footer">
+      <ion-title><b><u>Footer:</u></b></ion-title>
+      <ion-tab-bar color="secondary" slot="bottom" class="footerbot">
+        <ion-tab-button tab="home">
+        <ion-icon color = "dark" name="home"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button tab="liked">
+          <ion-icon color = "dark" name="paw"></ion-icon>
+          </ion-tab-button>
+          <ion-tab-button tab="chats">
+            <ion-icon color = "dark" name="chatbox"></ion-icon>
+            </ion-tab-button>
+      </ion-tab-bar>
+    </div>
+  
+    <div>&nbsp;</div>
+  
+    <div class="cards">
+      <ion-title><b><u>Cards:</u></b></ion-title>
+      <ion-card>
+        <img src="../../assets/husky.jpg" />
+        <ion-card-header>
+          <ion-card-subtitle>SPCA</ion-card-subtitle>
+          <ion-card-title>Husky</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Intelligent but somewhat independent and stubborn. They thrive on human company, but need firm, gentle training right from puppy hood. These are dogs bred to run, and their love of running may overcome their love for their guardians at times.
+        </ion-card-content>
+      </ion-card>
+    </div>
   </div>
-
-  <div>&nbsp;</div>
-
-  <div class="forms">
-    <ion-title ><b><u>Forms:</u></b></ion-title>
-    <ion-list class="form">
-      <ion-item-group class="form-border">
-          <ion-item class="form-item form-start">
-              <ion-label position="floating" class="form-input-label"><b>Example field</b></ion-label>
-              <ion-input class="form-input" id="generic-field" clear-on-edit=true></ion-input>
-          </ion-item>
-          <ion-item class="form-item">
-              <ion-label position="floating" class="form-input-label"><b>Enter field data here</b></ion-label>
-              <ion-input class="form-input" id="generic-field" clear-on-edit=true></ion-input>
-          </ion-item>
-      </ion-item-group>
-      </ion-list>
-  </div> 
-
-  <div>&nbsp;</div>
-
-  <div class="imageresources">
-
-  </div>
-
-  <div>&nbsp;</div>
-
-  <div class="header">
-
-  </div>
-
-  <div>&nbsp;</div>
-
-  <div class="footer">
-
-  </div>
-
-  <div>&nbsp;</div>
-
-  <div class="cards">
-
-  </div>
-
-  <!-- <div class="container">
-    <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
-  <ion-list class="form">
-  <ion-item-group class="form-border">
-      <ion-item class="form-item form-start">
-          <ion-label position="floating" class="form-input-label">Username</ion-label>
-          <ion-input class="form-input" id="username-field" clear-on-edit=true></ion-input>
-      </ion-item>
-      <ion-item class="form-item">
-          <ion-label position="floating" class="form-input-label">Password</ion-label>
-          <ion-input class="form-input" id="password-field" clear-on-edit=true></ion-input>
-      </ion-item>
-      <ion-item class="form-item">
-          <ion-label position="floating" class="form-input-label">Re-enter Password</ion-label>
-          <ion-input class="form-input" id="re-enter-password-field" clear-on-edit=true></ion-input>
-      </ion-item>
-      <ion-item class="form-item">
-          <ion-label position="floating" class="form-input-label">Date of birth</ion-label>
-          <ion-input class="form-input" id="dob-field"clear-on-edit=true></ion-input>
-      </ion-item>
-      <ion-item class="form-item form-end" lines="none">
-          <ion-label position="floating">Email address</ion-label>
-          <ion-input class="form-input" id="email-field" clear-on-edit=true></ion-input>
-      </ion-item>
-  </ion-item-group>
-  </ion-list>
-  </div> -->
+  
 </ion-content>
 
 
