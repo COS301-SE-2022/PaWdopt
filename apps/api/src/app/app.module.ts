@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { CoreModule } from "@pawdopt/core";
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [],
+  imports: [CoreModule],
   controllers: [AppController],
   providers: [AppService],
 })

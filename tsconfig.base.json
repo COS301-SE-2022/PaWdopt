@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@pawdopt/core": ["libs/core/src/index.ts"],
       "@pawdopt/mobile/adddog/feature": [
         "libs/mobile/adddog/feature/src/index.ts"
       ],
