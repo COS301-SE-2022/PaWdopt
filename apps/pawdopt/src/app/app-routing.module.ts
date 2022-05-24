@@ -46,6 +46,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/adddog/feature').then(
         (m) => m.AdddogPageComponentModule
       )
+  },
+  {
+    path: 'uikit',
+    loadChildren: () =>
+      import('@pawdopt/mobile/uikit/feature').then(
+        (m) => m.uikitPageComponentModule
+      )
   }
 ];
 
