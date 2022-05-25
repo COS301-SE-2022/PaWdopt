@@ -14,4 +14,10 @@ export class SignupPageComponent {
     
     this.router.navigate(["/home"]);
   }
+  login(){
+    // TODO Complete login validation
+    console.log("signup validation");
+    
+    this.router.navigate(["/login"]);
+  }
 }
