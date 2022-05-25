@@ -1,13 +1,105 @@
-#login-grid {
-    // margin-left:auto;
-    // margin-right:auto;
-    max-width:700px;
+// .container{
+//     height: 100%;
+//     background-color: #F8F9FA;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     margin: 0;
+//     overflow: scroll;
+//     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+// }
 
-    text-align: center;
-    height: 100%;
+.major{
+    background-color: #F8F9FA;
+}
 
-    top: 50%;
+.buttons{
+    // height: 100%;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-#login-container{
-    height:100%;
+
+.forms{
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.imageresources{
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header{
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer{
+    background-color: #F8F9FA;
+    // display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cards{
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.mainpagelogo{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.form{
+    margin-top: 5%;
+}
+
+.greyButton{
+    margin-top: 5%;
+    // align-items: center;
+}
+.headertop{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.footerbot{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+
