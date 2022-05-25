@@ -1,7 +1,7 @@
 .greyButton {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
-    --background: #7a7265;
+    --background: #8E6E53;
     --color: #020300;
     --padding-start: 10px;
     --padding-end: 10px;
@@ -15,15 +15,16 @@
 
 .form {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #020300;
+    background-color: #8E6E53;
     padding: 1px;
     border-radius: 26px;
 }
 
 .form-item {
     color: #020300;
-    --background: #8e6e53;
+    --background: #C0B7B1;
     --highlight-color-focused: #2a0800 !important;
+    
 }
 
 .back{
