@@ -14,4 +14,8 @@ export class AddorgPageComponent {
     
     this.router.navigate(["/dashboard"]);
   }
+
+  Back(){
+    this.router.navigate(["/login"]);
+  }
 }

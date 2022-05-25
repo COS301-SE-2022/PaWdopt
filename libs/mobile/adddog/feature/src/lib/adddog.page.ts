@@ -13,6 +13,10 @@ export class AdddogPageComponent {
     // TODO Complete add dog validation
     this.router.navigate(["/dashboard"]);
   }
+  Back(){
+    // TODO Complete add dog validation
+    this.router.navigate(["/login"]);
+  }
 
   async uploadPic(){
     const actionSheet = await this.actionSheetController.create({

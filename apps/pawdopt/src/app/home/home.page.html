@@ -1,13 +1,13 @@
 
 <ion-header >
-  <ion-toolbar color = "primary">
+  <ion-toolbar color = "secondary">
     <ion-buttons slot="start">
       <ion-button fill="clear" color="dark">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title class="ion-text-center">
-      <img class="logo" src="../../assets/logonopicture.PNG">
+      <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
     </ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" color="dark">
@@ -17,7 +17,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content color = "primary" >  
+<ion-content color = "medium" >  
   <ion-slides #slides pager="true">
     <ion-slide class="bg-1">
       <img src="../../assets/husky.jpg">
@@ -47,19 +47,19 @@
   </ion-slides>
  
   <div class="button_box">
-    <ion-button id="refresh-button" (click)="slides.slideTo(0)" class="large_button" mode="ios" shape="round" fill="outline" >
+    <ion-button id="refresh-button" (click)="slides.slideTo(0)" class="large_button" mode="ios" shape="round" fill="solid" >
     <ion-icon color="warning" name="refresh"></ion-icon>
     </ion-button>
     <div class="space"></div>
-    <ion-button id="dislike-button" (click)="slides.slideNext()"  mode="ios" class="large_button" shape="round" fill="outline" >
+    <ion-button id="dislike-button" (click)="slides.slideNext()"  mode="ios" class="large_button" shape="round" fill="solid" >
     <ion-icon color="light" name="close"></ion-icon>
     </ion-button>
     <div class="space"></div>
-    <ion-button id="like-button" (click)="slides.slideNext()" mode="ios" class="large_button" shape="round" fill="outline">
+    <ion-button id="like-button" (click)="slides.slideNext()" mode="ios" class="large_button" shape="round" fill="solid">
       <ion-icon color="danger" name="heart"></ion-icon>
     </ion-button>
     <div class="space"></div>
-    <ion-button id="location-button" class="large_button" mode="ios" shape="round" fill="outline">
+    <ion-button id="location-button" class="large_button" mode="ios" shape="round" fill="solid">
       <ion-icon color="tertiary" name="location-sharp"></ion-icon>
     </ion-button>
   </div>
