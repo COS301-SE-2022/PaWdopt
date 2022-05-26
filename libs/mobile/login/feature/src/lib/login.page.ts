@@ -16,5 +16,18 @@ export class LoginPageComponent {
     this.router.navigate(["/home"]);
   }
 
+  signup(){
+    // TODO Complete login validation
+    console.log("login validation");
+    
+    this.router.navigate(["/signup"]);
+  }
+  addorg(){
+    // TODO Complete login validation
+    console.log("login validation");
+    
+    this.router.navigate(["/addorg"]);
+  }
+
 }
 

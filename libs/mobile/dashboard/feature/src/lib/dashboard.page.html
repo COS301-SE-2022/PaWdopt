@@ -1,12 +1,12 @@
 <ion-header ><!--Header-->
-  <ion-toolbar color = "primary">
+  <ion-toolbar color = "secondary">
     <ion-buttons slot="start">
       <ion-button fill="clear" color="dark">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title class="ion-text-center">
-      <img class="logo" src="../../assets/logonopicture.PNG">
+      <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
     </ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" color="dark">
@@ -19,137 +19,150 @@
 
 
 
-<ion-content color="secondary">
-  <ion-title color="dark"> <p align="center" style="color:primary;"><b>Bedfordview SPCA</b></p></ion-title>
-  <ion-button id="add-dog-button" (click)="addDog()" color="dark" expand="block">Add a Dog</ion-button>
+<ion-content color="medium">
+  <ion-title color="dark"> <p align="center" style="color:primary;"><b><u>Bedfordview SPCA</u></b></p></ion-title>
+  
+  <div class="manipulatebuttons">
+    <ion-button class="greyButton" id="adddog-button" (click)="addDog()">Create account</ion-button>
+    <ion-button class="greyButton" id="updatedog-button">Update a dog</ion-button>
+    <ion-button class="greyButton" id="removedog-button">Remove a dog</ion-button>
+  </div>
+ 
+  <!-- <ion-button id="add-dog-button" (click)="addDog()" color="dark" expand="block">Add a Dog</ion-button>
   <ion-button id="update-dog-button" color="dark" expand="block">Update a Dog</ion-button>
-  <ion-button id="remove-dog-button"color="dark" expand="block">Remove a Dog</ion-button>
-  <ion-title color="dark"> <p align="center" style="color:primary;">Potential Adoptees</p>
+  <ion-button id="remove-dog-button"color="dark" expand="block">Remove a Dog</ion-button> -->
+
+  <ion-title color="dark"> <p align="center" style="color:primary;"><b><u>Potential Adoptees</u></b></p>
   </ion-title>
 
   
-
-  <ion-item-sliding>
-    <ion-item color="dark">
-      <ion-label align="center"><ion-button color="dark">Jerry Smith</ion-button></ion-label>
-    </ion-item>
-
-    <ion-item-options side="start">
-      <ion-item-option color="success">Approve</ion-item-option>
-    </ion-item-options>
-
-    <ion-item-options side="end">
-      <ion-item-option color="danger">Decline</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-
-  <ion-item-sliding>
-    <ion-item color="dark">
-      <ion-label align="center"><ion-button color="dark">Elon Tusk</ion-button></ion-label>
-    </ion-item>
-
-    <ion-item-options side="start">
-      <ion-item-option color="success">Approve</ion-item-option>
-    </ion-item-options>
-
-    <ion-item-options side="end">
-      <ion-item-option color="danger">Decline</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-
+  <div class="potentialadoptees">
+    <ion-item-sliding>
+      <ion-item >
+        <ion-label align="center"><ion-button style="color:black" >Jerry Smith</ion-button></ion-label>
+      </ion-item>
   
-  <ion-item-sliding>
-    <ion-item color="dark">
-      <ion-label align="center"><ion-button color="dark">Jaimen Govender</ion-button></ion-label>
-    </ion-item>
-
-    <ion-item-options side="start">
-      <ion-item-option color="success">Approve</ion-item-option>
-    </ion-item-options>
-
-    <ion-item-options side="end">
-      <ion-item-option color="danger">Decline</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-
+      <ion-item-options side="start">
+        <ion-item-option color="success">Approve</ion-item-option>
+      </ion-item-options>
   
-  <ion-item-sliding>
-    <ion-item color="dark">
-      <ion-label align="center"><ion-button color="dark">Bob Vance</ion-button></ion-label>
-    </ion-item>
-
-    <ion-item-options side="start">
-      <ion-item-option color="success">Approve</ion-item-option>
-    </ion-item-options>
-
-    <ion-item-options side="end">
-      <ion-item-option color="danger">Decline</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Decline</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   
-  <ion-item-sliding>
-    <ion-item color="dark">
-      <ion-label align="center"><ion-button color="dark">Ishow Speed</ion-button></ion-label>
-    </ion-item>
-
-    <ion-item-options side="start">
-      <ion-item-option color="success">Approve</ion-item-option>
-    </ion-item-options>
-
-    <ion-item-options side="end">
-      <ion-item-option color="danger">Decline</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label align="center"><ion-button style="color:black" >Elon Tusk</ion-button></ion-label>
+      </ion-item>
   
-  <ion-item-sliding>
-    <ion-item color="dark">
-      <ion-label align="center"><ion-button color="dark">Lee Sin</ion-button></ion-label>
-    </ion-item>
-
-    <ion-item-options side="start">
-      <ion-item-option color="success">Approve</ion-item-option>
-    </ion-item-options>
-
-    <ion-item-options side="end">
-      <ion-item-option color="danger">Decline</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-
+      <ion-item-options side="start">
+        <ion-item-option color="success">Approve</ion-item-option>
+      </ion-item-options>
   
-  <ion-item-sliding>
-    <ion-item color="dark">
-      <ion-label align="center"><ion-button color="dark">Johnny Sins</ion-button></ion-label>
-    </ion-item>
-
-    <ion-item-options side="start">
-      <ion-item-option color="success">Approve</ion-item-option>
-    </ion-item-options>
-
-    <ion-item-options side="end">
-      <ion-item-option color="danger">Decline</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Decline</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   
-  <ion-item-sliding>
-    <ion-item color="dark">
-      <ion-label align="center"><ion-button color="dark">Beth Smith</ion-button></ion-label>
-    </ion-item>
+    
+    <ion-item-sliding>
+      <ion-item >
+        <ion-label align="center"><ion-button style="color:black">Jaimen Govender</ion-button></ion-label>
+      </ion-item>
+  
+      <ion-item-options side="start">
+        <ion-item-option color="success">Approve</ion-item-option>
+      </ion-item-options>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Decline</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  
+    
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label align="center"><ion-button style="color:black">Bob Vance</ion-button></ion-label>
+      </ion-item>
+  
+      <ion-item-options side="start">
+        <ion-item-option color="success">Approve</ion-item-option>
+      </ion-item-options>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Decline</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  
+    
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label align="center"><ion-button style="color:black">Ishow Speed</ion-button></ion-label>
+      </ion-item>
+  
+      <ion-item-options side="start">
+        <ion-item-option color="success">Approve</ion-item-option>
+      </ion-item-options>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Decline</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  
+    
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label align="center"><ion-button style="color:black">Lee Sin</ion-button></ion-label>
+      </ion-item>
+  
+      <ion-item-options side="start">
+        <ion-item-option color="success">Approve</ion-item-option>
+      </ion-item-options>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Decline</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  
+    
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label align="center"><ion-button style="color:black">Johnny Sins</ion-button></ion-label>
+      </ion-item>
+  
+      <ion-item-options side="start">
+        <ion-item-option color="success">Approve</ion-item-option>
+      </ion-item-options>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Decline</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  
+    
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label align="center"><ion-button style="color:black">Beth Smith</ion-button></ion-label>
+      </ion-item>
+  
+      <ion-item-options side="start">
+        <ion-item-option color="success">Approve</ion-item-option>
+      </ion-item-options>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Decline</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
 
-    <ion-item-options side="start">
-      <ion-item-option color="success">Approve</ion-item-option>
-    </ion-item-options>
 
-    <ion-item-options side="end">
-      <ion-item-option color="danger">Decline</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
+
+  </div>
+  
 
 </ion-content>
 
-  <ion-tab-bar color="primary" slot="bottom"><!--Footer-->
+  <ion-tab-bar color="secondary" slot="bottom"><!--Footer-->
   <ion-tab-button tab="home">
   <ion-icon color = "dark" name="home"></ion-icon>
   </ion-tab-button>
