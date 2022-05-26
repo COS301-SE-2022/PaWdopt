@@ -4,6 +4,7 @@ import { BackendShellApiFeatureModule } from '@pawdopt/backend/shell/api/feature
 import { GraphQLModule} from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -11,7 +12,8 @@ import { AppService } from './app.service';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql'
-    })
+    }),
+    MongooseModule.forRoot('mongodb://localhost/nest')
   ],
   controllers: [AppController],
   providers: [AppService],
