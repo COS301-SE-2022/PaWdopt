@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "start:db": "docker compose up -d",
     "build": "nx build",
     "test": "nx test",
     "e2e": "nx e2e pawdopt-e2e",
@@ -26,6 +27,7 @@
     "@nrwl/nest": "^14.0.5",
     "@nxtend/ionic-angular": "13.1.0",
     "hammerjs": "^2.0.8",
+    "mongodb": "^4.6.0",
     "mongoose": "^6.3.2",
     "ng-swipe-card": "^0.0.4",
     "rxjs": "^7.5.5",
