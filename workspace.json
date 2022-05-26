@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "backend": "apps/backend",
     "mobile-adddog-feature": "libs/mobile/adddog/feature",
     "mobile-addorg-feature": "libs/mobile/addorg/feature",
     "mobile-dashboard-feature": "libs/mobile/dashboard/feature",
