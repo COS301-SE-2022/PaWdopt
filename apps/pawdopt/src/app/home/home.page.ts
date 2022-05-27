@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pawdopt-home',
@@ -7,31 +8,50 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
   currentIndex: number;
-  results : string[] = [];
+  results : string[] = []; //to show the liked/disliked dogs
+  storeIndex: number[] = [];
   avatars = [
     {
       name: 'Millie',
       age: 2,
-      image: '../../assets/grbreed.jpg',
+      image: '../../assets/husky.jpg',
+      shelter: 'SPCA',
       visible: true
     },
     {
-      name: 'Chris',
+      name: 'Rene',
       age: 4,
-      image: '../../assets/bulldog.jpg',
+      image: '../../assets/grbreed.jpg',
+      shelter: 'Woodrock',
       visible: true
     },
     {
-      name: 'Cassidy',
+      name: 'Jock',
+      age: 5,
+      image: '../../assets/pembrokewelsh.jpg',
+      shelter: 'Puppy Haven',
+      visible: true
+    },
+    {
+      name: 'Jason',
+      age: 5,
+      image: '../../assets/bulldog.jpg',
+      shelter: '4paws',
+      visible: true
+    },
+    {
+      name: 'Mia',
       age: 5,
       image: '../../assets/border.jpg',
+      shelter: 'SPCA',
       visible: true
     }
   ];
 
-  constructor() {
+  constructor(private router: Router) {
     this.currentIndex = this.avatars.length - 1;
     console.log(this.currentIndex);
+    
   }
 
   swiped(event: any, index: number) {
@@ -54,5 +74,8 @@ export class HomePage {
     this.currentIndex--;
   }
 
- 
+  retry() {
+   this.currentIndex = 4;
+  }
+
 }
