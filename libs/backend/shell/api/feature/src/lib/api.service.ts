@@ -1,13 +1,13 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Cat, CatDocument } from './api.schema';
+import { Dog, DogDocument } from './api.schema';
 
 @Injectable()
 export class ApiService {
-    constructor(@InjectModel(Cat.name) private catModel: Model<CatDocument>) {}
+    constructor(@InjectModel(Dog.name) private DogModel: Model<DogDocument>) {}
 
-    async findAll(): Promise<Cat[]> {
-        return this.catModel.find().exec();
+    async findAll(): Promise<Dog[]> {
+        return this.DogModel.find().exec();
     }
 }

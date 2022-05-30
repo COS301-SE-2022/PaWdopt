@@ -16,9 +16,9 @@ class Characteristics {
     color: string
 }
 
-@ObjectType('CatType')
-@InputType('CatInputType')
-export class CatType {
+@ObjectType('DogType')
+@InputType('DogInputType')
+export class DogType {
     @Field()
     breed: string;
 
