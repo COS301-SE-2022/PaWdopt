@@ -1,8 +1,8 @@
 ---
 name: CI Full Tests
 on: 
-  push:
-    branches: [ develop ]
+  pull_request:
+    types: [ opened, reopened ]
 
 jobs:
   test-all:
