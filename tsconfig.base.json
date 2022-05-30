@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@pawdopt/backend/shell/api/feature": [
+        "libs/backend/shell/api/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/adddog/feature": [
         "libs/mobile/adddog/feature/src/index.ts"
       ],
@@ -29,6 +32,9 @@
       ],
       "@pawdopt/mobile/signup/feature": [
         "libs/mobile/signup/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/uikit/feature": [
+        "libs/mobile/uikit/feature/src/index.ts"
       ]
     }
   },

@@ -54,7 +54,7 @@
     --ion-color-dark-shade: #1e2023;
     --ion-color-dark-tint: #383a3e;
     /** medium **/
-    --ion-color-medium: #92949c;
+    --ion-color-medium: #F8F9FA;
     --ion-color-medium-rgb: 146, 148, 156;
     --ion-color-medium-contrast: #ffffff;
     --ion-color-medium-contrast-rgb: 255, 255, 255;
@@ -67,6 +67,13 @@
     --ion-color-light-contrast-rgb: 0, 0, 0;
     --ion-color-light-shade: #d7d8da;
     --ion-color-light-tint: #f5f6f9;
+    /** twitter **/
+    --ion-color-twitter: #0b6ca8;
+    --ion-color-twitter-rgb: 105, 187, 123;
+    --ion-color-twitter-contrast: #ffffff;
+    --ion-color-twitter-contrast-rgb: 255, 255, 255;
+    --ion-color-twitter-shade: #5ca56c;
+    --ion-color-twitter-tint: #78c288;
 }
 
 // @media (prefers-color-scheme: dark) {
