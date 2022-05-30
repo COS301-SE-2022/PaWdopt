@@ -81,10 +81,10 @@ jobs:
       #   if: inputs.test == 'all'   
       #   run: node ./tools/scripts/merge-reports.js
 
-      # - uses: codecov/codecov-action@v2
-      #   if: inputs.test == 'all' 
-      #   with:
-      #     # Organization codecov token to be placed below
-      #     token: ${{ bd319560-2d4d-45ef-97fc-8019ade28f67 }} #We should try and put the token in secrets
-      #     files: ./coverage/lcov.info
-      #     name: cypress-jest # optional
+      - uses: codecov/codecov-action@v2
+        if: inputs.test == 'all' 
+        with:
+          # Organization codecov token to be placed below
+          token: ${{ secrets.CODECOV_TOKEN }} #We should try and put the token in secrets
+          files: ./coverage/lcov.info
+          name: cypress-jest # optional
