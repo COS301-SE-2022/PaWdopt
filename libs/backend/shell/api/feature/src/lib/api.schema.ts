@@ -115,4 +115,10 @@ export class OrgMember extends User {
     organisation: Organisation;    
 }
 
+@Schema()
+export class Doc {
+    @Prop()
+    url: string;
+}
+
 export const DogSchema = SchemaFactory.createForClass(Dog);
