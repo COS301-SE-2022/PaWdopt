@@ -35,6 +35,9 @@
       ],
       "@pawdopt/mobile/uikit/feature": [
         "libs/mobile/uikit/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/userlikes/feature": [
+        "libs/mobile/userlikes/feature/src/index.ts"
       ]
     }
   },

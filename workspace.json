@@ -9,6 +9,7 @@
     "mobile-login-feature": "libs/mobile/login/feature",
     "mobile-signup-feature": "libs/mobile/signup/feature",
     "mobile-uikit-feature": "libs/mobile/uikit/feature",
+    "mobile-userlikes-feature": "libs/mobile/userlikes/feature",
     "pawdopt": "apps/pawdopt",
     "pawdopt-e2e": "apps/pawdopt-e2e"
   }
