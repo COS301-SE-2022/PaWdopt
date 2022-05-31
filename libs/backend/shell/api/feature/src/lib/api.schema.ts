@@ -73,4 +73,19 @@ export class Organisation {
     logo: Image;
 }
 
+@Schema()
+export class User {
+    @Prop()
+    name: string;
+
+    @Prop()
+    email: string;
+
+    @Prop()
+    password: string;
+
+    @Prop()
+    type: string;
+}
+
 export const DogSchema = SchemaFactory.createForClass(Dog);
