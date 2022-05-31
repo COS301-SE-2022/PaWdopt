@@ -74,6 +74,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/updateorremovedog/feature').then(
         (m) => m.updateorremovedogPageComponentModule
       )
+  },
+  {
+    path: 'userinfo',
+    loadChildren: () =>
+      import('@pawdopt/mobile/userinfo/feature').then(
+        (m) => m.userinfoPageComponentModule
+      )
   }
 ];
 
