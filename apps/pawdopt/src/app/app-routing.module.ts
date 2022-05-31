@@ -53,6 +53,41 @@ const routes: Routes = [
       import('@pawdopt/mobile/uikit/feature').then(
         (m) => m.uikitPageComponentModule
       )
+  },
+  {
+    path: 'userlikes',
+    loadChildren: () =>
+      import('@pawdopt/mobile/userlikes/feature').then(
+        (m) => m.userlikesPageComponentModule
+      )
+  },
+  {
+    path: 'ownneddogs',
+    loadChildren: () =>
+      import('@pawdopt/mobile/owneddogs/feature').then(
+        (m) => m.owneddogsPageComponentModule
+      )
+  },
+  {
+    path: 'updateorremovedog',
+    loadChildren: () =>
+      import('@pawdopt/mobile/updateorremovedog/feature').then(
+        (m) => m.updateorremovedogPageComponentModule
+      )
+  },
+  {
+    path: 'userinfo',
+    loadChildren: () =>
+      import('@pawdopt/mobile/userinfo/feature').then(
+        (m) => m.userinfoPageComponentModule
+      )
+  },
+  {
+    path: 'userprofile',
+    loadChildren: () =>
+      import('@pawdopt/mobile/userprofile/feature').then(
+        (m) => m.userprofilePageComponentModule
+      )
   }
 ];
 

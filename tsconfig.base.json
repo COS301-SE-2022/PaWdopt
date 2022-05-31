@@ -30,11 +30,26 @@
       "@pawdopt/mobile/login/feature": [
         "libs/mobile/login/feature/src/index.ts"
       ],
+      "@pawdopt/mobile/owneddogs/feature": [
+        "libs/mobile/owneddogs/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/signup/feature": [
         "libs/mobile/signup/feature/src/index.ts"
       ],
       "@pawdopt/mobile/uikit/feature": [
         "libs/mobile/uikit/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/updateorremovedog/feature": [
+        "libs/mobile/updateorremovedog/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/userinfo/feature": [
+        "libs/mobile/userinfo/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/userlikes/feature": [
+        "libs/mobile/userlikes/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/userprofile/feature": [
+        "libs/mobile/userprofile/feature/src/index.ts"
       ]
     }
   },
