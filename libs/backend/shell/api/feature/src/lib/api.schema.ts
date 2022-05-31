@@ -142,4 +142,13 @@ export class ContactInfo {
     twitter: string;
 }
 
+@Schema()
+export class Location {
+    @Prop()
+    lat: number;
+
+    @Prop()
+    lng: number;
+}
+
 export const DogSchema = SchemaFactory.createForClass(Dog);
