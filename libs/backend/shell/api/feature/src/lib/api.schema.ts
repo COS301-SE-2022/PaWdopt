@@ -109,4 +109,10 @@ export class Adopter extends User {
     questionnaire: Url;
 }
 
+@Schema()
+export class OrgMember extends User {
+    @Prop()
+    organisation: Organisation;    
+}
+
 export const DogSchema = SchemaFactory.createForClass(Dog);
