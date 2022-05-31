@@ -37,4 +37,10 @@ export class Dog {
     temperament: string[];
 }
 
+@Schema()
+export class Image {
+    @Prop()
+    url: string;
+}
+
 export const DogSchema = SchemaFactory.createForClass(Dog);
