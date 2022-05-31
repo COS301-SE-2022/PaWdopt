@@ -152,3 +152,11 @@ export class Location {
 }
 
 export const DogSchema = SchemaFactory.createForClass(Dog);
+export const ImageSchema = SchemaFactory.createForClass(Image);
+export const OrganisationSchema = SchemaFactory.createForClass(Organisation);
+export const UserSchema = SchemaFactory.createForClass(User);
+export const AdopterSchema = SchemaFactory.createForClass(Adopter);
+export const OrgMemberSchema = SchemaFactory.createForClass(OrgMember);
+export const DocSchema = SchemaFactory.createForClass(Doc);
+export const ContactInfoSchema = SchemaFactory.createForClass(ContactInfo);
+export const LocationSchema = SchemaFactory.createForClass(Location);
