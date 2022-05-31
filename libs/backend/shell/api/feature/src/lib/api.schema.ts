@@ -28,7 +28,7 @@ export class Dog {
     height: number;
 
     @Prop()
-    UsersLiked: User[];
+    usersLiked: User[];
 
     @Prop()
     furLength: string;
