@@ -81,6 +81,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/userinfo/feature').then(
         (m) => m.userinfoPageComponentModule
       )
+  },
+  {
+    path: 'userprofile',
+    loadChildren: () =>
+      import('@pawdopt/mobile/userprofile/feature').then(
+        (m) => m.userprofilePageComponentModule
+      )
   }
 ];
 

@@ -47,6 +47,9 @@
       ],
       "@pawdopt/mobile/userlikes/feature": [
         "libs/mobile/userlikes/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/userprofile/feature": [
+        "libs/mobile/userprofile/feature/src/index.ts"
       ]
     }
   },

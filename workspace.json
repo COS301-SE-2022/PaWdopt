@@ -13,6 +13,7 @@
     "mobile-updateorremovedog-feature": "libs/mobile/updateorremovedog/feature",
     "mobile-userinfo-feature": "libs/mobile/userinfo/feature",
     "mobile-userlikes-feature": "libs/mobile/userlikes/feature",
+    "mobile-userprofile-feature": "libs/mobile/userprofile/feature",
     "pawdopt": "apps/pawdopt",
     "pawdopt-e2e": "apps/pawdopt-e2e"
   }
