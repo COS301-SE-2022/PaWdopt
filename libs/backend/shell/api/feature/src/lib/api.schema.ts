@@ -43,4 +43,34 @@ export class Image {
     url: string;
 }
 
+@Schema()
+export class Organisation {
+    @Prop()
+    name: string;
+
+    @Prop()
+    about: string;
+
+    @Prop()
+    dateFounded: Date;
+
+    @Prop()
+    dogs: Dog[];
+
+    @Prop()
+    members: User[];
+
+    @Prop()
+    location: Location;
+
+    @Prop()
+    rulesReq: string;
+
+    @Prop()
+    contactInfo: ContactInfo;
+
+    @Prop()
+    logo: Image;
+}
+
 export const DogSchema = SchemaFactory.createForClass(Dog);
