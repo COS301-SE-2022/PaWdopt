@@ -1,5 +1,65 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Url } from 'url';
+import { Document } from 'mongoose';
+import { type } from 'os';
+
+
+@Schema()
+export class User {
+    @Prop()
+    name: string;
+
+    @Prop()
+    email: string;
+
+    @Prop()
+    password: string;
+
+    @Prop()
+    type: string;
+}
+
+@Schema()
+export class Location {
+    @Prop()
+    lat: number;
+
+    @Prop()
+    lng: number;
+}
+
+@Schema()
+export class Image {
+    @Prop()
+    path: string;
+}
+
+@Schema()
+export class Doc {
+    @Prop()
+    path: string;
+}
+
+@Schema()
+export class ContactInfo {
+    @Prop()
+    email: string;
+
+    @Prop()
+    phone: string;
+
+    @Prop()
+    website: string;
+
+    @Prop()
+    facebook: string;
+
+    @Prop()
+    instagram: string;
+
+    @Prop()
+    twitter: string;
+}
 
 @Schema()
 export class Dog {
@@ -19,7 +79,7 @@ export class Dog {
     about: string;
 
     @Prop()
-    organisation: Organisation;
+    organisation: string;
 
     @Prop()
     weight: number;
@@ -35,12 +95,6 @@ export class Dog {
 
     @Prop()
     temperament: string[];
-}
-
-@Schema()
-export class Image {
-    @Prop()
-    url: string;
 }
 
 @Schema()
@@ -74,21 +128,6 @@ export class Organisation {
 }
 
 @Schema()
-export class User {
-    @Prop()
-    name: string;
-
-    @Prop()
-    email: string;
-
-    @Prop()
-    password: string;
-
-    @Prop()
-    type: string;
-}
-
-@Schema()
 export class Adopter extends User {
     @Prop()
     IDNum: string;
@@ -106,7 +145,7 @@ export class Adopter extends User {
     dogsLiked: Dog[];
 
     @Prop()
-    questionnaire: Url;
+    questionnaire: string;
 }
 
 @Schema()
@@ -115,48 +154,21 @@ export class OrgMember extends User {
     organisation: Organisation;    
 }
 
-@Schema()
-export class Doc {
-    @Prop()
-    url: string;
-}
-
-@Schema()
-export class ContactInfo {
-    @Prop()
-    email: string;
-
-    @Prop()
-    phone: string;
-
-    @Prop()
-    website: string;
-
-    @Prop()
-    facebook: string;
-
-    @Prop()
-    instagram: string;
-
-    @Prop()
-    twitter: string;
-}
-
-@Schema()
-export class Location {
-    @Prop()
-    lat: number;
-
-    @Prop()
-    lng: number;
-}
-
+export type DogDocument = Dog & Document;
 export const DogSchema = SchemaFactory.createForClass(Dog);
+export type ImageDocument = Image & Document;
 export const ImageSchema = SchemaFactory.createForClass(Image);
+export type OrganisationDocument = Organisation & Document;
 export const OrganisationSchema = SchemaFactory.createForClass(Organisation);
+export type UserDocument = User & Document;
 export const UserSchema = SchemaFactory.createForClass(User);
+export type AdopterDocument = Adopter & Document;
 export const AdopterSchema = SchemaFactory.createForClass(Adopter);
+export type OrgMemberDocument = OrgMember & Document;
 export const OrgMemberSchema = SchemaFactory.createForClass(OrgMember);
+export type DocDocument = Doc & Document;
 export const DocSchema = SchemaFactory.createForClass(Doc);
+export type ContactInfoDocument = ContactInfo & Document;
 export const ContactInfoSchema = SchemaFactory.createForClass(ContactInfo);
+export type LocationDocument = Location & Document;
 export const LocationSchema = SchemaFactory.createForClass(Location);
