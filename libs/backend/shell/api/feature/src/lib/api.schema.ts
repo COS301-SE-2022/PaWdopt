@@ -121,4 +121,25 @@ export class Doc {
     url: string;
 }
 
+@Schema()
+export class ContactInfo {
+    @Prop()
+    email: string;
+
+    @Prop()
+    phone: string;
+
+    @Prop()
+    website: string;
+
+    @Prop()
+    facebook: string;
+
+    @Prop()
+    instagram: string;
+
+    @Prop()
+    twitter: string;
+}
+
 export const DogSchema = SchemaFactory.createForClass(Dog);
