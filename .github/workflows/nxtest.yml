@@ -79,12 +79,12 @@ jobs:
           
       - name: Merge coverage reports
         if: inputs.test == 'all'   
-        run: node ./tools/scripts/merge-reports.js
+        run: node merge-reports.js
 
       - uses: codecov/codecov-action@v2
         if: inputs.test == 'all' 
         with:
           # Organization codecov token to be placed below
           token: ${{ secrets.CODECOV_TOKEN }} #We should try and put the token in secrets
-          files: ./coverage/lcov.info
+          files: lcov.info
           name: cypress-jest # optional
