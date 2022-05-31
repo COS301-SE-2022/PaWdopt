@@ -67,6 +67,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/owneddogs/feature').then(
         (m) => m.owneddogsPageComponentModule
       )
+  },
+  {
+    path: 'updateorremovedog',
+    loadChildren: () =>
+      import('@pawdopt/mobile/updateorremovedog/feature').then(
+        (m) => m.updateorremovedogPageComponentModule
+      )
   }
 ];
 
