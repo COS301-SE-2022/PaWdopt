@@ -30,6 +30,9 @@
       "@pawdopt/mobile/login/feature": [
         "libs/mobile/login/feature/src/index.ts"
       ],
+      "@pawdopt/mobile/owneddogs/feature": [
+        "libs/mobile/owneddogs/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/signup/feature": [
         "libs/mobile/signup/feature/src/index.ts"
       ],

@@ -60,6 +60,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/userlikes/feature').then(
         (m) => m.userlikesPageComponentModule
       )
+  },
+  {
+    path: 'ownneddogs',
+    loadChildren: () =>
+      import('@pawdopt/mobile/owneddogs/feature').then(
+        (m) => m.owneddogsPageComponentModule
+      )
   }
 ];
 

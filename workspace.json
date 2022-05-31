@@ -7,6 +7,7 @@
     "mobile-addorg-feature": "libs/mobile/addorg/feature",
     "mobile-dashboard-feature": "libs/mobile/dashboard/feature",
     "mobile-login-feature": "libs/mobile/login/feature",
+    "mobile-owneddogs-feature": "libs/mobile/owneddogs/feature",
     "mobile-signup-feature": "libs/mobile/signup/feature",
     "mobile-uikit-feature": "libs/mobile/uikit/feature",
     "mobile-userlikes-feature": "libs/mobile/userlikes/feature",
