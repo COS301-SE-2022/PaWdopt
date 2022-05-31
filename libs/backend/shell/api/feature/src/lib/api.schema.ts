@@ -88,4 +88,25 @@ export class User {
     type: string;
 }
 
+@Schema()
+export class Adopter extends User {
+    @Prop()
+    IDNum: string;
+    
+    @Prop()
+    image: Image;
+
+    @Prop()
+    location: Location;
+
+    @Prop()
+    documents: Doc[];
+
+    @Prop()
+    dogsLiked: Dog[];
+
+    @Prop()
+    questionnaire: Url;
+}
+
 export const DogSchema = SchemaFactory.createForClass(Dog);
