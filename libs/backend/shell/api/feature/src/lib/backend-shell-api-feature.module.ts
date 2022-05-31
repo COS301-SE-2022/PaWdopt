@@ -4,11 +4,27 @@ import { ApiResolver } from './api.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { Dog, DogSchema } from './api.schema';
-
-
+import { Image, ImageSchema } from './api.schema';
+import { Organisation, OrganisationSchema } from './api.schema';
+import { OrgMember, OrgMemberSchema } from './api.schema';
+import { User, UserSchema } from './api.schema';
+import { Adopter, AdopterSchema } from './api.schema';
+import { ContactInfo, ContactInfoSchema } from './api.schema';
+import { Doc, DocSchema } from './api.schema';
+import { Location, LocationSchema } from './api.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Dog.name, schema: DogSchema }])],
+  imports: [
+    MongooseModule.forFeature([{ name: Dog.name, schema: DogSchema }]),
+    MongooseModule.forFeature([{ name: Image.name, schema: ImageSchema }]),
+    MongooseModule.forFeature([{ name: Organisation.name, schema: OrganisationSchema }]),
+    MongooseModule.forFeature([{ name: OrgMember.name, schema: OrgMemberSchema }]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: Adopter.name, schema: AdopterSchema }]),
+    MongooseModule.forFeature([{ name: ContactInfo.name, schema: ContactInfoSchema }]),
+    MongooseModule.forFeature([{ name: Doc.name, schema: DocSchema }]),
+    MongooseModule.forFeature([{ name: Location.name, schema: LocationSchema }])
+  ],
   controllers: [],
   providers: [ApiService, ApiResolver],
   exports: [],
