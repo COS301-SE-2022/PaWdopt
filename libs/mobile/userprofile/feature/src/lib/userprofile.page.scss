@@ -1,0 +1,40 @@
+// #login-grid {
+//     // margin-left:auto;
+//     // margin-right:auto;
+//     max-width:700px;
+
+//     text-align: center;
+//     height: 100%;
+
+//     top: 50%;
+// }
+// #login-container{
+//     height:100%;
+// }
+
+.container{
+    height: 100%;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+}
+
+.logo{
+    margin-top: 20%;
+    margin-bottom: 10%;
+}
+
+.greyButton{
+    margin-top: 5%;
+}
+
+.back{
+    margin-top: 5%;
+}
+
+.noaccount{
+    margin-top: 5%;
+}
