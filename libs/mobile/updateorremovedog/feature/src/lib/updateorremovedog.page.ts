@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class updateorremovedogPageComponent {
   
-  constructor(private router: Router){}
+  constructor(private router: Router, ){}
 
   // login(){
   //   // TODO Complete login validation
@@ -27,6 +27,36 @@ export class updateorremovedogPageComponent {
   //   console.log("login validation");
     
   //   this.router.navigate(["/addorg"]);
+  // }
+
+  // async uploadPic(){
+  //   const actionSheet = await this.actionSheetController.create({
+  //     header: 'Upload picture',
+  //     buttons: [{
+  //       text: 'Take picture using your camera',
+  //       icon: 'camera-outline',
+  //       handler: () => {
+  //         console.log('Take picture clicked');
+  //       }
+  //     }, {
+  //       text: 'Choose a picture from your gallery',
+  //       icon: 'image-outline',
+  //       handler: () => {
+  //         console.log('Choose a picture clicked');
+  //       }
+  //     }, {
+  //       text: 'Cancel',
+  //       icon: 'close',
+  //       role: 'cancel',
+  //       handler: () => {
+  //         console.log('Cancel clicked');
+  //       }
+  //     }]
+  //   });
+  //   await actionSheet.present();
+
+  //   const { role, data } = await actionSheet.onDidDismiss();
+  //   console.log('onDidDismiss resolved with role and data', role, data);
   // }
 
 }

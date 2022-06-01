@@ -1,18 +1,4 @@
-// #login-grid {
-//     // margin-left:auto;
-//     // margin-right:auto;
-//     max-width:700px;
-
-//     text-align: center;
-//     height: 100%;
-
-//     top: 50%;
-// }
-// #login-container{
-//     height:100%;
-// }
-
-.container{
+.container {
     height: 100%;
     background-color: #F8F9FA;
     display: flex;
@@ -22,19 +8,19 @@
     overflow: scroll;
 }
 
-.logo{
-    margin-top: 20%;
-    margin-bottom: 10%;
+.greyButton {
+    margin-top: 2%;
+    margin-bottom: 3%;
 }
 
-.greyButton{
-    margin-top: 5%;
+.form-input-label-slider {
+    padding-bottom: 5px;
+    color: #020300;
+    font-size: medium;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.back{
-    margin-top: 5%;
-}
-
-.noaccount{
-    margin-top: 5%;
+.form-slider {
+    --knob-background: #2a0800;
+    --bar-background-active: #2a0800;
 }
