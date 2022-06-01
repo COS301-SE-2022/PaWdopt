@@ -1,61 +1,122 @@
-<!-- <ion-content id="login-container">
-    <ion-grid justify-content-center align-items-center id="login-grid">
-      <ion-row id="login-form-container">
-        <ion-col>
-          <ion-img
-          src="../../assets/PaWdopt_transparent.png"
-          alt="login-logo"
-          id="login-logo"></ion-img>
-          <ion-list id="login-form">
-            <ion-item>
-              <ion-input type="username" placeholder="Username" id="login-username"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="password" placeholder="Password" id="login-password"></ion-input>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-      </ion-row>
+<!--Header-->
+<ion-header >
+  <ion-toolbar color = "secondary">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-      <ion-row id="login-button-container">
-        <ion-col>
-          <ion-button expand="block" id="login-button" (click)="login()">Login</ion-button>
-        </ion-col>
-      </ion-row>
-      <ion-row class="signup-container" align-right><p>Don't have an account? <a id="signup-link" href="/signup">Click Here</a> to signup!</p></ion-row>
-      <ion-row class="signup-container" align-right><p>Want to add an organisation? <a id="add-org-link" href="/addorg">Click Here</a>!</p></ion-row>
-      <ion-row id="login-providers">
-        <ion-col id="login-google">
-          <ion-button expand="block" id="login-google-button">Login with Google</ion-button>
-        </ion-col>  
-          <ion-col id="login-apple">
-          <ion-button expand="block" id="login-apple-button">Login with Apple</ion-button>
-        </ion-col>
-      </ion-row>
-  </ion-grid>
-</ion-content> -->
+<div>&nbsp;</div>
 
+<ion-content>
+  <div class="maincontainer">
+    <div class="thecard">
+      <div class="thefront">
+        <img src="../../assets/husky.jpg" />
+        <ion-title class="ion-text-center"><b>Millie, 2</b></ion-title>
+        <p><b>SPCA</b><ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon></p>
+        <p>A very energetic and entertaining husky, she loves walks and is very easily trainable. Extremely loyal and a great family dog.</p>
+      </div>
+      <div class="theback">
+        <h1>Height: </h1>
+        <p>X cm</p>
+        <h1>Weight: </h1>
+        <p>X kg</p>
+        <h1>Breed: </h1>
+        <p>Husky</p>
+        <h1>Temperament: </h1>
+        <p><ion-chip outline color="success">
+          <ion-label>Passive</ion-label>
+        </ion-chip> </p>
+        <h1>Fur length: </h1>
+        <p>X cm</p>
+      </div>
+    </div>
+  </div>
+  <div>&nbsp;</div>
+  <div class="maincontainer">
+    <div class="thecard">
+      <div class="thefront">
+        <img src="../../assets/pembrokewelsh.jpg" />
+        <ion-title class="ion-text-center"><b>Jock, 5</b></ion-title>
+        <p><b>Puppy Haven</b><ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon></p>
+        <p> This young doggo is smart, loyal and love to please. He is extremely good with children and other family pets. He learns quickly, train easily, and adapt well to canine sports. </p>
+      </div>
+      <div class="theback">
+        <h1>Height: </h1>
+        <p>X cm</p>
+        <h1>Weight: </h1>
+        <p>X kg</p>
+        <h1>Breed: </h1>
+        <p>Husky</p>
+        <h1>Temperament: </h1>
+        <p><ion-chip outline color="warning">
+          <ion-label>Neutral</ion-label>
+        </ion-chip> </p>
+        <h1>Fur length: </h1>
+        <p>X cm</p>
+      </div>
+    </div>
+  </div>
+  <div>&nbsp;</div>
+  <div class="maincontainer">
+    <div class="thecard">
+      <div class="thefront">
+        <img src="../../assets/bulldog.jpg" />
+        <ion-title class="ion-text-center"><b>Jason, 5</b></ion-title>
+        <p><b>4paws</b><ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon></p>
+        <p>This individual is very dependable and predictable,he is a wonderful family pet and loving to most children. He actively solicit human attention. </p>
+      </div>
+      <div class="theback">
+        <h1>Height: </h1>
+        <p>X cm</p>
+        <h1>Weight: </h1>
+        <p>X kg</p>
+        <h1>Breed: </h1>
+        <p>Husky</p>
+        <h1>Temperament: </h1>
+        <p><ion-chip outline color="danger">
+          <ion-label>Aggressive</ion-label>
+        </ion-chip> </p>
+        <h1>Fur length: </h1>
+        <p>X cm</p>
+      </div>
+    </div>
+  </div>
 
-<!-- <div class="container">
-  <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
-<ion-list class="form">
-<ion-item-group class="form-border">
-    <ion-item class="form-item form-start">
-        <ion-label position="floating" class="form-input-label">Email</ion-label>
-        <ion-input class="form-input" id="email-field" clear-on-edit=true></ion-input>
-    </ion-item>
-    <ion-item class="form-item">
-        <ion-label position="floating" class="form-input-label">Password</ion-label>
-        <ion-input class="form-input" id="password-field" clear-on-edit=true></ion-input>
-    </ion-item>
-</ion-item-group>
-</ion-list>
-<ion-button class="greyButton" id="login-button" (click)="login()"><b>Continue</b></ion-button>
-<ion-button class="greyButton" id="login-button" (click)="addorg()"><b>Add organization</b></ion-button>
-<ion-button class="greyButton" id="login-apple-button">Login with Apple</ion-button>
-<ion-button class="greyButton" id="login-google-button">Login with Google</ion-button>
-<div class="noaccount">
-  <ion-title>Don't have an account?</ion-title>
-</div>
-<ion-button class="greyButton" id="login-button" (click)="signup()"><b>Create an account</b></ion-button>
-</div> -->
+</ion-content>
+
+  <!-- Footer-->
+  <ion-tab-bar color="secondary" slot="bottom">
+    <ion-tab-button tab="home">
+    <ion-icon color = "dark" name="home"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="liked">
+      <ion-icon color = "dark" name="paw"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="chats">
+        <ion-icon color = "dark" name="chatbox"></ion-icon>
+        </ion-tab-button>
+  </ion-tab-bar>
+
+    <!-- <ion-card>
+    <img src="../../assets/husky.jpg" />
+    <ion-card-header>
+      <ion-card-title>Wendy, 4</ion-card-title>
+      <ion-card-subtitle>SPCA</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      A very energetic and entertaining husky, she loves walks and is very easily trainable. Extremely loyal and a great family dog.
+    </ion-card-content>
+  </ion-card> -->

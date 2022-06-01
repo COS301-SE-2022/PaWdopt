@@ -1,40 +1,57 @@
-// #login-grid {
-//     // margin-left:auto;
-//     // margin-right:auto;
-//     max-width:700px;
+.maincontainer{
+    //position: absolute;
+    //transform: translate(-50%, -50%);
+    margin: auto;
+    width: 330px;
+    height: 490px;
+    background: none;
+    top: 50%;
+    left: 50%;
+    
+}
 
-//     text-align: center;
-//     height: 100%;
-
-//     top: 50%;
-// }
-// #login-container{
-//     height:100%;
-// }
-
-.container{
+.thecard{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    background-color: #F8F9FA;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    overflow: scroll;
+    border-radius: 5px;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+    
 }
 
-.logo{
-    margin-top: 20%;
-    margin-bottom: 10%;
+.thecard:active {
+    transform: rotateY(180deg);
 }
 
-.greyButton{
-    margin-top: 5%;
+.thefront{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    background: #F8F9FA;
+    text-align: center;
+    color: #000;
+    
 }
 
-.back{
-    margin-top: 5%;
-}
-
-.noaccount{
-    margin-top: 5%;
-}
+.theback{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    background: #F8F9FA;
+    color: #333;
+    text-align: center;
+    transform: rotateY(180deg);
+  }
