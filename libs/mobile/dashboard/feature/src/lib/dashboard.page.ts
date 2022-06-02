@@ -9,16 +9,16 @@ export class dashboardPageComponent {
   
   constructor(private router: Router){}
 
-  dashboard(){
-    // TODO Complete dashboard validation
-    console.log("dashboard validation");
+  // dashboard(){
+  //   // TODO Complete dashboard validation
+  //   console.log("dashboard validation");
     
-    this.router.navigate(["/home"]);
-  }
+  //   this.router.navigate(["/home"]);
+  // }
 
-  addDog(){
-    this.router.navigate(["/adddog"]);
-  }
+  // addDog(){
+  //   this.router.navigate(["/adddog"]);
+  // }
 
 }
 

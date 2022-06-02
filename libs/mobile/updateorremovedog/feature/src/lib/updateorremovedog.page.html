@@ -1,61 +1,82 @@
-<!-- <ion-content id="login-container">
-    <ion-grid justify-content-center align-items-center id="login-grid">
-      <ion-row id="login-form-container">
-        <ion-col>
-          <ion-img
-          src="../../assets/PaWdopt_transparent.png"
-          alt="login-logo"
-          id="login-logo"></ion-img>
-          <ion-list id="login-form">
-            <ion-item>
-              <ion-input type="username" placeholder="Username" id="login-username"></ion-input>
+<!--Header-->
+<ion-header >
+  <ion-toolbar color = "secondary">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <ion-button class="greyButton" id="image-upload-button">Change picture</ion-button>
+    <ion-list class="form">
+        <ion-item-group class="form-border">
+            <ion-item class="form-item form-start">
+                <ion-label position="floating" class="form-input-label">Name</ion-label>
+                <ion-input class="form-input" id="name-field" clear-on-edit=true></ion-input>
             </ion-item>
-            <ion-item>
-              <ion-input type="password" placeholder="Password" id="login-password"></ion-input>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Breed</ion-label>
+                <ion-input class="form-input" id="breed-field" clear-on-edit=true></ion-input>
             </ion-item>
-          </ion-list>
-        </ion-col>
-      </ion-row>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Gender</ion-label>
+                <ion-input class="form-input" id="gender-field" clear-on-edit=true></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Date of birth</ion-label>
+                <ion-input class="form-input" id="age-field" clear-on-edit=true></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+              <ion-label position="floating" class="form-input-label">About</ion-label>
+              <ion-input class="form-input" id="about-field" clear-on-edit=true></ion-input>
+          </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Height (in cm)</ion-label>
+                <ion-input class="form-input" id="height-field" clear-on-edit=true></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Weight (in kg)</ion-label>
+                <ion-input class="form-input" id="weight-field" clear-on-edit=true></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+              <ion-label position="floating" class="form-input-label">Fur length</ion-label>
+              <ion-input class="form-input" id="furlength-field" clear-on-edit=true></ion-input>
+          </ion-item>
+            <ion-item class="form-item form-end" lines="none">
+                <ion-label position="floating">Temperament</ion-label>
+                <ion-textarea class="form-input" id="temperament-field" placeholder="Active, Brave, Calm..."></ion-textarea>
+            </ion-item>
+        </ion-item-group>
+    </ion-list>
+    <ion-button class="greyButton" id="update-dog-button">Update dog</ion-button>
+    <ion-button class="greyButton" id="autofill-dog-button">Autofill</ion-button>
+    <ion-button class="greyButton" id="delete-dog-button">Delete dog</ion-button>
 
-      <ion-row id="login-button-container">
-        <ion-col>
-          <ion-button expand="block" id="login-button" (click)="login()">Login</ion-button>
-        </ion-col>
-      </ion-row>
-      <ion-row class="signup-container" align-right><p>Don't have an account? <a id="signup-link" href="/signup">Click Here</a> to signup!</p></ion-row>
-      <ion-row class="signup-container" align-right><p>Want to add an organisation? <a id="add-org-link" href="/addorg">Click Here</a>!</p></ion-row>
-      <ion-row id="login-providers">
-        <ion-col id="login-google">
-          <ion-button expand="block" id="login-google-button">Login with Google</ion-button>
-        </ion-col>  
-          <ion-col id="login-apple">
-          <ion-button expand="block" id="login-apple-button">Login with Apple</ion-button>
-        </ion-col>
-      </ion-row>
-  </ion-grid>
-</ion-content> -->
-
-
-<!-- <div class="container">
-  <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
-<ion-list class="form">
-<ion-item-group class="form-border">
-    <ion-item class="form-item form-start">
-        <ion-label position="floating" class="form-input-label">Email</ion-label>
-        <ion-input class="form-input" id="email-field" clear-on-edit=true></ion-input>
-    </ion-item>
-    <ion-item class="form-item">
-        <ion-label position="floating" class="form-input-label">Password</ion-label>
-        <ion-input class="form-input" id="password-field" clear-on-edit=true></ion-input>
-    </ion-item>
-</ion-item-group>
-</ion-list>
-<ion-button class="greyButton" id="login-button" (click)="login()"><b>Continue</b></ion-button>
-<ion-button class="greyButton" id="login-button" (click)="addorg()"><b>Add organization</b></ion-button>
-<ion-button class="greyButton" id="login-apple-button">Login with Apple</ion-button>
-<ion-button class="greyButton" id="login-google-button">Login with Google</ion-button>
-<div class="noaccount">
-  <ion-title>Don't have an account?</ion-title>
 </div>
-<ion-button class="greyButton" id="login-button" (click)="signup()"><b>Create an account</b></ion-button>
-</div> -->
+</ion-content>
+
+
+<!-- Footer-->
+<ion-tab-bar color="secondary" slot="bottom">
+  <ion-tab-button tab="home">
+  <ion-icon color = "dark" name="home"></ion-icon>
+  </ion-tab-button>
+  <ion-tab-button tab="liked">
+    <ion-icon color = "dark" name="paw"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="chats">
+      <ion-icon color = "dark" name="chatbox"></ion-icon>
+      </ion-tab-button>
+</ion-tab-bar>
