@@ -2,13 +2,10 @@ version: '3.9'
 
 services:
   mongo:
-    image: mongo:3.4.2
+    image: mongo:5
     restart: unless-stopped
     container_name: mongodb
     env_file: .env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo_admin
-      MONGO_INITDB_ROOT_PASSWORD: mongo_adminpass
     ports:
       - "27017:27017"
     networks:
