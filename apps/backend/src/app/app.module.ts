@@ -13,7 +13,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql'
     }),
-    MongooseModule.forRoot('mongodb://localhost/nest')
+    MongooseModule.forRoot('mongodb://localhost:27017/nest')
   ],
   controllers: [AppController],
   providers: [AppService],
