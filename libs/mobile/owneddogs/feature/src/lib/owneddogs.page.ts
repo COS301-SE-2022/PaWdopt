@@ -9,19 +9,19 @@ export class owneddogsPageComponent {
   
   constructor(private router: Router){}
 
-  // login(){
-  //   // TODO Complete login validation
-  //   console.log("login validation");
+  dashboard(){
+    // TODO Complete login validation
+    console.log("login validation");
     
-  //   this.router.navigate(["/home"]);
-  // }
+    this.router.navigate(["/dashboard"]);
+  }
 
-  // signup(){
-  //   // TODO Complete login validation
-  //   console.log("login validation");
+  update(){
+    // TODO Complete login validation
+    console.log("login validation");
     
-  //   this.router.navigate(["/signup"]);
-  // }
+    this.router.navigate(["/updateorremovedog"]);
+  }
   // addorg(){
   //   // TODO Complete login validation
   //   console.log("login validation");
