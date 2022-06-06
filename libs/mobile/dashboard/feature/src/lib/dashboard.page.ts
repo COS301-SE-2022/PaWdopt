@@ -9,12 +9,10 @@ export class dashboardPageComponent {
   
   constructor(private router: Router){}
 
-  // dashboard(){
-  //   // TODO Complete dashboard validation
-  //   console.log("dashboard validation");
-    
-  //   this.router.navigate(["/home"]);
-  // }
+  userinfo(){
+    // TODO Complete dashboard validation
+    this.router.navigate(["/userinfo"]);
+  }
 
   // addDog(){
   //   this.router.navigate(["/adddog"]);
