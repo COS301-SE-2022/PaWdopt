@@ -161,4 +161,32 @@ export class ApiService {
     async deleteUser(name: string): Promise<User | null> {
         return this.UserModel.findOneAndDelete({ name }).exec();
     }
+
+    /**
+     * Create a new Adopter
+     * @param {Adopter} adopter The adopter to create
+     * @return {Promise<Adopter || null>}
+     */
+    async createAdopter(adopter: Adopter): Promise<Adopter | null> {
+        return this.AdopterModel.create(adopter);
+    }
+
+    /**
+     * Update an Adopter
+     * @param {string} name The name of the adopter to update
+     * @param {Adopter} updatedAdopter The new adopter information
+     * @return {Promise<Adopter || null>}
+     */
+    async updateAdopter(name: string, updatedAdopter: Adopter): Promise<Adopter | null> {
+        return this.AdopterModel.findOneAndUpdate({ name }, updatedAdopter, { new: true }).exec();
+    }
+
+    /**
+     * Delete an Adopter
+     * @param {string} name The name of the adopter to delete
+     * @return {Promise<Adopter || null>}
+     */
+    async deleteAdopter(name: string): Promise<Adopter | null> {
+        return this.AdopterModel.findOneAndDelete({ name }).exec();
+    }
 }
