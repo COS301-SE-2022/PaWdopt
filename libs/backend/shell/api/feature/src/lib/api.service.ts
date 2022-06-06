@@ -301,4 +301,32 @@ export class ApiService {
     async deleteLocation(name: string): Promise<Location | null> {
         return this.LocationModel.findOneAndDelete({ name }).exec();
     }
+
+    /**
+     * Create a new Pic
+     * @param {Pic} pic The pic to create
+     * @return {Promise<Pic || null>}
+     */
+    async createPic(pic: Pic): Promise<Pic | null> {
+        return this.PicModel.create(pic);
+    }
+
+    /**
+     * Update an Pic
+     * @param {string} name The name of the pic to update
+     * @param {Pic} updatedPic The new pic information
+     * @return {Promise<Pic || null>}
+     */
+    async updatePic(name: string, updatedPic: Pic): Promise<Pic | null> {
+        return this.PicModel.findOneAndUpdate({ name }, updatedPic, { new: true }).exec();
+    }
+
+    /**
+     * Delete an Pic
+     * @param {string} name The name of the pic to delete
+     * @return {Promise<Pic || null>}
+     */
+    async deletePic(name: string): Promise<Pic | null> {
+        return this.PicModel.findOneAndDelete({ name }).exec();
+    }
 }
