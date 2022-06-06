@@ -98,20 +98,20 @@ export class OrganisationType {
     @Field()
     dateFounded: Date;
 
-    // @Field((type) => UserType)
-    // members: User[];
+    @Field((type) => UserType)
+    members: User[];
 
-    // @Field((type) => LocationType)
-    // location: Location;
+    @Field((type) => LocationType)
+    location: Location;
 
     @Field()
     rulesReq: string;
 
-    // @Field((type) => ContactInfoType)
-    // contactInfo: ContactInfo;
+    @Field((type) => ContactInfoType)
+    contactInfo: ContactInfo;
 
-    // @Field((type) => PicType)
-    // logo: Pic;
+    @Field((type) => PicType)
+    logo: Pic;
 }
 
 @ObjectType('UserType')
