@@ -132,4 +132,33 @@ export class ApiService {
     async deleteOrgMember(name: string): Promise<OrgMember | null> {
         return this.OrgMemberModel.findOneAndDelete({ name }).exec();
     }
+
+    
+    /**
+     * Create a new User
+     * @param {User} user The user to create
+     * @return {Promise<User || null>}
+     */
+     async createUser(user: User): Promise<User | null> {
+        return this.UserModel.create(user);
+    }
+
+    /**
+     * Update an User
+     * @param {string} name The name of the user to update
+     * @param {User} updatedUser The new user information
+     * @return {Promise<User || null>}
+     */
+    async updateUser(name: string, updatedUser: User): Promise<User | null> {
+        return this.UserModel.findOneAndUpdate({ name }, updatedUser, { new: true }).exec();
+    }
+
+    /**
+     * Delete an User
+     * @param {string} name The name of the user to delete
+     * @return {Promise<User || null>}
+     */
+    async deleteUser(name: string): Promise<User | null> {
+        return this.UserModel.findOneAndDelete({ name }).exec();
+    }
 }
