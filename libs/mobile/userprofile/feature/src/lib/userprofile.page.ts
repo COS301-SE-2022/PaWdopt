@@ -9,12 +9,12 @@ export class userprofilePageComponent {
   
   constructor(private router: Router){}
 
-  // login(){
-  //   // TODO Complete login validation
-  //   console.log("login validation");
+  back(){
+    // TODO Complete login validation
+    console.log("login validation");
     
-  //   this.router.navigate(["/home"]);
-  // }
+    this.router.navigate(["/home"]);
+  }
 
   // signup(){
   //   // TODO Complete login validation
