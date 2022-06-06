@@ -5,6 +5,7 @@ import { GraphQLModule} from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
+ 
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql'
     }),
-    MongooseModule.forRoot('mongodb://localhost/nest')
+    MongooseModule.forRoot(process.env.DB_URL+"nest")
   ],
   controllers: [AppController],
   providers: [AppService],
