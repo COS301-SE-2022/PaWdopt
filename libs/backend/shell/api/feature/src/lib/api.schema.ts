@@ -2,7 +2,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { ObjectType } from '@nestjs/graphql';
 
-
 @ObjectType()
 @Schema()
 export class User {
@@ -77,20 +76,20 @@ export class Organisation {
     @Prop()
     dateFounded: Date;
 
-    // @Prop()
-    // members: User[];
+    @Prop()
+    members: User[];
 
-    // @Prop()
-    // location: Location;
+    @Prop()
+    location: Location;
 
     @Prop()
     rulesReq: string;
 
-    // @Prop()
-    // contactInfo: ContactInfo;
+    @Prop()
+    contactInfo: ContactInfo;
 
-    // @Prop()
-    // logo: Pic;
+    @Prop()
+    logo: Pic;
 }
 
 @ObjectType()
@@ -150,6 +149,9 @@ export class Adopter extends User {
 
     @Prop()
     questionnaire: string;
+
+    @Prop()
+    distance: number;
 }
 
 @ObjectType()
