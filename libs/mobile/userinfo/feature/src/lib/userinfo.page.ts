@@ -9,12 +9,26 @@ export class userinfoPageComponent {
   
   constructor(private router: Router){}
 
-  // login(){
-  //   // TODO Complete login validation
-  //   console.log("login validation");
-    
-  //   this.router.navigate(["/home"]);
-  // }
+  back(){
+    // TODO Complete login validation 
+    this.router.navigate(["/dashboard"]);
+  }
+
+  home(){
+    this.router.navigate(["/home"]);
+  }
+
+  likeddogs(){
+    this.router.navigate(["/userlikes"]);
+  }
+
+  profile(){
+    this.router.navigate(["/userprofile"]);
+  }
+
+  preferences(){
+    //this.router.navigate(["/userinfo"]); Not implemented yet
+  }
 
   // signup(){
   //   // TODO Complete login validation

@@ -2,7 +2,7 @@
 <ion-header >
   <ion-toolbar color = "secondary">
     <ion-buttons slot="start">
-      <ion-button fill="clear" color="dark">
+      <ion-button fill="clear" color="dark" (click)="preferences()">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -10,7 +10,7 @@
       <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button fill="clear" color="dark">
+      <ion-button fill="clear" color="dark" (click)="profile()">
         <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -66,10 +66,10 @@
 
   <!-- Footer-->
   <ion-tab-bar color="secondary" slot="bottom">
-    <ion-tab-button tab="home">
+    <ion-tab-button tab="home" (click)="home()">
     <ion-icon color = "dark" name="home"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="liked">
+    <ion-tab-button tab="liked" (click)="likeddogs()">
       <ion-icon color = "dark" name="paw"></ion-icon>
       </ion-tab-button>
       <ion-tab-button tab="chats">

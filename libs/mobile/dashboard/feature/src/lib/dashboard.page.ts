@@ -9,12 +9,26 @@ export class dashboardPageComponent {
   
   constructor(private router: Router){}
 
-  // dashboard(){
-  //   // TODO Complete dashboard validation
-  //   console.log("dashboard validation");
-    
-  //   this.router.navigate(["/home"]);
-  // }
+  userinfo(){
+    // TODO Complete dashboard validation
+    this.router.navigate(["/userinfo"]);
+  }
+
+  home(){
+    this.router.navigate(["/home"]);
+  }
+
+  likeddogs(){
+    this.router.navigate(["/userlikes"]);
+  }
+
+  profile(){
+    this.router.navigate(["/userprofile"]);
+  }
+
+  preferences(){
+    //this.router.navigate(["/userinfo"]); Not implemented yet
+  }
 
   // addDog(){
   //   this.router.navigate(["/adddog"]);

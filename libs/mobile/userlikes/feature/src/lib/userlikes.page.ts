@@ -28,6 +28,21 @@ export class userlikesPageComponent {
     
   //   this.router.navigate(["/addorg"]);
   // }
+  home(){
+    this.router.navigate(["/home"]);
+  }
+
+  likeddogs(){
+    this.router.navigate(["/userlikes"]);
+  }
+
+  profile(){
+    this.router.navigate(["/userprofile"]);
+  }
+
+  preferences(){
+    //this.router.navigate(["/userinfo"]); Not implemented yet
+  }
 
 }
 
