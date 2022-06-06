@@ -217,4 +217,32 @@ export class ApiService {
     async deleteDog(name: string): Promise<Dog | null> {
         return this.DogModel.findOneAndDelete({ name }).exec();
     }
+
+    /**
+     * Create a new Contact Info
+     * @param {ContactInfo} contactInfo The contactInfo to create
+     * @return {Promise<ContactInfo || null>}
+     */
+    async createContactInfo(contactInfo: ContactInfo): Promise<ContactInfo | null> {
+        return this.ContactInfoModel.create(contactInfo);
+    }
+
+    /**
+     * Update an Contact Info
+     * @param {string} name The name of the contactInfo to update
+     * @param {ContactInfo} updatedContactInfo The new contactInfo information
+     * @return {Promise<ContactInfo || null>}
+     */
+    async updateContactInfo(name: string, updatedContactInfo: ContactInfo): Promise<ContactInfo | null> {
+        return this.ContactInfoModel.findOneAndUpdate({ name }, updatedContactInfo, { new: true }).exec();
+    }
+
+    /**
+     * Delete an Contact Info
+     * @param {string} name The name of the contactInfo to delete
+     * @return {Promise<ContactInfo || null>}
+     */
+    async deleteContactInfo(name: string): Promise<ContactInfo | null> {
+        return this.ContactInfoModel.findOneAndDelete({ name }).exec();
+    }
 }
