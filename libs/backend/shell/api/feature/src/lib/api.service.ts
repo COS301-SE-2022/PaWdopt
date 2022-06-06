@@ -273,4 +273,32 @@ export class ApiService {
     async deleteDoc(name: string): Promise<Doc | null> {
         return this.DocModel.findOneAndDelete({ name }).exec();
     }
+
+    /**
+     * Create a new Location
+     * @param {Location} location The location to create
+     * @return {Promise<Location || null>}
+     */
+    async createLocation(location: Location): Promise<Location | null> {
+        return this.LocationModel.create(location);
+    }
+
+    /**
+     * Update an Location
+     * @param {string} name The name of the location to update
+     * @param {Location} updatedLocation The new location information
+     * @return {Promise<Location || null>}
+     */
+    async updateLocation(name: string, updatedLocation: Location): Promise<Location | null> {
+        return this.LocationModel.findOneAndUpdate({ name }, updatedLocation, { new: true }).exec();
+    }
+
+    /**
+     * Delete an Location
+     * @param {string} name The name of the location to delete
+     * @return {Promise<Location || null>}
+     */
+    async deleteLocation(name: string): Promise<Location | null> {
+        return this.LocationModel.findOneAndDelete({ name }).exec();
+    }
 }
