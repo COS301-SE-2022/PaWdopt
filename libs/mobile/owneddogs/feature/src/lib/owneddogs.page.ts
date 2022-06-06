@@ -29,5 +29,22 @@ export class owneddogsPageComponent {
   //   this.router.navigate(["/addorg"]);
   // }
 
+  home(){
+    this.router.navigate(["/home"]);
+  }
+
+  likeddogs(){
+    this.router.navigate(["/userlikes"]); //Will need to change so that likeddogs alternates between company and user
+  }
+
+  profile(){
+    this.router.navigate(["/userprofile"]);
+  }
+
+  preferences(){
+    //this.router.navigate(["/userinfo"]); Not implemented yet
+  }
+
+
 }
 
