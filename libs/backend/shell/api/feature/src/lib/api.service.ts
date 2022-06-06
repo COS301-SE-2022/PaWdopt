@@ -105,4 +105,31 @@ export class ApiService {
         return this.OrganisationModel.findOneAndDelete({ name }).exec();
     }
     
+    /**
+     * Create a new OrgMember
+     * @param {OrgMember} orgMember The orgMember to create
+     * @return {Promise<OrgMember || null>}
+     */
+    async createOrgMember(orgMember: OrgMember): Promise<OrgMember | null> {
+        return this.OrgMemberModel.create(orgMember);
+    }
+
+    /**
+     * Update an OrgMember
+     * @param {string} name The name of the orgMember to update
+     * @param {OrgMember} updatedOrgMember The new orgMember information
+     * @return {Promise<OrgMember || null>}
+     */
+    async updateOrgMember(name: string, updatedOrgMember: OrgMember): Promise<OrgMember | null> {
+        return this.OrgMemberModel.findOneAndUpdate({ name }, updatedOrgMember, { new: true }).exec();
+    }
+
+    /**
+     * Delete an OrgMember
+     * @param {string} name The name of the orgMember to delete
+     * @return {Promise<OrgMember || null>}
+     */
+    async deleteOrgMember(name: string): Promise<OrgMember | null> {
+        return this.OrgMemberModel.findOneAndDelete({ name }).exec();
+    }
 }
