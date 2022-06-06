@@ -245,4 +245,32 @@ export class ApiService {
     async deleteContactInfo(name: string): Promise<ContactInfo | null> {
         return this.ContactInfoModel.findOneAndDelete({ name }).exec();
     }
+
+    /**
+     * Create a new Doc
+     * @param {Doc} doc The doc to create
+     * @return {Promise<Doc || null>}
+     */
+    async createDoc(doc: Doc): Promise<Doc | null> {
+        return this.DocModel.create(doc);
+    }
+
+    /**
+     * Update an Doc
+     * @param {string} name The name of the doc to update
+     * @param {Doc} updatedDoc The new doc information
+     * @return {Promise<Doc || null>}
+     */
+    async updateDoc(name: string, updatedDoc: Doc): Promise<Doc | null> {
+        return this.DocModel.findOneAndUpdate({ name }, updatedDoc, { new: true }).exec();
+    }
+
+    /**
+     * Delete an Doc
+     * @param {string} name The name of the doc to delete
+     * @return {Promise<Doc || null>}
+     */
+    async deleteDoc(name: string): Promise<Doc | null> {
+        return this.DocModel.findOneAndDelete({ name }).exec();
+    }
 }
