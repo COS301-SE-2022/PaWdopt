@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Url } from 'url';
 import { Document } from 'mongoose';
-import { type } from 'os';
+import { ObjectType } from '@nestjs/graphql';
 
 
+@ObjectType()
 @Schema()
 export class User {
     @Prop()
@@ -19,6 +19,7 @@ export class User {
     type: string;
 }
 
+@ObjectType()
 @Schema()
 export class Location {
     @Prop()
@@ -28,18 +29,21 @@ export class Location {
     lng: number;
 }
 
+@ObjectType()
 @Schema()
-export class Image {
+export class Pic {
     @Prop()
     path: string;
 }
 
+@ObjectType()
 @Schema()
 export class Doc {
     @Prop()
     path: string;
 }
 
+@ObjectType()
 @Schema()
 export class ContactInfo {
     @Prop()
@@ -61,6 +65,35 @@ export class ContactInfo {
     twitter: string;
 }
 
+@ObjectType()
+@Schema()
+export class Organisation {
+    @Prop()
+    name: string;
+
+    @Prop()
+    about: string;
+
+    @Prop()
+    dateFounded: Date;
+
+    // @Prop()
+    // members: User[];
+
+    // @Prop()
+    // location: Location;
+
+    @Prop()
+    rulesReq: string;
+
+    // @Prop()
+    // contactInfo: ContactInfo;
+
+    // @Prop()
+    // logo: Pic;
+}
+
+@ObjectType()
 @Schema()
 export class Dog {
     @Prop()
@@ -70,7 +103,7 @@ export class Dog {
     dob: Date;
 
     @Prop()
-    images: Image[];
+    pics: Pic[];
 
     @Prop()
     breed: string;
@@ -79,7 +112,7 @@ export class Dog {
     about: string;
 
     @Prop()
-    organisation: string;
+    organisation: Organisation;
 
     @Prop()
     weight: number;
@@ -97,43 +130,14 @@ export class Dog {
     temperament: string[];
 }
 
-@Schema()
-export class Organisation {
-    @Prop()
-    name: string;
-
-    @Prop()
-    about: string;
-
-    @Prop()
-    dateFounded: Date;
-
-    @Prop()
-    dogs: Dog[];
-
-    @Prop()
-    members: User[];
-
-    @Prop()
-    location: Location;
-
-    @Prop()
-    rulesReq: string;
-
-    @Prop()
-    contactInfo: ContactInfo;
-
-    @Prop()
-    logo: Image;
-}
-
+@ObjectType()
 @Schema()
 export class Adopter extends User {
     @Prop()
     IDNum: string;
     
     @Prop()
-    image: Image;
+    pic: Pic;
 
     @Prop()
     location: Location;
@@ -148,16 +152,23 @@ export class Adopter extends User {
     questionnaire: string;
 }
 
+@ObjectType()
 @Schema()
 export class OrgMember extends User {
     @Prop()
     organisation: Organisation;    
 }
 
+export type DocDocument = Doc & Document;
+export const DocSchema = SchemaFactory.createForClass(Doc);
+export type ContactInfoDocument = ContactInfo & Document;
+export const ContactInfoSchema = SchemaFactory.createForClass(ContactInfo);
+export type LocationDocument = Location & Document;
+export const LocationSchema = SchemaFactory.createForClass(Location);
+export type PicDocument = Pic & Document;
+export const PicSchema = SchemaFactory.createForClass(Pic);
 export type DogDocument = Dog & Document;
 export const DogSchema = SchemaFactory.createForClass(Dog);
-export type ImageDocument = Image & Document;
-export const ImageSchema = SchemaFactory.createForClass(Image);
 export type OrganisationDocument = Organisation & Document;
 export const OrganisationSchema = SchemaFactory.createForClass(Organisation);
 export type UserDocument = User & Document;
@@ -166,9 +177,3 @@ export type AdopterDocument = Adopter & Document;
 export const AdopterSchema = SchemaFactory.createForClass(Adopter);
 export type OrgMemberDocument = OrgMember & Document;
 export const OrgMemberSchema = SchemaFactory.createForClass(OrgMember);
-export type DocDocument = Doc & Document;
-export const DocSchema = SchemaFactory.createForClass(Doc);
-export type ContactInfoDocument = ContactInfo & Document;
-export const ContactInfoSchema = SchemaFactory.createForClass(ContactInfo);
-export type LocationDocument = Location & Document;
-export const LocationSchema = SchemaFactory.createForClass(Location);
