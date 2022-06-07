@@ -68,4 +68,19 @@ export class ApiResolver {
     async deletePic(@Args('id') id: string) : Promise<PicType> {
         return this.DogService.deletePic(id);
     }
+
+    @Mutation(returns => LocationType)
+    async createLocation(@Args('location') location: LocationType) : Promise<LocationType> {
+        return this.DogService.createLocation(location);
+    }
+
+    @Mutation(returns => LocationType)
+    async updateLocation(@Args('id') id: string, @Args('location') location: LocationType) : Promise<LocationType> {
+        return this.DogService.updateLocation(id, location);
+    }
+
+    @Mutation(returns => LocationType)
+    async deleteLocation(@Args('id') id: string) : Promise<LocationType> {
+        return this.DogService.deleteLocation(id);
+    }
 }
