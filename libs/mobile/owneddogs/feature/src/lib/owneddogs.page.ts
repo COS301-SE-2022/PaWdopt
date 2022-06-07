@@ -22,6 +22,11 @@ export class owneddogsPageComponent {
     
     this.router.navigate(["/updateorremovedog"]);
   }
+
+  addDog(){
+    // TODO Complete add dog validation
+    this.router.navigate(["/adddog"]);
+  }
   // addorg(){
   //   // TODO Complete login validation
   //   console.log("login validation");

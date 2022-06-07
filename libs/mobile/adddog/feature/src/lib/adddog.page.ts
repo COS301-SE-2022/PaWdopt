@@ -11,11 +11,27 @@ export class AdddogPageComponent {
 
   addDog(){
     // TODO Complete add dog validation
-    this.router.navigate(["/dashboard"]);
+    this.router.navigate(["/ownneddogs"]);
   }
   Back(){
     // TODO Complete add dog validation
     this.router.navigate(["/login"]);
+  }
+
+  home(){
+    this.router.navigate(["/home"]);
+  }
+
+  likeddogs(){
+    this.router.navigate(["/userlikes"]);
+  }
+
+  profile(){
+    this.router.navigate(["/userprofile"]);
+  }
+
+  preferences(){
+    //this.router.navigate(["/userinfo"]); Not implemented yet
   }
 
   async uploadPic(){
