@@ -90,7 +90,7 @@ export class HomePage {
           name: string,
           dob: Date,
           organisation: {
-            name: string
+          name: string
           }
         }[]
       };
