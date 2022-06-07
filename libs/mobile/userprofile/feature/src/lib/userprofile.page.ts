@@ -9,13 +9,27 @@ export class userprofilePageComponent {
   
   constructor(private router: Router){}
 
-  // login(){
-  //   // TODO Complete login validation
-  //   console.log("login validation");
+  back(){
+    // TODO Complete login validation
+    console.log("login validation");
     
-  //   this.router.navigate(["/home"]);
-  // }
+    this.router.navigate(["/home"]);
+  }
+  home(){
+    this.router.navigate(["/home"]);
+  }
 
+  likeddogs(){
+    this.router.navigate(["/userlikes"]);
+  }
+
+  profile(){
+    this.router.navigate(["/userprofile"]);
+  }
+
+  preferences(){
+    //this.router.navigate(["/userinfo"]); Not implemented yet
+  }
   // signup(){
   //   // TODO Complete login validation
   //   console.log("login validation");
