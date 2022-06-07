@@ -149,7 +149,7 @@ export class Adopter extends User {
     dogsLiked: Dog[];
 
     @Prop()
-    questionnaire: Url;
+    questionnaire: string;
 
     @Prop()
     distance: number;

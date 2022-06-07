@@ -149,7 +149,7 @@ export class AdopterType extends UserType {
     dogsLiked: Dog[];
 
     @Field()
-    questionnaire: Url;
+    questionnaire: string;
 
     @Field()
     distance: number;
