@@ -1,6 +1,5 @@
 import { ObjectType, Field, InputType } from "@nestjs/graphql";
 import { Dog, Pic, Organisation, Location, User, ContactInfo, Doc} from './api.schema';
-import { Url } from 'url';
 
 
 @ObjectType('DocType')
@@ -58,8 +57,8 @@ export class DogType {
     @Field()
     dob: Date;
 
-    @Field(() => PicType)
-    pics: Pic[];
+    @Field(() => [PicType])
+    pics: [Pic];
 
     @Field()
     breed: string;
@@ -76,14 +75,14 @@ export class DogType {
     @Field()
     height: number;
 
-    @Field(() => UserType)
-    usersLiked: User[];
+    @Field(() => [UserType])
+    usersLiked: [User];
 
     @Field()
     furLength: string;
 
-    @Field(() => String)
-    temperament: string[];
+    @Field(() => [String])
+    temperament: [string];
 }
 
 @ObjectType('OrganisationType')
@@ -98,8 +97,8 @@ export class OrganisationType {
     @Field()
     dateFounded: Date;
 
-    @Field(() => UserType)
-    members: User[];
+    @Field(() => [UserType])
+    members: [User];
 
     @Field(() => LocationType)
     location: Location;
@@ -142,11 +141,11 @@ export class AdopterType extends UserType {
     @Field(() => LocationType)
     location: Location;
 
-    @Field(() => DocType)
-    documents: Doc[];
+    @Field(() => [DocType])
+    documents: [Doc];
 
-    @Field(() => DogType)
-    dogsLiked: Dog[];
+    @Field(() => [DogType])
+    dogsLiked: [Dog];
 
     @Field()
     questionnaire: string;
@@ -158,6 +157,6 @@ export class AdopterType extends UserType {
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
 export class OrgMemberType extends UserType {
-    @Field(() => OrganisationType)
-    organisation: Organisation;
+    @Field()
+    organisation: string;
 }
