@@ -44,6 +44,9 @@ Thumbs.db
 # NPM
 /package-lock.json
 
+# Yarn
+/yarn.lock
+
 #Ignore mobile builds
 /apps/pawdopt/android
 /apps/pawdopt/ios
