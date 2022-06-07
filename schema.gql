@@ -27,15 +27,15 @@ type PicType {
 type DogType {
   name: String!
   dob: DateTime!
-  pics: PicType!
+  pics: [PicType!]!
   breed: String!
   about: String!
   organisation: OrganisationType!
   weight: Float!
   height: Float!
-  usersLiked: UserType!
+  usersLiked: [UserType!]!
   furLength: String!
-  temperament: String!
+  temperament: [String!]!
 }
 
 """
@@ -47,7 +47,7 @@ type OrganisationType {
   name: String!
   about: String!
   dateFounded: DateTime!
-  members: UserType!
+  members: [UserType!]!
   location: LocationType!
   rulesReq: String!
   contactInfo: ContactInfoType!
@@ -69,8 +69,8 @@ type AdopterType {
   IDNum: String!
   pic: PicType!
   location: LocationType!
-  documents: DocType!
-  dogsLiked: DogType!
+  documents: [DocType!]!
+  dogsLiked: [DogType!]!
   questionnaire: String!
   distance: Float!
 }
@@ -80,7 +80,7 @@ type OrgMemberType {
   email: String!
   password: String!
   type: String!
-  organisation: OrganisationType!
+  organisation: String!
 }
 
 input DocInputType {
@@ -108,22 +108,22 @@ input PicInputType {
 input DogInputType {
   name: String!
   dob: DateTime!
-  pics: PicInputType!
+  pics: [PicInputType!]!
   breed: String!
   about: String!
   organisation: OrganisationInputType!
   weight: Float!
   height: Float!
-  usersLiked: UserInputType!
+  usersLiked: [UserInputType!]!
   furLength: String!
-  temperament: String!
+  temperament: [String!]!
 }
 
 input OrganisationInputType {
   name: String!
   about: String!
   dateFounded: DateTime!
-  members: UserInputType!
+  members: [UserInputType!]!
   location: LocationInputType!
   rulesReq: String!
   contactInfo: ContactInfoInputType!
@@ -145,8 +145,8 @@ input AdopterInputType {
   IDNum: String!
   pic: PicInputType!
   location: LocationInputType!
-  documents: DocInputType!
-  dogsLiked: DogInputType!
+  documents: [DocInputType!]!
+  dogsLiked: [DogInputType!]!
   questionnaire: String!
   distance: Float!
 }
@@ -156,7 +156,7 @@ input OrgMemberInputType {
   email: String!
   password: String!
   type: String!
-  organisation: OrganisationInputType!
+  organisation: String!
 }
 
 type Query {
@@ -168,7 +168,7 @@ type Query {
   findDogsByBreed(breed: String!): [DogType!]!
   findDogs: [DogType!]!
   findDogsByOrg(org: OrganisationInputType!): [DogType!]!
-  findOrgMembersByOrganisation(org: OrganisationInputType!): [OrgMemberType!]!
+  findOrgMembersByOrganisation(org: String!): [OrgMemberType!]!
   findOrganisationsByDistance(adopter: AdopterInputType!): [OrganisationType!]!
   loginUser(email: String!, password: String!): UserType!
   checkEmailExists(email: String!): Boolean!
