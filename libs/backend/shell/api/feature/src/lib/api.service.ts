@@ -278,12 +278,12 @@ export class ApiService {
     }
 
     /**
-     * Find a Pic by name
-     * @param {string} name The name of the pic to find
+     * Find a Pic by id
+     * @param {string} id The id of the pic to find
      * @return {Promise<Pic || null>}
      */
-    async findPic(name: string): Promise<Pic | null> {
-        return this.PicModel.findOne({ name }).exec();
+    async findPic(id: string): Promise<Pic | null> {
+        return this.PicModel.findOne({ id }).exec();
     }
 
     /**
@@ -298,19 +298,28 @@ export class ApiService {
     /**
      * Find a User by name
      * @param {string} name The name of the user to find
-     * @return {Promise<User || null>}
+     * @return {Promise<User[] || null>}
      */
-    async findUserByName(name: string): Promise<User | null> {
-        return this.UserModel.findOne({ name }).exec();
+    async findUsersByName(name: string): Promise<User[] | null> {
+        return this.UserModel.find({ name }).exec();
+    }
+
+    /**
+     * Find a Dog by id
+     * @param {string} id The id of the dog to find
+     * @return {Promise<Dog || null>}
+     */
+     async findDog(id: string): Promise<Dog | null> {
+        return this.DogModel.findOne({ id }).exec();
     }
 
     /**
      * Find a Dog by name
      * @param {string} name The name of the dog to find
-     * @return {Promise<Dog || null>}
+     * @return {Promise<Dog[] || null>}
      */
-    async findDog(name: string): Promise<Dog | null> {
-        return this.DogModel.findOne({ name }).exec();
+    async findDogsByName(name: string): Promise<Dog[] | null> {
+        return this.DogModel.find({ name }).exec();
     }
 
     /**
@@ -331,12 +340,12 @@ export class ApiService {
     }
 
     /**
-     * Find Dog by Name
-     * @param {string} name The name of the dog to find
-     * @return {Promise<Dog || null>}
+     * Find all Dogs by breed
+     * @param {string} breed The breed to find all dogs for
+     * @return {Promise<Dog[]>}
      */
-    async findDogByName(name: string): Promise<Dog | null> {
-        return this.DogModel.findOne({ name }).exec();
+     async findDogsByBreed(breed: string): Promise<Dog[]> {
+        return this.DogModel.find({ breed }).exec();
     }
 
     /**
