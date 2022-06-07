@@ -58,7 +58,7 @@ export class DogType {
     @Field()
     dob: Date;
 
-    @Field((type) => PicType)
+    @Field(() => PicType)
     pics: Pic[];
 
     @Field()
@@ -67,7 +67,7 @@ export class DogType {
     @Field()
     about: string;
 
-    @Field((type) => OrganisationType)
+    @Field(() => OrganisationType)
     organisation: Organisation;
 
     @Field()
@@ -76,13 +76,13 @@ export class DogType {
     @Field()
     height: number;
 
-    @Field((type) => UserType)
+    @Field(() => UserType)
     usersLiked: User[];
 
     @Field()
     furLength: string;
 
-    @Field((type) => String)
+    @Field(() => String)
     temperament: string[];
 }
 
@@ -98,19 +98,19 @@ export class OrganisationType {
     @Field()
     dateFounded: Date;
 
-    @Field((type) => UserType)
+    @Field(() => UserType)
     members: User[];
 
-    @Field((type) => LocationType)
+    @Field(() => LocationType)
     location: Location;
 
     @Field()
     rulesReq: string;
 
-    @Field((type) => ContactInfoType)
+    @Field(() => ContactInfoType)
     contactInfo: ContactInfo;
 
-    @Field((type) => PicType)
+    @Field(() => PicType)
     logo: Pic;
 }
 
@@ -136,25 +136,28 @@ export class AdopterType extends UserType {
     @Field()
     IDNum: string;
     
-    @Field((type) => PicType)
+    @Field(() => PicType)
     pic: Pic;
 
-    @Field((type) => LocationType)
+    @Field(() => LocationType)
     location: Location;
 
-    @Field((type) => DocType)
+    @Field(() => DocType)
     documents: Doc[];
 
-    @Field((type) => DogType)
+    @Field(() => DogType)
     dogsLiked: Dog[];
 
     @Field()
     questionnaire: Url;
+
+    @Field()
+    distance: number;
 }
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
 export class OrgMemberType extends UserType {
-    @Field((type) => OrganisationType)
+    @Field(() => OrganisationType)
     organisation: Organisation;
 }
