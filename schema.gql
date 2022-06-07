@@ -2,6 +2,99 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type DocType {
+  path: String!
+}
+
+type LocationType {
+  lat: Float!
+  lng: Float!
+}
+
+type PicType {
+  path: String!
+}
+
+type DogType {
+  name: String!
+  dob: DateTime!
+  pics: PicType!
+  breed: String!
+  about: String!
+  organisation: OrganisationType!
+  weight: Float!
+  height: Float!
+  usersLiked: UserType!
+  furLength: String!
+  temperament: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type OrganisationType {
+  name: String!
+  about: String!
+  dateFounded: DateTime!
+  rulesReq: String!
+}
+
+type UserType {
+  name: String!
+  email: String!
+  password: String!
+  type: String!
+}
+
+input DocInputType {
+  path: String!
+}
+
+input LocationInputType {
+  lat: Float!
+  lng: Float!
+}
+
+input PicInputType {
+  path: String!
+}
+
+input DogInputType {
+  name: String!
+  dob: DateTime!
+  pics: PicInputType!
+  breed: String!
+  about: String!
+  organisation: OrganisationInputType!
+  weight: Float!
+  height: Float!
+  usersLiked: UserInputType!
+  furLength: String!
+  temperament: String!
+}
+
+input OrganisationInputType {
+  name: String!
+  about: String!
+  dateFounded: DateTime!
+  rulesReq: String!
+}
+
+input UserInputType {
+  name: String!
+  email: String!
+  password: String!
+  type: String!
+}
+
 type Query {
-  hello: String!
+  Organisation: [OrganisationType!]!
+}
+
+type Mutation {
+  createOrg(org: OrganisationInputType!): OrganisationType!
+  updateOrg(name: String!, org: OrganisationInputType!): OrganisationType!
+  deleteOrg(name: String!): OrganisationType!
 }
