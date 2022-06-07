@@ -78,7 +78,7 @@ export class Organisation {
     dateFounded: Date;
 
     @Prop()
-    members: User[];
+    members: [User];
 
     @Prop()
     location: Location;
@@ -103,7 +103,7 @@ export class Dog {
     dob: Date;
 
     @Prop()
-    pics: Pic[];
+    pics: [Pic];
 
     @Prop()
     breed: string;
@@ -121,13 +121,13 @@ export class Dog {
     height: number;
 
     @Prop()
-    usersLiked: User[];
+    usersLiked: [User];
 
     @Prop()
     furLength: string;
 
     @Prop()
-    temperament: string[];
+    temperament: [string];
 }
 
 @ObjectType()
@@ -143,10 +143,10 @@ export class Adopter extends User {
     location: Location;
 
     @Prop()
-    documents: Doc[];
+    documents: [Doc];
 
     @Prop()
-    dogsLiked: Dog[];
+    dogsLiked: [Dog];
 
     @Prop()
     questionnaire: string;
@@ -159,7 +159,7 @@ export class Adopter extends User {
 @Schema()
 export class OrgMember extends User {
     @Prop()
-    organisation: Organisation;    
+    organisation: string;    
 }
 
 export type DocDocument = Doc & Document;
