@@ -52,5 +52,20 @@ export class ApiResolver {
     @Mutation(returns => DogType)
     async deleteDog(@Args('id') id: string) : Promise<DogType> {
         return this.DogService.deleteDog(id);
-    }  
+    }
+
+    @Mutation(returns => PicType)
+    async createPic(@Args('pic') pic: PicType) : Promise<PicType> {
+        return this.DogService.createPic(pic);
+    }
+
+    @Mutation(returns => PicType)
+    async updatePic(@Args('id') id: string, @Args('pic') pic: PicType) : Promise<PicType> {
+        return this.DogService.updatePic(id, pic);
+    }
+
+    @Mutation(returns => PicType)
+    async deletePic(@Args('id') id: string) : Promise<PicType> {
+        return this.DogService.deletePic(id);
+    }
 }
