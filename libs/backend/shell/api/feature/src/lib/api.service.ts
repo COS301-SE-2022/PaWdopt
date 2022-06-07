@@ -350,10 +350,10 @@ export class ApiService {
 
     /**
      * Find all OrgMembers by Organisation
-     * @param {Organisation} organisation The organisation to find all orgMembers for
+     * @param {string} organisation The organisation to find all orgMembers for
      * @return {Promise<OrgMember[]>}
      */
-    async findOrgMembersByOrganisation(organisation: Organisation): Promise<OrgMember[]> {
+    async findOrgMembersByOrganisation(organisation: string): Promise<OrgMember[]> {
         return this.OrgMemberModel.find({ organisation }).exec();
     }
 
