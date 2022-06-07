@@ -185,7 +185,7 @@ export class ApiResolver {
     }
 
     @Query(() => [OrgMemberType])
-    async findOrgMembersByOrganisation(@Args('org') org: OrganisationType) : Promise<OrgMemberType[]> {
+    async findOrgMembersByOrganisation(@Args('org') org: string) : Promise<OrgMemberType[]> {
         return this.DogService.findOrgMembersByOrganisation(org);
     }
 
