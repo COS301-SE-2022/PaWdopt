@@ -1,7 +1,6 @@
 module.exports = {
   displayName: 'pawdopt',
   preset: '../../jest.preset.ts',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
