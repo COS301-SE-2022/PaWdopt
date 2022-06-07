@@ -98,4 +98,19 @@ export class ApiResolver {
     async deleteUser(@Args('email') email: string) : Promise<UserType> {
         return this.DogService.deleteUser(email);
     }
+
+    @Mutation(returns => ContactInfoType)
+    async createContactInfo(@Args('contactInfo') contactInfo: ContactInfoType) : Promise<ContactInfoType> {
+        return this.DogService.createContactInfo(contactInfo);
+    }
+
+    @Mutation(returns => ContactInfoType)
+    async updateContactInfo(@Args('id') id: string, @Args('contactInfo') contactInfo: ContactInfoType) : Promise<ContactInfoType> {
+        return this.DogService.updateContactInfo(id, contactInfo);
+    }
+
+    @Mutation(returns => ContactInfoType)
+    async deleteContactInfo(@Args('id') id: string) : Promise<ContactInfoType> {
+        return this.DogService.deleteContactInfo(id);
+    }
 }
