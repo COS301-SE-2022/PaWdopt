@@ -62,7 +62,7 @@ const routes: Routes = [
       )
   },
   {
-    path: 'ownneddogs',
+    path: 'owneddogs',
     loadChildren: () =>
       import('@pawdopt/mobile/owneddogs/feature').then(
         (m) => m.owneddogsPageComponentModule

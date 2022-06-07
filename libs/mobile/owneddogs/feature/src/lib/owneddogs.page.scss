@@ -14,6 +14,22 @@
 
 }
 
+.container {
+    //height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+}
+
+.greyButton {
+    margin-top: 2%;
+    margin-bottom: 6%;
+    align-items: center;
+}
+
 .maincontainer{
     //position: absolute;
     //transform: translate(-50%, -50%);
