@@ -1,132 +1,13 @@
 import { ObjectType, Field, InputType } from "@nestjs/graphql";
-import { Dog, Image, Organisation, Location, User, ContactInfo, Doc} from './api.schema';
+import { Dog, Pic, Organisation, Location, User, ContactInfo, Doc} from './api.schema';
 import { Url } from 'url';
 
-@ObjectType('DogType')
-@InputType('DogInputType')
-export class DogType {
-    @Field()
-    name: string;
-
-    @Field()
-    dob: Date;
-
-    @Field()
-    images: Image[];
-
-    @Field()
-    breed: string;
-
-    @Field()
-    about: string;
-
-    @Field()
-    organisation: Organisation;
-
-    @Field()
-    weight: number;
-
-    @Field()
-    height: number;
-
-    @Field()
-    usersLiked: User[];
-
-    @Field()
-    furLength: string;
-
-    @Field()
-    temperament: string[];
-}
-
-@ObjectType('OrganisationType')
-@InputType('OrganisationInputType')
-export class OrganisationType {
-    @Field()
-    name: string;
-
-    @Field()
-    about: string;
-
-    @Field()
-    dateFounded: Date;
-
-    @Field()
-    dogs: Dog[];
-
-    @Field()
-    members: User[];
-
-    @Field()
-    location: Location;
-
-    @Field()
-    rulesReq: string;
-
-    @Field()
-    contactInfo: ContactInfo;
-
-    @Field()
-    logo: Image;
-}
-
-@ObjectType('UserType')
-@InputType('UserInputType')
-export class UserType {
-    @Field()
-    name: string;
-
-    @Field()
-    email: string;
-
-    @Field()
-    password: string;
-
-    @Field()
-    type: string;
-}
-
-@ObjectType('ImageType')
-@InputType('ImageInputType')
-export class ImageType {
-    @Field()
-    url: string;
-}
-
-@ObjectType('AdopterType')
-@InputType('AdopterInputType')
-export class AdopterType extends UserType {
-    @Field()
-    IDNum: string;
-    
-    @Field()
-    image: Image;
-
-    @Field()
-    location: Location;
-
-    @Field()
-    documents: Doc[];
-
-    @Field()
-    dogsLiked: Dog[];
-
-    @Field()
-    questionnaire: Url;
-}
-
-@ObjectType('OrgMemberType')
-@InputType('OrgMemberInputType')
-export class OrgMemberType extends UserType {
-    @Field()
-    organisation: Organisation;
-}
 
 @ObjectType('DocType')
 @InputType('DocInputType')
 export class DocType {
     @Field()
-    url: string;
+    path: string;
 }
 
 @ObjectType('ContactInfoType')
@@ -159,4 +40,121 @@ export class LocationType {
 
     @Field()
     lng: number;
+}
+
+@ObjectType('PicType')
+@InputType('PicInputType')
+export class PicType {
+    @Field()
+    path: string;
+}
+
+@ObjectType('DogType')
+@InputType('DogInputType')
+export class DogType {
+    @Field()
+    name: string;
+
+    @Field()
+    dob: Date;
+
+    @Field((type) => PicType)
+    pics: Pic[];
+
+    @Field()
+    breed: string;
+
+    @Field()
+    about: string;
+
+    @Field((type) => OrganisationType)
+    organisation: Organisation;
+
+    @Field()
+    weight: number;
+
+    @Field()
+    height: number;
+
+    @Field((type) => UserType)
+    usersLiked: User[];
+
+    @Field()
+    furLength: string;
+
+    @Field((type) => String)
+    temperament: string[];
+}
+
+@ObjectType('OrganisationType')
+@InputType('OrganisationInputType')
+export class OrganisationType {
+    @Field()
+    name: string;
+
+    @Field()
+    about: string;
+
+    @Field()
+    dateFounded: Date;
+
+    @Field((type) => UserType)
+    members: User[];
+
+    @Field((type) => LocationType)
+    location: Location;
+
+    @Field()
+    rulesReq: string;
+
+    @Field((type) => ContactInfoType)
+    contactInfo: ContactInfo;
+
+    @Field((type) => PicType)
+    logo: Pic;
+}
+
+@ObjectType('UserType')
+@InputType('UserInputType')
+export class UserType {
+    @Field()
+    name: string;
+
+    @Field()
+    email: string;
+
+    @Field()
+    password: string;
+
+    @Field()
+    type: string;
+}
+
+@ObjectType('AdopterType')
+@InputType('AdopterInputType')
+export class AdopterType extends UserType {
+    @Field()
+    IDNum: string;
+    
+    @Field((type) => PicType)
+    pic: Pic;
+
+    @Field((type) => LocationType)
+    location: Location;
+
+    @Field((type) => DocType)
+    documents: Doc[];
+
+    @Field((type) => DogType)
+    dogsLiked: Dog[];
+
+    @Field()
+    questionnaire: Url;
+}
+
+@ObjectType('OrgMemberType')
+@InputType('OrgMemberInputType')
+export class OrgMemberType extends UserType {
+    @Field((type) => OrganisationType)
+    organisation: Organisation;
 }
