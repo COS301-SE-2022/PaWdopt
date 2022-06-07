@@ -52,7 +52,7 @@ export class ApiService {
      * @return {Promise<OrgMember || null>}
      */
     async createOrgMember(orgMember: OrgMember): Promise<OrgMember | null> {
-        orgMember.password = await bcrypt.hash(orgMember.password, "cloud5");
+        // orgMember.password = await bcrypt.hash(orgMember.password, "cloud5");
         return this.OrgMemberModel.create(orgMember);
     }
 
@@ -63,7 +63,7 @@ export class ApiService {
      * @return {Promise<OrgMember || null>}
      */
     async updateOrgMember(email: string, updatedOrgMember: OrgMember): Promise<OrgMember | null> {
-        updatedOrgMember.password = await bcrypt.hash(updatedOrgMember.password, "cloud5");
+        // updatedOrgMember.password = await bcrypt.hash(updatedOrgMember.password, "cloud5");
         return this.OrgMemberModel.findOneAndUpdate({ email }, updatedOrgMember, { new: true }).exec();
     }
 
@@ -83,7 +83,7 @@ export class ApiService {
      * @return {Promise<User || null>}
      */
      async createUser(user: User): Promise<User | null> {
-        user.password = await bcrypt.hash(user.password, "cloud5");
+        // user.password = await bcrypt.hash(user.password, "cloud5");
         return this.UserModel.create(user);
     }
 
@@ -94,7 +94,7 @@ export class ApiService {
      * @return {Promise<User || null>}
      */
     async updateUser(email: string, updatedUser: User): Promise<User | null> {
-        updatedUser.password = await bcrypt.hash(updatedUser.password, "cloud5");
+        // updatedUser.password = await bcrypt.hash(updatedUser.password, "cloud5");
         return this.UserModel.findOneAndUpdate({ email }, updatedUser, { new: true }).exec();
     }
 
@@ -113,7 +113,7 @@ export class ApiService {
      * @return {Promise<Adopter || null>}
      */
     async createAdopter(adopter: Adopter): Promise<Adopter | null> {
-        adopter.password = await bcrypt.hash(adopter.password, "cloud5");
+        // adopter.password = await bcrypt.hash(adopter.password, "cloud5");
         return this.AdopterModel.create(adopter);
     }
 
@@ -124,7 +124,7 @@ export class ApiService {
      * @return {Promise<Adopter || null>}
      */
     async updateAdopter(email: string, updatedAdopter: Adopter): Promise<Adopter | null> {
-        updatedAdopter.password = await bcrypt.hash(updatedAdopter.password, "cloud5");
+        // updatedAdopter.password = await bcrypt.hash(updatedAdopter.password, "cloud5");
         return this.AdopterModel.findOneAndUpdate({ email }, updatedAdopter, { new: true }).exec();
     }
 

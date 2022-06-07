@@ -194,8 +194,8 @@ export class ApiResolver {
         return this.DogService.findOrganisationsByDistance(adopter);
     }
 
-    @Query(() => User)
-    async loginUser(@Args('email') email: string, @Args('password') password: string) : Promise<User> {
+    @Query(() => UserType)
+    async loginUser(@Args('email') email: string, @Args('password') password: string) : Promise<UserType> {
         return this.DogService.loginUser(email, password);
     }
 
