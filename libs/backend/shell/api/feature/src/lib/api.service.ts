@@ -148,21 +148,21 @@ export class ApiService {
 
     /**
      * Update an Dog
-     * @param {string} name The name of the dog to update
+     * @param {string} id The id of the dog to update
      * @param {Dog} updatedDog The new dog information
      * @return {Promise<Dog || null>}
      */
-    async updateDog(name: string, updatedDog: Dog): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, updatedDog, { new: true }).exec();
+    async updateDog(id: string, updatedDog: Dog): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ id }, updatedDog, { new: true }).exec();
     }
 
     /**
      * Delete an Dog
-     * @param {string} name The name of the dog to delete
+     * @param {string} id The id of the dog to delete
      * @return {Promise<Dog || null>}
      */
-    async deleteDog(name: string): Promise<Dog | null> {
-        return this.DogModel.findOneAndDelete({ name }).exec();
+    async deleteDog(id: string): Promise<Dog | null> {
+        return this.DogModel.findOneAndDelete({ id }).exec();
     }
 
     /**

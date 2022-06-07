@@ -38,4 +38,19 @@ export class ApiResolver {
     async deleteOrgMember(@Args('email') email: string) : Promise<OrgMemberType> {
         return this.DogService.deleteOrgMember(email);
     }
+
+    @Mutation(returns => DogType)
+    async createDog(@Args('dog') dog: DogType) : Promise<DogType> {
+        return this.DogService.createDog(dog);
+    }
+
+    @Mutation(returns => DogType)
+    async updateDog(@Args('id') id: string, @Args('dog') dog: DogType) : Promise<DogType> {
+        return this.DogService.updateDog(id, dog);
+    }
+
+    @Mutation(returns => DogType)
+    async deleteDog(@Args('id') id: string) : Promise<DogType> {
+        return this.DogService.deleteDog(id);
+    }  
 }
