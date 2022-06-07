@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { ObjectType } from '@nestjs/graphql';
+import { Url } from 'url';
 
 @ObjectType()
 @Schema()
@@ -148,7 +149,7 @@ export class Adopter extends User {
     dogsLiked: Dog[];
 
     @Prop()
-    questionnaire: string;
+    questionnaire: Url;
 
     @Prop()
     distance: number;
