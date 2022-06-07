@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
-import { DogType, OrganisationType, LocationType, UserType ,PicType, ContactInfoType, DocType, AdopterType } from './api.dto';
+import { DogType, OrganisationType, LocationType, UserType ,PicType, ContactInfoType, DocType, AdopterType, OrgMemberType } from './api.dto';
 import { Dog, Pic, Organisation, Location, User, ContactInfo, Doc, Adopter} from './api.schema';
 import { Type } from '@angular/core';
 
@@ -24,5 +24,18 @@ export class ApiResolver {
         return this.DogService.deleteOrg(name);
     }
 
-    
+    @Mutation(returns => OrgMemberType)
+    async createOrgMember(@Args('member') member: OrgMemberType) : Promise<OrgMemberType> {
+        return this.DogService.createOrgMember(member);
+    }
+
+    @Mutation(returns => OrgMemberType)
+    async updateOrgMember(@Args('email') email: string, @Args('member') member: OrgMemberType) : Promise<OrgMemberType> {
+        return this.DogService.updateOrgMember(email, member);
+    }
+
+    @Mutation(returns => OrgMemberType)
+    async deleteOrgMember(@Args('email') email: string) : Promise<OrgMemberType> {
+        return this.DogService.deleteOrgMember(email);
+    }
 }
