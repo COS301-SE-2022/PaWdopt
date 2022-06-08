@@ -50,3 +50,13 @@ Thumbs.db
 #Ignore mobile builds
 /apps/pawdopt/android
 /apps/pawdopt/ios
+
+# Ignore ML dataset and Jupyter settings
+/ML/Images
+/ML/env
+/ML/.ipynb_checkpoints
+/ML/.vscode
+/ML/keras_model
+
+# GraphQL
+schema.gql
