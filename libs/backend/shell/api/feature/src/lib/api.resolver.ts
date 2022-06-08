@@ -135,8 +135,8 @@ export class ApiResolver {
     }
 
     @Query(() => DogType)
-    async findDog(@Args('id') id: string) : Promise<DogType> {
-        return this.DogService.findDog(id);
+    async findDog(@Args('name') name: string) : Promise<DogType> {
+        return this.DogService.findDog(name);
     }
 
     @Query(() => [DogType])
@@ -178,9 +178,13 @@ export class ApiResolver {
         return this.DogService.adopterEmailExists(email) || this.DogService.orgMemberEmailExists(email);
     }
 
-
-
-
-
+    @Mutation(() => DogType)
+    async UserSwipesRightOnDog(@Args('userName') userName: string, @Args('dogName') dogName: string) : Promise<DogType | null> {
+        const user = await this.DogService.findAdopterByName(userName)
+        console.log(user);
+        const ret = await this.DogService.addUserToUserLikes(dogName, user);
+        console.log(ret);
+        return ret;
+    }
 
 }
