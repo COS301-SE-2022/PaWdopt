@@ -27,7 +27,7 @@ node_modules
 # misc
 /.sass-cache
 /connect.lock
-# /coverage
+/coverage
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
@@ -50,3 +50,4 @@ Thumbs.db
 #Ignore mobile builds
 /apps/pawdopt/android
 /apps/pawdopt/ios
+schema.gql

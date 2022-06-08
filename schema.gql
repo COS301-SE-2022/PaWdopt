@@ -145,14 +145,17 @@ input AdopterInputType {
 
 type Query {
   findPic(id: String!): PicType!
-  findDog(name: String!): DogType!
+  findDog(id: String!): DogType!
   findDogsByName(name: String!): [DogType!]!
   findDogsByBreed(breed: String!): [DogType!]!
   findDogs: [DogType!]!
   findDogsByOrg(org: OrganisationInputType!): [DogType!]!
   findOrgMembersByOrganisation(org: String!): [OrgMemberType!]!
-  login(email: String!, password: String!): [OrgMemberType!]!
-  emailExists(email: String!): [Boolean!]!
+  findAdopterByName(name: String!): [AdopterType!]!
+  loginOrg(email: String!, password: String!): OrgMemberType
+  loginAdopter(email: String!, password: String!): AdopterType
+  emailExists(email: String!): Boolean!
+  getAdopterByEmail(email: String!): AdopterType
 }
 
 type Mutation {
@@ -180,5 +183,4 @@ type Mutation {
   createAdopter(adopter: AdopterInputType!): AdopterType!
   updateAdopter(email: String!, adopter: AdopterInputType!): AdopterType!
   deleteAdopter(email: String!): AdopterType!
-  UserSwipesRightOnDog(userName: String!, dogName: String!): DogType!
 }

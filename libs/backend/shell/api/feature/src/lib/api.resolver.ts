@@ -164,15 +164,6 @@ export class ApiResolver {
         return this.DogService.findOrgMembersByOrganisation(org);
     }
 
-    @Query(() => [OrgMemberType] || [AdopterType])
-    async login(@Args('email') email: string, @Args('password') password: string) : Promise<OrgMemberType | AdopterType> {
-        try{
-            return this.DogService.loginAdopter(email, password);
-        }catch(e){
-            return this.DogService.loginOrgMember(email, password);
-        }
-    }
-
     @Query(() => [Boolean])
     async emailExists(@Args('email') email: string) : Promise<boolean> {
         return this.DogService.adopterEmailExists(email) || this.DogService.orgMemberEmailExists(email);
@@ -230,7 +221,18 @@ export class ApiResolver {
         return this.DogService.updateDogDob(dogName, dob);
     }
 
+    @Query(() => OrgMemberType, {nullable: true})
+    async loginOrg(@Args('email') email: string, @Args('password') password: string) : Promise<OrgMemberType> {
+        
+        return this.DogService.loginOrgMember(email, password);
+         
+    }
 
+    @Query(() => AdopterType, {nullable: true})
+    async loginAdopter(@Args('email') email: string, @Args('password') password: string) : Promise<AdopterType> {
+        return this.DogService.loginAdopter(email, password);
+          
+    }
 
 
 
