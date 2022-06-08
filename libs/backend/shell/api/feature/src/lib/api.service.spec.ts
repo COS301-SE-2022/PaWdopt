@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiService} from './api.service';
-import { Dog, Pic, Organisation, Location, User, OrgMember, ContactInfo, Doc, Adopter, DogDocument, PicDocument, OrgMemberDocument, OrganisationDocument, UserDocument, AdopterDocument, DocDocument, ContactInfoDocument, LocationDocument } from './api.schema';
-import { DogType, OrganisationType, LocationType, UserType ,PicType, ContactInfoType, DocType, AdopterType } from './api.dto';
+import { Dog, Pic, Organisation, Location, OrgMember, ContactInfo, Doc, Adopter, DogDocument, PicDocument, OrgMemberDocument, OrganisationDocument, AdopterDocument, DocDocument, ContactInfoDocument, LocationDocument } from './api.schema';
+import { DogType, OrganisationType, LocationType, PicType, ContactInfoType, DocType, AdopterType } from './api.dto';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 
@@ -22,9 +22,6 @@ describe('ApiService', () => {
             },{
                 provide: getModelToken(OrgMember.name),
                 useValue: OrgMember,
-            },{
-                provide: getModelToken(User.name),
-                useValue: User,
             },{
                 provide: getModelToken(Adopter.name),
                 useValue: Adopter,
