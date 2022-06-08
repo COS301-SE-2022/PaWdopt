@@ -94,13 +94,16 @@ export class LoginPageComponent {
     //"${email}" "${password}"
 
       
-    if(this.loginadoptquery(email, password)){
-      
+    if(this.loginadoptquery(email, password))
+    {
+      console.log("successful login");
     }
-    else if(this.loginorgquery(email, password)){
-      
+    else if(this.loginorgquery(email, password))
+    {
+      console.log("successful login");
     }
-    else{
+    else
+    {
       console.log("Login failed"); //CHANGE TO TOAST 
       this.router.navigate(["/login"]);
     }
