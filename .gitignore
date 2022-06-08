@@ -56,7 +56,9 @@ Thumbs.db
 /ML/env
 /ML/.ipynb_checkpoints
 /ML/.vscode
-/ML/keras_model
+/ML/models
+/ML/*.h5
+tfjs_model
 
 # GraphQL
 schema.gql
