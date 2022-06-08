@@ -1,10 +1,28 @@
 import { ObjectType, Field, InputType } from "@nestjs/graphql";
-import { Dog, Pic, Organisation, Location, User, ContactInfo, Doc} from './api.schema';
+import { Dog, Pic, Organisation, Location, ContactInfo, Doc, OrgMember, Adopter} from './api.schema';
 
+@ObjectType('OrgMemberType')
+@InputType('OrgMemberInputType')
+export class OrgMemberType {
+    @Field()
+    name: string;
+
+    @Field()
+    email: string;
+
+    @Field()
+    password: string;
+
+    @Field()
+    organisation: string;
+}
 
 @ObjectType('DocType')
 @InputType('DocInputType')
 export class DocType {
+    @Field()
+    type: string;
+
     @Field()
     path: string;
 }
@@ -12,22 +30,22 @@ export class DocType {
 @ObjectType('ContactInfoType')
 @InputType('ContactInfoInputType')
 export class ContactInfoType {
-    @Field()
+    @Field({ nullable: true })
     email: string;
 
-    @Field()
+    @Field({ nullable: true })
     phone: string;
 
-    @Field()
+    @Field({ nullable: true })
     website: string;
 
-    @Field()
+    @Field({ nullable: true })
     facebook: string;
 
-    @Field()
+    @Field({ nullable: true })
     instagram: string;
 
-    @Field()
+    @Field({ nullable: true })
     twitter: string;
 }
 
@@ -75,8 +93,8 @@ export class DogType {
     @Field()
     height: number;
 
-    @Field(() => [UserType])
-    usersLiked: [User];
+    @Field(() => [AdopterType], { nullable: true })
+    usersLiked: [Adopter];
 
     @Field()
     furLength: string;
@@ -97,25 +115,25 @@ export class OrganisationType {
     @Field()
     dateFounded: Date;
 
-    @Field(() => [UserType])
-    members: [User];
+    @Field(() => [OrgMemberType])
+    members: [OrgMember];
 
     @Field(() => LocationType)
     location: Location;
 
-    @Field()
-    rulesReq: string;
+    @Field(() => [String], { nullable: true })
+    rulesReq: [string];
 
     @Field(() => ContactInfoType)
     contactInfo: ContactInfo;
 
-    @Field(() => PicType)
+    @Field(() => PicType, { nullable: true })
     logo: Pic;
 }
 
-@ObjectType('UserType')
-@InputType('UserInputType')
-export class UserType {
+@ObjectType('AdopterType')
+@InputType('AdopterInputType')
+export class AdopterType {
     @Field()
     name: string;
 
@@ -126,13 +144,6 @@ export class UserType {
     password: string;
 
     @Field()
-    type: string;
-}
-
-@ObjectType('AdopterType')
-@InputType('AdopterInputType')
-export class AdopterType extends UserType {
-    @Field()
     IDNum: string;
     
     @Field(() => PicType, {nullable:true})
@@ -141,10 +152,10 @@ export class AdopterType extends UserType {
     @Field(() => LocationType, {nullable:true})
     location: Location;
 
-    @Field(() => [DocType] || [])
+    @Field(() => [DocType], { nullable: true })
     documents: [Doc];
 
-    @Field(() => [DogType] || [])
+    @Field(() => [DogType], { nullable: true })
     dogsLiked: [Dog];
 
     @Field()
@@ -152,11 +163,4 @@ export class AdopterType extends UserType {
 
     @Field()
     distance: number;
-}
-
-@ObjectType('OrgMemberType')
-@InputType('OrgMemberInputType')
-export class OrgMemberType extends UserType {
-    @Field()
-    organisation: string;
 }

@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
-import { DogType, OrganisationType, LocationType, UserType ,PicType, ContactInfoType, DocType, AdopterType, OrgMemberType } from './api.dto';
-import { Dog, Pic, Organisation, Location, User, ContactInfo, Doc, Adopter} from './api.schema';
+import { DogType, OrganisationType, LocationType, PicType, ContactInfoType, DocType, AdopterType, OrgMemberType } from './api.dto';
+import { Dog, Pic, Organisation, Location, ContactInfo, Doc, Adopter} from './api.schema';
 import { Type } from '@angular/core';
 
 
@@ -84,21 +84,6 @@ export class ApiResolver {
         return this.DogService.deleteLocation(id);
     }
 
-    @Mutation(() => UserType)
-    async createUser(@Args('user') user: UserType) : Promise<UserType> {
-        return this.DogService.createUser(user);
-    }
-
-    @Mutation(() => UserType)
-    async updateUser(@Args('email') email: string, @Args('user') user: UserType) : Promise<UserType> {
-        return this.DogService.updateUser(email, user);
-    }
-
-    @Mutation(() => UserType)
-    async deleteUser(@Args('email') email: string) : Promise<UserType> {
-        return this.DogService.deleteUser(email);
-    }
-
     @Mutation(() => ContactInfoType)
     async createContactInfo(@Args('contactInfo') contactInfo: ContactInfoType) : Promise<ContactInfoType> {
         return this.DogService.createContactInfo(contactInfo);
@@ -149,16 +134,6 @@ export class ApiResolver {
         return this.DogService.findPic(id);
     }
 
-    @Query(() => UserType)
-    async findUser(@Args('email') email: string) : Promise<UserType> {
-        return this.DogService.findUser(email);
-    }
-
-    @Query(() => [UserType])
-    async findUsers(@Args('name') name: string) : Promise<UserType[]> {
-        return this.DogService.findUsersByName(name);
-    }
-
     @Query(() => DogType)
     async findDog(@Args('id') id: string) : Promise<DogType> {
         return this.DogService.findDog(id);
@@ -189,18 +164,23 @@ export class ApiResolver {
         return this.DogService.findOrgMembersByOrganisation(org);
     }
 
-    @Query(() => [OrganisationType])
-    async findOrganisationsByDistance(@Args('adopter') adopter: AdopterType) : Promise<OrganisationType[]> {
-        return this.DogService.findOrganisationsByDistance(adopter);
+    @Query(() => [OrgMemberType] || [AdopterType])
+    async login(@Args('email') email: string, @Args('password') password: string) : Promise<OrgMemberType | AdopterType> {
+        try{
+            return this.DogService.loginAdopter(email, password);
+        }catch(e){
+            return this.DogService.loginOrgMember(email, password);
+        }
     }
 
-    @Query(() => UserType)
-    async loginUser(@Args('email') email: string, @Args('password') password: string) : Promise<UserType> {
-        return this.DogService.loginUser(email, password);
+    @Query(() => [Boolean])
+    async emailExists(@Args('email') email: string) : Promise<boolean> {
+        return this.DogService.adopterEmailExists(email) || this.DogService.orgMemberEmailExists(email);
     }
 
-    @Query(() => Boolean)
-    async checkEmailExists(@Args('email') email: string) : Promise<boolean> {
-        return this.DogService.emailExists(email);
-    }
+
+
+
+
+
 }
