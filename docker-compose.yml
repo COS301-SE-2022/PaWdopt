@@ -11,6 +11,21 @@ services:
     networks:
       - pawdopt-private
     command: mongod
+  keras:
+    image: tensorflow/serving:latest-gpu
+    restart: unless-stopped
+    container_name: tensorflow-serving
+    environment:
+      - "MODEL_NAME=keras_model"
+    ports:
+      - "8501:8501"
+    volumes:
+      - type: bind
+        source: ./ML/models/keras_model/
+        target: /models/keras_model/
+    networks:
+      - pawdopt-private
+
   
 
 networks:
