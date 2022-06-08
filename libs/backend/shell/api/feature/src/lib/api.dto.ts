@@ -135,16 +135,16 @@ export class AdopterType extends UserType {
     @Field()
     IDNum: string;
     
-    @Field(() => PicType)
+    @Field(() => PicType, {nullable:true})
     pic: Pic;
 
-    @Field(() => LocationType)
+    @Field(() => LocationType, {nullable:true})
     location: Location;
 
-    @Field(() => [DocType])
+    @Field(() => [DocType] || [])
     documents: [Doc];
 
-    @Field(() => [DogType])
+    @Field(() => [DogType] || [])
     dogsLiked: [Dog];
 
     @Field()
