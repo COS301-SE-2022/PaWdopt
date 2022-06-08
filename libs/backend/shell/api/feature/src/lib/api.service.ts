@@ -274,12 +274,12 @@ export class ApiService {
     }
 
     /**
-     * Find a Dog by id
-     * @param {string} id The id of the dog to find
+     * Find a Dog by name
+     * @param {string} name The name of the dog to find
      * @return {Promise<Dog || null>}
      */
-     async findDog(id: string): Promise<Dog | null> {
-        return this.DogModel.findOne({ id }).exec();
+     async findDog(name: string): Promise<Dog | null> {
+        return this.DogModel.findOne({ name }).exec();
     }
 
     /**
@@ -378,5 +378,26 @@ export class ApiService {
      async findAdopterByEmail(email: string): Promise<Adopter | null> {
         return this.AdopterModel.findOne({ email }).exec();
     }
+
+    /**
+     * add a user to userLikes in dog
+     * @param {string} dogName The name of the dog to add the user to
+     * @param {Adopter} userName The name of the user to add to the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */
+    async addUserToUserLikes(dogName: string, userName: Adopter): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name: dogName }, { $push: { usersLiked: userName } }, { new: true }).exec();
+    }
+
+    /**
+     * find adopter by name
+     * @param {string} name The name of the adopter to find
+     * @return {Promise<Adopter || null>}
+     */
+    async findAdopterByName(name: string): Promise<Adopter | null> {
+        return this.AdopterModel.findOne({ name }).exec();
+    }
+
 
 }

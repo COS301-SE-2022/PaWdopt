@@ -22,31 +22,31 @@
 <ion-content >
   <!--Dog name-->
   <div class="dogname">
-    <p><b>Millie</b></p>
+    <p><b>{{dog.name}}</b></p>
   </div>
   <div>&nbsp;</div>
   <!--Dog info-->
   <div class="maincontainer">
     <div class="thecard">
       <div class="thefront">
-        <img src="../../assets/husky.jpg" />
+        <img src="dog.pic" />
         <!-- <ion-title class="ion-text-center"><b>Millie, 2</b></ion-title> -->
-        <p><b>SPCA</b><ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon></p>
-        <p>A very energetic and entertaining husky, she loves walks and is very easily trainable. Extremely loyal and a great family dog.</p>
+        <p><b>{{dog.organisation}}</b><ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon></p>
+        <p>{{dog.about}}</p>
       </div>
       <div class="theback">
         <h1>Height: </h1>
-        <p>X cm</p>
+        <p>{{dog.height}} cm</p>
         <h1>Weight: </h1>
-        <p>X kg</p>
+        <p>{{dog.weight}} kg</p>
         <h1>Breed: </h1>
-        <p>Husky</p>
+        <p>{{dog.breed}}</p>
         <h1>Temperament: </h1>
         <p><ion-chip outline color="success">
-          <ion-label>Passive</ion-label>
+          <ion-label>{{dog.temperament}}</ion-label>
         </ion-chip> </p>
         <h1>Fur length: </h1>
-        <p>X cm</p>
+        <p>{{dog.furlength}} cm</p>
       </div>
     </div>
   </div>
@@ -57,83 +57,21 @@
   </div>
 <div class="userinfo">
   <div>&nbsp;</div>
-  <ion-list>
+  <ion-list *ngFor="let userLike of userLikes">
     <!-- Multi-line sliding item with icon options on both sides -->
-
     <ion-item-sliding id="item1">
       <ion-item href="#">
         <ion-thumbnail class="avatar">
-          <img src="../../assets/avatar1.jpg">
+          <img src="userLike.pic">
         </ion-thumbnail>
         <div>&nbsp;</div>
         <ion-label>
-          <h2>Daniel Craig</h2>
+          <h2>{{userLike.name}}</h2>
           <p>Verified user</p>
           <p>All documentation is up to date.</p>
         </ion-label>
         <ion-note slot="end">
           10:45 AM
-        </ion-note>
-      </ion-item>
-      <ion-item-options side="start">
-        <ion-item-option color="success">
-          <ion-icon slot="icon-only" name="happy"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-      <ion-item-options side="end">
-        <ion-item-option color="danger">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="primary" (click)="userinfo()">
-          <ion-icon slot="icon-only" name="person-circle"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
-    <ion-item-sliding id="item2">
-      <ion-item href="#">
-        <ion-thumbnail class="avatar">
-          <img src="../../assets/avatar2.jpg">
-        </ion-thumbnail>
-        <div>&nbsp;</div>
-        <ion-label>
-          <h2>Rene Diaz</h2>
-          <p>Verified user</p>
-          <p>All documentation is up to date.</p>
-        </ion-label>
-        <ion-note slot="end">
-          10:55 AM
-        </ion-note>
-      </ion-item>
-      <ion-item-options side="start">
-        <ion-item-option color="success">
-          <ion-icon slot="icon-only" name="happy"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-      <ion-item-options side="end">
-        <ion-item-option color="danger">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="primary" (click)="userinfo()">
-          <ion-icon slot="icon-only" name="person-circle"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
-
-    <ion-item-sliding id="item3">
-      <ion-item href="#">
-        <ion-thumbnail class="avatar">
-          <img src="../../assets/avatar3.jpg">
-        </ion-thumbnail>
-        <div>&nbsp;</div>
-        <ion-label>
-          <h2>Bilal Haffejee</h2>
-          <p>Verified user</p>
-          <p>Contact shelter for documentation.</p>
-        </ion-label>
-        <ion-note slot="end">
-          11:45 AM
         </ion-note>
       </ion-item>
       <ion-item-options side="start">
