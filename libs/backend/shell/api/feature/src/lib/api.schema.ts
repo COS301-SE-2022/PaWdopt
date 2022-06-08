@@ -1,23 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { ObjectType } from '@nestjs/graphql';
-import { Url } from 'url';
-
-@ObjectType()
-@Schema()
-export class User {
-    @Prop()
-    name: string;
-
-    @Prop()
-    email: string;
-
-    @Prop()
-    password: string;
-
-    @Prop()
-    type: string;
-}
 
 @ObjectType()
 @Schema()
@@ -39,6 +22,9 @@ export class Pic {
 @ObjectType()
 @Schema()
 export class Doc {
+    @Prop()
+    type: string;
+
     @Prop()
     path: string;
 }
@@ -78,13 +64,13 @@ export class Organisation {
     dateFounded: Date;
 
     @Prop()
-    members: [User];
+    members: [OrgMember];
 
     @Prop()
     location: Location;
 
     @Prop()
-    rulesReq: string;
+    rulesReq: [string];
 
     @Prop()
     contactInfo: ContactInfo;
@@ -121,7 +107,7 @@ export class Dog {
     height: number;
 
     @Prop()
-    usersLiked: [User];
+    usersLiked: [Adopter];
 
     @Prop()
     furLength: string;
@@ -132,7 +118,16 @@ export class Dog {
 
 @ObjectType()
 @Schema()
-export class Adopter extends User {
+export class Adopter {
+    @Prop()
+    name: string;
+
+    @Prop()
+    email: string;
+
+    @Prop()
+    password: string;
+
     @Prop()
     IDNum: string;
     
@@ -157,7 +152,16 @@ export class Adopter extends User {
 
 @ObjectType()
 @Schema()
-export class OrgMember extends User {
+export class OrgMember {
+    @Prop()
+    name: string;
+
+    @Prop()
+    email: string;
+
+    @Prop()
+    password: string;
+
     @Prop()
     organisation: string;    
 }
@@ -170,8 +174,6 @@ export type LocationDocument = Location & Document;
 export const LocationSchema = SchemaFactory.createForClass(Location);
 export type PicDocument = Pic & Document;
 export const PicSchema = SchemaFactory.createForClass(Pic);
-export type UserDocument = User & Document;
-export const UserSchema = SchemaFactory.createForClass(User);
 export type DogDocument = Dog & Document;
 export const DogSchema = SchemaFactory.createForClass(Dog);
 export type OrganisationDocument = Organisation & Document;

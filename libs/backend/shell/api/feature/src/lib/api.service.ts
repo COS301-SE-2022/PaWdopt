@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dog, DogDocument, Pic, PicDocument, Organisation, OrganisationDocument, User, UserDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, Doc, DocDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument } from './api.schema';
+import { Dog, DogDocument, Pic, PicDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, Doc, DocDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument } from './api.schema';
 import bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -11,7 +11,6 @@ export class ApiService {
         @InjectModel(Pic.name) private readonly PicModel : Model<PicDocument>,
         @InjectModel(Organisation.name) private readonly OrganisationModel : Model<OrganisationDocument>,
         @InjectModel(OrgMember.name) private readonly OrgMemberModel : Model<OrgMemberDocument>,
-        @InjectModel(User.name) private readonly UserModel : Model<UserDocument>,
         @InjectModel(Adopter.name) private readonly AdopterModel : Model<AdopterDocument>,
         @InjectModel(Doc.name) private readonly DocModel : Model<DocDocument>,
         @InjectModel(ContactInfo.name) private readonly ContactInfoModel : Model<ContactInfoDocument>,
@@ -74,37 +73,6 @@ export class ApiService {
      */
     async deleteOrgMember(email: string): Promise<OrgMember | null> {
         return this.OrgMemberModel.findOneAndDelete({ email }).exec();
-    }
-
-    
-    /**
-     * Create a new User
-     * @param {User} user The user to create
-     * @return {Promise<User || null>}
-     */
-     async createUser(user: User): Promise<User | null> {
-        // user.password = await bcrypt.hash(user.password, "cloud5");
-        return this.UserModel.create(user);
-    }
-
-    /**
-     * Update an User
-     * @param {string} email The email of the user to update
-     * @param {User} updatedUser The new user information
-     * @return {Promise<User || null>}
-     */
-    async updateUser(email: string, updatedUser: User): Promise<User | null> {
-        // updatedUser.password = await bcrypt.hash(updatedUser.password, "cloud5");
-        return this.UserModel.findOneAndUpdate({ email }, updatedUser, { new: true }).exec();
-    }
-
-    /**
-     * Delete an User
-     * @param {string} email The email of the user to delete
-     * @return {Promise<User || null>}
-     */
-    async deleteUser(email: string): Promise<User | null> {
-        return this.UserModel.findOneAndDelete({ email }).exec();
     }
 
     /**
@@ -287,30 +255,31 @@ export class ApiService {
     }
 
     /**
-     * Find a User by email
-     * @param {string} email The email of the user to find
-     * @return {Promise<User || null>}
+     * Find a Adopter by email
+     * @param {string} email The email of the adopter to find
+     * @return {Promise<Adopter || null>}
      */
-    async findUser(email: string): Promise<User | null> {
-        return this.UserModel.findOne({ email }).exec();
+    async findAdopter(email: string): Promise<Adopter | null> {
+        return this.AdopterModel.findOne({ email }).exec();
     }
 
     /**
-     * Find a User by name
-     * @param {string} name The name of the user to find
-     * @return {Promise<User[] || null>}
+     * Find a OrgMember by email
+     * @param {string} email The email of the orgMember to find
+     * @return {Promise<OrgMember || null>}
+     * 
      */
-    async findUsersByName(name: string): Promise<User[] | null> {
-        return this.UserModel.find({ name }).exec();
+    async findOrgMember(email: string): Promise<OrgMember | null> {
+        return this.OrgMemberModel.findOne({ email }).exec();
     }
 
     /**
-     * Find a Dog by id
-     * @param {string} id The id of the dog to find
+     * Find a Dog by name
+     * @param {string} name The name of the dog to find
      * @return {Promise<Dog || null>}
      */
-     async findDog(id: string): Promise<Dog | null> {
-        return this.DogModel.findOne({ id }).exec();
+     async findDog(name: string): Promise<Dog | null> {
+        return this.DogModel.findOne({ name }).exec();
     }
 
     /**
@@ -358,41 +327,65 @@ export class ApiService {
     }
 
     /**
-     * Find Organisation by distance from Adopter
-     * @param {Adopter} adopter The adopter to find all orgMembers for
-     * @return {Promise<Organisation[]>}
+     * Login an Adopter
+     * @param {string} email The email of the adopter to login
+     * @param {string} password The password of the adopter to login
+     * @return {Promise<Adopter || null>}
      */
-    async findOrganisationsByDistance(adopter: Adopter): Promise<Organisation[]> {
-        return this.OrganisationModel.find({
-            location: {
-                $near: {
-                    $geometry: {
-                        type: 'Point',
-                        coordinates: [adopter.location.lng, adopter.location.lat],
-                    },
-                    $maxDistance: adopter.distance,
-                },
-            },
-        }).exec();
-    }
-
-    /**
-     * Login a User
-     * @param {string} email The email of the user to login
-     * @param {string} password The password of the user to login
-     * @return {Promise<User || null>}
-     */
-    async loginUser(email: string, password: string): Promise<User | null> {
-        const temp = await this.UserModel.findOne({ email }).exec();
+    async loginAdopter(email: string, password: string): Promise<Adopter | null> {
+        const temp = await this.AdopterModel.findOne({ email }).exec();
         return bcrypt.compareSync(password, temp.password) ? temp : null;
     }
 
     /**
-     * Check if email has been used by a user
+     * Login an OrgMember
+     * @param {string} email The email of the orgMember to login
+     * @param {string} password The password of the orgMember to login
+     * @return {Promise<OrgMember || null>}
+     */
+    async loginOrgMember(email: string, password: string): Promise<OrgMember | null> {
+        const temp = await this.OrgMemberModel.findOne({ email }).exec();
+        return bcrypt.compareSync(password, temp.password) ? temp : null;
+    }
+
+    /**
+     * Check if email has been used by a Adopter
+     * @param {string} email The email to check
+     * @return {Promise<boolean>}
+     * 
+     */
+    async adopterEmailExists(email: string): Promise<boolean> {
+        return this.AdopterModel.findOne({ email }).exec() !== null;
+    }
+
+    /**
+     * Check if email has been used by a OrgMember
      * @param {string} email The email to check
      * @return {Promise<boolean>}
      */
-    async emailExists(email: string): Promise<boolean> {
-        return this.UserModel.findOne({ email }).exec() !== null;
+    async orgMemberEmailExists(email: string): Promise<boolean> {
+        return this.OrgMemberModel.findOne({ email }).exec() !== null;
     }
+
+    /**
+     * add a user to userLikes in dog
+     * @param {string} dogName The name of the dog to add the user to
+     * @param {Adopter} userName The name of the user to add to the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */
+    async addUserToUserLikes(dogName: string, userName: Adopter): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name: dogName }, { $push: { usersLiked: userName } }, { new: true }).exec();
+    }
+
+    /**
+     * find adopter by name
+     * @param {string} name The name of the adopter to find
+     * @return {Promise<Adopter || null>}
+     */
+    async findAdopterByName(name: string): Promise<Adopter | null> {
+        return this.AdopterModel.findOne({ name }).exec();
+    }
+
+
 }
