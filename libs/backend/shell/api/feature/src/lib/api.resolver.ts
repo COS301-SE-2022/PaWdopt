@@ -173,14 +173,16 @@ export class ApiResolver {
         }
     }
 
-    @Query(() => [Boolean])
+    @Query(() => Boolean)
     async emailExists(@Args('email') email: string) : Promise<boolean> {
-        return this.DogService.adopterEmailExists(email) || this.DogService.orgMemberEmailExists(email);
+        const temp = await this.DogService.adopterEmailExists(email);
+        const temp2 = await this.DogService.orgMemberEmailExists(email);
+        const temp3 = temp || temp2;
+        return temp3;
     }
 
-
-
-
-
-
+    @Query(() => AdopterType, {nullable: true})
+    async getAdopterByEmail(@Args('email') email: string) : Promise<AdopterType> {
+        return this.DogService.findAdopterByEmail(email);
+    }
 }
