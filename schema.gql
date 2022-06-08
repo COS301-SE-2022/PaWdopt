@@ -145,7 +145,7 @@ input AdopterInputType {
 
 type Query {
   findPic(id: String!): PicType!
-  findDog(id: String!): DogType!
+  findDog(name: String!): DogType!
   findDogsByName(name: String!): [DogType!]!
   findDogsByBreed(breed: String!): [DogType!]!
   findDogs: [DogType!]!
@@ -180,4 +180,5 @@ type Mutation {
   createAdopter(adopter: AdopterInputType!): AdopterType!
   updateAdopter(email: String!, adopter: AdopterInputType!): AdopterType!
   deleteAdopter(email: String!): AdopterType!
+  UserSwipesRightOnDog(userName: String!, dogName: String!): DogType!
 }
