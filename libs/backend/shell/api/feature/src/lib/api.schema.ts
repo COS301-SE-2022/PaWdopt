@@ -89,6 +89,9 @@ export class Dog {
     dob: Date;
 
     @Prop()
+    gender: string;
+
+    @Prop()
     pics: [Pic];
 
     @Prop()

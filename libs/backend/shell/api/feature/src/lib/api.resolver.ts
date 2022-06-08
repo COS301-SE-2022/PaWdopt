@@ -187,4 +187,53 @@ export class ApiResolver {
         return ret;
     }
 
+    @Query(() => DogType)
+    async UpdateDogBreed(@Args('dogName') dogName: string, @Args('breed') breed: string) : Promise<DogType> {
+        return this.DogService.updateDogBreed(dogName, breed);
+    }
+
+    @Query(() => DogType)
+    async UpdateDogGender(@Args('dogName') dogName: string, @Args('gender') gender: string) : Promise<DogType> {
+        return this.DogService.updateDogGender(dogName, gender);
+    }
+
+    @Query(() => DogType)
+    async UpdateDogFurlength(@Args('dogName') dogName: string, @Args('furlength') furlength: string) : Promise<DogType> {
+        return this.DogService.updateDogFurLength(dogName, furlength);
+    }
+
+    @Query(() => DogType)
+    async UpdateDogAbout(@Args('dogName') dogName: string, @Args('about') about: string) : Promise<DogType> {
+        return this.DogService.updateDogAbout(dogName, about);
+    }
+
+    @Query(() => DogType)
+    async UpdateDogWeight(@Args('dogName') dogName: string, @Args('weight') weight: number) : Promise<DogType> {
+        return this.DogService.updateDogWeight(dogName, weight);
+    }
+
+    @Query(() => DogType)
+    async UpdateDogHeight(@Args('dogName') dogName: string, @Args('height') height: number) : Promise<DogType> {
+        return this.DogService.updateDogHeight(dogName, height);
+    }
+
+    //query to update temperament of dog
+    /*@Query(() => DogType)
+    async UpdateDogTemperament(@Args('dogName') dogName: string, @Args('temperament') temperament: string[]) : Promise<DogType> {
+        const ret = temperament;
+        return this.DogService.updateDogTemperament(dogName, ret);
+    }*/
+
+    //query to update dogs dob
+    @Query(() => DogType)
+    async UpdateDogDob(@Args('dogName') dogName: string, @Args('dob') dob: Date) : Promise<DogType> {
+        return this.DogService.updateDogDob(dogName, dob);
+    }
+
+
+
+
+
+
+
 }

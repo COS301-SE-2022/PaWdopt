@@ -387,5 +387,94 @@ export class ApiService {
         return this.AdopterModel.findOne({ name }).exec();
     }
 
+    /**
+     * update a dogs breed
+     * @param {string} name The name of the dog to update
+     * @param {string} breed The new breed of the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */
+    async updateDogBreed(name: string, breed: string): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, { breed }, { new: true }).exec();
+    }
+
+    /**
+     * update a dogs gender
+     * @param {string} name The name of the dog to update
+     * @param {string} gender The new gender of the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */ 
+     async updateDogGender(name: string, gender: string): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, { gender }, { new: true }).exec();
+    }
+
+    /**
+     * update a dogs about
+     * @param {string} name The name of the dog to update
+     * @param {string} about The new about of the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */
+     async updateDogAbout(name: string, about: string): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, { about }, { new: true }).exec();
+    }
+
+    /**
+     * update a dogs furLength
+     * @param {string} name The name of the dog to update
+     * @param {string} furLength The new furLength of the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */
+     async updateDogFurLength(name: string, furLength: string): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, { furLength }, { new: true }).exec();
+    }
+
+    /**
+     * update a dogs dob
+     * @param {string} name The name of the dog to update
+     * @param {Date} dob The new dob of the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */
+     async updateDogDob(name: string, dob: Date): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, { dob }, { new: true }).exec();
+    }
+
+    /**
+     * update a dogs weight
+     * @param {string} name The name of the dog to update
+     * @param {number} weight The new weight of the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */
+     async updateDogWeight(name: string, weight: number): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, { weight }, { new: true }).exec();
+    }
+
+    /**
+     * update a dogs height
+     * @param {string} name The name of the dog to update
+     * @param {number} height The new height of the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */
+     async updateDogHeight(name: string, height: number): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, { height }, { new: true }).exec();
+    }
+
+    /**
+     * update a dogs temperament
+     * @param {string} name The name of the dog to update
+     * @param {string[]} temperament The new temperament of the dog
+     * @return {Promise<Dog || null>}
+     * 
+     */
+     /*async updateDogTemperament(name: string, temperament: string[]): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, { temperament }, { new: true }).exec();
+    }*/
+    
+
 
 }
