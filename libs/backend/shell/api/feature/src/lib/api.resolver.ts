@@ -209,10 +209,11 @@ export class ApiResolver {
     }
 
     //query to update temperament of dog
-    @Query(() => DogType)
-    async UpdateDogTemperament(@Args('dogName') dogName: string, @Args('temperament') temperament: [string]) : Promise<DogType> {
-        return this.DogService.updateDogTemperament(dogName, temperament);
-    }
+    /*@Query(() => DogType)
+    async UpdateDogTemperament(@Args('dogName') dogName: string, @Args('temperament') temperament: string[]) : Promise<DogType> {
+        const ret = temperament;
+        return this.DogService.updateDogTemperament(dogName, ret);
+    }*/
 
     //query to update dogs dob
     @Query(() => DogType)

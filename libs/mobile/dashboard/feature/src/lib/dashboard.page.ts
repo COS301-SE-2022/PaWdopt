@@ -41,7 +41,7 @@ export class dashboardPageComponent {
 
   getDog(){
     const getDogQuery = gql`query {
-      findDog(name: "Bella"){
+      findDog(name: "Bella2.0"){
         name
         dob
         pics{
@@ -122,6 +122,7 @@ export class dashboardPageComponent {
   userinfo(){
     // TODO Complete dashboard validation
     this.router.navigate(["/userinfo"]);
+    
   }
 
   home(){
