@@ -26,8 +26,8 @@ import { Location, LocationSchema } from './api.schema';
     MongooseModule.forFeature([{ name: Doc.name, schema: DocSchema }]),
     MongooseModule.forFeature([{ name: Location.name, schema: LocationSchema }])
   ],
-  controllers: [ApiResolver],
-  providers: [ApiService],
+  controllers: [],
+  providers: [ApiService, ApiResolver],
   exports: [],
 })
 export class BackendShellApiFeatureModule {}

@@ -14,7 +14,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql'
     }),
-    MongooseModule.forRoot(process.env.DB_URL+"nest")
+    MongooseModule.forRoot(process.env.DB_URL+"nest"),
   ],
   controllers: [AppController],
   providers: [AppService],

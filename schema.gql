@@ -6,6 +6,15 @@ type DocType {
   path: String!
 }
 
+type ContactInfoType {
+  email: String!
+  phone: String!
+  website: String!
+  facebook: String!
+  instagram: String!
+  twitter: String!
+}
+
 type LocationType {
   lat: Float!
   lng: Float!
@@ -18,15 +27,15 @@ type PicType {
 type DogType {
   name: String!
   dob: DateTime!
-  pics: PicType!
+  pics: [PicType!]!
   breed: String!
   about: String!
   organisation: OrganisationType!
   weight: Float!
   height: Float!
-  usersLiked: UserType!
+  usersLiked: [UserType!]!
   furLength: String!
-  temperament: String!
+  temperament: [String!]!
 }
 
 """
@@ -38,7 +47,11 @@ type OrganisationType {
   name: String!
   about: String!
   dateFounded: DateTime!
+  members: [UserType!]!
+  location: LocationType!
   rulesReq: String!
+  contactInfo: ContactInfoType!
+  logo: PicType!
 }
 
 type UserType {
@@ -48,8 +61,39 @@ type UserType {
   type: String!
 }
 
+type AdopterType {
+  name: String!
+  email: String!
+  password: String!
+  type: String!
+  IDNum: String!
+  pic: PicType!
+  location: LocationType!
+  documents: [DocType!]!
+  dogsLiked: [DogType!]!
+  questionnaire: String!
+  distance: Float!
+}
+
+type OrgMemberType {
+  name: String!
+  email: String!
+  password: String!
+  type: String!
+  organisation: String!
+}
+
 input DocInputType {
   path: String!
+}
+
+input ContactInfoInputType {
+  email: String!
+  phone: String!
+  website: String!
+  facebook: String!
+  instagram: String!
+  twitter: String!
 }
 
 input LocationInputType {
@@ -64,22 +108,26 @@ input PicInputType {
 input DogInputType {
   name: String!
   dob: DateTime!
-  pics: PicInputType!
+  pics: [PicInputType!]!
   breed: String!
   about: String!
   organisation: OrganisationInputType!
   weight: Float!
   height: Float!
-  usersLiked: UserInputType!
+  usersLiked: [UserInputType!]!
   furLength: String!
-  temperament: String!
+  temperament: [String!]!
 }
 
 input OrganisationInputType {
   name: String!
   about: String!
   dateFounded: DateTime!
+  members: [UserInputType!]!
+  location: LocationInputType!
   rulesReq: String!
+  contactInfo: ContactInfoInputType!
+  logo: PicInputType!
 }
 
 input UserInputType {
@@ -89,12 +137,69 @@ input UserInputType {
   type: String!
 }
 
+input AdopterInputType {
+  name: String!
+  email: String!
+  password: String!
+  type: String!
+  IDNum: String!
+  pic: PicInputType!
+  location: LocationInputType!
+  documents: [DocInputType!]!
+  dogsLiked: [DogInputType!]!
+  questionnaire: String!
+  distance: Float!
+}
+
+input OrgMemberInputType {
+  name: String!
+  email: String!
+  password: String!
+  type: String!
+  organisation: String!
+}
+
 type Query {
-  Organisation: [OrganisationType!]!
+  findPic(id: String!): PicType!
+  findUser(email: String!): UserType!
+  findUsers(name: String!): [UserType!]!
+  findDog(id: String!): DogType!
+  findDogsByName(name: String!): [DogType!]!
+  findDogsByBreed(breed: String!): [DogType!]!
+  findDogs: [DogType!]!
+  findDogsByOrg(org: OrganisationInputType!): [DogType!]!
+  findOrgMembersByOrganisation(org: String!): [OrgMemberType!]!
+  findOrganisationsByDistance(adopter: AdopterInputType!): [OrganisationType!]!
+  loginUser(email: String!, password: String!): UserType!
+  checkEmailExists(email: String!): Boolean!
 }
 
 type Mutation {
   createOrg(org: OrganisationInputType!): OrganisationType!
   updateOrg(name: String!, org: OrganisationInputType!): OrganisationType!
   deleteOrg(name: String!): OrganisationType!
+  createOrgMember(member: OrgMemberInputType!): OrgMemberType!
+  updateOrgMember(email: String!, member: OrgMemberInputType!): OrgMemberType!
+  deleteOrgMember(email: String!): OrgMemberType!
+  createDog(dog: DogInputType!): DogType!
+  updateDog(id: String!, dog: DogInputType!): DogType!
+  deleteDog(id: String!): DogType!
+  createPic(pic: PicInputType!): PicType!
+  updatePic(id: String!, pic: PicInputType!): PicType!
+  deletePic(id: String!): PicType!
+  createLocation(location: LocationInputType!): LocationType!
+  updateLocation(id: String!, location: LocationInputType!): LocationType!
+  deleteLocation(id: String!): LocationType!
+  createUser(user: UserInputType!): UserType!
+  updateUser(email: String!, user: UserInputType!): UserType!
+  deleteUser(email: String!): UserType!
+  createContactInfo(contactInfo: ContactInfoInputType!): ContactInfoType!
+  updateContactInfo(id: String!, contactInfo: ContactInfoInputType!): ContactInfoType!
+  deleteContactInfo(id: String!): ContactInfoType!
+  createDoc(doc: DocInputType!): DocType!
+  updateDoc(id: String!, doc: DocInputType!): DocType!
+  deleteDoc(id: String!): DocType!
+  createAdopter(adopter: AdopterInputType!): AdopterType!
+  updateAdopter(email: String!, adopter: AdopterInputType!): AdopterType!
+  deleteAdopter(email: String!): AdopterType!
 }

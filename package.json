@@ -30,6 +30,8 @@
     "@nestjs/platform-express": "^8.4.5",
     "@nrwl/nest": "^14.1.9",
     "@nxtend/ionic-angular": "13.1.0",
+    "apollo-angular": "^3.0.1",
+    "apollo-client": "^2.6.10",
     "apollo-server-express": "^3.8.1",
     "bcryptjs": "^2.4.3",
     "graphql": "^16.5.0",
