@@ -50,3 +50,4 @@ Thumbs.db
 #Ignore mobile builds
 /apps/pawdopt/android
 /apps/pawdopt/ios
+schema.gql
