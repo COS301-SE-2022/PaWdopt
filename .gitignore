@@ -58,6 +58,7 @@ Thumbs.db
 /ML/.vscode
 /ML/models
 /ML/*.h5
+/ML/tests
 tfjs_model
 
 # GraphQL
