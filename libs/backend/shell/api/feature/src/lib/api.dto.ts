@@ -75,6 +75,9 @@ export class DogType {
     @Field()
     dob: Date;
 
+    @Field()
+    gender: string;
+
     @Field(() => [PicType])
     pics: [Pic];
 
