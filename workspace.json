@@ -15,7 +15,6 @@
     "mobile-userlikes-feature": "libs/mobile/userlikes/feature",
     "mobile-userprofile-feature": "libs/mobile/userprofile/feature",
     "pawdopt": "apps/pawdopt",
-    "pawdopt-e2e": "apps/pawdopt-e2e",
-    "shared-global-vars": "libs/shared/global-vars"
+    "pawdopt-e2e": "apps/pawdopt-e2e"
   }
 }
