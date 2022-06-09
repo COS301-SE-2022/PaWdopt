@@ -241,8 +241,25 @@ export class ApiResolver {
      * @returns adopter
      * 
      */
-     @Query(() => AdopterType, {nullable: true})
-     async findAdopterByEmail(@Args('email') email: string) : Promise<AdopterType> {
-         return this.DogService.findAdopter(email);
-     }
+    @Query(() => AdopterType, {nullable: true})
+    async findAdopterByEmail(@Args('email') email: string) : Promise<AdopterType> {
+        return this.DogService.findAdopter(email);
+    }
+
+    /**
+     * find dogs by org name
+     * @param orgName
+     * @returns dogs
+     * 
+     */
+    @Query(() => [DogType])
+    async findDogsByOrgName(@Args('orgName') orgName: string) : Promise<DogType[]> {
+        return this.DogService.findDogsByOrg(orgName);
+    }
+
+
+
+
+
+
 }
