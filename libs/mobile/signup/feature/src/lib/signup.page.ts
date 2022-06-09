@@ -11,7 +11,7 @@ export class SignupPageComponent {
   uName!: string;
   pass!: string;
   rePass!: string;
-  idnum!: Date;
+  idnum!: string;
   email!: string;
 
   constructor(private router: Router, private apollo: Apollo) {
