@@ -10,4 +10,6 @@ import { dashboardPageComponentRoutingModule } from './dashboard-routing.module'
   imports: [CommonModule, FormsModule, IonicModule, dashboardPageComponentRoutingModule],
   declarations: [dashboardPageComponent],
 })
-export class dashboardPageComponentModule {}
+export class dashboardPageComponentModule {
+  public static user = dashboardPageComponent.user;
+}
