@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "start:db": "docker compose up -d",
+    "init:docker": "docker compose up -d",
     "build": "nx build",
     "test": "nx test",
     "e2e": "nx e2e pawdopt-e2e",
