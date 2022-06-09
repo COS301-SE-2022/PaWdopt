@@ -51,8 +51,7 @@
       ],
       "@pawdopt/mobile/userprofile/feature": [
         "libs/mobile/userprofile/feature/src/index.ts"
-      ],
-      "@pawdopt/shared/global-vars": ["libs/shared/global-vars/src/index.ts"],
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
