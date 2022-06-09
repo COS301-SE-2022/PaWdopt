@@ -38,7 +38,7 @@ export class updateorremovedogPageComponent {
     name:string,
     gender:string,
     breed:string,
-    dob:Date,
+    dob:string,
     about:string,
     height:number,
     weight:number,
@@ -49,7 +49,7 @@ export class updateorremovedogPageComponent {
     name:'',
     gender:'',
     breed:'',
-    dob: new Date(),
+    dob: '',
     about:'',
     height:0,
     weight:0,
@@ -61,7 +61,7 @@ export class updateorremovedogPageComponent {
 
   loadDog(){
     const getDogQuery = gql`query {
-      findDog(name: "Bella2.0"){
+      findDog(name: "Millie"){
         name
         dob
         breed
@@ -95,6 +95,8 @@ export class updateorremovedogPageComponent {
       
       this.dog.name = data.findDog.name;
       this.dog.about = data.findDog.about;
+      const tempDate = new Date(data.findDog.dob); 
+      this.dog.dob = tempDate.toDateString();
       this.dog.gender = data.findDog.gender;
       this.dog.height = data.findDog.height;
       this.dog.weight = data.findDog.weight;
@@ -116,100 +118,108 @@ export class updateorremovedogPageComponent {
 
   updateDog(){
     //update the dogs breed from name in form to newBreed
-    const updateDogQuery = gql`mutation {
-      updateDogBreed(name: "Bella2.0", breed: "${this.newBreed}"){
-        name
-        breed
-      }`;
-    this.apollo.mutate({
-      mutation: updateDogQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-    });
+    // const updateDogQuery = gql`mutation {
+    //   updateDogBreed(dogName: "Millie", breed: "${this.newBreed}"){
+    //     name
+    //     breed
+    //   }
+    // }`;
+    // this.apollo.mutate({
+    //   mutation: updateDogQuery,
+    //   fetchPolicy: 'no-cache'
+    // }).subscribe((result) => {
+    //   console.log(result);
+    // });
 
-    //update the dogs about from name in form to newAbout
-    const updateDogAboutQuery = gql`mutation {
-      updateDogAbout(name: "Bella2.0", about: "${this.newAbout}"){
-        name
-        about
-      }`;
-    this.apollo.mutate({
-      mutation: updateDogAboutQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-    }
-    );
-    //update the dogs dob from name in form to newDob
-    const updateDogDobQuery = gql`mutation {
-      updateDogDob(name: "Bella2.0", dob: "${this.newDob}"){
-        name
-        dob
-      }`;
-    this.apollo.mutate({
-      mutation: updateDogDobQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-    }
-    );
-    //update the dogs height from name in form to newHeight
-    const updateDogHeightQuery = gql`mutation {
-      updateDogHeight(name: "Bella2.0", height: "${this.newHeight}"){
-        name
-        height
-      }`;
-    this.apollo.mutate({
-      mutation: updateDogHeightQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-    }
-    );
-    //update the dogs weight from name in form to newWeight
-    const updateDogWeightQuery = gql`mutation {
-      updateDogWeight(name: "Bella2.0", weight: "${this.newWeight}"){
-        name
-        weight
-      }`;
-    this.apollo.mutate({
-      mutation: updateDogWeightQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-    }
-    );
-    //update the dogs furlength from name in form to newFurlength
-    const updateDogFurlengthQuery = gql`mutation {
-      updateDogFurlength(name: "Bella2.0", furLength: "${this.newFurlength}"){
-        name
-        furLength
-      }`;
-    this.apollo.mutate({
-      mutation: updateDogFurlengthQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-    }
-    );
-    //update the dogs gender from name in form to newGender
-    const updateDogGenderQuery = gql`mutation {
-      updateDogGender(name: "Bella2.0", gender: "${this.newGender}"){
-        name
-        gender
-      }`;
-    this.apollo.mutate({
-      mutation: updateDogGenderQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-    });
+    // //update the dogs about from name in form to newAbout
+    // const updateDogAboutQuery = gql`mutation {
+    //   updateDogAbout(dogName: "Millie", about: "${this.newAbout}"){
+    //     name
+    //     about
+    //     }
+    //   }`;
+    // this.apollo.mutate({
+    //   mutation: updateDogAboutQuery,
+    //   fetchPolicy: 'no-cache'
+    // }).subscribe((result) => {
+    //   console.log(result);
+    // }
+    // );
+    // //update the dogs dob from name in form to newDob
+    // // const updateDogDobQuery = gql`mutation {
+    // //   updateDogDob(dogName: "Millie", dob: "${this.newDob}"){
+    // //     name
+    // //     dob
+    // //   }
+    // // }`;
+    // // this.apollo.mutate({
+    // //   mutation: updateDogDobQuery,
+    // //   fetchPolicy: 'no-cache'
+    // // }).subscribe((result) => {
+    // //   console.log(result);
+    // // }
+    // // );
+    // //update the dogs height from name in form to newHeight
+    // const updateDogHeightQuery = gql`mutation {
+    //   updateDogHeight(dogName: "Millie", height: "${this.newHeight}"){
+    //     name
+    //     height
+    //     }
+    //   }`;
+    // this.apollo.mutate({
+    //   mutation: updateDogHeightQuery,
+    //   fetchPolicy: 'no-cache'
+    // }).subscribe((result) => {
+    //   console.log(result);
+    // }
+    // );
+    // //update the dogs weight from name in form to newWeight
+    // const updateDogWeightQuery = gql`mutation {
+    //   updateDogWeight(dogName: "Millie", weight: "${this.newWeight}"){
+    //     name
+    //     weight
+    //   }
+    // }`;
+    // this.apollo.mutate({
+    //   mutation: updateDogWeightQuery,
+    //   fetchPolicy: 'no-cache'
+    // }).subscribe((result) => {
+    //   console.log(result);
+    // }
+    // );
+    // //update the dogs furlength from name in form to newFurlength
+    // const updateDogFurlengthQuery = gql`mutation {
+    //   updateDogFurLength(dogName: "Millie", furLength: "${this.newFurlength}"){
+    //     name
+    //     furLength
+    //   }
+    // }`;
+    // this.apollo.mutate({
+    //   mutation: updateDogFurlengthQuery,
+    //   fetchPolicy: 'no-cache'
+    // }).subscribe((result) => {
+    //   console.log(result);
+    // }
+    // );
+    // //update the dogs gender from name in form to newGender
+    // const updateDogGenderQuery = gql`mutation {
+    //   updateDogGender(dogName: "Millie", gender: "${this.newGender}"){
+    //     name
+    //     gender
+    //   }
+    // }`;
+    // this.apollo.mutate({
+    //   mutation: updateDogGenderQuery,
+    //   fetchPolicy: 'no-cache'
+    // }).subscribe((result) => {
+    //   console.log(result);
+    // });
+    this.router.navigate(["/owneddogs"]);
   }
 
   deleteDog(){//delete whats in name value in form
     const deleteDogQuery = gql`mutation {
-      deleteDog(name: "Bella"){
+      deleteDog(dogName: "Millie"){
         name
       }
     }`;

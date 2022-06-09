@@ -44,10 +44,7 @@ describe('ApiService', () => {
     expect(service).toBeDefined();
   });
   
-  // describe('findUser', () =>{
-  //     it('should return a single user', ()=>{
-  //       const result = service.findUser('tester@testing.test');
-  //       expect(result).toBeDefined();
-  //     });
-  // });
+
+  
+
 });

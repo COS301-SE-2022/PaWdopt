@@ -26,8 +26,8 @@ export class dashboardPageComponent {
     height:number,
     weight:number,
     breed:string,
-    temperament:string,
-    furlength:number
+    temperament:string[],
+    furLength:number
   }={
     name: '',
     pic: '',
@@ -36,8 +36,8 @@ export class dashboardPageComponent {
     height: 0,  
     weight: 0,
     breed: '',
-    temperament: '',
-    furlength: 0
+    temperament: [],
+    furLength: 0
   };
 
   userLikes:{
@@ -53,7 +53,7 @@ export class dashboardPageComponent {
 
   getDog(){
     const getDogQuery = gql`query {
-      findDog(name: "Bella2.0"){
+      findDog(name: "Millie"){
         name
         dob
         pics{
@@ -96,8 +96,8 @@ export class dashboardPageComponent {
           about: string,
           height: number,
           weight: number,
-          temperament: string,
-          furlength: number,
+          temperament: string[],
+          furLength: number,
           usersLiked: {
             name: string,
             pic: {
@@ -118,8 +118,8 @@ export class dashboardPageComponent {
       this.dog.height = data.findDog.height;
       this.dog.weight = data.findDog.weight;
       this.dog.breed = data.findDog.breed;
-      this.dog.temperament = data.findDog.temperament[0];
-      this.dog.furlength = data.findDog.furlength;
+      this.dog.temperament = data.findDog.temperament;
+      this.dog.furLength = data.findDog.furLength;
       
       data.findDog.usersLiked.forEach(element => {
         this.userLikes.push(
@@ -127,7 +127,7 @@ export class dashboardPageComponent {
             id: id++,
             email: element.email,
             name: element.name,
-            pic: element.pic.path
+            pic: "../../assets/avatar1.jpg"
           }
         );
       })
