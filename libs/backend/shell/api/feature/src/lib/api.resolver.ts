@@ -163,7 +163,7 @@ export class ApiResolver {
         return this.DogService.findOrgMembersByOrganisation(org);
     }
 
-    @Query(() => [Boolean])
+    @Query(() => Boolean)
     async emailExists(@Args('email') email: string) : Promise<boolean> {
         return this.DogService.adopterEmailExists(email) || this.DogService.orgMemberEmailExists(email);
     }
@@ -232,6 +232,18 @@ export class ApiResolver {
         return this.DogService.loginAdopter(email, password);
           
     }
+
+    /**
+     * find adopter by email
+     * @param email
+     * @returns adopter
+     * 
+     */
+    @Query(() => AdopterType, {nullable: true})
+    async findAdopterByEmail(@Args('email') email: string) : Promise<AdopterType> {
+        return this.DogService.findAdopter(email);
+    }
+
 
 
 

@@ -29,7 +29,7 @@ export class SignupPageComponent {
     const email = this.email;
     
     const checkEmail = gql`query {
-      emailExists(email: "${email}")
+      emailExists(email: "$email")
     }`;
 
     this.apollo.watchQuery({

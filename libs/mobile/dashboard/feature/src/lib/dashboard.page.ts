@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
+//import { owneddogsPageComponentModule } from '@pawdopt/mobile/owneddogs/feature';
 @Component({
   selector: 'pawdopt-dashboard',
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss', '../../../../../shared/styles/global.scss'],
 })
 export class dashboardPageComponent {
+
+  //GlobalVar = owneddogsPageComponentModule.GlobalVars;
+  
 
   dog:{
     name:string,
