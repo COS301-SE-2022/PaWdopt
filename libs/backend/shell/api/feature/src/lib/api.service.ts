@@ -368,7 +368,8 @@ export class ApiService {
      * 
      */
     async adopterEmailExists(email: string): Promise<boolean> {
-        return this.AdopterModel.findOne({ email }).exec() !== null;
+        const temp = await this.AdopterModel.findOne({ email }).exec();
+        return temp !== null;
     }
 
     /**
@@ -378,7 +379,8 @@ export class ApiService {
 
      */
     async orgMemberEmailExists(email: string): Promise<boolean> {
-        return this.OrgMemberModel.findOne({ email }).exec() !== null;
+        const temp = await this.OrgMemberModel.findOne({ email }).exec();
+        return temp !== null;
     }
 
     /**

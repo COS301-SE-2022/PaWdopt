@@ -165,7 +165,10 @@ export class ApiResolver {
 
     @Query(() => Boolean)
     async emailExists(@Args('email') email: string) : Promise<boolean> {
-        return this.DogService.adopterEmailExists(email) || this.DogService.orgMemberEmailExists(email);
+        const temp1 = await this.DogService.adopterEmailExists(email);
+        const temp2 = await this.DogService.orgMemberEmailExists(email);
+        const temp3 = temp1 || temp2;
+        return temp3;
     }
 
     @Mutation(() => DogType)
