@@ -17,6 +17,7 @@ export class SignupPageComponent {
   constructor(private router: Router, private apollo: Apollo) {
   }
   
+  
   signUp(){
     // TODO Complete login validation
 
