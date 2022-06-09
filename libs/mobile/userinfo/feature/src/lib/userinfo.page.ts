@@ -61,12 +61,11 @@ export class userinfoPageComponent {
     path: "../../assets/local-file-not-found.png"
   };
 
-  passedEmail = dashboardPageComponentModule.user.email;
+  // passedEmail = dashboardPageComponentModule.user.email;
   
   constructor(private router: Router, private apollo: Apollo){
     const userInfo =  gql`query{
-      findAdopterByEmail(email: "${this.passedEmail}"){
-      {
+      findAdopterByEmail(email: "email@email.com"){
         name,
         email,
         IDNum,

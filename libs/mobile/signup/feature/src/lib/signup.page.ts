@@ -43,7 +43,7 @@ export class SignupPageComponent {
       }
       if(username != null){
         if(password == rePassword){ 
-          if(idnum != null){
+          if(idnum != null && idnum.length == 13){
             if(email != null){
               if(!data.emailExists){
                 console.log("success");
@@ -66,7 +66,7 @@ export class SignupPageComponent {
         }
       }else{
         console.log("failure");
-        alert("Please enter a username");
+        alert("Please enter an User Name");
       }
     });
   }
