@@ -29,7 +29,7 @@ export class SignupPageComponent {
     const email = this.email;
     
     const checkEmail = gql`query {
-      emailExists(email: "${email}")
+      emailExists(email: "${this.email}")
     }`;
 
     this.apollo.watchQuery({
@@ -73,10 +73,10 @@ export class SignupPageComponent {
   addUser(){
     const addUser = gql`mutation {
       createAdopter(adopter: {
-        name: "$username",
-        email: "$email",
-        password: "$password",
-        IDNum: "$idnum",
+        name: "${this.uName}",
+        email: "${this.email}",
+        password: "${this.pass}",
+        IDNum: "${this.idnum}",
         pic: null,
         location: null,
         documents:[],
