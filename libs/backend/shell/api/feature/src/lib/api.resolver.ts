@@ -235,21 +235,14 @@ export class ApiResolver {
         return this.DogService.loginAdopter(email, password);
           
     }
-
     /**
      * find adopter by email
      * @param email
      * @returns adopter
      * 
      */
-    @Query(() => AdopterType, {nullable: true})
-    async findAdopterByEmail(@Args('email') email: string) : Promise<AdopterType> {
-        return this.DogService.findAdopter(email);
-    }
-
-
-
-
-
-
+     @Query(() => AdopterType, {nullable: true})
+     async findAdopterByEmail(@Args('email') email: string) : Promise<AdopterType> {
+         return this.DogService.findAdopter(email);
+     }
 }

@@ -1,73 +1,73 @@
 <!--Header-->
-<ion-header >
-  <ion-toolbar color = "secondary">
-    <ion-buttons slot="start">
-      <ion-button fill="clear" color="dark" (click)="preferences()">
-        <ion-icon slot="icon-only" name="settings"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title class="ion-text-center">
-      <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
-    </ion-title>
-    <ion-buttons slot="end" (click)="profile()">
-      <ion-button fill="clear" color="dark">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="settings"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="person"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <div>&nbsp;</div>
 
 <ion-content>
-  <!--Profile image-->
-  <ion-thumbnail class="avatar">
-    <img src="../../assets/avatar1.jpg">
-  </ion-thumbnail>
-   <!--Profile information-->
-  <div class="profile">
-    <h1>Daniel Craig</h1>
-    <p>danielg@gmail.com</p>
-    <p>0810785739</p>
-    <p><ion-icon name="location"></ion-icon>Pretoria</p>
-  <!--Documentation-->
-  <div class="userinfo">
-    <ion-list>
-      <ion-item>
-        <ion-label>ID Documents</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Certificates</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Proof of Residence</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Bank Statements</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Motivation letter</ion-label>
-      </ion-item>
-    </ion-list>
-  </div> 
-  </div>
+    <!--Profile image-->
+    <ion-thumbnail class="avatar">
+        <img [src]="user.pic.path" [alt]="user.name">
+    </ion-thumbnail>
+    <!--Profile information-->
+    <div class="profile">
+        <h1>{{user.name}}</h1>
+        <p>{{user.email}}</p>
+        <p>
+            <ion-icon name="location"></ion-icon>Pretoria</p>
+        <!--Documentation-->
+        <div class="userinfo">
+            <ion-list>
+                <ion-item>
+                    <ion-label>{{user.IDNum}}</ion-label>
+                </ion-item>
+                <ion-item>
+                    <a href="{{ident.path}}">ID Book</a>
+                </ion-item>
+                <ion-item>
+                    <a href="{{poR.path}}">Proof of Residence</a>
+                </ion-item>
+                <ion-item>
+                    <a href="{{bankState.path}}">Bank Statements</a>
+                </ion-item>
+                <ion-item>
+                    <a href="{{motivateLet.path}}">Motivation letter</a>
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
 </ion-content>
 
 <div>
-  <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
-    <ion-icon  name="arrow-back-circle"></ion-icon>
-  </ion-button>
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-button>
 </div>
 
 <!-- Footer-->
 <ion-tab-bar color="secondary" slot="bottom">
-  <ion-tab-button tab="home" (click)="home()">
-  <ion-icon color = "dark" name="home"></ion-icon>
-  </ion-tab-button>
-  <ion-tab-button tab="liked" (click)="likeddogs()">
-    <ion-icon color = "dark" name="paw"></ion-icon>
+    <ion-tab-button tab="home">
+        <ion-icon color="dark" name="home"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="liked">
+        <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
     <ion-tab-button tab="chats">
-      <ion-icon color = "dark" name="chatbox"></ion-icon>
-      </ion-tab-button>
+        <ion-icon color="dark" name="chatbox"></ion-icon>
+    </ion-tab-button>
 </ion-tab-bar>
