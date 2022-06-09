@@ -248,5 +248,144 @@ describe('ApiService', () => {
         }
     );
 
+    //Test if updateOrg(name: string, org: Organisation) works and returns an Organisation
+    describe('updateOrg', () => {
+        it('should return a Organisation', async () => {
+          jest
+            .spyOn(service, 'updateOrg')
+            .mockImplementation((): Promise<Organisation> => Promise.resolve(org));
     
+          expect(await service.updateOrg('name', org)).toMatchObject(org);
+        });
+    
+        it('should return null', async () => {
+          jest.spyOn(service, 'updateOrg').mockResolvedValue(null);
+    
+          expect(await service.updateOrg('name', org)).toEqual(null);
+        });
+      });
+
+    //Test if updateDog(name: string, dog: Dog) works and returns a Dog
+    describe('updateDog', () => {
+        it('should return a Dog', async () => {
+            jest
+                .spyOn(service, 'updateDog')
+                .mockImplementation((): Promise<Dog> => Promise.resolve(dog));
+
+            expect(await service.updateDog('name', dog)).toMatchObject(dog);
+        });
+
+        it('should return null', async () => {
+            jest.spyOn(service, 'updateDog').mockResolvedValue(null);
+
+            expect(await service.updateDog('name', dog)).toEqual(null);
+        });
+    });
+
+    //Test if updateAdopter(name: string, adopter: Adopter) works and returns an Adopter
+    describe('updateAdopter', () => {
+        it('should return an Adopter', async () => {
+            jest
+                .spyOn(service, 'updateAdopter')
+                .mockImplementation((): Promise<Adopter> => Promise.resolve(adopter));
+
+            expect(await service.updateAdopter('name', adopter)).toMatchObject(adopter);
+        });
+
+        it('should return null', async () => {
+            jest.spyOn(service, 'updateAdopter').mockResolvedValue(null);
+
+            expect(await service.updateAdopter('name', adopter)).toEqual(null);
+        });
+    });
+
+    //Test if updatePic(name: string, pic: Pic) works and returns a Pic
+    describe('updatePic', () => {
+        it('should return a Pic', async () => {
+            jest
+                .spyOn(service, 'updatePic')
+                .mockImplementation((): Promise<Pic> => Promise.resolve(pic));
+
+            expect(await service.updatePic('name', pic)).toMatchObject(pic);
+        });
+
+        it('should return null', async () => {
+            jest.spyOn(service, 'updatePic').mockResolvedValue(null);
+
+            expect(await service.updatePic('name', pic)).toEqual(null);
+        });
+    }
+    );
+
+    //Test if updateDoc(name: string, doc: Doc) works and returns a Doc
+    describe('updateDoc', () => {
+        it('should return a Doc', async () => {
+            jest
+                .spyOn(service, 'updateDoc')
+                .mockImplementation((): Promise<Doc> => Promise.resolve(doc));
+
+            expect(await service.updateDoc('name', doc)).toMatchObject(doc);
+        });
+
+        it('should return null', async () => {
+            jest.spyOn(service, 'updateDoc').mockResolvedValue(null);
+
+            expect(await service.updateDoc('name', doc)).toEqual(null);
+        });
+    }
+    );
+
+    //Test if updateContactInfo(name: string, contInfo: ContactInfo) works and returns a ContactInfo
+    describe('updateContactInfo', () => {
+        it('should return a ContactInfo', async () => {
+            jest
+                .spyOn(service, 'updateContactInfo')
+                .mockImplementation((): Promise<ContactInfo> => Promise.resolve(contInfo));
+
+            expect(await service.updateContactInfo('name', contInfo)).toMatchObject(contInfo);
+        });
+
+        it('should return null', async () => {
+            jest.spyOn(service, 'updateContactInfo').mockResolvedValue(null);
+
+            expect(await service.updateContactInfo('name', contInfo)).toEqual(null);
+        });
+    }
+    );
+
+    //Test if updateLocation(name: string, loc: Location) works and returns a Location
+    describe('updateLocation', () => {
+        it('should return a Location', async () => {
+            jest
+                .spyOn(service, 'updateLocation')
+                .mockImplementation((): Promise<Location> => Promise.resolve(loc));
+
+            expect(await service.updateLocation('name', loc)).toMatchObject(loc);
+        });
+
+        it('should return null', async () => {
+            jest.spyOn(service, 'updateLocation').mockResolvedValue(null);
+
+            expect(await service.updateLocation('name', loc)).toEqual(null);
+        });
+    }
+    );
+
+    //Test if updateOrgMember(name: string, orgMem: OrgMember) works and returns an OrgMember
+    describe('updateOrgMember', () => {
+        it('should return an OrgMember', async () => {
+            jest
+                .spyOn(service, 'updateOrgMember')
+                .mockImplementation((): Promise<OrgMember> => Promise.resolve(orgMem));
+
+            expect(await service.updateOrgMember('name', orgMem)).toMatchObject(orgMem);
+        });
+
+        it('should return null', async () => {
+            jest.spyOn(service, 'updateOrgMember').mockResolvedValue(null);
+
+            expect(await service.updateOrgMember('name', orgMem)).toEqual(null);
+        });
+    }
+    );
 });
