@@ -9,5 +9,9 @@ import { owneddogsPageComponentRoutingModule } from './owneddogs-routing.module'
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, owneddogsPageComponentRoutingModule],
   declarations: [owneddogsPageComponent],
+
+  
 })
-export class owneddogsPageComponentModule {}
+export class owneddogsPageComponentModule {
+  //public static GlobalVars = owneddogsPageComponent.GlobalVars;
+}

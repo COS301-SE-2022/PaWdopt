@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
   styleUrls: ['owneddogs.page.scss', '../../../../../shared/styles/global.scss'],
 })
 export class owneddogsPageComponent {
+
+  //public static GlobalVars = "hello";
   
   constructor(private router: Router){}
 
