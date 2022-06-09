@@ -9,6 +9,7 @@ import { Apollo, gql } from 'apollo-angular';
 })
 export class updateorremovedogPageComponent {
 
+
   inputBreed!: string;
   inputGender!: string;
   inputDob!: Date;
@@ -27,6 +28,7 @@ export class updateorremovedogPageComponent {
   newWeight = this.inputWeight;
   newFurlength = this.inputFurlength;
   newTemperament = this.inputTemperament;
+
   
   constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo: Apollo ){
     this.loadDog();
@@ -198,7 +200,7 @@ export class updateorremovedogPageComponent {
         gender
       }`;
     this.apollo.mutate({
-      mutation: updateDogQuery,
+      mutation: updateDogGenderQuery,
       fetchPolicy: 'no-cache'
     }).subscribe((result) => {
       console.log(result);
@@ -261,35 +263,35 @@ export class updateorremovedogPageComponent {
   }
 
 
-  async uploadPic(){
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Upload picture',
-      buttons: [{
-        text: 'Take picture using your camera',
-        icon: 'camera-outline',
-        handler: () => {
-          console.log('Take picture clicked');
-        }
-      }, {
-        text: 'Choose a picture from your gallery',
-        icon: 'image-outline',
-        handler: () => {
-          console.log('Choose a picture clicked');
-        }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
-    });
-    await actionSheet.present();
+  // async uploadPic(){
+  //   const actionSheet = await this.actionSheetController.create({
+  //     header: 'Upload picture',
+  //     buttons: [{
+  //       text: 'Take picture using your camera',
+  //       icon: 'camera-outline',
+  //       handler: () => {
+  //         console.log('Take picture clicked');
+  //       }
+  //     }, {
+  //       text: 'Choose a picture from your gallery',
+  //       icon: 'image-outline',
+  //       handler: () => {
+  //         console.log('Choose a picture clicked');
+  //       }
+  //     }, {
+  //       text: 'Cancel',
+  //       icon: 'close',
+  //       role: 'cancel',
+  //       handler: () => {
+  //         console.log('Cancel clicked');
+  //       }
+  //     }]
+  //   });
+  //   await actionSheet.present();
 
-    const { role, data } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role and data', role, data);
-  }
+  //   const { role, data } = await actionSheet.onDidDismiss();
+  //   console.log('onDidDismiss resolved with role and data', role, data);
+  // }
 
 }
 
