@@ -11,6 +11,7 @@ import { Adopter, AdopterSchema } from './api.schema';
 import { ContactInfo, ContactInfoSchema } from './api.schema';
 import { Doc, DocSchema } from './api.schema';
 import { Location, LocationSchema } from './api.schema';
+import { GlobalVar, GlobalVarSchema } from './api.schema';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { Location, LocationSchema } from './api.schema';
     MongooseModule.forFeature([{ name: Adopter.name, schema: AdopterSchema }]),
     MongooseModule.forFeature([{ name: ContactInfo.name, schema: ContactInfoSchema }]),
     MongooseModule.forFeature([{ name: Doc.name, schema: DocSchema }]),
-    MongooseModule.forFeature([{ name: Location.name, schema: LocationSchema }])
+    MongooseModule.forFeature([{ name: Location.name, schema: LocationSchema }]),
+    MongooseModule.forFeature([{ name: GlobalVar.name, schema: GlobalVarSchema }]),
   ],
   controllers: [],
   providers: [ApiService, ApiResolver],

@@ -4,6 +4,13 @@ import { ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 @Schema()
+export class GlobalVar {
+    @Prop()
+    var: string;
+}
+
+@ObjectType()
+@Schema()
 export class Location {
     @Prop()
     lat: number;
@@ -169,6 +176,8 @@ export class OrgMember {
     organisation: string;    
 }
 
+export type GlobalVarDocument = GlobalVar & Document;
+export const GlobalVarSchema = SchemaFactory.createForClass(GlobalVar);
 export type DocDocument = Doc & Document;
 export const DocSchema = SchemaFactory.createForClass(Doc);
 export type ContactInfoDocument = ContactInfo & Document;

@@ -129,17 +129,25 @@ export class owneddogsPageComponent {
         }  
       };
 
-      this.dog=[];
+      if(data.findDog == null)
+      {
+        alert("Dog not found");
+        this.dog = [];
 
-      this.dog.push(
-        {
-          name: data.findDog.name,
-          pic: data.findDog.pics[0].path,
-          age: 0,
-          likes: data.findDog.usersLiked.length,
-          about: data.findDog.about
-        }
-      )
+      }
+      else{
+        this.dog=[];
+
+        this.dog.push(
+          {
+            name: data.findDog.name,
+            pic: data.findDog.pics[0].path,
+            age: 0,
+            likes: data.findDog.usersLiked.length,
+            about: data.findDog.about
+          }
+        )
+      }
     })
   }
 

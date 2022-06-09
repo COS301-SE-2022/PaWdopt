@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dog, DogDocument, Pic, PicDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, Doc, DocDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument } from './api.schema';
+import { Dog, DogDocument, Pic, PicDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, Doc, DocDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, GlobalVar, GlobalVarDocument } from './api.schema';
 import bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -15,6 +15,7 @@ export class ApiService {
         @InjectModel(Doc.name) private readonly DocModel : Model<DocDocument>,
         @InjectModel(ContactInfo.name) private readonly ContactInfoModel : Model<ContactInfoDocument>,
         @InjectModel(Location.name) private readonly LocationModel : Model<LocationDocument>,
+        @InjectModel(GlobalVar.name) private readonly GlobalVarModel : Model<GlobalVarDocument>,
         ) {}
 
     /**
@@ -404,7 +405,21 @@ export class ApiService {
      * 
      */
     async addUserToUserLikes(dogName: string, userName: Adopter): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name: dogName }, { $push: { usersLiked: userName } }, { new: true }).exec();
+        const dog = await this.findDog(dogName);
+        dog.usersLiked.push(userName);
+        return this.updateDog(dogName, dog);
+    }
+
+    /**
+     * add dog to dogsLiked of adopter
+     * @param {Adopter} adopter The adopter to add the dog to
+     * @param {string} dogName The name of the dog to add to the adopter
+     * @return {Promise<Adopter || null>}
+     */
+    async addDogToDogsLiked(adopter: Adopter, dogName: string): Promise<Adopter | null> {
+        const dog = await this.findDog(dogName);
+        adopter.dogsLiked.push(dog);
+        return this.updateAdopter(adopter.email, adopter);
     }
 
     /**
@@ -514,7 +529,6 @@ export class ApiService {
      */
        async loginAdopter(email: string, password: string): Promise<Adopter | null> {
         const temp = await this.AdopterModel.findOne({ email }).exec();
-        console.log(temp);
         if(temp != null){
             //return bcrypt.compareSync(password, temp.password); (fix for demo 3)
             if(password == temp.password){
@@ -579,9 +593,54 @@ export class ApiService {
     //     return this.DogModel.find({organisation.name : name}).exec();
     // }
 
+    /**
+     * delete dog by name
+     * @param {string} name The name of the dog to delete
+     * @return {Promise<Dog || null>}
+     */
+    async deleteDogByName(name: string): Promise<Dog | null> {
+        const dog = await this.DogModel.findOne({ name }).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        return this.DogModel.findOneAndDelete({ name }).exec();
+    }
 
+    /**
+     * get GlobalVar
+     * @return {Promise<GlobalVar>}
+     */
+    async getGlobalVar(): Promise<GlobalVar> {
+        return this.GlobalVarModel.findOne().exec();
+    }
 
-    
+    /**
+     * update GlobalVar
+     * @param {GlobalVar} globalVar The new GlobalVar
+     * @return {Promise<GlobalVar>}
+     */
+    async updateGlobalVar(globalVar: GlobalVar): Promise<GlobalVar> {
+        return this.GlobalVarModel.findOneAndUpdate({}, globalVar, { new: true }).exec();
+    }
 
+    /**
+     * delete GlobalVar
+     * @return {Promise<GlobalVar>}
+     */
+    async deleteGlobalVar(): Promise<GlobalVar> {
+        return this.GlobalVarModel.findOneAndDelete({}).exec();
+    }
 
+    /**
+     * find all dogs liked by an adopter
+     * @param {string} name The name of the adopter to find
+     * @return {Promise<Dog[] || null>}
+     */
+    async findDogsLikedByAdopter(name: string): Promise<Dog[] | null> {
+        const adopter = await this.AdopterModel.findOne({ name }).exec();
+        if(adopter == null){
+            return null;
+        }
+        return adopter.dogsLiked;
+    }
 }

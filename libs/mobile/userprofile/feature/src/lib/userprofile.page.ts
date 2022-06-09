@@ -104,6 +104,10 @@ export class userprofilePageComponent {
     this.router.navigate(["/userprofile"]);
   }
 
+  signout(){
+    this.router.navigate(["/login"]);
+  }
+
   preferences(){
     //this.router.navigate(["/userinfo"]); Not implemented yet
   }
