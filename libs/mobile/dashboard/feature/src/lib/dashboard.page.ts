@@ -1,12 +1,22 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
+//import { owneddogsPageComponentModule } from '@pawdopt/mobile/owneddogs/feature';
 @Component({
   selector: 'pawdopt-dashboard',
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss', '../../../../../shared/styles/global.scss'],
 })
 export class dashboardPageComponent {
+  public static user: {
+    id: number,
+    email:string,
+    name:string,
+    pic:string,
+  };
+
+  //GlobalVar = owneddogsPageComponentModule.GlobalVars;
+  
 
   dog:{
     name:string,
@@ -31,6 +41,8 @@ export class dashboardPageComponent {
   };
 
   userLikes:{
+    id: number,
+    email:string,
     name:string,
     pic:string,
   }[]=[];
@@ -57,14 +69,17 @@ export class dashboardPageComponent {
         temperament
         furLength
         usersLiked{
-          name  
+          name, 
           pic {
             path
-          }
+          },
+          email
         }
       }
     }`;
 
+    let id = 0;
+  
     this.apollo.watchQuery({
       query: getDogQuery,
       fetchPolicy: 'no-cache'
@@ -87,7 +102,8 @@ export class dashboardPageComponent {
             name: string,
             pic: {
               path: string
-            }
+            },
+            email: string
           }[],
           organisation: {
           name: string
@@ -104,11 +120,12 @@ export class dashboardPageComponent {
       this.dog.breed = data.findDog.breed;
       this.dog.temperament = data.findDog.temperament[0];
       this.dog.furlength = data.findDog.furlength;
-        
-
+      
       data.findDog.usersLiked.forEach(element => {
         this.userLikes.push(
           {
+            id: id++,
+            email: element.email,
             name: element.name,
             pic: element.pic.path
           }
@@ -119,8 +136,9 @@ export class dashboardPageComponent {
 
 
 
-  userinfo(){
+  userinfo(id: number){
     // TODO Complete dashboard validation
+    dashboardPageComponent.user = this.userLikes[id];
     this.router.navigate(["/userinfo"]);
     
   }

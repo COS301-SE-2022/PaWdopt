@@ -18,23 +18,32 @@
 </ion-header>
 
 <ion-content>
+
+  <!--Company name-->
   <div>&nbsp;</div>
   <div class="companyname">
-    <p><b>Company name</b></p>
+    <p><b>{{this.orgName}}</b></p>
   </div>
   <div>&nbsp;</div>
-  <div class="searchbar"><ion-searchbar showCancelButton="always"></ion-searchbar></div>
+
+  <!--Search bar-->
+  <div class="searchbar"><ion-searchbar showCancelButton="always" [(ngModel)]="inputSearch" (ionClear)="onCancelSearch()"></ion-searchbar></div> <!--api implement-->
   <div>&nbsp;</div>
+
+  <!--Dogs info-->
+  <div class="container">
+    <ion-button class="greyButton" id="search-dog-button" (click)="search()">Search</ion-button> 
+  </div>
   <div class="container">
     <ion-button class="greyButton" id="add-dog-button" (click)="addDog()">Add dog</ion-button> 
   </div>
-  <div class="maincontainer">
+  <div class="maincontainer" *ngFor="let d of dog">
     <div class="thecard">
       <div class="thefront">
         <img src="../../assets/husky.jpg" />
-        <ion-title class="ion-text-center"><b>Millie, 2</b></ion-title>
-        <p id="likesperdog"><b>17 likes</b></p>
-        <p>A very energetic and entertaining husky, she loves walks and is very easily trainable. Extremely loyal and a great family dog.</p>
+        <ion-title class="ion-text-center"><b>{{d.name}}, {{d.age}}</b></ion-title>
+        <p id="likesperdog"><b>{{d.likes}}</b></p> <!--api implement-->
+        <p>{{d.about}}</p>
         <ion-button class="ion-float-left" fill="clear" (click)="dashboard()">
           <ion-icon  name="list"></ion-icon>
         </ion-button>
@@ -45,22 +54,6 @@
     </div>
   </div>
   <div>&nbsp;</div>
-  <div class="maincontainer">
-    <div class="thecard">
-      <div class="thefront">
-        <img src="../../assets/border.jpg" />
-        <ion-title class="ion-text-center"><b>Mia, 5</b></ion-title>
-        <p id="likesperdog"><b>21 likes</b></p>
-        <p>This individual is very dependable and predictable,he is a wonderful family pet and loving to most children.</p>
-        <ion-button class="ion-float-left" fill="clear" (click)="dashboard()">
-          <ion-icon name="list" ></ion-icon>
-        </ion-button>
-        <ion-button class="ion-float-right" fill="clear" (click)="update()">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
-      </div>
-    </div>
-  </div>
 </ion-content>
 
 

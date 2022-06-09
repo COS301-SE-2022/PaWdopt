@@ -153,7 +153,7 @@ type Query {
   findDogs: [DogType!]!
   findDogsByOrg(org: OrganisationInputType!): [DogType!]!
   findOrgMembersByOrganisation(org: String!): [OrgMemberType!]!
-  emailExists(email: String!): [Boolean!]!
+  emailExists(email: String!): Boolean!
   UpdateDogBreed(dogName: String!, breed: String!): DogType!
   UpdateDogGender(dogName: String!, gender: String!): DogType!
   UpdateDogFurlength(dogName: String!, furlength: String!): DogType!
@@ -163,6 +163,8 @@ type Query {
   UpdateDogDob(dogName: String!, dob: DateTime!): DogType!
   loginOrg(email: String!, password: String!): OrgMemberType
   loginAdopter(email: String!, password: String!): AdopterType
+  findAdopterByEmail(email: String!): AdopterType
+  findDogsByOrgName(orgName: String!): [DogType!]!
 }
 
 type Mutation {

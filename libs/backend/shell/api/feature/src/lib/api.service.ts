@@ -368,7 +368,8 @@ export class ApiService {
      * 
      */
     async adopterEmailExists(email: string): Promise<boolean> {
-        return this.AdopterModel.findOne({ email }).exec() !== null;
+        const temp = await this.AdopterModel.findOne({ email }).exec();
+        return temp !== null;
     }
 
     /**
@@ -378,7 +379,8 @@ export class ApiService {
 
      */
     async orgMemberEmailExists(email: string): Promise<boolean> {
-        return this.OrgMemberModel.findOne({ email }).exec() !== null;
+        const temp = await this.OrgMemberModel.findOne({ email }).exec();
+        return temp !== null;
     }
 
     /**
@@ -533,5 +535,41 @@ export class ApiService {
             return null;
         }
     }
+
+    /**
+     * find org by name
+     * @param {string} name The name of the org to find
+     * @return {Promise<Org || null>}
+     * 
+     */
+    async findOrgByName(name: string): Promise<Organisation | null> {
+        return this.OrganisationModel.findOne({ name }).exec();
+    }
+
+    /**
+     * find dogs by org
+     * @param {string} name The name of the org to find
+     * @return {Promise<Dog[]>}
+     * 
+     */
+    async findDogsByOrg(name: string): Promise<Dog[]> {
+        return this.DogModel.find({ org: name }).exec();
+    }
+
+
+    /**
+     * find dogs by organisation name
+     * @param {string} name The name of the organisation to find
+     * @return {Promise<Dog[]>}
+     * 
+     */
+    // async findDogsByOrgName(name: string): Promise<Dog[]> {
+    //     return this.DogModel.find({organisation.name : name}).exec();
+    // }
+
+
+
+    
+
 
 }

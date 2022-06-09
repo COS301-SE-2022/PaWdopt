@@ -12,8 +12,12 @@ export class LoginPageComponent {
 
   inputEmail!: string;
   inputPassword!: string;
+  public static orgName:string;
+  public static adopterEmail:string;
 
-  constructor(private router: Router, private apollo: Apollo){}
+  constructor(private router: Router, private apollo: Apollo){
+    
+  }
 
 
    loginadoptquery(email: string, password:string){
@@ -38,6 +42,7 @@ export class LoginPageComponent {
         const typeVar = data.loginAdopter.__typename;
 
         if (typeVar == "AdopterType") { //"Adopter"
+          LoginPageComponent.adopterEmail = email;
           this.router.navigate(["/home"]);
           return true;
         }
@@ -57,7 +62,7 @@ export class LoginPageComponent {
    loginorgquery(email: string, password:string){
      let successfulquery = false;
     const LoginQueryOrg = gql`query {
-      loginOrg(email: "${email}", password: "${password}") { name }
+      loginOrg(email: "${email}", password: "${password}") { name, organisation }
     }`;
 
     this.apollo.watchQuery({
@@ -66,6 +71,7 @@ export class LoginPageComponent {
     }).valueChanges.subscribe((result) => {
         const data = result.data as {
           loginOrg: {
+            organisation: string;
             __typename: string;
           };
         };
@@ -75,6 +81,7 @@ export class LoginPageComponent {
         const typeVar = data.loginOrg.__typename;
     
         if (typeVar == "OrgMemberType") { //"Adopter"
+          LoginPageComponent.orgName = data.loginOrg.organisation;
           this.router.navigate(["/owneddogs"]);
           successfulquery = true;
         }

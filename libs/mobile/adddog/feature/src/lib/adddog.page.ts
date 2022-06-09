@@ -19,7 +19,7 @@ export class AdddogPageComponent {
   }
 
   home(){
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/owneddogs"]);
   }
 
   likeddogs(){
