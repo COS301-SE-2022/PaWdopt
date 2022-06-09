@@ -384,6 +384,18 @@ export class ApiService {
     }
 
     /**
+     * Check if organisation name has been used by a Organisation
+     * @param {string} name The name to check
+     * @return {Promise<boolean>}
+     
+    */
+    async organisationNameExists(name: string): Promise<boolean> {
+        const temp = await this.OrganisationModel.findOne({ name }).exec();
+        return temp !== null;
+    }
+    
+
+    /**
      * add a user to userLikes in dog
      * @param {string} dogName The name of the dog to add the user to
      * @param {Adopter} userName The name of the user to add to the dog

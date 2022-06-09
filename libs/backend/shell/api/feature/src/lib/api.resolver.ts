@@ -171,6 +171,11 @@ export class ApiResolver {
         return temp3;
     }
 
+    @Query(() => Boolean)
+    async organisationNameExists(@Args('name') name: string) : Promise<boolean> {
+        return this.DogService.organisationNameExists(name);
+    }
+
     @Mutation(() => DogType)
     async UserSwipesRightOnDog(@Args('userName') userName: string, @Args('dogName') dogName: string) : Promise<DogType | null> {
         const user = await this.DogService.findAdopterByName(userName)
