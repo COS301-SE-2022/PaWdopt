@@ -1,12 +1,5 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
-import { Dog, Pic, Organisation, Location, ContactInfo, Doc, OrgMember, Adopter, GlobalVar } from './api.schema';
-
-@ObjectType('GlobalVar')
-@InputType('GlobalVarInput')
-export class GlobalVarType {
-    @Field({nullable:true})
-    var: string;
-}
+import { Dog, Pic, Organisation, Location, ContactInfo, Doc, OrgMember, Adopter } from './api.schema';
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
