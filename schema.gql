@@ -35,6 +35,7 @@ type PicType {
 type DogType {
   name: String!
   dob: DateTime!
+  gender: String!
   pics: [PicType!]!
   breed: String!
   about: String!
@@ -108,6 +109,7 @@ input PicInputType {
 input DogInputType {
   name: String!
   dob: DateTime!
+  gender: String!
   pics: [PicInputType!]!
   breed: String!
   about: String!
@@ -145,17 +147,22 @@ input AdopterInputType {
 
 type Query {
   findPic(id: String!): PicType!
-  findDog(id: String!): DogType!
+  findDog(name: String!): DogType!
   findDogsByName(name: String!): [DogType!]!
   findDogsByBreed(breed: String!): [DogType!]!
   findDogs: [DogType!]!
   findDogsByOrg(org: OrganisationInputType!): [DogType!]!
   findOrgMembersByOrganisation(org: String!): [OrgMemberType!]!
-  findAdopterByName(name: String!): [AdopterType!]!
+  emailExists(email: String!): [Boolean!]!
+  UpdateDogBreed(dogName: String!, breed: String!): DogType!
+  UpdateDogGender(dogName: String!, gender: String!): DogType!
+  UpdateDogFurlength(dogName: String!, furlength: String!): DogType!
+  UpdateDogAbout(dogName: String!, about: String!): DogType!
+  UpdateDogWeight(dogName: String!, weight: Float!): DogType!
+  UpdateDogHeight(dogName: String!, height: Float!): DogType!
+  UpdateDogDob(dogName: String!, dob: DateTime!): DogType!
   loginOrg(email: String!, password: String!): OrgMemberType
   loginAdopter(email: String!, password: String!): AdopterType
-  emailExists(email: String!): Boolean!
-  getAdopterByEmail(email: String!): AdopterType
 }
 
 type Mutation {
@@ -183,4 +190,5 @@ type Mutation {
   createAdopter(adopter: AdopterInputType!): AdopterType!
   updateAdopter(email: String!, adopter: AdopterInputType!): AdopterType!
   deleteAdopter(email: String!): AdopterType!
+  UserSwipesRightOnDog(userName: String!, dogName: String!): DogType!
 }
