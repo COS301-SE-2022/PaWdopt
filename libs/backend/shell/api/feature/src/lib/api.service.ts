@@ -536,6 +536,39 @@ export class ApiService {
         }
     }
 
+    /**
+     * find org by name
+     * @param {string} name The name of the org to find
+     * @return {Promise<Org || null>}
+     * 
+     */
+    async findOrgByName(name: string): Promise<Organisation | null> {
+        return this.OrganisationModel.findOne({ name }).exec();
+    }
+
+    /**
+     * find dogs by org
+     * @param {string} name The name of the org to find
+     * @return {Promise<Dog[]>}
+     * 
+     */
+    async findDogsByOrg(name: string): Promise<Dog[]> {
+        return this.DogModel.find({ org: name }).exec();
+    }
+
+
+    /**
+     * find dogs by organisation name
+     * @param {string} name The name of the organisation to find
+     * @return {Promise<Dog[]>}
+     * 
+     */
+    // async findDogsByOrgName(name: string): Promise<Dog[]> {
+    //     return this.DogModel.find({organisation.name : name}).exec();
+    // }
+
+
+
     
 
 

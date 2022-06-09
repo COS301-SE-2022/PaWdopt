@@ -10,4 +10,7 @@ import { LoginPageComponentRoutingModule } from './login-routing.module';
   imports: [CommonModule, FormsModule, IonicModule, LoginPageComponentRoutingModule],
   declarations: [LoginPageComponent],
 })
-export class LoginPageComponentModule {}
+export class LoginPageComponentModule {
+  public orgName = LoginPageComponent.orgName;
+  public static adopterEmail = LoginPageComponent.adopterEmail;
+}
