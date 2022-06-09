@@ -59,10 +59,7 @@ Thumbs.db
 /ML/models
 /ML/*.h5
 /ML/tests
-tfjs_model
 
 # GraphQL
-schema.gql
-schema.gql
-schema.gql
+/schema.gql
 schema.gql
