@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
 import { DogType, OrganisationType, LocationType, PicType, ContactInfoType, DocType, AdopterType, OrgMemberType } from './api.dto';
 import { Dog, Pic, Organisation, Location, ContactInfo, Doc, Adopter} from './api.schema';
-import { Type } from '@angular/core';
 
 
 @Resolver()
