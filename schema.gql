@@ -2,10 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type GlobalVar {
-  var: String
-}
-
 type OrgMemberType {
   name: String!
   email: String!
@@ -49,6 +45,7 @@ type DogType {
   usersLiked: [AdopterType!]
   furLength: String!
   temperament: [String!]!
+  orgName: String
 }
 
 """
@@ -78,10 +75,6 @@ type AdopterType {
   dogsLiked: [DogType!]
   questionnaire: String!
   distance: Float!
-}
-
-input GlobalVarInput {
-  var: String
 }
 
 input OrgMemberInputType {
@@ -127,6 +120,7 @@ input DogInputType {
   usersLiked: [AdopterInputType!]
   furLength: String!
   temperament: [String!]!
+  orgName: String
 }
 
 input OrganisationInputType {
@@ -169,7 +163,6 @@ type Query {
   findAdopterByEmail(email: String!): AdopterType
   findDogsByOrgName(orgName: String!): [DogType!]!
   deleteDogbyName(name: String!): DogType!
-  getGlobalVar: GlobalVar!
   findDogsLikedByAdopter(adopterName: String!): [DogType!]!
 }
 
@@ -205,6 +198,4 @@ type Mutation {
   updateDogAbout(dogName: String!, about: String!): DogType!
   updateDogWeight(dogName: String!, weight: Float!): DogType!
   updateDogHeight(dogName: String!, height: Float!): DogType!
-  updateGlobalVar(globalVar: GlobalVarInput!): GlobalVar!
-  deleteGlobalVar: GlobalVar!
 }

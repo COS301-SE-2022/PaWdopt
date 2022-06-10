@@ -104,6 +104,9 @@ export class DogType {
 
     @Field(() => [String])
     temperament: [string];
+
+    @Field(() => String, { nullable: true })
+    orgName: string;
 }
 
 @ObjectType('OrganisationType')

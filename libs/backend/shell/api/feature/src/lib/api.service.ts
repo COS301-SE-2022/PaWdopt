@@ -126,13 +126,13 @@ export class ApiService {
 
     /**
      * Update an Dog
-     * @param {string} id The id of the dog to update
+     * @param {string} name The name of the dog to update
      * @param {Dog} updatedDog The new dog information
      * @return {Promise<Dog || null>}
 
      */
-    async updateDog(id: string, updatedDog: Dog): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ id }, updatedDog, { new: true }).exec();
+    async updateDog(name: string, updatedDog: Dog): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, updatedDog, { new: true }).exec();
     }
 
     /**
@@ -405,7 +405,9 @@ export class ApiService {
      */
     async addUserToUserLikes(dogName: string, userName: Adopter): Promise<Dog | null> {
         const dog = await this.findDog(dogName);
-        dog.usersLiked.push(userName);
+        if(dog.usersLiked.includes(userName)){
+            dog.usersLiked.push(userName);
+        }
         return this.updateDog(dogName, dog);
     }
 
@@ -417,7 +419,9 @@ export class ApiService {
      */
     async addDogToDogsLiked(adopter: Adopter, dogName: string): Promise<Adopter | null> {
         const dog = await this.findDog(dogName);
-        adopter.dogsLiked.push(dog);
+        if(adopter.dogsLiked.includes(dog)){
+            adopter.dogsLiked.push(dog);
+        }
         return this.updateAdopter(adopter.email, adopter);
     }
 
@@ -577,8 +581,8 @@ export class ApiService {
      * @return {Promise<Dog[]>}
      * 
      */
-    async findDogsByOrg(name: string): Promise<Dog[]> {
-        return this.DogModel.find({ org: name }).exec();
+    async findDogsByOrg(orgName: string): Promise<Dog[]> {
+        return this.DogModel.find({orgName: orgName}).exec();
     }
 
 
@@ -588,9 +592,9 @@ export class ApiService {
      * @return {Promise<Dog[]>}
      * 
      */
-    // async findDogsByOrgName(name: string): Promise<Dog[]> {
-    //     return this.DogModel.find({organisation.name : name}).exec();
-    // }
+    //  async findDogsByOrgName(name: string): Promise<Dog[]> {
+    //      return this.DogModel.find({organisation.name : name}).exec();
+    //  }
 
     /**
      * delete dog by name

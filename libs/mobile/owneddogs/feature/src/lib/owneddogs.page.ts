@@ -34,13 +34,12 @@ export class owneddogsPageComponent {
 
   constructor(private router: Router, private apollo: Apollo){
     this.getDog();
-   // this.orgName = LoginPageComponentModule.orgName;
     console.log(this.orgName);
   }
 
   getDog(){
     const getDogQuery = gql`query {
-      findDogsByOrgName(orgName: "") {
+      findDogsByOrgName(orgName: "SPCA") {
         name
         dob
         pics{
