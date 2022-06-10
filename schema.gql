@@ -162,7 +162,6 @@ type Query {
   loginAdopter(email: String!, password: String!): AdopterType
   findAdopterByEmail(email: String!): AdopterType
   findDogsByOrgName(orgName: String!): [DogType!]!
-  deleteDogbyName(name: String!): DogType!
   findDogsLikedByAdopter(adopterName: String!): [DogType!]!
 }
 
@@ -198,4 +197,5 @@ type Mutation {
   updateDogAbout(dogName: String!, about: String!): DogType!
   updateDogWeight(dogName: String!, weight: Float!): DogType!
   updateDogHeight(dogName: String!, height: Float!): DogType!
+  deleteDogbyName(name: String!): DogType!
 }
