@@ -117,6 +117,9 @@ export class Dog {
 
     @Prop()
     temperament: [string];
+
+    @Prop()
+    orgName: string;
 }
 
 @ObjectType()

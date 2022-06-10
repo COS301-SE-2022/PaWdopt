@@ -122,8 +122,8 @@ export class HomePage {
 
   swiped(event: boolean, index: number) {
     console.log(this.avatars[index].name + ' swiped ' + event);
-    if(event)
-      this.addDogToLiked(index);
+     if(event)
+       this.addDogToLiked(index);
     this.avatars[index].visible = false;
     this.results.push(this.avatars[index].name + ' swiped ' + event);
     this.currentIndex--;
@@ -163,15 +163,12 @@ export class HomePage {
     //Not implemented yet
   }
 
-
-  // const getDogsQuery = gql`query {
-  //   findDogs {
       
   addDogToLiked(index: number) {
     const dogName = this.avatars[index].name;
     const addDogToLikedMutation = gql`
       mutation {
-        UserSwipesRightOnDog(userName: "jason", dogName: "${dogName}") {
+        userSwipesRightOnDog(userName: "jason", dogName: "${dogName}") {
           name
         }
       }

@@ -65,7 +65,7 @@ export class userinfoPageComponent {
   
   constructor(private router: Router, private apollo: Apollo){
     const userInfo =  gql`query{
-      findAdopterByEmail(email: "email@email.com"){
+      findAdopterByEmail(email: "jason@gmail.com"){
         name,
         email,
         IDNum,
