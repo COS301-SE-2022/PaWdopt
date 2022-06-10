@@ -70,36 +70,46 @@ export class HomePage {
 
   getDogs(){
     const getDogsQuery = gql`query {
-      findDogsByName(name: "John"){
+      findDogs{
         name
         dob
         organisation{
           name
+        },
+        pics{
+          path
         }
       }
     }`;
 
     const myDate = new Date();
+    let age = 0;
+    let tempDate;
     this.apollo.watchQuery({
       query: getDogsQuery,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
       console.log(result);
       const data = result.data as {
-        findDogsByName: {
+        findDogs: {
           name: string,
           dob: Date,
           organisation: {
           name: string
-          }
+          },
+          pics: {
+            path: string
+          }[]
         }[]
       };
-      data.findDogsByName.forEach(element => {
+      data.findDogs.forEach(element => {
+        tempDate = new Date(element.dob);
+        age = myDate.getFullYear() - tempDate.getFullYear();
         this.avatars.push(
           {
             name: element.name,
-            age: myDate.valueOf()-element.dob.valueOf(),
-            image: '../../assets/husky.jpg',
+            age: age,
+            image: element.pics[0].path,
             shelter: element.organisation.name,
             visible: true
           }
@@ -107,11 +117,13 @@ export class HomePage {
       });
     });
   }
-  
+
   
 
   swiped(event: boolean, index: number) {
     console.log(this.avatars[index].name + ' swiped ' + event);
+    if(event)
+      this.addDogToLiked(index);
     this.avatars[index].visible = false;
     this.results.push(this.avatars[index].name + ' swiped ' + event);
     this.currentIndex--;
@@ -125,10 +137,11 @@ export class HomePage {
   }
 
   swiperight() {
+    this.addDogToLiked(this.currentIndex);
     this.avatars[this.currentIndex].visible = false;
     this.results.push(this.avatars[this.currentIndex].name + ' swiped true');
     this.currentIndex--;
-  }
+  }  
 
   retry() {
    this.currentIndex = 4; //Not implemented
@@ -151,7 +164,24 @@ export class HomePage {
   }
 
 
-  //const getDogsQuery = gql`query {
-    //findDogs {
+  // const getDogsQuery = gql`query {
+  //   findDogs {
       
+  addDogToLiked(index: number) {
+    const dogName = this.avatars[index].name;
+    const addDogToLikedMutation = gql`
+      mutation {
+        UserSwipesRightOnDog(userName: "jason", dogName: "${dogName}") {
+          name
+        }
+      }
+    `;
+    this.apollo.mutate({
+      mutation: addDogToLikedMutation,
+    }).subscribe(({data}) => {
+      console.log('got data', data);
+    }, (error) => {
+      console.log('there was an error sending the query', error);
+    });
+  }
 }
