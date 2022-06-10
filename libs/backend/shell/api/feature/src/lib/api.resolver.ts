@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
-import { DogType, OrganisationType, LocationType, PicType, ContactInfoType, DocType, AdopterType, OrgMemberType, GlobalVarType } from './api.dto';
+import { DogType, OrganisationType, LocationType, PicType, ContactInfoType, DocType, AdopterType, OrgMemberType } from './api.dto';
 import { Dog, Pic, Organisation, Location, ContactInfo, Doc, Adopter} from './api.schema';
 
 
@@ -311,33 +311,6 @@ export class ApiResolver {
     @Query(() => DogType)
     async deleteDogbyName(@Args('name') name: string) : Promise<DogType> {
         return this.DogService.deleteDogByName(name);
-    }
-
-    /**
-     * get Global Var Query
-     */
-    @Query(() => GlobalVarType)
-    async getGlobalVar(): Promise<GlobalVarType> {
-        return this.DogService.getGlobalVar();
-    }
-
-    /**
-     * update Global Var Query
-     * @param globalVar
-     * @returns globalVar
-     */
-    @Mutation(() => GlobalVarType)
-    async updateGlobalVar(@Args('globalVar') globalVar: GlobalVarType) : Promise<GlobalVarType> {
-        return this.DogService.updateGlobalVar(globalVar);
-    }
-
-    /**
-     * delete Global Var Query
-     * @returns globalVar
-     */
-    @Mutation(() => GlobalVarType)
-    async deleteGlobalVar() : Promise<GlobalVarType> {
-        return this.DogService.deleteGlobalVar();
     }
 
     /**

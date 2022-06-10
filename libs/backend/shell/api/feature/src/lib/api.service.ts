@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dog, DogDocument, Pic, PicDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, Doc, DocDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, GlobalVar, GlobalVarDocument } from './api.schema';
+import { Dog, DogDocument, Pic, PicDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, Doc, DocDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument } from './api.schema';
 import bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -15,7 +15,6 @@ export class ApiService {
         @InjectModel(Doc.name) private readonly DocModel : Model<DocDocument>,
         @InjectModel(ContactInfo.name) private readonly ContactInfoModel : Model<ContactInfoDocument>,
         @InjectModel(Location.name) private readonly LocationModel : Model<LocationDocument>,
-        @InjectModel(GlobalVar.name) private readonly GlobalVarModel : Model<GlobalVarDocument>,
         ) {}
 
     /**
@@ -604,31 +603,6 @@ export class ApiService {
             throw new Error("Dog does not exist");
         }
         return this.DogModel.findOneAndDelete({ name }).exec();
-    }
-
-    /**
-     * get GlobalVar
-     * @return {Promise<GlobalVar>}
-     */
-    async getGlobalVar(): Promise<GlobalVar> {
-        return this.GlobalVarModel.findOne().exec();
-    }
-
-    /**
-     * update GlobalVar
-     * @param {GlobalVar} globalVar The new GlobalVar
-     * @return {Promise<GlobalVar>}
-     */
-    async updateGlobalVar(globalVar: GlobalVar): Promise<GlobalVar> {
-        return this.GlobalVarModel.findOneAndUpdate({}, globalVar, { new: true }).exec();
-    }
-
-    /**
-     * delete GlobalVar
-     * @return {Promise<GlobalVar>}
-     */
-    async deleteGlobalVar(): Promise<GlobalVar> {
-        return this.GlobalVarModel.findOneAndDelete({}).exec();
     }
 
     /**
