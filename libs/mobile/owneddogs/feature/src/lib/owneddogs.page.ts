@@ -84,7 +84,7 @@ export class owneddogsPageComponent {
           {
             name: element.name,
             pic: element.pics[0].path,
-            age: 0,
+            age: 2,
             likes: element.usersLiked.length,
             about: element.about
           }
