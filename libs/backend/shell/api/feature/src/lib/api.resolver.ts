@@ -308,7 +308,7 @@ export class ApiResolver {
      * @returns dog
      * 
      */
-    @Query(() => DogType)
+    @Mutation(() => DogType)
     async deleteDogbyName(@Args('name') name: string) : Promise<DogType> {
         return this.DogService.deleteDogByName(name);
     }

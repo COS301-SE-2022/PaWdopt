@@ -405,9 +405,10 @@ export class ApiService {
      */
     async addUserToUserLikes(dogName: string, userName: Adopter): Promise<Dog | null> {
         const dog = await this.findDog(dogName);
-        if(dog.usersLiked.includes(userName)){
-            dog.usersLiked.push(userName);
-        }
+        // if(dog.usersLiked.includes(userName)){
+            
+        // }
+        dog.usersLiked.push(userName);
         return this.updateDog(dogName, dog);
     }
 
@@ -419,9 +420,10 @@ export class ApiService {
      */
     async addDogToDogsLiked(adopter: Adopter, dogName: string): Promise<Adopter | null> {
         const dog = await this.findDog(dogName);
-        if(adopter.dogsLiked.includes(dog)){
-            adopter.dogsLiked.push(dog);
-        }
+        // if(adopter.dogsLiked.includes(dog)){
+            
+        // }
+        adopter.dogsLiked.push(dog);
         return this.updateAdopter(adopter.email, adopter);
     }
 

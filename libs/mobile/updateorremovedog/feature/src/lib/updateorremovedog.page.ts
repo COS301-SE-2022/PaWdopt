@@ -219,7 +219,7 @@ export class updateorremovedogPageComponent {
 
   deleteDog(){//delete whats in name value in form
     const deleteDogQuery = gql`mutation {
-      deleteDog(dogName: "Millie"){
+      deleteDogbyName(name: "Millie"){
         name
       }
     }`;
