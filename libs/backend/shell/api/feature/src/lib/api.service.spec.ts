@@ -94,7 +94,8 @@ describe('ApiService', () => {
         height: 1,
         furLength: 'furlength',
         temperament: ["temp1"],
-        usersLiked: null
+        usersLiked: null,
+        orgName: 'orgName',
     };
 
     const adopter: AdopterType = {
@@ -122,7 +123,8 @@ describe('ApiService', () => {
         height: 1,
         usersLiked: [adopter],
         furLength: 'furlength',
-        temperament: ["temp1"]
+        temperament: ["temp1"],
+        orgName: 'orgName'
     };
 
 
