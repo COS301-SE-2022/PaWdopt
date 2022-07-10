@@ -55,6 +55,7 @@ scalar DateTime
 
 type OrganisationType {
   name: String!
+  email: String!
   about: String!
   dateFounded: DateTime!
   members: [OrgMemberType!]!
@@ -125,6 +126,7 @@ input DogInputType {
 
 input OrganisationInputType {
   name: String!
+  email: String!
   about: String!
   dateFounded: DateTime!
   members: [OrgMemberInputType!]!
