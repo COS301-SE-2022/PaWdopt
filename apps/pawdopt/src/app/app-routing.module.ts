@@ -75,8 +75,9 @@ const routes: Routes = [
         (m) => m.updateorremovedogPageComponentModule
       )
   },
+  //Added dynamic routing
   {
-    path: 'userinfo',
+    path: 'userinfo/:email',
     loadChildren: () =>
       import('@pawdopt/mobile/userinfo/feature').then(
         (m) => m.userinfoPageComponentModule

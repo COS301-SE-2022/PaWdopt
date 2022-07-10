@@ -116,6 +116,9 @@ export class OrganisationType {
     name: string;
 
     @Field()
+    email: string;
+
+    @Field()
     about: string;
 
     @Field()
