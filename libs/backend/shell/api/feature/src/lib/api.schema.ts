@@ -58,9 +58,6 @@ export class Organisation {
     name: string;
 
     @Prop()
-    email: string;
-
-    @Prop()
     about: string;
 
     @Prop()
