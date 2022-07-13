@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { LoginPageComponentModule } from '@pawdopt/mobile/login/feature';
+import { getAllLogin, getLoginState } from '@pawdopt/mobile/login/feature';
 @Component({
   selector: 'pawdopt-owneddogs',
   templateUrl: 'owneddogs.page.html',
   styleUrls: ['owneddogs.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, LoginPageComponentModule]
+  providers: [Apollo]
 
 })
 export class owneddogsPageComponent {
 
-  //public static GlobalVars = "hello";
+  loginDetails = getAllLogin(getLoginState);
+  email = this.loginDetails[0].email;
   
   inputSearch!: string;
   orgName = "";
@@ -35,6 +36,7 @@ export class owneddogsPageComponent {
   constructor(private router: Router, private apollo: Apollo){
     this.getDog();
     console.log(this.orgName);
+    console.log("Email of logged in person: "+this.email);
   }
 
   getDog(){

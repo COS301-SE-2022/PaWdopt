@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {Apollo, gql } from 'apollo-angular';
-// import { Adopter, OrgMember } from 'libs/backend/shell/api/feature/src/lib/api.schema';
+import { Apollo, gql } from 'apollo-angular';
+import { storeEmail } from './+state/login/login.actions';
+import { Store } from '@ngrx/store';
+
 @Component({
   selector: 'pawdopt-login',
   templateUrl: 'login.page.html',
@@ -15,7 +17,7 @@ export class LoginPageComponent {
   public static orgName:string;
   public static adopterEmail:string;
 
-  constructor(private router: Router, private apollo: Apollo){
+  constructor(private router: Router, private apollo: Apollo, private store: Store<{email: string}>) {
     
   }
 
@@ -43,6 +45,7 @@ export class LoginPageComponent {
 
         if (typeVar == "AdopterType") { //"Adopter"
           LoginPageComponent.adopterEmail = email;
+          //Here
           this.router.navigate(["/home"]);
           return true;
         }
@@ -103,10 +106,12 @@ export class LoginPageComponent {
       
     if(this.loginadoptquery(email, password))
     {
+      this.store.dispatch(storeEmail({email: email}));
       console.log("successful login");
     }
     else if(this.loginorgquery(email, password))
     {
+      this.store.dispatch(storeEmail({email: email}));
       console.log("successful login");
     }
     else
