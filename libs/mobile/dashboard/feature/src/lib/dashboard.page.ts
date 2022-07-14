@@ -48,12 +48,7 @@ export class dashboardPageComponent {
   }[]=[];
   
   constructor(private router: Router, private apollo: Apollo) {
-    // this.getDog();
-  }
-  // Made a function to pass the value, think it would be better if we use a uuid or short uuid as the passed in value
-  viewProfile(email:string){
-    console.log(email);
-    this.router.navigate(["/userinfo", email]);
+    this.getDog();
   }
 
   getDog(){

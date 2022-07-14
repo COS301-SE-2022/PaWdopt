@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, Route, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { dashboardPageComponentModule } from '@pawdopt/mobile/dashboard/feature'
 @Component({
@@ -62,11 +62,10 @@ export class userinfoPageComponent {
   };
 
   // passedEmail = dashboardPageComponentModule.user.email;
-  // ${this.activatedRoute.snapshot.paramMap.get('email')} use to get the email from the rout
   
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private apollo: Apollo){
+  constructor(private router: Router, private apollo: Apollo){
     const userInfo =  gql`query{
-      findAdopterByEmail(email: "${this.activatedRoute.snapshot.paramMap.get('email')}"){
+      findAdopterByEmail(email: "jason@gmail.com"){
         name,
         email,
         IDNum,
