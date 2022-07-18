@@ -17,6 +17,13 @@
   </ion-toolbar>
 </ion-header>
 
+ <!--Back-->
+ <div>
+  <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+    <ion-icon  name="arrow-back-circle"></ion-icon>
+  </ion-button>
+</div>
+
 <div>&nbsp;</div>
 
 <ion-content>
@@ -27,26 +34,19 @@
   <div class="profile">
     <h1>{{user.name}}</h1>
     <p>{{user.email}}</p>
-    <p><ion-icon name="location"></ion-icon>Pretoria</p>
+    <p><ion-icon name="location"></ion-icon>&nbsp;Pretoria</p>
 
   <!--Buttons-->
   <div class="container">
-    <ion-button class="greyButton" id="doc-org-button">Upload documentation</ion-button>
-    <ion-button class="greyButton" id="question-org-button">Questionnaires</ion-button>
-    <ion-button class="greyButton" id="settings-org-button">Settings</ion-button>
+    <ion-button class="greyButton" id="doc-org-button"><ion-icon name="add-circle-outline"></ion-icon>&nbsp;Upload documentation</ion-button>
+    <ion-button class="greyButton" id="question-org-button"><ion-icon name="clipboard-outline"></ion-icon>&nbsp;Questionnaires</ion-button>
+    <ion-button class="greyButton" id="settings-org-button"><ion-icon name="accessibility-outline"></ion-icon>&nbsp;My Profile</ion-button>
     <ion-button class="greyButton" id="signout-org-button" (click)="signout()">Signout</ion-button>
   </div> 
   </div>
  
 </ion-content>
 
-
- <!--Back-->
-<div>
-  <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
-    <ion-icon  name="arrow-back-circle"></ion-icon>
-  </ion-button>
-</div>
 
 <!-- Footer-->
 <ion-tab-bar color="secondary" slot="bottom">
