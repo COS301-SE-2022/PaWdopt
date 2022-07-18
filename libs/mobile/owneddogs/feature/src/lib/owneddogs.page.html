@@ -23,23 +23,23 @@
     <div>&nbsp;</div>
     <div class="companyname">
         <!-- <p><b>{{this.orgName}}</b></p> -->
-        <p><b>SPCA</b></p>
+        <h1><b>SPCA</b></h1>
     </div>
     <div>&nbsp;</div>
 
     <!--Search bar-->
     <div class="searchbar">
-        <ion-searchbar showCancelButton="always" [(ngModel)]="inputSearch" (ionClear)="onCancelSearch()"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="inputSearch" (ionClear)="onCancelSearch()" animated></ion-searchbar>
     </div>
     <!--api implement-->
     <div>&nbsp;</div>
 
     <!--Dogs info-->
-    <div class="container">
+    <!-- <div class="container">
         <ion-button class="greyButton" id="search-dog-button" (click)="search()">Search</ion-button>
-    </div>
+    </div> -->
     <div class="container">
-        <ion-button class="greyButton" id="add-dog-button" (click)="addDog()">Add dog</ion-button>
+        <ion-button class="greyButton" id="add-dog-button" (click)="addDog()"><ion-icon name="add-outline"></ion-icon>&nbsp;Add a dog</ion-button>
     </div>
     <div class="maincontainer" *ngFor="let d of dog">
         <div class="thecard">
@@ -47,7 +47,7 @@
                 <!-- <img src="../../assets/husky.jpg" /> -->
                 <img src="{{d.pic}}" />
                 <ion-title class="ion-text-center"><b>{{d.name}}, {{d.age}}</b></ion-title>
-                <p id="likesperdog"><b>{{d.likes}} likes</b></p>
+                <p id="likesperdog"><b><ion-icon name="heart-outline"></ion-icon>&nbsp;{{d.likes}}</b></p>
                 <!--api implement-->
                 <p>{{d.about}}</p>
                 <ion-button class="ion-float-left" fill="clear" (click)="dashboard()">
