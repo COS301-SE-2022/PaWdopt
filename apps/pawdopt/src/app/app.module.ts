@@ -6,26 +6,17 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HammerModule } from '@angular/platform-browser';
+import { HammerModule} from '@angular/platform-browser';
 
 import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
-import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache } from '@apollo/client/core';
+import {HttpLink} from 'apollo-angular/http';
+import {InMemoryCache} from '@apollo/client/core';
 import { HttpClientModule } from '@angular/common/http';
-import { EffectsModule } from '@ngrx/effects';
-import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    HammerModule,
-    ApolloModule,
-    HttpClientModule,
-  ],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HammerModule, ApolloModule, HttpClientModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HttpLink,
@@ -40,8 +31,7 @@ import { environment } from '../environments/environment';
         };
       },
       deps: [HttpLink],
-    },
-  ],
+    },],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
