@@ -134,5 +134,10 @@ export class userinfoPageComponent {
     //Takes you back to the previous page
     this.router.navigate(["/dashboard"]);
   }
+
+  idclick(){
+    this.router.navigate([this.ident.path]);
+  }
+
 }
 
