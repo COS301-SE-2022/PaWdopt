@@ -60,6 +60,7 @@ Thumbs.db
 /ml/tests
 /ml/checkpoints
 /ml/logs
+/ml/models
 
 # GraphQL
 /schema.gql
