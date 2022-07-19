@@ -52,13 +52,14 @@ Thumbs.db
 /apps/pawdopt/ios
 
 # Ignore ML dataset and Jupyter settings
-/ML/Images
-/ML/env
-/ML/.ipynb_checkpoints
-/ML/.vscode
-/ML/models
-/ML/*.h5
-/ML/tests
+/ml/Images
+/ml/env
+/ml/.ipynb_checkpoints
+/ml/.vscode
+/ml/*.h5
+/ml/tests
+/ml/checkpoints
+/ml/logs
 
 # GraphQL
 /schema.gql
