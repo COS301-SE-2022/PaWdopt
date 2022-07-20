@@ -7,21 +7,5 @@ import * as VarsFeature from './vars.reducer';
 
 @Injectable()
 export class VarsEffects {
-  init$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(VarsActions.init),
-      fetch({
-        run: (action) => {
-          // Your custom service 'load' logic goes here. For now just return a success action...
-          return VarsActions.loadVarsSuccess({ vars: [] });
-        },
-        onError: (action, error) => {
-          console.error('Error', error);
-          return VarsActions.loadVarsFailure({ error });
-        },
-      })
-    )
-  );
-
   constructor(private readonly actions$: Actions) {}
 }
