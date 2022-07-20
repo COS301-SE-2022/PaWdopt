@@ -6,17 +6,21 @@
             <ion-label position="floating" class="form-input-label">Organisation Name</ion-label>
             <ion-input class="form-input" [(ngModel)]="oName" id="org-name-field" clear-on-edit=true></ion-input>
         </ion-item>
+        <ion-item class="form-item" lines="none">
+            <ion-label position="floating">Organisation Email Address</ion-label>
+            <ion-input class="form-input" [(ngModel)]="email" id="email-field"  clear-on-edit=true></ion-input>
+        </ion-item>
+        <ion-item class="form-item">
+            <ion-label position="floating" class="form-input-label">Admininstrator Email</ion-label>
+            <ion-input class="form-input"  id="administrator-field" clear-on-edit=true></ion-input>
+        </ion-item>
         <ion-item class="form-item">
             <ion-label position="floating" class="form-input-label">Password</ion-label>
             <ion-input class="form-input" type="password" [(ngModel)]="pass" id="password-field" clear-on-edit=true></ion-input>
         </ion-item>
-        <ion-item class="form-item">
+        <ion-item class="form-item form-end">
             <ion-label position="floating" class="form-input-label">Re-enter Password</ion-label>
             <ion-input class="form-input" type="password" [(ngModel)]="rePass" id="re-enter-password-field" clear-on-edit=true></ion-input>
-        </ion-item>
-        <ion-item class="form-item form-end" lines="none">
-            <ion-label position="floating">Email address</ion-label>
-            <ion-input class="form-input" [(ngModel)]="email" id="email-field"  clear-on-edit=true></ion-input>
         </ion-item>
     </ion-item-group>
   </ion-list>
