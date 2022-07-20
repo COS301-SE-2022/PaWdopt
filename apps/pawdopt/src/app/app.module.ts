@@ -13,14 +13,10 @@ import {HttpLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { VarsStoreModule } from '@pawdopt/shared/data-store';
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HammerModule, ApolloModule, HttpClientModule, StoreModule.forRoot({}), EffectsModule.forRoot([]), VarsStoreModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HammerModule, ApolloModule, HttpClientModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HttpLink,

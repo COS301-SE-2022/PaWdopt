@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
-
+import {Apollo, gql } from 'apollo-angular';
+import { LoginPageComponentModule } from '@pawdopt/mobile/login/feature';
 @Component({
   selector: 'pawdopt-owneddogs',
   templateUrl: 'owneddogs.page.html',
   styleUrls: ['owneddogs.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo]
+  providers: [Apollo, LoginPageComponentModule]
 
 })
 export class owneddogsPageComponent {
@@ -33,17 +32,14 @@ export class owneddogsPageComponent {
   //   pic:string,
   // }[]=[];
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
-    this.varsFacade.orgName$.subscribe(orgName => {
-      this.orgName = orgName;
-    });
-    console.log("Orgname is: "+this.orgName);
+  constructor(private router: Router, private apollo: Apollo){
     this.getDog();
+    console.log(this.orgName);
   }
 
   getDog(){
     const getDogQuery = gql`query {
-      findDogsByOrgName(orgName: "${this.orgName}") {
+      findDogsByOrgName(orgName: "SPCA") {
         name
         dob
         pics{

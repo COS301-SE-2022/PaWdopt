@@ -1,4 +1,5 @@
 {
+  "root": "apps/pawdopt-e2e",
   "sourceRoot": "apps/pawdopt-e2e/src",
   "projectType": "application",
   "targets": {

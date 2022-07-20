@@ -60,8 +60,7 @@
       ],
       "@pawdopt/mobile/userprofile/feature": [
         "libs/mobile/userprofile/feature/src/index.ts"
-      ],
-      "@pawdopt/shared/data-store": ["libs/shared/data-store/src/index.ts"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

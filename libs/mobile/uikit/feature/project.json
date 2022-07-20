@@ -1,4 +1,5 @@
 {
+  "root": "libs/mobile/uikit/feature",
   "sourceRoot": "libs/mobile/uikit/feature/src",
   "projectType": "library",
   "targets": {
