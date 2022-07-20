@@ -1,0 +1,127 @@
+// #login-grid {
+//     // margin-left:auto;
+//     // margin-right:auto;
+//     max-width:700px;
+
+//     text-align: center;
+//     height: 100%;
+
+//     top: 50%;
+// }
+// #login-container{
+//     height:100%;
+// }
+
+.dogname{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: auto;
+    width: 300px;
+    height: 50px;
+    // width: 100%;
+    // height: 100%;
+    border-radius: 5px;
+    background-color: #C0B7B1;
+    border-color: black;
+
+}
+
+.userinfo{
+    margin: auto;
+    width: 330px;
+    height: 460px;
+    background: none;
+    top: 50%;
+    left: 50%;
+    border-color: black;
+}
+
+.avatar{
+    --border-radius: 50px;
+}
+
+
+.manipulatebuttons{
+    // height: 100%;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.potentialadoptees{
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.adopteesnew{
+    background-color: #C0B7B1;
+}
+
+.maincontainer{
+    //position: absolute;
+    //transform: translate(-50%, -50%);
+    margin: auto;
+    width: 330px;
+    height: 460px;
+    background: none;
+    top: 50%;
+    left: 50%;
+    
+}
+
+.thecard{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+    
+}
+
+.thecard:active {
+    transform: rotateY(180deg);
+}
+
+.thefront{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    background: #F8F9FA;
+    text-align: center;
+    color: #000;
+    
+}
+
+.theback{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    background: #F8F9FA;
+    color: #333;
+    text-align: center;
+    transform: rotateY(180deg);
+  }
