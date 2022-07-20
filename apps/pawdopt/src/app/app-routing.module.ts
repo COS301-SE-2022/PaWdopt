@@ -88,6 +88,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/userprofile/feature').then(
         (m) => m.userprofilePageComponentModule
       )
+  },
+  {
+    path: 'adoptionprocess',
+    loadChildren: () =>
+      import('@pawdopt/mobile/adoptionprocess/feature').then(
+        (m) => m.adoptionprocessPageComponentModule
+      )
   }
 ];
 

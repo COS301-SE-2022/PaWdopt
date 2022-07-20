@@ -5,6 +5,7 @@
     "backend-shell-api-feature": "libs/backend/shell/api/feature",
     "mobile-adddog-feature": "libs/mobile/adddog/feature",
     "mobile-addorg-feature": "libs/mobile/addorg/feature",
+    "mobile-adoptionprocess-feature": "libs/mobile/adoptionprocess/feature",
     "mobile-dashboard-feature": "libs/mobile/dashboard/feature",
     "mobile-login-feature": "libs/mobile/login/feature",
     "mobile-owneddogs-feature": "libs/mobile/owneddogs/feature",

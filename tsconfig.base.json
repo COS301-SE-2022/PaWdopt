@@ -25,6 +25,9 @@
       "@pawdopt/mobile/addorg/feature": [
         "libs/mobile/addorg/feature/src/index.ts"
       ],
+      "@pawdopt/mobile/adoptionprocess/feature": [
+        "libs/mobile/adoptionprocess/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/dashboard/feature": [
         "libs/mobile/dashboard/feature/src/index.ts"
       ],
