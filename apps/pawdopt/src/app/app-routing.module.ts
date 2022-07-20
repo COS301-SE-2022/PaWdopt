@@ -102,6 +102,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/orgprofile/feature').then(
         (m) => m.orgprofilePageComponentModule
       )
+  },
+  {
+    path: 'appointmentpage',
+    loadChildren: () =>
+      import('@pawdopt/mobile/appointmentpage/feature').then(
+        (m) => m.appointmentpagePageComponentModule
+      )
   }
 ];
 

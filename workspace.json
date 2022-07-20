@@ -6,6 +6,7 @@
     "mobile-adddog-feature": "libs/mobile/adddog/feature",
     "mobile-addorg-feature": "libs/mobile/addorg/feature",
     "mobile-adoptionprocess-feature": "libs/mobile/adoptionprocess/feature",
+    "mobile-appointmentpage-feature": "libs/mobile/appointmentpage/feature",
     "mobile-dashboard-feature": "libs/mobile/dashboard/feature",
     "mobile-login-feature": "libs/mobile/login/feature",
     "mobile-orgprofile-feature": "libs/mobile/orgprofile/feature",
