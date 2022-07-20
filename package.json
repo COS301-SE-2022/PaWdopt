@@ -91,7 +91,7 @@
         "eslint-config-prettier": "8.5.0",
         "eslint-plugin-cypress": "^2.12.1",
         "jasmine-marbles": "~0.9.1",
-        "jest": "~28.0.0",
+        "jest": "<28.0.0",
         "jest-preset-angular": "12.0.1",
         "nx": "^14.1.9",
         "prettier": "^2.6.2",
