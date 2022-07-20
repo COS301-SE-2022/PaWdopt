@@ -24,7 +24,7 @@ export class owneddogsPageComponent {
     age: number,
     likes: number,
     pic:string,
-    about:string
+    breed:string
   }[]=[]
 
 
@@ -47,7 +47,7 @@ export class owneddogsPageComponent {
         pics{
           path
         }
-        about
+        breed
         usersLiked{
           name
         }
@@ -66,7 +66,7 @@ export class owneddogsPageComponent {
           pics: {
           path: string
           }[],
-          about: string,
+          breed: string,
           usersLiked: {
             name: string
           }[]
@@ -75,7 +75,7 @@ export class owneddogsPageComponent {
       
       // this.dog.name = data.findDog.name;
       // this.dog.pic = data.findDog.pics[0].path;
-      // this.dog.about = data.findDog.about;
+      // this.dog.breed = data.findDog.breed;
       // this.dog.age = 0;
       // this.dog.likes = data.findDog.usersLiked.length;
       // console.log(data);
@@ -88,7 +88,7 @@ export class owneddogsPageComponent {
             pic: element.pics[0].path,
             age: 2,
             likes: element.usersLiked.length,
-            about: element.about
+            breed: element.breed
           }
         );
       })  
@@ -104,7 +104,7 @@ export class owneddogsPageComponent {
         pics{
           path
         }
-        about
+        breed
         usersLiked{
           name
         }
@@ -123,7 +123,7 @@ export class owneddogsPageComponent {
           pics: {
           path: string
           }[],
-          about: string,
+          breed: string,
           usersLiked: {
             name: string
           }[]
@@ -145,7 +145,7 @@ export class owneddogsPageComponent {
             pic: data.findDog.pics[0].path,
             age: 0,
             likes: data.findDog.usersLiked.length,
-            about: data.findDog.about
+            breed: data.findDog.breed
           }
         )
       }
