@@ -2,7 +2,6 @@
 export default {
   displayName: 'shared-data-store',
   preset: '../../../jest.preset.js',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
