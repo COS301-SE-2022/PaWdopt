@@ -1,6 +1,5 @@
 {
   "projectType": "application",
-  "root": "apps/pawdopt",
   "sourceRoot": "apps/pawdopt/src",
   "prefix": "pawdopt",
   "targets": {

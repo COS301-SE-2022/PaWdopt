@@ -22,8 +22,8 @@
     <!--Company name-->
     <div>&nbsp;</div>
     <div class="companyname">
-        <!-- <p><b>{{this.orgName}}</b></p> -->
-        <h1><b>SPCA</b></h1>
+        <p><b>{{this.orgName}}</b></p>
+        <!-- <h1><b>SPCA</b></h1> -->
     </div>
     <div>&nbsp;</div>
 
@@ -39,7 +39,8 @@
         <ion-button class="greyButton" id="search-dog-button" (click)="search()">Search</ion-button>
     </div> -->
     <div class="container">
-        <ion-button class="greyButton" id="add-dog-button" (click)="addDog()"><ion-icon name="add-outline"></ion-icon>&nbsp;Add a dog</ion-button>
+        <ion-button class="greyButton" id="add-dog-button" (click)="addDog()">
+            <ion-icon name="add-outline"></ion-icon>&nbsp;Add a dog</ion-button>
     </div>
     <div class="maincontainer" *ngFor="let d of dog">
         <div class="thecard">
