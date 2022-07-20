@@ -1,5 +1,4 @@
 {
-  "root": "libs/mobile/login/feature",
   "sourceRoot": "libs/mobile/login/feature/src",
   "projectType": "library",
   "targets": {

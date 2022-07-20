@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {Apollo, gql } from 'apollo-angular';
-// import { Adopter, OrgMember } from 'libs/backend/shell/api/feature/src/lib/api.schema';
+import { Apollo, gql } from 'apollo-angular';
+import { VarsFacade } from '@pawdopt/shared/data-store';
+
 @Component({
   selector: 'pawdopt-login',
   templateUrl: 'login.page.html',
@@ -15,8 +16,7 @@ export class LoginPageComponent {
   public static orgName:string;
   public static adopterEmail:string;
 
-  constructor(private router: Router, private apollo: Apollo){
-    
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {    
   }
 
 
@@ -43,15 +43,14 @@ export class LoginPageComponent {
 
         if (typeVar == "AdopterType") { //"Adopter"
           LoginPageComponent.adopterEmail = email;
+          this.varsFacade.setEmail(email);
           this.router.navigate(["/home"]);
           return true;
         }
-        else{
-         //successfulquery = this.loginorgquery(email, password);
+        else {
          return false;
         }
-      } else{
-        //successfulquery = this.loginorgquery(email, password);
+      } else {
         return false;
       }
 
@@ -81,7 +80,8 @@ export class LoginPageComponent {
         const typeVar = data.loginOrg.__typename;
     
         if (typeVar == "OrgMemberType") { //"Adopter"
-          LoginPageComponent.orgName = data.loginOrg.organisation;
+          this.varsFacade.setEmail(email);
+          this.varsFacade.setOrgName(data.loginOrg.organisation);
           this.router.navigate(["/owneddogs"]);
           successfulquery = true;
         }
@@ -94,8 +94,8 @@ export class LoginPageComponent {
   {
     const email = this.inputEmail;
     const password = this.inputPassword;
-    console.log(this.inputEmail);
-    console.log(this.inputPassword);
+    // console.log(this.inputEmail);
+    // console.log(this.inputPassword);
     //Adopter user: "jason@gmail.com" "1234"
     //Organisation user: "judy@gmail.com" "0000"
     //"${email}" "${password}"
@@ -112,6 +112,7 @@ export class LoginPageComponent {
     else
     {
       console.log("Login failed"); //CHANGE TO TOAST 
+      this.varsFacade.setEmail("");
       this.router.navigate(["/login"]);
     }
     
