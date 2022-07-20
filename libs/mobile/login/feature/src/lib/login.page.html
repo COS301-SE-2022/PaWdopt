@@ -13,11 +13,18 @@
 </ion-item-group>
 </ion-list>
 <ion-button class="greyButton" id="login-button" (click)="login()"><b>Continue</b></ion-button>
-<ion-button class="greyButton" id="login-button" (click)="addorg()"><b>Add organization</b></ion-button>
-<ion-button class="greyButton" id="login-apple-button">Login with Apple</ion-button>
-<ion-button class="greyButton" id="login-google-button">Login with Google</ion-button>
+<!-- <ion-button class="greyButton" id="login-button" (click)="addorg()"><b>Add organization</b></ion-button> -->
+<ion-button class="greyButton" id="login-apple-button"><ion-icon name="logo-apple"></ion-icon>&nbsp; Login with Apple</ion-button>
+<ion-button class="greyButton" id="login-google-button"><ion-icon name="logo-google"></ion-icon>&nbsp; Login with Google</ion-button>
 <div class="noaccount">
-  <ion-title>Don't have an account?</ion-title>
+  Don't have an account? Click
+  <a href="/signup"><b>Here</b></a>
 </div>
-<ion-button class="greyButton" id="login-button" (click)="signup()"><b>Create an account</b></ion-button>
+<div class="noaccount">
+  Want to add an organization? Click
+  <a href="/addorg"><b>Here</b></a>
 </div>
+
+<!-- <ion-button class="greyButton" id="login-button" (click)="signup()"><b>Create an account</b></ion-button> -->
+</div>
+
