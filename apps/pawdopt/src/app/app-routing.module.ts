@@ -88,6 +88,27 @@ const routes: Routes = [
       import('@pawdopt/mobile/userprofile/feature').then(
         (m) => m.userprofilePageComponentModule
       )
+  },
+  {
+    path: 'adoptionprocess',
+    loadChildren: () =>
+      import('@pawdopt/mobile/adoptionprocess/feature').then(
+        (m) => m.adoptionprocessPageComponentModule
+      )
+  },
+  {
+    path: 'orgprofile',
+    loadChildren: () =>
+      import('@pawdopt/mobile/orgprofile/feature').then(
+        (m) => m.orgprofilePageComponentModule
+      )
+  },
+  {
+    path: 'appointmentpage',
+    loadChildren: () =>
+      import('@pawdopt/mobile/appointmentpage/feature').then(
+        (m) => m.appointmentpagePageComponentModule
+      )
   }
 ];
 

@@ -25,11 +25,20 @@
       "@pawdopt/mobile/addorg/feature": [
         "libs/mobile/addorg/feature/src/index.ts"
       ],
+      "@pawdopt/mobile/adoptionprocess/feature": [
+        "libs/mobile/adoptionprocess/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/appointmentpage/feature": [
+        "libs/mobile/appointmentpage/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/dashboard/feature": [
         "libs/mobile/dashboard/feature/src/index.ts"
       ],
       "@pawdopt/mobile/login/feature": [
         "libs/mobile/login/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/orgprofile/feature": [
+        "libs/mobile/orgprofile/feature/src/index.ts"
       ],
       "@pawdopt/mobile/owneddogs/feature": [
         "libs/mobile/owneddogs/feature/src/index.ts"
