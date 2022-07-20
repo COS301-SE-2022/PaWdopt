@@ -8,6 +8,7 @@
     "mobile-adoptionprocess-feature": "libs/mobile/adoptionprocess/feature",
     "mobile-dashboard-feature": "libs/mobile/dashboard/feature",
     "mobile-login-feature": "libs/mobile/login/feature",
+    "mobile-orgprofile-feature": "libs/mobile/orgprofile/feature",
     "mobile-owneddogs-feature": "libs/mobile/owneddogs/feature",
     "mobile-signup-feature": "libs/mobile/signup/feature",
     "mobile-uikit-feature": "libs/mobile/uikit/feature",

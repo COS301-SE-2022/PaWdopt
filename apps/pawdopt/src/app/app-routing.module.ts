@@ -95,6 +95,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/adoptionprocess/feature').then(
         (m) => m.adoptionprocessPageComponentModule
       )
+  },
+  {
+    path: 'orgprofile',
+    loadChildren: () =>
+      import('@pawdopt/mobile/orgprofile/feature').then(
+        (m) => m.orgprofilePageComponentModule
+      )
   }
 ];
 
