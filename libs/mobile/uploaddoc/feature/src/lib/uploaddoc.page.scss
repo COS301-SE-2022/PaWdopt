@@ -12,6 +12,29 @@
 //     height:100%;
 // }
 
+.greyButton {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    align-items: center;
+}
+
+.uploadButtons {
+    position: absolute;
+    right: 10%;
+}
+
+.uploadButtons2 {
+    position: absolute;
+    right: 0;
+}
+
+.annoyingButton {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    justify-content: center;
+    display: flex;
+}
+
 .dogname{
     display: flex;
     justify-content: center;
