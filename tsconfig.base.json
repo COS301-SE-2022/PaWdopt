@@ -31,6 +31,7 @@
       "@pawdopt/mobile/appointmentpage/feature": [
         "libs/mobile/appointmentpage/feature/src/index.ts"
       ],
+      "@pawdopt/mobile/chat/feature": ["libs/mobile/chat/feature/src/index.ts"],
       "@pawdopt/mobile/dashboard/feature": [
         "libs/mobile/dashboard/feature/src/index.ts"
       ],
@@ -51,6 +52,9 @@
       ],
       "@pawdopt/mobile/updateorremovedog/feature": [
         "libs/mobile/updateorremovedog/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/uploaddoc/feature": [
+        "libs/mobile/uploaddoc/feature/src/index.ts"
       ],
       "@pawdopt/mobile/userinfo/feature": [
         "libs/mobile/userinfo/feature/src/index.ts"

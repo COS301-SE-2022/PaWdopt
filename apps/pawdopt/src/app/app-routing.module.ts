@@ -109,6 +109,20 @@ const routes: Routes = [
       import('@pawdopt/mobile/appointmentpage/feature').then(
         (m) => m.appointmentpagePageComponentModule
       )
+  },
+  {
+    path: 'chat',
+    loadChildren: () =>
+      import('@pawdopt/mobile/chat/feature').then(
+        (m) => m.chatPageComponentModule
+      )
+  },
+  {
+    path: 'uploaddoc',
+    loadChildren: () =>
+      import('@pawdopt/mobile/uploaddoc/feature').then(
+        (m) => m.uploaddocPageComponentModule
+      )
   }
 ];
 
