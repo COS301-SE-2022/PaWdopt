@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Apollo, gql } from 'apollo-angular';
-import { storeEmail } from './+state/login/login.actions';
-import { Store } from '@ngrx/store';
+import {Apollo, gql } from 'apollo-angular';
+import { VarsFacade } from '@pawdopt/shared/data-store';
 
 @Component({
   selector: 'pawdopt-login',
@@ -17,7 +16,7 @@ export class LoginPageComponent {
   public static orgName:string;
   public static adopterEmail:string;
 
-  constructor(private router: Router, private apollo: Apollo, private store: Store<{email: string}>) {
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
     
   }
 
@@ -44,8 +43,7 @@ export class LoginPageComponent {
         const typeVar = data.loginAdopter.__typename;
 
         if (typeVar == "AdopterType") { //"Adopter"
-          LoginPageComponent.adopterEmail = email;
-          //Here
+          this.varsFacade.setEmail(email);
           this.router.navigate(["/home"]);
           return true;
         }
@@ -84,7 +82,7 @@ export class LoginPageComponent {
         const typeVar = data.loginOrg.__typename;
     
         if (typeVar == "OrgMemberType") { //"Adopter"
-          LoginPageComponent.orgName = data.loginOrg.organisation;
+          this.varsFacade.setOrgName(data.loginOrg.organisation);
           this.router.navigate(["/owneddogs"]);
           successfulquery = true;
         }
@@ -106,12 +104,10 @@ export class LoginPageComponent {
       
     if(this.loginadoptquery(email, password))
     {
-      this.store.dispatch(storeEmail({email: email}));
       console.log("successful login");
     }
     else if(this.loginorgquery(email, password))
     {
-      this.store.dispatch(storeEmail({email: email}));
       console.log("successful login");
     }
     else

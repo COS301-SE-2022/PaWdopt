@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { getAllLogin, getLoginState } from '@pawdopt/mobile/login/feature';
+import { VarsFacade } from '@pawdopt/shared/data-store';
+
 @Component({
   selector: 'pawdopt-owneddogs',
   templateUrl: 'owneddogs.page.html',
@@ -11,8 +12,7 @@ import { getAllLogin, getLoginState } from '@pawdopt/mobile/login/feature';
 })
 export class owneddogsPageComponent {
 
-  loginDetails = getAllLogin(getLoginState);
-  email = this.loginDetails[0].email;
+  //public static GlobalVars = "hello";
   
   inputSearch!: string;
   orgName = "";
@@ -33,15 +33,17 @@ export class owneddogsPageComponent {
   //   pic:string,
   // }[]=[];
 
-  constructor(private router: Router, private apollo: Apollo){
-    this.getDog();
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
+    this.varsFacade.orgName$.subscribe(orgName => {
+      this.orgName = orgName;
+    });
     console.log(this.orgName);
-    console.log("Email of logged in person: "+this.email);
+    this.getDog();
   }
 
   getDog(){
     const getDogQuery = gql`query {
-      findDogsByOrgName(orgName: "SPCA") {
+      findDogsByOrgName(orgName: "${this.orgName}") {
         name
         dob
         pics{

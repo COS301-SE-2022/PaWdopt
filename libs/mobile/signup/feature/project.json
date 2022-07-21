@@ -1,5 +1,4 @@
 {
-  "root": "libs/mobile/signup/feature",
   "sourceRoot": "libs/mobile/signup/feature/src",
   "projectType": "library",
   "targets": {

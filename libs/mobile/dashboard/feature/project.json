@@ -1,5 +1,4 @@
 {
-  "root": "libs/mobile/dashboard/feature",
   "sourceRoot": "libs/mobile/dashboard/feature/src",
   "projectType": "library",
   "targets": {

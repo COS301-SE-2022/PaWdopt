@@ -1,5 +1,4 @@
 {
-  "root": "libs/mobile/userlikes/feature",
   "sourceRoot": "libs/mobile/userlikes/feature/src",
   "projectType": "library",
   "targets": {
