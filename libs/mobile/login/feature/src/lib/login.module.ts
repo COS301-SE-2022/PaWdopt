@@ -11,6 +11,4 @@ import { LoginPageComponentRoutingModule } from './login-routing.module';
   declarations: [LoginPageComponent],
 })
 export class LoginPageComponentModule {
-  public orgName = LoginPageComponent.orgName;
-  public static adopterEmail = LoginPageComponent.adopterEmail;
 }

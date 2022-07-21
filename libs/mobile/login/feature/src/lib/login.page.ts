@@ -7,7 +7,7 @@ import { VarsFacade } from '@pawdopt/shared/data-store';
   selector: 'pawdopt-login',
   templateUrl: 'login.page.html',
   styleUrls: ['login.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo]
+  providers: [Apollo, VarsFacade],
 })
 export class LoginPageComponent {
 
