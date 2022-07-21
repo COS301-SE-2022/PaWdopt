@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/shared/data-store/src",
+  "prefix": "pawdopt",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/data-store"],
+      "options": {
+        "jestConfig": "libs/shared/data-store/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/data-store/**/*.ts",
+          "libs/shared/data-store/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
