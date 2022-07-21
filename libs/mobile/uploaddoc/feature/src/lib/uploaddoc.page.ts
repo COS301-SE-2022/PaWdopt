@@ -44,5 +44,10 @@ export class uploaddocPageComponent {
     //this.router.navigate(["/userinfo"]); Not implemented yet
   }
 
+  back(){
+    this.router.navigate(["/userprofile"]);
+
+  }
+
 }
 
