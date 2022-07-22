@@ -7,7 +7,7 @@ import { VarsFacade } from '@pawdopt/shared/data-store';
   selector: 'pawdopt-owneddogs',
   templateUrl: 'owneddogs.page.html',
   styleUrls: ['owneddogs.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo]
+  providers: [Apollo, VarsFacade],
 
 })
 export class owneddogsPageComponent {

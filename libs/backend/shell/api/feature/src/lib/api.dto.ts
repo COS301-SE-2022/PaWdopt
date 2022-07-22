@@ -1,5 +1,7 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
-import { Dog, Pic, Organisation, Location, ContactInfo, Doc, OrgMember, Adopter } from './api.schema';
+import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter } from './api.schema';
+import { Schema as MongooseSchema } from 'mongoose';
+import { ObjectEncodingOptions } from "fs";
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
@@ -15,16 +17,6 @@ export class OrgMemberType {
 
     @Field()
     organisation: string;
-}
-
-@ObjectType('DocType')
-@InputType('DocInputType')
-export class DocType {
-    @Field()
-    type: string;
-
-    @Field()
-    path: string;
 }
 
 @ObjectType('ContactInfoType')
@@ -59,16 +51,13 @@ export class LocationType {
     lng: number;
 }
 
-@ObjectType('PicType')
-@InputType('PicInputType')
-export class PicType {
-    @Field()
-    path: string;
-}
-
 @ObjectType('DogType')
 @InputType('DogInputType')
 export class DogType {
+
+    @Field(() => String)
+    _id: string;
+    
     @Field()
     name: string;
 
@@ -78,8 +67,8 @@ export class DogType {
     @Field()
     gender: string;
 
-    @Field(() => [PicType])
-    pics: [Pic];
+    @Field(() => [String])
+    pics: [string];
 
     @Field()
     breed: string;
@@ -87,7 +76,7 @@ export class DogType {
     @Field()
     about: string;
 
-    @Field(() => OrganisationType)
+    @Field(() => OrganisationType, {nullable : true})
     organisation: Organisation;
 
     @Field()
@@ -104,9 +93,6 @@ export class DogType {
 
     @Field(() => [String])
     temperament: [string];
-
-    @Field(() => String, { nullable: true })
-    orgName: string;
 }
 
 @ObjectType('OrganisationType')
@@ -121,20 +107,30 @@ export class OrganisationType {
     @Field()
     dateFounded: Date;
 
+    @Field()
+    totalAdoptions: number;
+
+    @Field()
+    totalDogs: number;
+
     @Field(() => [OrgMemberType])
     members: [OrgMember];
 
     @Field(() => LocationType)
     location: Location;
 
-    @Field(() => [String], { nullable: true })
-    rulesReq: [string];
+    //Will be a pdf once Firebase storage is initialized
+    @Field({ nullable: true })
+    rulesReq: string;
 
     @Field(() => ContactInfoType)
     contactInfo: ContactInfo;
 
-    @Field(() => PicType, { nullable: true })
-    logo: Pic;
+    @Field(() => [AdopterType], {nullable: true})
+    potentialAdopters: [Adopter]; //use backend to get all dogs liked with same org 
+
+    @Field({ nullable: true })
+    logo: string;
 }
 
 @ObjectType('AdopterType')
@@ -152,21 +148,21 @@ export class AdopterType {
     @Field()
     IDNum: string;
     
-    @Field(() => PicType, {nullable:true})
-    pic: Pic;
+    @Field({nullable:true})
+    pic: string;
 
     @Field(() => LocationType, {nullable:true})
     location: Location;
 
-    @Field(() => [DocType], { nullable: true })
-    documents: [Doc];
+    @Field(() => [String], { nullable: true })
+    documents: [string]; //must be in order of: ID, Proof of res, Bank, motivation letter
 
     @Field(() => [DogType], { nullable: true })
     dogsLiked: [Dog];
 
-    @Field()
-    questionnaire: string;
+    @Field(() => [DogType], { nullable: true })
+    dogsDisliked: [Dog];
 
-    @Field()
-    distance: number;
+    @Field() 
+    uploadedDocs : boolean;//on create account set to false
 }
