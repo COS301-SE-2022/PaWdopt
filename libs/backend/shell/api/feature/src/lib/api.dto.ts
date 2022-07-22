@@ -1,5 +1,7 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
 import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter } from './api.schema';
+import { Schema as MongooseSchema } from 'mongoose';
+import { ObjectEncodingOptions } from "fs";
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
@@ -49,10 +51,13 @@ export class LocationType {
     lng: number;
 }
 
-
 @ObjectType('DogType')
 @InputType('DogInputType')
 export class DogType {
+
+    @Field(() => String)
+    _id: string;
+    
     @Field()
     name: string;
 
@@ -62,7 +67,7 @@ export class DogType {
     @Field()
     gender: string;
 
-    @Field()
+    @Field(() => [String])
     pics: [string];
 
     @Field()
@@ -71,7 +76,7 @@ export class DogType {
     @Field()
     about: string;
 
-    @Field(() => OrganisationType, { nullable: true})
+    @Field(() => OrganisationType, {nullable : true})
     organisation: Organisation;
 
     @Field()
@@ -149,7 +154,7 @@ export class AdopterType {
     @Field(() => LocationType, {nullable:true})
     location: Location;
 
-    @Field({ nullable: true })
+    @Field(() => [String], { nullable: true })
     documents: [string]; //must be in order of: ID, Proof of res, Bank, motivation letter
 
     @Field(() => [DogType], { nullable: true })

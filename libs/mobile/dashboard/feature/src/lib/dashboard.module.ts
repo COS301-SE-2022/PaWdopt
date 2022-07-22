@@ -11,5 +11,4 @@ import { dashboardPageComponentRoutingModule } from './dashboard-routing.module'
   declarations: [dashboardPageComponent],
 })
 export class dashboardPageComponentModule {
-  public static user = dashboardPageComponent.user;
 }

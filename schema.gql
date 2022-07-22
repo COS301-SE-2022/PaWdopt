@@ -9,11 +9,6 @@ type OrgMemberType {
   organisation: String!
 }
 
-type DocType {
-  type: String!
-  path: String!
-}
-
 type ContactInfoType {
   email: String
   phone: String
@@ -28,24 +23,20 @@ type LocationType {
   lng: Float!
 }
 
-type PicType {
-  path: String!
-}
-
 type DogType {
+  _id: String!
   name: String!
   dob: DateTime!
   gender: String!
-  pics: [PicType!]!
+  pics: [String!]!
   breed: String!
   about: String!
-  organisation: OrganisationType!
+  organisation: OrganisationType
   weight: Float!
   height: Float!
   usersLiked: [AdopterType!]
   furLength: String!
   temperament: [String!]!
-  orgName: String
 }
 
 """
@@ -57,11 +48,14 @@ type OrganisationType {
   name: String!
   about: String!
   dateFounded: DateTime!
+  totalAdoptions: Float!
+  totalDogs: Float!
   members: [OrgMemberType!]!
   location: LocationType!
-  rulesReq: [String!]
+  rulesReq: String
   contactInfo: ContactInfoType!
-  logo: PicType
+  potentialAdopters: [AdopterType!]
+  logo: String
 }
 
 type AdopterType {
@@ -69,12 +63,12 @@ type AdopterType {
   email: String!
   password: String!
   IDNum: String!
-  pic: PicType
+  pic: String
   location: LocationType
-  documents: [DocType!]
+  documents: [String!]
   dogsLiked: [DogType!]
-  questionnaire: String!
-  distance: Float!
+  dogsDisliked: [DogType!]
+  uploadedDocs: Boolean!
 }
 
 input OrgMemberInputType {
@@ -82,11 +76,6 @@ input OrgMemberInputType {
   email: String!
   password: String!
   organisation: String!
-}
-
-input DocInputType {
-  type: String!
-  path: String!
 }
 
 input ContactInfoInputType {
@@ -103,35 +92,34 @@ input LocationInputType {
   lng: Float!
 }
 
-input PicInputType {
-  path: String!
-}
-
 input DogInputType {
+  _id: String!
   name: String!
   dob: DateTime!
   gender: String!
-  pics: [PicInputType!]!
+  pics: [String!]!
   breed: String!
   about: String!
-  organisation: OrganisationInputType!
+  organisation: OrganisationInputType
   weight: Float!
   height: Float!
   usersLiked: [AdopterInputType!]
   furLength: String!
   temperament: [String!]!
-  orgName: String
 }
 
 input OrganisationInputType {
   name: String!
   about: String!
   dateFounded: DateTime!
+  totalAdoptions: Float!
+  totalDogs: Float!
   members: [OrgMemberInputType!]!
   location: LocationInputType!
-  rulesReq: [String!]
+  rulesReq: String
   contactInfo: ContactInfoInputType!
-  logo: PicInputType
+  potentialAdopters: [AdopterInputType!]
+  logo: String
 }
 
 input AdopterInputType {
@@ -139,16 +127,15 @@ input AdopterInputType {
   email: String!
   password: String!
   IDNum: String!
-  pic: PicInputType
+  pic: String
   location: LocationInputType
-  documents: [DocInputType!]
+  documents: [String!]
   dogsLiked: [DogInputType!]
-  questionnaire: String!
-  distance: Float!
+  dogsDisliked: [DogInputType!]
+  uploadedDocs: Boolean!
 }
 
 type Query {
-  findPic(id: String!): PicType!
   findDog(name: String!): DogType
   findDogsByName(name: String!): [DogType!]!
   findDogsByBreed(breed: String!): [DogType!]!
@@ -163,6 +150,8 @@ type Query {
   findAdopterByEmail(email: String!): AdopterType
   findDogsByOrgName(orgName: String!): [DogType!]!
   findDogsLikedByAdopter(adopterName: String!): [DogType!]!
+  findOrgByName(name: String!): OrganisationType!
+  findOrgMemberByEmail(email: String!): OrgMemberType!
 }
 
 type Mutation {
@@ -172,21 +161,12 @@ type Mutation {
   createOrgMember(member: OrgMemberInputType!): OrgMemberType!
   updateOrgMember(email: String!, member: OrgMemberInputType!): OrgMemberType!
   deleteOrgMember(email: String!): OrgMemberType!
-  createDog(dog: DogInputType!): DogType!
-  updateDog(id: String!, dog: DogInputType!): DogType!
   deleteDog(id: String!): DogType!
-  createPic(pic: PicInputType!): PicType!
-  updatePic(id: String!, pic: PicInputType!): PicType!
-  deletePic(id: String!): PicType!
-  createLocation(location: LocationInputType!): LocationType!
   updateLocation(id: String!, location: LocationInputType!): LocationType!
   deleteLocation(id: String!): LocationType!
   createContactInfo(contactInfo: ContactInfoInputType!): ContactInfoType!
   updateContactInfo(id: String!, contactInfo: ContactInfoInputType!): ContactInfoType!
   deleteContactInfo(id: String!): ContactInfoType!
-  createDoc(doc: DocInputType!): DocType!
-  updateDoc(id: String!, doc: DocInputType!): DocType!
-  deleteDoc(id: String!): DocType!
   createAdopter(adopter: AdopterInputType!): AdopterType!
   updateAdopter(email: String!, adopter: AdopterInputType!): AdopterType!
   deleteAdopter(email: String!): AdopterType!
@@ -198,4 +178,5 @@ type Mutation {
   updateDogWeight(dogName: String!, weight: Float!): DogType!
   updateDogHeight(dogName: String!, height: Float!): DogType!
   deleteDogbyName(name: String!): DogType!
+  createDog(dog: DogInputType!, orgName: String!): DogType!
 }
