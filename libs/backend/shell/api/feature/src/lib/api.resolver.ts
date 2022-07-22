@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
-import { DogType, OrganisationType, LocationType, PicType, ContactInfoType, DocType, AdopterType, OrgMemberType } from './api.dto';
-import { Dog, Pic, Organisation, Location, ContactInfo, Doc, Adopter} from './api.schema';
+import { DogType, OrganisationType, LocationType, ContactInfoType, AdopterType, OrgMemberType } from './api.dto';
+import { Dog, Organisation, Location, ContactInfo, Adopter} from './api.schema';
 
 
 @Resolver()
@@ -39,11 +39,6 @@ export class ApiResolver {
     }
 
     @Mutation(() => DogType)
-    async createDog(@Args('dog') dog: DogType) : Promise<DogType> {
-        return this.DogService.createDog(dog);
-    }
-
-    @Mutation(() => DogType)
     async updateDog(@Args('id') id: string, @Args('dog') dog: DogType) : Promise<DogType> {
         return this.DogService.updateDog(id, dog);
     }
@@ -51,26 +46,6 @@ export class ApiResolver {
     @Mutation(() => DogType)
     async deleteDog(@Args('id') id: string) : Promise<DogType> {
         return this.DogService.deleteDog(id);
-    }
-
-    @Mutation(() => PicType)
-    async createPic(@Args('pic') pic: PicType) : Promise<PicType> {
-        return this.DogService.createPic(pic);
-    }
-
-    @Mutation(() => PicType)
-    async updatePic(@Args('id') id: string, @Args('pic') pic: PicType) : Promise<PicType> {
-        return this.DogService.updatePic(id, pic);
-    }
-
-    @Mutation(() => PicType)
-    async deletePic(@Args('id') id: string) : Promise<PicType> {
-        return this.DogService.deletePic(id);
-    }
-
-    @Mutation(() => LocationType)
-    async createLocation(@Args('location') location: LocationType) : Promise<LocationType> {
-        return this.DogService.createLocation(location);
     }
 
     @Mutation(() => LocationType)
@@ -98,21 +73,6 @@ export class ApiResolver {
         return this.DogService.deleteContactInfo(id);
     }
 
-    @Mutation(() => DocType)
-    async createDoc(@Args('doc') doc: DocType) : Promise<DocType> {
-        return this.DogService.createDoc(doc);
-    }
-
-    @Mutation(() => DocType)
-    async updateDoc(@Args('id') id: string, @Args('doc') doc: DocType) : Promise<DocType> {
-        return this.DogService.updateDoc(id, doc);
-    }
-
-    @Mutation(() => DocType)
-    async deleteDoc(@Args('id') id: string) : Promise<DocType> {
-        return this.DogService.deleteDoc(id);
-    }
-
     @Mutation(() => AdopterType)
     async createAdopter(@Args('adopter') adopter: AdopterType) : Promise<AdopterType> {
         return this.DogService.createAdopter(adopter);
@@ -128,10 +88,6 @@ export class ApiResolver {
         return this.DogService.deleteAdopter(email);
     }
 
-    @Query(() => PicType)
-    async findPic(@Args('id') id: string) : Promise<PicType> {
-        return this.DogService.findPic(id);
-    }
 
     @Query(() => DogType, {nullable: true})
     async findDog(@Args('name') name: string) : Promise<DogType | null> {
@@ -331,6 +287,42 @@ export class ApiResolver {
     //=========================================================================================================================================================
     //=========================================================================================================================================================
     //new queries
+
+    /**
+     * used in AddDog Page
+     * create a dog
+     * @param dog
+     * @param orgName
+     * @returns dog
+     */
+    @Mutation(() => DogType)
+    async createDog(@Args('dog') dog: DogType, @Args('orgName') orgName: string) : Promise<DogType> {
+        const org = await this.DogService.findOrgByName(orgName);
+        dog.organisation = org;
+        return this.DogService.createDog(dog);
+    }
+
+    /**
+     * used in AddDog Page
+     * find org by name
+     * @param name
+     * @returns organisation
+     */
+    @Query(() => OrganisationType)
+    async findOrgByName(@Args('name') name: string) : Promise<OrganisationType> {
+        return this.DogService.findOrgByName(name);
+    }
+
+    /**
+     * used in AddDog Page
+     * find orgMember by email
+     * @param email
+     * @returns orgMember
+     */
+    @Query(() => OrgMemberType)
+    async findOrgMemberByEmail(@Args('email') email: string) : Promise<OrgMemberType> {
+        return this.DogService.findOrgMemberByEmail(email);
+    }
 
     
 }

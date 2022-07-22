@@ -1,18 +1,16 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dog, DogDocument, Pic, PicDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, Doc, DocDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument } from './api.schema';
+import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument } from './api.schema';
 import bcrypt from 'bcryptjs';
 
 @Injectable()
 export class ApiService {
     constructor(
         @InjectModel(Dog.name) private readonly DogModel: Model<DogDocument>, 
-        @InjectModel(Pic.name) private readonly PicModel : Model<PicDocument>,
         @InjectModel(Organisation.name) private readonly OrganisationModel : Model<OrganisationDocument>,
         @InjectModel(OrgMember.name) private readonly OrgMemberModel : Model<OrgMemberDocument>,
         @InjectModel(Adopter.name) private readonly AdopterModel : Model<AdopterDocument>,
-        @InjectModel(Doc.name) private readonly DocModel : Model<DocDocument>,
         @InjectModel(ContactInfo.name) private readonly ContactInfoModel : Model<ContactInfoDocument>,
         @InjectModel(Location.name) private readonly LocationModel : Model<LocationDocument>,
         ) {}
@@ -115,16 +113,6 @@ export class ApiService {
     }
 
     /**
-     * Create a new Dog
-     * @param {Dog} dog The dog to create
-     * @return {Promise<Dog || null>}
-
-     */
-    async createDog(dog: Dog): Promise<Dog | null> {
-        return this.DogModel.create(dog);
-    }
-
-    /**
      * Update an Dog
      * @param {string} name The name of the dog to update
      * @param {Dog} updatedDog The new dog information
@@ -134,6 +122,8 @@ export class ApiService {
     async updateDog(name: string, updatedDog: Dog): Promise<Dog | null> {
         return this.DogModel.findOneAndUpdate({ name }, updatedDog, { new: true }).exec();
     }
+
+
 
     /**
      * Delete an Dog
@@ -177,47 +167,6 @@ export class ApiService {
     }
 
     /**
-     * Create a new Doc
-     * @param {Doc} doc The doc to create
-     * @return {Promise<Doc || null>}
-
-     */
-    async createDoc(doc: Doc): Promise<Doc | null> {
-        return this.DocModel.create(doc);
-    }
-
-    /**
-     * Update an Doc
-     * @param {string} name The name of the doc to update
-     * @param {Doc} updatedDoc The new doc information
-     * @return {Promise<Doc || null>}
-
-     */
-    async updateDoc(name: string, updatedDoc: Doc): Promise<Doc | null> {
-        return this.DocModel.findOneAndUpdate({ name }, updatedDoc, { new: true }).exec();
-    }
-
-    /**
-     * Delete an Doc
-     * @param {string} name The name of the doc to delete
-     * @return {Promise<Doc || null>}
-
-     */
-    async deleteDoc(name: string): Promise<Doc | null> {
-        return this.DocModel.findOneAndDelete({ name }).exec();
-    }
-
-    /**
-     * Create a new Location
-     * @param {Location} location The location to create
-     * @return {Promise<Location || null>}
-
-     */
-    async createLocation(location: Location): Promise<Location | null> {
-        return this.LocationModel.create(location);
-    }
-
-    /**
      * Update an Location
      * @param {string} name The name of the location to update
      * @param {Location} updatedLocation The new location information
@@ -237,48 +186,6 @@ export class ApiService {
     async deleteLocation(name: string): Promise<Location | null> {
         return this.LocationModel.findOneAndDelete({ name }).exec();
     }
-
-    /**
-     * Create a new Pic
-     * @param {Pic} pic The pic to create
-     * @return {Promise<Pic || null>}
-
-     */
-    async createPic(pic: Pic): Promise<Pic | null> {
-        return this.PicModel.create(pic);
-    }
-
-    /**
-     * Update an Pic
-     * @param {string} name The name of the pic to update
-     * @param {Pic} updatedPic The new pic information
-     * @return {Promise<Pic || null>}
-
-     */
-    async updatePic(name: string, updatedPic: Pic): Promise<Pic | null> {
-        return this.PicModel.findOneAndUpdate({ name }, updatedPic, { new: true }).exec();
-    }
-
-    /**
-     * Delete an Pic
-     * @param {string} name The name of the pic to delete
-     * @return {Promise<Pic || null>}
-
-     */
-    async deletePic(name: string): Promise<Pic | null> {
-        return this.PicModel.findOneAndDelete({ name }).exec();
-    }
-
-    /**
-     * Find a Pic by id
-     * @param {string} id The id of the pic to find
-     * @return {Promise<Pic || null>}
-
-     */
-    async findPic(id: string): Promise<Pic | null> {
-        return this.PicModel.findOne({ id }).exec();
-    }
-
     /**
      * Find a Adopter by email
      * @param {string} email The email of the adopter to find
@@ -568,16 +475,6 @@ export class ApiService {
     }
 
     /**
-     * find org by name
-     * @param {string} name The name of the org to find
-     * @return {Promise<Org || null>}
-     * 
-     */
-    async findOrgByName(name: string): Promise<Organisation | null> {
-        return this.OrganisationModel.findOne({ name }).exec();
-    }
-
-    /**
      * find dogs by org
      * @param {string} name The name of the org to find
      * @return {Promise<Dog[]>}
@@ -636,9 +533,30 @@ export class ApiService {
     /**
      * For the AddDog page
      * create a dog
-     * @param {string} name The name of the dog to create
-     * @param {date} dob The dob of the dog to create
-     * @param {string} gender The gender of the dog to create
-     * 
+     * @param {Dog} dog The name of the dog to create
+     * @return {Promise<Dog || null>}
      */
+    async createDog(dog: Dog): Promise<Dog | null> {
+        return this.DogModel.create(dog);
+    }
+
+    /**
+     * For the AddDog page
+     * find organisation by name
+     * @param {string} name The name of the organisation to find
+     * @return {Promise<Organisation || null>}
+     */
+    async findOrgByName(name: string): Promise<Organisation | null> {
+        return this.OrganisationModel.findOne({ name }).exec();
+    }
+
+    /**
+     * For the AddDog page
+     * find orgMember by email
+     * @param {string} email The email of the orgMember to find
+     * @return {Promise<OrgMember || null>}
+     */
+    async findOrgMemberByEmail(email: string): Promise<OrgMember | null> {
+        return this.OrgMemberModel.findOne({ email }).exec();
+    }
 }

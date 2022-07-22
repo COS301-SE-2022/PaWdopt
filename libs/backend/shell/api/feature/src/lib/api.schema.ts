@@ -14,23 +14,6 @@ export class Location {
 
 @ObjectType()
 @Schema()
-export class Pic {
-    @Prop()
-    path: string;
-}
-
-@ObjectType()
-@Schema()
-export class Doc {
-    @Prop()
-    type: string;
-
-    @Prop()
-    path: string;
-}
-
-@ObjectType()
-@Schema()
 export class ContactInfo {
     @Prop()
     email: string;
@@ -64,26 +47,35 @@ export class Organisation {
     dateFounded: Date;
 
     @Prop()
+    totalAdoptions: number;
+
+    @Prop()
+    totalDogs: number;
+
+    @Prop()
     members: [OrgMember];
 
     @Prop()
     location: Location;
 
     @Prop()
-    rulesReq: [string];
+    rulesReq: string;
 
     @Prop()
     contactInfo: ContactInfo;
 
     @Prop()
-    logo: Pic;
+    potentialAdopters: [Adopter];
+
+    @Prop()
+    logo: string;
 }
 
 @ObjectType()
 @Schema()
 export class Dog {
     @Prop()
-    name: string
+    name: string;
 
     @Prop()
     dob: Date;
@@ -92,7 +84,7 @@ export class Dog {
     gender: string;
 
     @Prop()
-    pics: [Pic];
+    pics: [string];
 
     @Prop()
     breed: string;
@@ -117,9 +109,6 @@ export class Dog {
 
     @Prop()
     temperament: [string];
-
-    @Prop()
-    orgName: string;
 }
 
 @ObjectType()
@@ -138,22 +127,22 @@ export class Adopter {
     IDNum: string;
     
     @Prop()
-    pic: Pic;
+    pic: string;
 
     @Prop()
     location: Location;
 
     @Prop()
-    documents: [Doc];
+    documents: [string];
 
     @Prop()
     dogsLiked: [Dog];
 
     @Prop()
-    questionnaire: string;
+    dogsDisliked: [Dog];
 
     @Prop()
-    distance: number;
+    uploadedDocs: boolean;
 }
 
 @ObjectType()
@@ -172,14 +161,10 @@ export class OrgMember {
     organisation: string;    
 }
 
-export type DocDocument = Doc & Document;
-export const DocSchema = SchemaFactory.createForClass(Doc);
 export type ContactInfoDocument = ContactInfo & Document;
 export const ContactInfoSchema = SchemaFactory.createForClass(ContactInfo);
 export type LocationDocument = Location & Document;
 export const LocationSchema = SchemaFactory.createForClass(Location);
-export type PicDocument = Pic & Document;
-export const PicSchema = SchemaFactory.createForClass(Pic);
 export type DogDocument = Dog & Document;
 export const DogSchema = SchemaFactory.createForClass(Dog);
 export type OrganisationDocument = Organisation & Document;
