@@ -22,6 +22,4 @@ import { LoginEffects } from './+state/login/login.effects';
   declarations: [LoginPageComponent],
 })
 export class LoginPageComponentModule {
-  public orgName = LoginPageComponent.orgName;
-  public static adopterEmail = LoginPageComponent.adopterEmail;
 }
