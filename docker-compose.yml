@@ -11,6 +11,15 @@ services:
     networks:
       - pawdopt-private
     command: mongod
+  ml:
+    build:
+      context: ./ml/
+      dockerfile: Dockerfile
+    container_name: ml-api
+    ports:
+      - "5000:5000"
+    networks:
+      - pawdopt-private
 
 networks:
   pawdopt-private:
