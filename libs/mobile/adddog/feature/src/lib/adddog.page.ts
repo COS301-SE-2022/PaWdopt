@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import {Apollo, gql } from 'apollo-angular';
+
 @Component({
   selector: 'pawdopt-adddog',
   templateUrl: 'adddog.page.html',
@@ -23,7 +24,6 @@ export class AdddogPageComponent {
 
   orgName!: string;
   orgEmail!: string;
-
 
   addDog(){
     //Query used to get the orgName
@@ -51,9 +51,11 @@ export class AdddogPageComponent {
     );
 
 
+
     // pass it through to the mutation query
     const AddDogMutation = gql`mutation {
       addDog(dog: {
+        _id: "new_id",
         name: "${this.inputName}",
         dob: "${this.inputDOB}",
         gender: "${this.inputGender}",

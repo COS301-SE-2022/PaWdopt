@@ -559,4 +559,10 @@ export class ApiService {
     async findOrgMemberByEmail(email: string): Promise<OrgMember | null> {
         return this.OrgMemberModel.findOne({ email }).exec();
     }
+
+    /**
+     * for the Dashboard Page
+     * get dog by __id
+     * 
+     */
 }

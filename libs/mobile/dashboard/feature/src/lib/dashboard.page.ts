@@ -8,15 +8,8 @@ import {Apollo, gql } from 'apollo-angular';
   styleUrls: ['dashboard.page.scss', '../../../../../shared/styles/global.scss'],
 })
 export class dashboardPageComponent {
-  public static user: {
-    id: number,
-    email:string,
-    name:string,
-    pic:string,
-  };
 
-  //GlobalVar = owneddogsPageComponentModule.GlobalVars;
-  
+  dogID!: string; //might not be string might be objectID, wait to see
 
   dog:{
     name:string,
@@ -56,9 +49,7 @@ export class dashboardPageComponent {
       findDog(name: "Millie"){
         name
         dob
-        pics{
-          path
-        }
+        pics
         breed
         about
         organisation{
@@ -89,9 +80,7 @@ export class dashboardPageComponent {
         findDog: {
           name: string,
           dob: Date,
-          pics: {
-            path: string
-          }[],
+          pics: string[],
           breed: string,
           about: string,
           height: number,
@@ -100,9 +89,7 @@ export class dashboardPageComponent {
           furLength: number,
           usersLiked: {
             name: string,
-            pic: {
-              path: string
-            },
+            pic: string,
             email: string
           }[],
           organisation: {
@@ -112,7 +99,7 @@ export class dashboardPageComponent {
       };
       
       this.dog.name = data.findDog.name;
-      this.dog.pic = data.findDog.pics[0].path;
+      this.dog.pic = data.findDog.pics[0];
       this.dog.organisation = data.findDog.organisation.name;
       this.dog.about = data.findDog.about;
       this.dog.height = data.findDog.height;
@@ -138,7 +125,6 @@ export class dashboardPageComponent {
 
   userinfo(id: number){
     // TODO Complete dashboard validation
-    dashboardPageComponent.user = this.userLikes[id];
     this.router.navigate(["/userinfo"]);
     
   }

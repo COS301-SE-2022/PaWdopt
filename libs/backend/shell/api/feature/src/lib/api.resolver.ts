@@ -1,8 +1,9 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
 import { DogType, OrganisationType, LocationType, ContactInfoType, AdopterType, OrgMemberType } from './api.dto';
-import { Dog, Organisation, Location, ContactInfo, Adopter} from './api.schema';
+import { Dog,  Organisation, Location, ContactInfo, Adopter} from './api.schema';
 
+import { Types } from 'mongoose';
 
 @Resolver()
 export class ApiResolver {
@@ -36,11 +37,6 @@ export class ApiResolver {
     @Mutation(() => OrgMemberType)
     async deleteOrgMember(@Args('email') email: string) : Promise<OrgMemberType> {
         return this.DogService.deleteOrgMember(email);
-    }
-
-    @Mutation(() => DogType)
-    async updateDog(@Args('id') id: string, @Args('dog') dog: DogType) : Promise<DogType> {
-        return this.DogService.updateDog(id, dog);
     }
 
     @Mutation(() => DogType)
@@ -298,6 +294,7 @@ export class ApiResolver {
     @Mutation(() => DogType)
     async createDog(@Args('dog') dog: DogType, @Args('orgName') orgName: string) : Promise<DogType> {
         const org = await this.DogService.findOrgByName(orgName);
+        dog._id = (new Types.ObjectId()).toHexString();
         dog.organisation = org;
         return this.DogService.createDog(dog);
     }
