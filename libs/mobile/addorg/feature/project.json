@@ -1,5 +1,4 @@
 {
-  "root": "libs/mobile/addorg/feature",
   "sourceRoot": "libs/mobile/addorg/feature/src",
   "projectType": "library",
   "targets": {

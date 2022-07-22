@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-// import { Adopter, OrgMember } from 'libs/backend/shell/api/feature/src/lib/api.schema';
+import { VarsFacade } from '@pawdopt/shared/data-store';
+
 @Component({
   selector: 'pawdopt-login',
   templateUrl: 'login.page.html',
@@ -15,7 +16,7 @@ export class LoginPageComponent {
   public static orgName:string;
   public static adopterEmail:string;
 
-  constructor(private router: Router, private apollo: Apollo){
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
     
   }
 
@@ -42,7 +43,7 @@ export class LoginPageComponent {
         const typeVar = data.loginAdopter.__typename;
 
         if (typeVar == "AdopterType") { //"Adopter"
-          LoginPageComponent.adopterEmail = email;
+          this.varsFacade.setEmail(email);
           this.router.navigate(["/home"]);
           return true;
         }
@@ -81,7 +82,7 @@ export class LoginPageComponent {
         const typeVar = data.loginOrg.__typename;
     
         if (typeVar == "OrgMemberType") { //"Adopter"
-          LoginPageComponent.orgName = data.loginOrg.organisation;
+          this.varsFacade.setOrgName(data.loginOrg.organisation);
           this.router.navigate(["/owneddogs"]);
           successfulquery = true;
         }

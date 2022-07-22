@@ -1,5 +1,4 @@
 {
-  "root": "libs/mobile/adddog/feature",
   "sourceRoot": "libs/mobile/adddog/feature/src",
   "projectType": "library",
   "targets": {
