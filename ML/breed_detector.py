@@ -53,7 +53,7 @@ class breed_detector:
         name="Data_Augmentation"
     )
 
-    async def train_model(self):
+    def train_model(self):
         # Define Base Model
         base_model = keras.applications.Xception(
             weights='imagenet',  # Load weights pre-trained on ImageNet.
