@@ -5,10 +5,13 @@ import { DogType, OrganisationType, LocationType,  ContactInfoType,  AdopterType
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 
-/*describe('ApiService', () => {
+describe('ApiService', () => {
   let service: ApiService;
+  expect(true).toBe(true);
 
-    beforeAll(async () => {
+});
+
+   /* beforeAll(async () => {
         const moduleRef = await Test.createTestingModule({
             providers: [ApiService,{
                 provide: getModelToken(Dog.name),
