@@ -5,22 +5,43 @@ import { DogType, OrganisationType, LocationType,  ContactInfoType,  AdopterType
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 
-expect(true).toBe(true);
+describe('apiService', () => {
+    // let actions: Observable<Action>;
+    // let effects: VarsEffects;
+    // let zone: NgZone;
+  
+    // TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+  
+    // beforeEach(() => {
+      // TestBed.configureTestingModule({
+      //   imports: [NxModule.forRoot()],
+      //   providers: [
+      //     VarsEffects,
+      //     provideMockActions(() => actions),
+      //     provideMockStore(),
+      //     { provide: NgZone, useFactory: () => zone = new NgZone({ enableLongStackTrace: false }) }
+      //   ]
+      // });
+  
+      // effects = TestBed.inject(VarsEffects);
+    // });
+  
+    describe('init$', () => {
+      it('should work', () => {
+        expect(true).toBe(true);
+      });
+    }
+    );
+  });
 
 /*describe('ApiService', () => {
   let service: ApiService;
-  
-
-});
 
     beforeAll(async () => {
         const moduleRef = await Test.createTestingModule({
             providers: [ApiService,{
                 provide: getModelToken(Dog.name),
                 useValue: Dog,
-            },{
-                provide: getModelToken(Pic.name),
-                useValue: Pic,
             },{
                 provide: getModelToken(Organisation.name),
                 useValue: Organisation,
@@ -30,9 +51,6 @@ expect(true).toBe(true);
             },{
                 provide: getModelToken(Adopter.name),
                 useValue: Adopter,
-            },{
-                provide: getModelToken(Doc.name),
-                useValue: Doc,
             },{
                 provide: getModelToken(ContactInfo.name),
                 useValue: ContactInfo,
@@ -45,11 +63,6 @@ expect(true).toBe(true);
           
         service = await moduleRef.resolve(ApiService);
   });
-
-    const pic: PicType = {
-        path: 'path'
-    };
-
     const orgMem: OrgMemberType = {
         name: 'name',
         email: 'email',
