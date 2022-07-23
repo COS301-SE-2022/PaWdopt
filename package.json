@@ -2,6 +2,14 @@
     "name": "pawdopt",
     "version": "0.0.0",
     "license": "MIT",
+    "budgets": {
+        "npm": {
+            "max": "100MB"
+        },
+        "nx": {
+            "max": "100MB"
+        }
+    },
     "scripts": {
         "start": "nx serve",
         "start:db": "docker compose up -d",
@@ -102,13 +110,5 @@
         "ts-node": "10.8.0",
         "typescript": ">=4.4.2 and <4.7.0",
         "uuid": "^8.3.2"
-    },
-    "budgets": {
-        "npm": {
-            "max": "100MB"
-        },
-        "nx": {
-            "max": "100MB"
-        }
     }
 }
