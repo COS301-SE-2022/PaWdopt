@@ -105,15 +105,7 @@
     },
     "budgets": [
       {
-        "type": "all",
-        "name": "<string>",
-        "baseline": "<string>",
-        "maximumWarning": "<string>",
-        "maximumError": "<string>",
-        "minimumWarning": "<string>",
-        "minimumError": "<string>",
-        "warning": "<string>",
-        "error": "<string>"
+        "baseline": "5mb"
       }
     ]
 }
