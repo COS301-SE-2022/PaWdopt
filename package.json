@@ -105,8 +105,7 @@
     },
     "budgets": [
         {
-          "type": "all",
-          "baseline": "<string>"
+          "type": "all"
         }
       ]
 }
