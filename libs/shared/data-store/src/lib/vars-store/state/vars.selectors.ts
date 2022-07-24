@@ -44,3 +44,18 @@ export const getOrgName = createSelector(
   getVarsState,
   (state: State) => state.orgName
 );
+
+export const getOrgMemberEmail = createSelector(
+  getVarsState,
+  (state: State) => state.orgMemberEmail
+);
+
+export const getDogID = createSelector(
+  getVarsState,
+  (state: State) => state.dogID
+);
+
+export const getUserID = createSelector(
+  getVarsState,
+  (state: State) => state.userID
+);

@@ -101,6 +101,7 @@ export class LoginPageComponent {
     this.fireAuth.signInWithEmailAndPassword(email, password).then((user) => {
       console.log("Successfully signed in");
       console.log(user);
+      this.varsFacade.setOrgMemberEmail(email);
     }).catch((error) => {
       console.log("Error signing in");
       console.log(error);
