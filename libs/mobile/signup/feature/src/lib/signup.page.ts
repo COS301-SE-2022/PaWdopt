@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
+import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { validate } from 'graphql';
 @Component({
   selector: 'pawdopt-signup',
   templateUrl: 'signup.page.html',
   styleUrls: ['signup.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo]
+  providers: [Apollo, AngularFireAuth],
 })
 export class SignupPageComponent {
   uName!: string;
@@ -14,66 +16,37 @@ export class SignupPageComponent {
   idnum!: string;
   email!: string;
 
-  constructor(private router: Router, private apollo: Apollo) {
+  uid: string;
+
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth) {
+    this.uid = "";
   }
   
   
   signUp(){
-    // TODO Complete login validation
+    if(!this.validate())
+      return;
 
-    console.log("signup validation");
-
-    const username = this.uName;
-    const password = this.pass;
-    const rePassword = this.rePass;
-    const idnum = this.idnum;
-    const email = this.email;
-    
-    const checkEmail = gql`query {
-      emailExists(email: "${this.email}")
-    }`;
-
-    this.apollo.watchQuery({
-      query: checkEmail,
-      fetchPolicy: 'no-cache'
-    }).valueChanges.subscribe((result) => {
-      console.log(result);
-      const data = result.data as {
-        emailExists: boolean;
-      }
-      if(username != null){
-        if(password == rePassword){ 
-          if(idnum != null && idnum.length == 13){
-            if(email != null){
-              if(!data.emailExists){
-                console.log("success");
-                this.addUser();
-              }else{
-                console.log("failure");
-                alert("Email already exists");
-              }
-            }else{
-              console.log("failure");
-              alert("Please enter an email");
-            }
-          }else{
-            console.log("failure");
-            alert("Please enter a valid ID number");
-          }
-        }else{
-          console.log("failure");
-          alert("Passwords do not match");
-        }
-      }else{
-        console.log("failure");
-        alert("Please enter an User Name");
-      }
+    this.fireAuth.createUserWithEmailAndPassword(this.email, this.pass).then((user) => {
+      console.log("User created");
+      console.log(user);
+      this.addUser(user.user?.uid);
+    }).catch((error) => {
+      console.log(error);
+      //TODO: Toast error message
     });
+
+    // this.fireAuth.currentUser.then((user) => {
+    //   console.log(user?.uid);
+    // });
+    //TODO: Complete login validation
+    
   }
 
-  addUser(){
+  addUser(uid?: string){
     const addUser = gql`mutation {
       createAdopter(adopter: {
+        uid: "${uid}",
         name: "${this.uName}",
         email: "${this.email}",
         password: "${this.pass}",
@@ -103,4 +76,26 @@ export class SignupPageComponent {
     console.log("moving to login");
     this.router.navigate(["/login"]);
   }
+
+  validate(){
+    //TODO: Make validation better
+    let valid = true;
+    if(this.uName == null || this.uName == ""){
+      valid = false;
+    }
+    if(this.pass == null || this.pass == ""){
+      valid = false;
+    }
+    if(this.rePass == null || this.rePass == "" || this.rePass != this.pass){
+      valid = false;
+    }
+    if(this.idnum == null || this.idnum == "" || this.idnum.length != 13){
+      valid = false;
+    }
+    if(this.email == null || this.email == "" || !this.email.includes("@") || !this.email.includes(".")){
+      valid = false;
+    }
+
+    return valid;
+  }  
 }

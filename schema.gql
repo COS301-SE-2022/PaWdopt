@@ -59,6 +59,7 @@ type OrganisationType {
 }
 
 type AdopterType {
+  uid: String!
   name: String!
   email: String!
   password: String!
@@ -123,6 +124,7 @@ input OrganisationInputType {
 }
 
 input AdopterInputType {
+  uid: String!
   name: String!
   email: String!
   password: String!
