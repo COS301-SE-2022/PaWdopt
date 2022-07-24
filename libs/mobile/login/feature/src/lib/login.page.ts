@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
+import { AngularFireAuth } from "@angular/fire/compat/auth";
 
 @Component({
   selector: 'pawdopt-login',
   templateUrl: 'login.page.html',
   styleUrls: ['login.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade],
+  providers: [Apollo, VarsFacade, AngularFireAuth],
 })
 export class LoginPageComponent {
 
@@ -16,9 +17,10 @@ export class LoginPageComponent {
   public static orgName:string;
   public static adopterEmail:string;
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth) {
     
   }
+
 
 
    loginadoptquery(email: string, password:string){
@@ -95,26 +97,29 @@ export class LoginPageComponent {
   {
     const email = this.inputEmail;
     const password = this.inputPassword;
-    console.log(this.inputEmail);
-    console.log(this.inputPassword);
-    //Adopter user: "jason@gmail.com" "1234"
-    //Organisation user: "judy@gmail.com" "0000"
-    //"${email}" "${password}"
-
+    
+    this.fireAuth.signInWithEmailAndPassword(email, password).then((user) => {
+      console.log("Successfully signed in");
+      console.log(user);
+    }).catch((error) => {
+      console.log("Error signing in");
+      console.log(error);
+      //TODO: add toast with error message
+    });
       
-    if(this.loginadoptquery(email, password))
-    {
-      console.log("successful login");
-    }
-    else if(this.loginorgquery(email, password))
-    {
-      console.log("successful login");
-    }
-    else
-    {
-      console.log("Login failed"); //CHANGE TO TOAST 
-      this.router.navigate(["/login"]);
-    }
+    // if(this.loginadoptquery(email, password))
+    // {
+    //   console.log("successful login");
+    // }
+    // else if(this.loginorgquery(email, password))
+    // {
+    //   console.log("successful login");
+    // }
+    // else
+    // {
+    //   console.log("Login failed"); //CHANGE TO TOAST 
+    //   this.router.navigate(["/login"]);
+    // }
     
 }
 
