@@ -11,22 +11,15 @@ services:
     networks:
       - pawdopt-private
     command: mongod
-  keras:
-    image: tensorflow/serving:latest-gpu
-    restart: unless-stopped
-    container_name: tensorflow-serving
-    environment:
-      - "MODEL_NAME=keras_model"
+  ml:
+    build:
+      context: ./ml/
+      dockerfile: Dockerfile
+    container_name: ml-api
     ports:
-      - "8501:8501"
-    volumes:
-      - type: bind
-        source: ./ML/models/keras_model/
-        target: /models/keras_model/
+      - "5000:5000"
     networks:
       - pawdopt-private
-
-  
 
 networks:
   pawdopt-private:
