@@ -4,14 +4,13 @@
     "license": "MIT",
     "budgets": [{
         "type": "all",
-        "name": "<string>",
-        "baseline": "<string>",
+        "baseline": "5mb",
         "maximumWarning": "5mb",
         "maximumError": "5mb",
         "minimumWarning": "5mb",
         "minimumError": "5mb",
-        "warning": "<string>",
-        "error": "<string>"
+        "warning": "5mb",
+        "error": "5mb"
     }],
     "scripts": {
         "start": "nx serve",
