@@ -321,5 +321,29 @@ export class ApiResolver {
         return this.DogService.findOrgMemberByEmail(email);
     }
 
+    /**
+     * used in dashboard page
+     * find dog by _id
+     * @param _id
+     * @returns dog
+     */
+    @Query(() => DogType)
+    async findDogById(@Args('_id') _id: string) : Promise<DogType> {
+        return this.DogService.findDogById(_id);
+    }
+
+    /**
+     * used in dashboard page
+     * mutation for a user clicking the trash icon
+     * @param userId
+     * @param dogId
+     * @returns dog
+     */
+    /*@Mutation(() => DogType)
+    async clickedTrashIcon(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<DogType> {
+        return this.DogService.clickedTrashIcon(userId, dogId);
+    }*/
+    
+
     
 }

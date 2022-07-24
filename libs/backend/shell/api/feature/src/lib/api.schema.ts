@@ -39,6 +39,9 @@ export class ContactInfo {
 @Schema()
 export class Organisation {
     @Prop()
+    _id: string;
+    
+    @Prop()
     name: string;
 
     @Prop()
@@ -120,6 +123,9 @@ export class Dog {
 @Schema()
 export class Adopter {
     @Prop()
+    _id: string;
+
+    @Prop()
     name: string;
 
     @Prop()
@@ -153,6 +159,9 @@ export class Adopter {
 @ObjectType()
 @Schema()
 export class OrgMember {
+    @Prop()
+    _id: string;
+
     @Prop()
     name: string;
 

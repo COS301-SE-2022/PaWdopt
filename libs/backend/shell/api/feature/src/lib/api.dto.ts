@@ -7,6 +7,9 @@ import { ObjectEncodingOptions } from "fs";
 @InputType('OrgMemberInputType')
 export class OrgMemberType {
     @Field()
+    _id: string;
+
+    @Field()
     name: string;
 
     @Field()
@@ -99,6 +102,9 @@ export class DogType {
 @InputType('OrganisationInputType')
 export class OrganisationType {
     @Field()
+    _id: string;
+    
+    @Field()
     name: string;
 
     @Field()
@@ -136,6 +142,9 @@ export class OrganisationType {
 @ObjectType('AdopterType')
 @InputType('AdopterInputType')
 export class AdopterType {
+    @Field()
+    _id: string;
+
     @Field()
     name: string;
 

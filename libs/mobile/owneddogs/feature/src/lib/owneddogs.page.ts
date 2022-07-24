@@ -15,7 +15,7 @@ export class owneddogsPageComponent {
   //public static GlobalVars = "hello";
   
   inputSearch!: string;
-  orgName = "";
+  orgName = "SPCA";
 
   //get org name for login
 
@@ -34,9 +34,9 @@ export class owneddogsPageComponent {
   // }[]=[];
 
   constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
-    this.varsFacade.orgName$.subscribe(orgName => {
+    /*this.varsFacade.orgName$.subscribe(orgName => {
       this.orgName = orgName;
-    });
+    });*/
     console.log(this.orgName);
     this.getDog();
   }
@@ -46,9 +46,7 @@ export class owneddogsPageComponent {
       findDogsByOrgName(orgName: "${this.orgName}") {
         name
         dob
-        pics{
-          path
-        }
+        pics
         breed
         usersLiked{
           name
@@ -65,9 +63,7 @@ export class owneddogsPageComponent {
         findDogsByOrgName: {
           name: string,
           dob: Date,
-          pics: {
-          path: string
-          }[],
+          pics: string[],
           breed: string,
           usersLiked: {
             name: string
@@ -87,7 +83,7 @@ export class owneddogsPageComponent {
         this.dog.push(
           {
             name: element.name,
-            pic: element.pics[0].path,
+            pic: element.pics[0],
             age: 2,
             likes: element.usersLiked.length,
             breed: element.breed
@@ -103,9 +99,7 @@ export class owneddogsPageComponent {
       findDog(name: "${this.inputSearch}") {
         name
         dob
-        pics{
-          path
-        }
+        pics
         breed
         usersLiked{
           name
@@ -122,9 +116,7 @@ export class owneddogsPageComponent {
         findDog: {
           name: string,
           dob: Date,
-          pics: {
-          path: string
-          }[],
+          pics: string[],
           breed: string,
           usersLiked: {
             name: string
@@ -144,7 +136,7 @@ export class owneddogsPageComponent {
         this.dog.push(
           {
             name: data.findDog.name,
-            pic: data.findDog.pics[0].path,
+            pic: data.findDog.pics[0],
             age: 0,
             likes: data.findDog.usersLiked.length,
             breed: data.findDog.breed
