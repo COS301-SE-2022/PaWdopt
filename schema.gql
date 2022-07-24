@@ -3,6 +3,7 @@
 # ------------------------------------------------------
 
 type OrgMemberType {
+  _id: String!
   name: String!
   email: String!
   password: String!
@@ -45,6 +46,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type OrganisationType {
+  _id: String!
   name: String!
   about: String!
   dateFounded: DateTime!
@@ -73,6 +75,7 @@ type AdopterType {
 }
 
 input OrgMemberInputType {
+  _id: String!
   name: String!
   email: String!
   password: String!
@@ -110,6 +113,7 @@ input DogInputType {
 }
 
 input OrganisationInputType {
+  _id: String!
   name: String!
   about: String!
   dateFounded: DateTime!
@@ -154,6 +158,7 @@ type Query {
   findDogsLikedByAdopter(adopterName: String!): [DogType!]!
   findOrgByName(name: String!): OrganisationType!
   findOrgMemberByEmail(email: String!): OrgMemberType!
+  findDogById(_id: String!): DogType!
 }
 
 type Mutation {

@@ -9,7 +9,7 @@ import {Apollo, gql } from 'apollo-angular';
 })
 export class dashboardPageComponent {
 
-  dogID!: string; //might not be string might be objectID, wait to see
+  dogID!: string; 
 
   dog:{
     name:string,
@@ -34,8 +34,7 @@ export class dashboardPageComponent {
   };
 
   userLikes:{
-    id: number,
-    email:string,
+    _id:string,
     name:string,
     pic:string,
   }[]=[];
@@ -46,30 +45,26 @@ export class dashboardPageComponent {
 
   getDog(){
     const getDogQuery = gql`query {
-      findDog(name: "Millie"){
+      findDogById(id: "${this.dogID}") {
         name
-        dob
-        pics
-        breed
-        about
-        organisation{
+        pic
+        organisation {
           name
         }
-        weight
+        usersLiked{
+          _id
+          name
+          pic
+        }
+        about
         height
+        weight
+        breed
         temperament
         furLength
-        usersLiked{
-          name, 
-          pic {
-            path
-          },
-          email
-        }
       }
     }`;
 
-    let id = 0;
   
     this.apollo.watchQuery({
       query: getDogQuery,
@@ -88,9 +83,9 @@ export class dashboardPageComponent {
           temperament: string[],
           furLength: number,
           usersLiked: {
+            _id: string,
             name: string,
-            pic: string,
-            email: string
+            pic: string
           }[],
           organisation: {
           name: string
@@ -111,8 +106,7 @@ export class dashboardPageComponent {
       data.findDog.usersLiked.forEach(element => {
         this.userLikes.push(
           {
-            id: id++,
-            email: element.email,
+            _id: element._id,
             name: element.name,
             pic: "../../assets/avatar1.jpg"
           }
@@ -121,9 +115,11 @@ export class dashboardPageComponent {
     })
   }
 
+  clickedUserID!: string;
 
 
-  userinfo(id: number){
+
+  userinfo(){
     // TODO Complete dashboard validation
     this.router.navigate(["/userinfo"]);
     
