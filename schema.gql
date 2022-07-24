@@ -186,4 +186,6 @@ type Mutation {
   updateDogHeight(dogName: String!, height: Float!): DogType!
   deleteDogbyName(name: String!): DogType!
   createDog(dog: DogInputType!, orgName: String!): DogType!
+  clickedTrashIcon(userId: String!, dogId: String!): DogType!
+  clickedHeartIcon(userId: String!, dogId: String!): DogType!
 }

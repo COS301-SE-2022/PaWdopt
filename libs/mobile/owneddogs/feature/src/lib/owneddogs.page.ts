@@ -20,6 +20,7 @@ export class owneddogsPageComponent {
   //get org name for login
 
   dog:{
+    _id: string,
     name:string,
     age: number,
     likes: number,
@@ -44,6 +45,7 @@ export class owneddogsPageComponent {
   getDog(){
     const getDogQuery = gql`query {
       findDogsByOrgName(orgName: "${this.orgName}") {
+        _id
         name
         dob
         pics
@@ -61,6 +63,7 @@ export class owneddogsPageComponent {
       console.log(result);
       const data = result.data as {
         findDogsByOrgName: {
+          _id: string,
           name: string,
           dob: Date,
           pics: string[],
@@ -82,6 +85,7 @@ export class owneddogsPageComponent {
       data.findDogsByOrgName.forEach(element => {
         this.dog.push(
           {
+            _id: element._id,
             name: element.name,
             pic: element.pics[0],
             age: 2,
@@ -97,6 +101,7 @@ export class owneddogsPageComponent {
   search(){
     const getDogQuery = gql`query {
       findDog(name: "${this.inputSearch}") {
+        _id
         name
         dob
         pics
@@ -114,6 +119,7 @@ export class owneddogsPageComponent {
       console.log(result);
       const data = result.data as {
         findDog: {
+          _id: string,
           name: string,
           dob: Date,
           pics: string[],
@@ -135,6 +141,7 @@ export class owneddogsPageComponent {
 
         this.dog.push(
           {
+            _id: data.findDog._id,
             name: data.findDog.name,
             pic: data.findDog.pics[0],
             age: 0,
@@ -155,7 +162,8 @@ export class owneddogsPageComponent {
     this.router.navigate(["/dashboard"]);
   }
 
-  update(){
+  update(id: string){
+    this.varsFacade.setDogID(id);
     this.router.navigate(["/updateorremovedog"]);
   }
 

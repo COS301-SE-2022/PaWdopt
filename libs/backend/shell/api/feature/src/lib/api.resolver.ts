@@ -339,10 +339,27 @@ export class ApiResolver {
      * @param dogId
      * @returns dog
      */
-    /*@Mutation(() => DogType)
+    @Mutation(() => DogType)
     async clickedTrashIcon(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<DogType> {
-        return this.DogService.clickedTrashIcon(userId, dogId);
-    }*/
+        //remove adopter from dogs usersLiked
+        this.DogService.addDogToAdopterDogsDisliked(dogId, userId);
+        this.DogService.removeDogFromAdopterDogsLiked(dogId, userId);
+        return this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
+    }
+
+    /**
+     * used in dashboard page
+     * mutation for a user clicking the heart icon
+     * @param userId
+     * @param dogId
+     * @returns dog
+     */
+    @Mutation(() => DogType)
+    async clickedHeartIcon(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<DogType> {
+        this.DogService.addAdopterToOrgPotentialAdopters(dogId, userId);
+        return this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
+         
+    }
     
 
     

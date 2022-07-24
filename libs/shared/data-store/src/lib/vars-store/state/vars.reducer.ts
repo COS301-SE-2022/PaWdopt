@@ -12,6 +12,9 @@ export interface State extends EntityState<VarsEntity> {
   error?: string | null; // last known error (if any)
   email: string; // from dashboard to userprofile
   orgName: string;
+  orgMemberEmail: string;
+  dogID: string;
+  userID: string;
   // dogID: string; //from owned dogs to updateorremove a dog and from owneddogs to dashboard
 }
 
@@ -27,6 +30,9 @@ export const initialState: State = varsAdapter.getInitialState({
   loaded: false,
   email: '',
   orgName: '',
+  orgMemberEmail: '',
+  dogID: '',
+  userID: ''
   // dogID: '',
 });
 
@@ -40,7 +46,13 @@ const varsReducer = createReducer(
   on(VarsActions.storeEmail, (state, { email }) => ({ ...state, email })),
   on(VarsActions.getEmail, (state) => state),
   on(VarsActions.storeOrgName, (state, { orgName }) => ({ ...state, orgName })),
-  on(VarsActions.getOrgName, (state) => state)
+  on(VarsActions.getOrgName, (state) => state),
+  on(VarsActions.storeOrgMemberEmail, (state, { orgMemberEmail }) => ({ ...state, orgMemberEmail })),
+  on(VarsActions.getOrgMemberEmail, (state) => state),
+  on(VarsActions.storeDogID, (state, { dogID }) => ({ ...state, dogID })),
+  on(VarsActions.getDogID, (state) => state),
+  on(VarsActions.storeUserID, (state, { userID }) => ({ ...state, userID })),
+  on(VarsActions.getUserID, (state) => state)
 );
 
 export function reducer(state: State | undefined, action: Action) {
