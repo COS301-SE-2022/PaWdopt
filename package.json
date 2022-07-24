@@ -2,14 +2,17 @@
     "name": "pawdopt",
     "version": "0.0.0",
     "license": "MIT",
-    "budgets": [ 
-        { 
-            "type": "initial", "maximumWarning": "20mb", "maximumError": "25mb" 
-        },
-        { 
-            "type": "anyComponentStyle", "maximumWarning": "20mb", "maximumError": "25mb" 
-        } 
-        ],
+    "budgets": [{
+        "type": "all",
+        "name": "<string>",
+        "baseline": "<string>",
+        "maximumWarning": "5mb",
+        "maximumError": "5mb",
+        "minimumWarning": "5mb",
+        "minimumError": "5mb",
+        "warning": "<string>",
+        "error": "<string>"
+    }],
     "scripts": {
         "start": "nx serve",
         "start:db": "docker compose up -d",
