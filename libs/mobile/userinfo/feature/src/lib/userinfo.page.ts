@@ -64,7 +64,8 @@ export class userinfoPageComponent {
   t_ID: string;
 
   constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
-    //this.t_ID = "QsxtA4MXQLdhft6laN3UK6LEKIT2";
+    // this.t_ID = "QsxtA4MXQLdhft6laN3UK6LEKIT2";
+    this.t_ID = "";
     this.varsFacade.userID$.subscribe(userID => {
         this.t_ID = userID;
     });
@@ -111,8 +112,8 @@ export class userinfoPageComponent {
       this.user.email = data.findAdopterBy_Id.email;
       this.user.IDNum = data.findAdopterBy_Id.IDNum;
       this.user.pic = data.findAdopterBy_Id.pic;
-      //this.user.location.lat = data.findAdopterBy_Id.location.lat;
-      //this.user.location.lng = data.findAdopterBy_Id.location.lng;
+      this.user.location.lat = data.findAdopterBy_Id.location.lat;
+      this.user.location.lng = data.findAdopterBy_Id.location.lng;
       console.log(this.user);
 
       if(data.findAdopterBy_Id.documents.length > 0){
