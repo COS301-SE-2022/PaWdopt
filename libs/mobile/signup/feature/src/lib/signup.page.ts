@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
-import { validate } from 'graphql';
 @Component({
   selector: 'pawdopt-signup',
   templateUrl: 'signup.page.html',
@@ -46,17 +45,12 @@ export class SignupPageComponent {
   addUser(uid?: string){
     const addUser = gql`mutation {
       createAdopter(adopter: {
-        uid: "${uid}",
+        _id: "${uid}",
         name: "${this.uName}",
         email: "${this.email}",
         password: "${this.pass}",
         IDNum: "${this.idnum}",
-        pic: null,
-        location: null,
-        documents:[],
-        dogsLiked: [],
-        questionnaire: "",
-        distance: -1
+        uploadedDocs: false,
       })
       {
         name
@@ -95,7 +89,6 @@ export class SignupPageComponent {
     if(this.email == null || this.email == "" || !this.email.includes("@") || !this.email.includes(".")){
       valid = false;
     }
-
     return valid;
   }  
 }

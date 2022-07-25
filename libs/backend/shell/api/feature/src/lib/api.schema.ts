@@ -123,7 +123,7 @@ export class Dog {
 @Schema()
 export class Adopter {
     @Prop()
-    uid: string;
+    _id: string;
 
     @Prop()
     name: string;
@@ -172,7 +172,10 @@ export class OrgMember {
     password: string;
 
     @Prop()
-    organisation: string;    
+    organisation: string;  
+    
+    @Prop()
+    verification: Date;
 }
 
 export type ContactInfoDocument = ContactInfo & Document;
