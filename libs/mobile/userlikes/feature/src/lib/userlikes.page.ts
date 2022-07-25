@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
+import { VarsFacade } from '@pawdopt/shared/data-store';
 
 @Component({
   selector: 'pawdopt-userlikes',
   templateUrl: 'userlikes.page.html',
   styleUrls: ['userlikes.page.scss', '../../../../../shared/styles/global.scss'],
+  providers: [Apollo, VarsFacade]
 })
 export class userlikesPageComponent {
   
@@ -22,7 +24,7 @@ export class userlikesPageComponent {
     organisation:string
   }[]=[]
 
-  constructor(private router: Router, private apollo: Apollo){
+  constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade){
     this.getDog();
   }
 
@@ -82,7 +84,7 @@ export class userlikesPageComponent {
         const tempDate = new Date(element.dob);
         const today = new Date();
         const age = today.getFullYear() - tempDate.getFullYear();
-        
+        this.varsFacade.setOrgName(element.organisation.name);
         this.dog.push(
           {
             name:element.name,

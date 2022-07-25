@@ -10,6 +10,5 @@ import { orgprofilePageComponentRoutingModule } from './orgprofile-routing.modul
   declarations: [orgprofilePageComponent],
 })
 export class orgprofilePageComponentModule {
-  public orgName = orgprofilePageComponent.orgName;
-  public static adopterEmail = orgprofilePageComponent.adopterEmail;
+  //public orgName = orgprofilePageComponent.orgName; //unsure if this is the correct way to do this
 }

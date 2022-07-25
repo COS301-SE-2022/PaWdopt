@@ -542,6 +542,7 @@ export class ApiService {
 
     /**
      * For the AddDog page
+     * for the orgProfile page
      * find organisation by name
      * @param {string} name The name of the organisation to find
      * @return {Promise<Organisation || null>}
@@ -654,6 +655,7 @@ export class ApiService {
         adopter.dogsLiked.splice(index, 1);
         return adopter.save();
     }
+
 
 
       
