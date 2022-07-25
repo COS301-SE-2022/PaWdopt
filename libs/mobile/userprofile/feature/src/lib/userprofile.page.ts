@@ -44,17 +44,11 @@ export class userprofilePageComponent {
         name,
         email,
         IDNum,
-        pic{
-          path
-        },
+        pic,
         location{
           lat,
           lng,
         },
-        documents{
-          type,
-          path
-        }
       }
     }`;
     
@@ -68,9 +62,7 @@ export class userprofilePageComponent {
           name: string,
           email: string,
           IDNum: string,
-          pic: {
-            path: string
-          },
+          pic: string,
           location: {
             lat: number,
             lng: number,
@@ -79,9 +71,10 @@ export class userprofilePageComponent {
       };
       this.user.name = data.findAdopterByEmail.name;
       this.user.email = data.findAdopterByEmail.email;
-      this.user.pic.path = data.findAdopterByEmail.pic.path;
+      this.user.pic.path = data.findAdopterByEmail.pic;
       this.user.location.lat = data.findAdopterByEmail.location.lat;
       this.user.location.lng = data.findAdopterByEmail.location.lng;
+      console.log(this.user);
 
     });
   }

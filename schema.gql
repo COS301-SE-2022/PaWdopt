@@ -60,6 +60,11 @@ type OrganisationType {
   logo: String
 }
 
+type DocType {
+  type: String!
+  path: String!
+}
+
 type AdopterType {
   _id: String!
   name: String!
@@ -68,7 +73,7 @@ type AdopterType {
   IDNum: String!
   pic: String
   location: LocationType
-  documents: [String!]
+  documents: [DocType!]
   dogsLiked: [DogType!]
   dogsDisliked: [DogType!]
   uploadedDocs: Boolean!
@@ -127,6 +132,11 @@ input OrganisationInputType {
   logo: String
 }
 
+input DocInputType {
+  type: String!
+  path: String!
+}
+
 input AdopterInputType {
   _id: String!
   name: String!
@@ -135,7 +145,7 @@ input AdopterInputType {
   IDNum: String!
   pic: String
   location: LocationInputType
-  documents: [String!]
+  documents: [DocInputType!]
   dogsLiked: [DogInputType!]
   dogsDisliked: [DogInputType!]
   uploadedDocs: Boolean!

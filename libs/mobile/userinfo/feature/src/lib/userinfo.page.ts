@@ -92,7 +92,7 @@ export class userinfoPageComponent {
     }).valueChanges.subscribe((result) => {
       console.log(result);
       const  data = result.data as {
-        findAdopterByEmail: {
+        findAdopterBy_Id: {
           name: string,
           email: string,
           IDNum: string,
@@ -107,17 +107,18 @@ export class userinfoPageComponent {
           }[]
         }
       };
-      this.user.name = data.findAdopterByEmail.name;
-      this.user.email = data.findAdopterByEmail.email;
-      this.user.IDNum = data.findAdopterByEmail.IDNum;
-      this.user.pic = data.findAdopterByEmail.pic;
-      this.user.location.lat = data.findAdopterByEmail.location.lat;
-      this.user.location.lng = data.findAdopterByEmail.location.lng;
+      this.user.name = data.findAdopterBy_Id.name;
+      this.user.email = data.findAdopterBy_Id.email;
+      this.user.IDNum = data.findAdopterBy_Id.IDNum;
+      this.user.pic = data.findAdopterBy_Id.pic;
+      this.user.location.lat = data.findAdopterBy_Id.location.lat;
+      this.user.location.lng = data.findAdopterBy_Id.location.lng;
+      console.log(this.user);
 
-      if(data.findAdopterByEmail.documents.length > 0){
+      if(data.findAdopterBy_Id.documents.length > 0){
 
       //Does not compare type and change path
-        data.findAdopterByEmail.documents.forEach(element => {
+        data.findAdopterBy_Id.documents.forEach(element => {
           if(element.type === "ID"){
             this.ident.path = element.path;
           }else if(element.type === "poR"){

@@ -77,6 +77,16 @@ export class Organisation {
 
 @ObjectType()
 @Schema()
+export class Doc {
+    @Prop()
+    type: string;
+
+    @Prop()
+    path: string;
+}
+
+@ObjectType()
+@Schema()
 export class Dog {
 
     @Prop()
@@ -144,10 +154,7 @@ export class Adopter {
     location: Location;
 
     @Prop()
-    documents: [{
-        type: string,
-        path: string
-    }];
+    documents: [Doc];
 
     @Prop()
     dogsLiked: [Dog];
