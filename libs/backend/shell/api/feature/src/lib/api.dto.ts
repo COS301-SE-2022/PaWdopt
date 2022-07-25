@@ -139,6 +139,16 @@ export class OrganisationType {
     logo: string;
 }
 
+@ObjectType('DocType')
+@InputType('DocInputType')
+export class DocType {
+    @Field()
+    type: string;
+
+    @Field()
+    path: string;
+}
+
 @ObjectType('AdopterType')
 @InputType('AdopterInputType')
 export class AdopterType {
@@ -163,8 +173,9 @@ export class AdopterType {
     @Field(() => LocationType, {nullable:true})
     location: Location;
 
-    @Field(() => [String], { nullable: true })
-    documents: [string]; //must be in order of: ID, Proof of res, Bank, motivation letter
+    @Field(() => [DocType], {nullable:true})
+    documents: [DocType];
+    //must be in order of: ID (ID), Proof of res (poR), bank (bank), motivation letter (motiv)
 
     @Field(() => [DogType], { nullable: true })
     dogsLiked: [Dog];
