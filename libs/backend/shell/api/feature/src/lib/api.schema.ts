@@ -182,7 +182,10 @@ export class OrgMember {
     password: string;
 
     @Prop()
-    organisation: string;    
+    organisation: string;  
+    
+    @Prop()
+    verification: Date;
 }
 
 export type ContactInfoDocument = ContactInfo & Document;

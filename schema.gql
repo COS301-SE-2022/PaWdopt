@@ -8,7 +8,13 @@ type OrgMemberType {
   email: String!
   password: String!
   organisation: String!
+  verification: DateTime
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type ContactInfoType {
   email: String
@@ -39,11 +45,6 @@ type DogType {
   furLength: String!
   temperament: [String!]!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type OrganisationType {
   _id: String!
@@ -85,6 +86,7 @@ input OrgMemberInputType {
   email: String!
   password: String!
   organisation: String!
+  verification: DateTime
 }
 
 input ContactInfoInputType {
@@ -173,7 +175,6 @@ type Query {
 }
 
 type Mutation {
-  createOrg(org: OrganisationInputType!): OrganisationType!
   updateOrg(name: String!, org: OrganisationInputType!): OrganisationType!
   deleteOrg(name: String!): OrganisationType!
   createOrgMember(member: OrgMemberInputType!): OrgMemberType!
@@ -199,4 +200,5 @@ type Mutation {
   createDog(dog: DogInputType!, orgName: String!): DogType!
   clickedTrashIcon(userId: String!, dogId: String!): DogType!
   clickedHeartIcon(userId: String!, dogId: String!): DogType!
+  createOrg(org: OrganisationInputType!): OrganisationType!
 }

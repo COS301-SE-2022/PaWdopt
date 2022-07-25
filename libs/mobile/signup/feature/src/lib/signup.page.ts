@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
-import { validate } from 'graphql';
 @Component({
   selector: 'pawdopt-signup',
   templateUrl: 'signup.page.html',
@@ -51,7 +50,7 @@ export class SignupPageComponent {
         email: "${this.email}",
         password: "${this.pass}",
         IDNum: "${this.idnum}",
-        uploadedDocs: false
+        uploadedDocs: false,
       })
       {
         name
@@ -90,7 +89,6 @@ export class SignupPageComponent {
     if(this.email == null || this.email == "" || !this.email.includes("@") || !this.email.includes(".")){
       valid = false;
     }
-
     return valid;
   }  
 }

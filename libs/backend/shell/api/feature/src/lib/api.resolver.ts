@@ -9,11 +9,6 @@ import { Types } from 'mongoose';
 export class ApiResolver {
     constructor(private readonly DogService: ApiService) {}
 
-    @Mutation(() => OrganisationType)
-    async createOrg(@Args('org') org: OrganisationType) : Promise<OrganisationType> {
-        return this.DogService.createOrg(org);
-    }
-
     @Mutation(()  => OrganisationType)
     async updateOrg(@Args ('name') name: string, @Args('org') org: OrganisationType) : Promise<OrganisationType> {
         return this.DogService.updateOrg(name, org);
@@ -372,6 +367,19 @@ export class ApiResolver {
          
     }
     
-
+    /**
+     * Mutation for creating an organisation
+     * @param org
+     * @returns org
+     */
+    @Mutation(() => OrganisationType)
+    async createOrg(@Args('org') org: OrganisationType) : Promise<OrganisationType> {
+        org._id = (new Types.ObjectId()).toHexString();
+        org.members.forEach(member => {
+            member.organisation = org._id;
+            this.DogService.createOrgMember(member);
+        });
+        return this.DogService.createOrg(org);
+    }
     
 }
