@@ -14,28 +14,28 @@ export class userinfoPageComponent {
     name: string,
     email: string,
     IDNum: string,
-    pic: {
-      path: string
-    },
+    pic: string,
     location: {
       lat: number,
       lng: number,
     },
     documents: {
+      type: string,
       path: string
     }[]
   } = {
     name: "",
     email: "",
     IDNum: "",
-    pic: {
-      path: ""
-    },
+    pic: "",
     location: {
       lat: 0,
       lng: 0,
     },
-    documents: []
+    documents: [{
+      type: "",
+      path: ""
+    }]
   };
 
   ident:{
@@ -64,19 +64,17 @@ export class userinfoPageComponent {
   t_ID: string;
 
   constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
-    this.t_ID = "";
-    this.varsFacade._id$.subscribe(_id => {
-      this.t_ID = _id;
-    });
+    this.t_ID = "QsxtA4MXQLdhft6laN3UK6LEKIT2";
+    // this.varsFacade.userID$.subscribe(userID => {
+    //   this.t_ID = userID;
+    // });
 
     const userInfo =  gql`query{
-      findAdopterBy_ID(_id: "${this.t_ID}"){
+      findAdopterBy_Id(_id: "${this.t_ID}"){
         name,
         email,
         IDNum,
-        pic{
-          path
-        },
+        pic,
         location{
           lat,
           lng,
@@ -98,9 +96,7 @@ export class userinfoPageComponent {
           name: string,
           email: string,
           IDNum: string,
-          pic: {
-            path: string
-          },
+          pic: string,
           location: {
             lat: number,
             lng: number,
@@ -114,24 +110,25 @@ export class userinfoPageComponent {
       this.user.name = data.findAdopterByEmail.name;
       this.user.email = data.findAdopterByEmail.email;
       this.user.IDNum = data.findAdopterByEmail.IDNum;
-      this.user.pic.path = data.findAdopterByEmail.pic.path;
+      this.user.pic = data.findAdopterByEmail.pic;
       this.user.location.lat = data.findAdopterByEmail.location.lat;
       this.user.location.lng = data.findAdopterByEmail.location.lng;
 
+      if(data.findAdopterByEmail.documents.length > 0){
+
       //Does not compare type and change path
-      data.findAdopterByEmail.documents.forEach(element => {
-        if(element.type === "identification"){
-          this.ident.path = element.path;
-        }else if(element.type === "poR"){
-          this.poR.path = element.path;
-        }else if(element.type === "bankState"){
-          this.bankState.path = element.path;
-        }else if(element.type === "motivateLet"){
-          this.motivateLet.path = element.path;
-        }else {
-          this.ident.path = "../../assets/local-file-not-found.png";
-        }
-      })
+        data.findAdopterByEmail.documents.forEach(element => {
+          if(element.type === "ID"){
+            this.ident.path = element.path;
+          }else if(element.type === "poR"){
+            this.poR.path = element.path;
+          }else if(element.type === "bank"){
+            this.bankState.path = element.path;
+          }else if(element.type === "motiv"){
+            this.motivateLet.path = element.path;
+          }
+        })
+      }
     });
   }
 

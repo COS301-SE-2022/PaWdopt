@@ -46,7 +46,7 @@ export class SignupPageComponent {
   addUser(uid?: string){
     const addUser = gql`mutation {
       createAdopter(adopter: {
-        uid: "${uid}",
+        _id: "${uid}",
         name: "${this.uName}",
         email: "${this.email}",
         password: "${this.pass}",

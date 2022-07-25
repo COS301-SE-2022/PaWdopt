@@ -164,7 +164,10 @@ export class AdopterType {
     location: Location;
 
     @Field(() => [String], { nullable: true })
-    documents: [string]; //must be in order of: ID, Proof of res, Bank, motivation letter
+    documents: [{
+        type: string,
+        path: string
+    }]//must be in order of: ID (ID), Proof of res (poR), bank (bank), motivation letter (motiv)
 
     @Field(() => [DogType], { nullable: true })
     dogsLiked: [Dog];

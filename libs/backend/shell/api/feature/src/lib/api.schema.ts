@@ -144,7 +144,10 @@ export class Adopter {
     location: Location;
 
     @Prop()
-    documents: [string];
+    documents: [{
+        type: string,
+        path: string
+    }];
 
     @Prop()
     dogsLiked: [Dog];
