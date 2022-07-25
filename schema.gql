@@ -61,7 +61,7 @@ type OrganisationType {
 }
 
 type AdopterType {
-  uid: String!
+  _id: String!
   name: String!
   email: String!
   password: String!
@@ -128,7 +128,7 @@ input OrganisationInputType {
 }
 
 input AdopterInputType {
-  uid: String!
+  _id: String!
   name: String!
   email: String!
   password: String!
@@ -154,6 +154,7 @@ type Query {
   loginOrg(email: String!, password: String!): OrgMemberType
   loginAdopter(email: String!, password: String!): AdopterType
   findAdopterByEmail(email: String!): AdopterType
+  findAdopterBy_Id(_id: String!): AdopterType
   findDogsByOrgName(orgName: String!): [DogType!]!
   findDogsLikedByAdopter(adopterName: String!): [DogType!]!
   findOrgByName(name: String!): OrganisationType!

@@ -16,16 +16,11 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-
-<div>
-    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
-        <ion-icon name="arrow-back-circle"></ion-icon>
-    </ion-button>
-</div>
-
-<div>&nbsp;</div>
-
+<!-- Make back button not grey -->
 <ion-content>
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+        <ion-icon name="arrow-back-sharp"></ion-icon>
+    </ion-button>
     <!--Profile image-->
     <ion-thumbnail class="avatar">
         <img [src]="user.pic.path" [alt]="user.name">

@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { dashboardPageComponentModule } from '@pawdopt/mobile/dashboard/feature'
+import { VarsFacade } from '@pawdopt/shared/data-store';
 @Component({
   selector: 'pawdopt-userinfo',
   templateUrl: 'userinfo.page.html',
   styleUrls: ['userinfo.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo]
+  providers: [Apollo, VarsFacade],
 })
 export class userinfoPageComponent {
   user:{
@@ -60,12 +61,16 @@ export class userinfoPageComponent {
   } = {
     path: "../../assets/local-file-not-found.png"
   };
+  t_ID: string;
 
-  // passedEmail = dashboardPageComponentModule.user.email;
-  
-  constructor(private router: Router, private apollo: Apollo){
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
+    this.t_ID = "";
+    this.varsFacade._id$.subscribe(_id => {
+      this.t_ID = _id;
+    });
+
     const userInfo =  gql`query{
-      findAdopterByEmail(email: "jason@gmail.com"){
+      findAdopterBy_ID(_id: "${this.t_ID}"){
         name,
         email,
         IDNum,

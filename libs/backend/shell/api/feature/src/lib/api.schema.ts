@@ -123,7 +123,7 @@ export class Dog {
 @Schema()
 export class Adopter {
     @Prop()
-    uid: string;
+    _id: string;
 
     @Prop()
     name: string;

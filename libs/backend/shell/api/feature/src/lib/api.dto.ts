@@ -143,7 +143,7 @@ export class OrganisationType {
 @InputType('AdopterInputType')
 export class AdopterType {
     @Field()
-    uid: string;
+    _id: string;
 
     @Field()
     name: string;

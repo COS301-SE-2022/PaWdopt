@@ -51,12 +51,7 @@ export class SignupPageComponent {
         email: "${this.email}",
         password: "${this.pass}",
         IDNum: "${this.idnum}",
-        pic: null,
-        location: null,
-        documents:[],
-        dogsLiked: [],
-        questionnaire: "",
-        distance: -1
+        uploadedDocs: false
       })
       {
         name
