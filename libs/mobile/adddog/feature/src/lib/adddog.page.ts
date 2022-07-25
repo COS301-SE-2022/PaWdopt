@@ -2,16 +2,18 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import {Apollo, gql } from 'apollo-angular';
+import { VarsFacade } from '@pawdopt/shared/data-store';
 
 @Component({
   selector: 'pawdopt-adddog',
   templateUrl: 'adddog.page.html',
   styleUrls: ['adddog.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo],
+  providers: [Apollo, VarsFacade],
 })
 export class AdddogPageComponent {
-  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo) {}
-  
+  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private varsFacade: VarsFacade) {}
+
+
   inputName!: string;
   inputBreed!: string;
   inputGender!: string;
@@ -26,6 +28,11 @@ export class AdddogPageComponent {
   orgEmail!: string;
 
   addDog(){
+
+    this.varsFacade.orgName$.subscribe(orgMemberEmail => {
+      this.orgEmail = orgMemberEmail;
+    });
+
     //Query used to get the orgName
     const findOrgMemberByEmailQuery = gql`query {
       findOrgMemberByEmail(email: "${this.orgEmail}") {

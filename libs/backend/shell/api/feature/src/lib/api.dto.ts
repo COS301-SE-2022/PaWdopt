@@ -1,11 +1,12 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
 import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter } from './api.schema';
-import { Schema as MongooseSchema } from 'mongoose';
-import { ObjectEncodingOptions } from "fs";
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
 export class OrgMemberType {
+    @Field()
+    _id: string;
+
     @Field()
     name: string;
 
@@ -17,6 +18,9 @@ export class OrgMemberType {
 
     @Field()
     organisation: string;
+
+    @Field({ nullable: true })
+    verification: Date;
 }
 
 @ObjectType('ContactInfoType')
@@ -54,7 +58,6 @@ export class LocationType {
 @ObjectType('DogType')
 @InputType('DogInputType')
 export class DogType {
-
     @Field(() => String)
     _id: string;
     
@@ -98,6 +101,9 @@ export class DogType {
 @ObjectType('OrganisationType')
 @InputType('OrganisationInputType')
 export class OrganisationType {
+    @Field(() => String)
+    _id: string;
+    
     @Field()
     name: string;
 
@@ -137,7 +143,7 @@ export class OrganisationType {
 @InputType('AdopterInputType')
 export class AdopterType {
     @Field()
-    uid: string;
+    _id: string;
 
     @Field()
     name: string;

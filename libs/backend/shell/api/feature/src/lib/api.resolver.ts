@@ -9,11 +9,6 @@ import { Types } from 'mongoose';
 export class ApiResolver {
     constructor(private readonly DogService: ApiService) {}
 
-    @Mutation(() => OrganisationType)
-    async createOrg(@Args('org') org: OrganisationType) : Promise<OrganisationType> {
-        return this.DogService.createOrg(org);
-    }
-
     @Mutation(()  => OrganisationType)
     async updateOrg(@Args ('name') name: string, @Args('org') org: OrganisationType) : Promise<OrganisationType> {
         return this.DogService.updateOrg(name, org);
@@ -321,5 +316,59 @@ export class ApiResolver {
         return this.DogService.findOrgMemberByEmail(email);
     }
 
+    /**
+     * used in dashboard page
+     * find dog by _id
+     * @param _id
+     * @returns dog
+     */
+    @Query(() => DogType)
+    async findDogById(@Args('_id') _id: string) : Promise<DogType> {
+        return this.DogService.findDogById(_id);
+    }
+
+    /**
+     * used in dashboard page
+     * mutation for a user clicking the trash icon
+     * @param userId
+     * @param dogId
+     * @returns dog
+     */
+    @Mutation(() => DogType)
+    async clickedTrashIcon(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<DogType> {
+        //remove adopter from dogs usersLiked
+        this.DogService.addDogToAdopterDogsDisliked(dogId, userId);
+        this.DogService.removeDogFromAdopterDogsLiked(dogId, userId);
+        return this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
+    }
+
+    /**
+     * used in dashboard page
+     * mutation for a user clicking the heart icon
+     * @param userId
+     * @param dogId
+     * @returns dog
+     */
+    @Mutation(() => DogType)
+    async clickedHeartIcon(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<DogType> {
+        this.DogService.addAdopterToOrgPotentialAdopters(dogId, userId);
+        return this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
+         
+    }
+    
+    /**
+     * Mutation for creating an organisation
+     * @param org
+     * @returns org
+     */
+    @Mutation(() => OrganisationType)
+    async createOrg(@Args('org') org: OrganisationType) : Promise<OrganisationType> {
+        org._id = (new Types.ObjectId()).toHexString();
+        org.members.forEach(member => {
+            member.organisation = org._id;
+            this.DogService.createOrgMember(member);
+        });
+        return this.DogService.createOrg(org);
+    }
     
 }

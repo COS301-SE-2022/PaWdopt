@@ -562,7 +562,100 @@ export class ApiService {
 
     /**
      * for the Dashboard Page
-     * get dog by __id
-     * 
+     * get dog by _id
+     * @param {string} _id The _id of the dog to find
+     * @return {Promise<Dog || null>}
      */
+    async findDogById(_id: string): Promise<Dog | null> {
+        return this.DogModel.findOne({ _id }).exec();
+    }
+
+    /**
+     * for the Dashboard Page
+     * remove a adopter from dogs usersLiked
+     * @param {string} _id The _id of the dog to update
+     * @param {string} userId The _id of the user to remove
+     * @return {Promise<Dog || null>}
+     */  
+    async removeAdopterFromDogsUsersLiked(_id: string, userId: string): Promise<Dog | null> {
+        const dog = await this.DogModel.findOne({_id}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        const user = await this.AdopterModel.findOne({userId}).exec();
+        const index = dog.usersLiked.indexOf(user);
+        if(index == -1){
+            throw new Error("User not found");
+        }
+        dog.usersLiked.splice(index, 1);
+        return dog.save();
+    }
+
+    /**
+     * for the Dashboard Page
+     * add a adopter to organisations potentialAdopters
+     * @param {string} _id The _id of the organisation to update
+     * @param {string} userId The _id of the user to add
+     * @return {Promise<Organisation || null>}
+     */
+    async addAdopterToOrgPotentialAdopters(_id: string, userId: string): Promise<Organisation | null> {
+        const org = await this.OrganisationModel.findOne({_id}).exec();
+        if(org == null){
+            throw new Error("Org does not exist");
+        }
+        const user = await this.AdopterModel.findOne({userId}).exec();
+        if(user == null){
+            throw new Error("User does not exist");
+        }
+        org.potentialAdopters.push(user);
+        return org.save();
+    }
+
+    /**
+     * for the Dashboard Page
+     * add a dog to adopters dogsDisliked
+     * @param {string} uid The _id of the adopter to update
+     * @param {string} dogId The _id of the dog to add
+     * @return {Promise<Adopter || null>}
+     */
+    async addDogToAdopterDogsDisliked(uid: string, dogId: string): Promise<Adopter | null> {
+        const adopter = await this.AdopterModel.findOne({uid}).exec();
+        if(adopter == null){
+            throw new Error("Adopter does not exist");
+        }
+        const dog = await this.DogModel.findOne({dogId}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        adopter.dogsDisliked.push(dog);
+        return adopter.save();
+    }
+
+    /**
+     * for the Dashboard Page
+     * remove a dog from adopters dogsLiked
+     * @param {string} uid The _id of the adopter to update
+     * @param {string} dogId The _id of the dog to remove
+     * @return {Promise<Adopter || null>}
+     */
+    async removeDogFromAdopterDogsLiked(uid: string, dogId: string): Promise<Adopter | null> {
+        const adopter = await this.AdopterModel.findOne({uid}).exec();
+        if(adopter == null){
+            throw new Error("Adopter does not exist");
+        }
+        const dog = await this.DogModel.findOne({dogId}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        const index = adopter.dogsLiked.indexOf(dog);
+        if(index == -1){
+            throw new Error("Dog not found");
+        }
+        adopter.dogsLiked.splice(index, 1);
+        return adopter.save();
+    }
+
+
+      
+    
 }

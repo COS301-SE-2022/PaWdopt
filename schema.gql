@@ -3,11 +3,18 @@
 # ------------------------------------------------------
 
 type OrgMemberType {
+  _id: String!
   name: String!
   email: String!
   password: String!
   organisation: String!
+  verification: DateTime
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type ContactInfoType {
   email: String
@@ -39,12 +46,8 @@ type DogType {
   temperament: [String!]!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type OrganisationType {
+  _id: String!
   name: String!
   about: String!
   dateFounded: DateTime!
@@ -59,7 +62,7 @@ type OrganisationType {
 }
 
 type AdopterType {
-  uid: String!
+  _id: String!
   name: String!
   email: String!
   password: String!
@@ -73,10 +76,12 @@ type AdopterType {
 }
 
 input OrgMemberInputType {
+  _id: String!
   name: String!
   email: String!
   password: String!
   organisation: String!
+  verification: DateTime
 }
 
 input ContactInfoInputType {
@@ -110,6 +115,7 @@ input DogInputType {
 }
 
 input OrganisationInputType {
+  _id: String!
   name: String!
   about: String!
   dateFounded: DateTime!
@@ -124,7 +130,7 @@ input OrganisationInputType {
 }
 
 input AdopterInputType {
-  uid: String!
+  _id: String!
   name: String!
   email: String!
   password: String!
@@ -154,10 +160,10 @@ type Query {
   findDogsLikedByAdopter(adopterName: String!): [DogType!]!
   findOrgByName(name: String!): OrganisationType!
   findOrgMemberByEmail(email: String!): OrgMemberType!
+  findDogById(_id: String!): DogType!
 }
 
 type Mutation {
-  createOrg(org: OrganisationInputType!): OrganisationType!
   updateOrg(name: String!, org: OrganisationInputType!): OrganisationType!
   deleteOrg(name: String!): OrganisationType!
   createOrgMember(member: OrgMemberInputType!): OrgMemberType!
@@ -181,4 +187,7 @@ type Mutation {
   updateDogHeight(dogName: String!, height: Float!): DogType!
   deleteDogbyName(name: String!): DogType!
   createDog(dog: DogInputType!, orgName: String!): DogType!
+  clickedTrashIcon(userId: String!, dogId: String!): DogType!
+  clickedHeartIcon(userId: String!, dogId: String!): DogType!
+  createOrg(org: OrganisationInputType!): OrganisationType!
 }

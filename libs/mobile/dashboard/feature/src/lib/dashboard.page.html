@@ -77,15 +77,15 @@
                     </ion-note>
                 </ion-item>
                 <ion-item-options side="start">
-                    <ion-item-option color="success">
-                        <ion-icon slot="icon-only" name="happy"></ion-icon>
+                    <ion-item-option color="success" (click)="heart(userLike._id)">
+                        <ion-icon slot="icon-only" name="happy" ></ion-icon>
                     </ion-item-option>
                 </ion-item-options>
                 <ion-item-options side="end">
-                    <ion-item-option color="danger">
+                    <ion-item-option color="danger" (click)="trash(userLike._id)">
                         <ion-icon slot="icon-only" name="trash"></ion-icon>
                     </ion-item-option>
-                    <ion-item-option color="primary" (click)="userinfo(userLike.id)">
+                    <ion-item-option color="primary" (click)="userinfo(userLike._id)">
                         <ion-icon slot="icon-only" name="person-circle"></ion-icon>
                     </ion-item-option>
                 </ion-item-options>

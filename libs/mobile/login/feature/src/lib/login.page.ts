@@ -14,8 +14,6 @@ export class LoginPageComponent {
 
   inputEmail!: string;
   inputPassword!: string;
-  public static orgName:string;
-  public static adopterEmail:string;
 
   constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth) {
     
@@ -45,7 +43,6 @@ export class LoginPageComponent {
         const typeVar = data.loginAdopter.__typename;
 
         if (typeVar == "AdopterType") { //"Adopter"
-          this.varsFacade.setEmail(email);
           this.router.navigate(["/home"]);
           return true;
         }
@@ -74,7 +71,6 @@ export class LoginPageComponent {
     }).valueChanges.subscribe((result) => {
         const data = result.data as {
           loginOrg: {
-            organisation: string;
             __typename: string;
           };
         };
@@ -84,7 +80,6 @@ export class LoginPageComponent {
         const typeVar = data.loginOrg.__typename;
     
         if (typeVar == "OrgMemberType") { //"Adopter"
-          this.varsFacade.setOrgName(data.loginOrg.organisation);
           this.router.navigate(["/owneddogs"]);
           successfulquery = true;
         }
@@ -101,26 +96,16 @@ export class LoginPageComponent {
     this.fireAuth.signInWithEmailAndPassword(email, password).then((user) => {
       console.log("Successfully signed in");
       console.log(user);
+      if(!this.loginadoptquery(email, password) && !this.loginorgquery(email, password))
+      {
+        //TODO: Add toast 
+        this.router.navigate(["/login"]);
+      }
     }).catch((error) => {
       console.log("Error signing in");
       console.log(error);
       //TODO: add toast with error message
-    });
-      
-    // if(this.loginadoptquery(email, password))
-    // {
-    //   console.log("successful login");
-    // }
-    // else if(this.loginorgquery(email, password))
-    // {
-    //   console.log("successful login");
-    // }
-    // else
-    // {
-    //   console.log("Login failed"); //CHANGE TO TOAST 
-    //   this.router.navigate(["/login"]);
-    // }
-    
+    });    
 }
 
 
