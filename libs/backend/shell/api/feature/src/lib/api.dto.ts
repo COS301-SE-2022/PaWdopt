@@ -111,13 +111,13 @@ export class OrganisationType {
     about: string;
 
     @Field()
-    dateFounded: Date;
+    dateFounded: Date;//date that the org joined the app, for org info page
 
     @Field()
-    totalAdoptions: number;
+    totalAdoptions: number;//of all time
 
     @Field()
-    totalDogs: number;
+    totalDogs: number;//current amount of dogs
 
     @Field(() => [OrgMemberType])
     members: [OrgMember];

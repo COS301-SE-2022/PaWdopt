@@ -296,6 +296,7 @@ export class ApiResolver {
 
     /**
      * used in AddDog Page
+     * used in orgProfile Page
      * find org by name
      * @param name
      * @returns organisation

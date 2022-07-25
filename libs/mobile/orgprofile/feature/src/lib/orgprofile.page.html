@@ -30,13 +30,14 @@
       <img class="logo" src="../../assets/spcalogo-meta.png">
     </ion-thumbnail>
     <div class="companyprofile">
-      <h1><b>SPCA</b></h1>
-      <p><b><ion-icon name="location"></ion-icon>&nbsp;Pretoria</b></p>
-      <p><b>XXXX joined PaWdopt</b></p>
+      <h1><b>{{org.orgName}}</b></h1>
+      <!-- Use google maps api return a string (suburb) of the coordinates-->
+      <p><b><ion-icon name="location"></ion-icon>&nbsp;{{org.location}}</b></p>
+      <p><b>{{org.dateCreated}} joined PaWdopt</b></p>
     
     <div class="container">
-        <h1><ion-icon name="paw"></ion-icon>&nbsp;x dogs available</h1>
-        <h1><ion-icon name="checkmark-outline"></ion-icon>&nbsp;x dogs adopted</h1>
+        <h1><ion-icon name="paw"></ion-icon>&nbsp;{{org.totalDogs}} dogs available</h1>
+        <h1><ion-icon name="checkmark-outline"></ion-icon>&nbsp;{{org.totalAdoptions}} dogs adopted</h1>
 
     </div> 
     </div>
