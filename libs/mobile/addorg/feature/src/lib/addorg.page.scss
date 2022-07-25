@@ -1,4 +1,4 @@
-.container{
+.container {
     height: 100%;
     background-color: #F8F9FA;
     display: flex;
@@ -8,15 +8,63 @@
     overflow: scroll;
 }
 
-.logo{
+.logo {
     margin-top: 20%;
     margin-bottom: 10%;
 }
 
-.greyButton{
+.greyButton {
     margin-top: 10%;
 }
 
-.back{
+.back {
     margin-top: 5%;
+}
+
+.orgmember-section-title {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 5%;
+    font-weight: bold;
+}
+
+.orgmember-adder-card {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 50%;
+    color: #020300;
+    --background: #C0B7B1;
+    box-shadow: #020300 0px 0px 5px;
+}
+
+.orgmember-slides {
+    margin: 0;
+    width: 100%;
+    overflow: visible;
+}
+
+.orgmember-slide {
+    margin: 0;
+    width: 100% !important;
+}
+
+.orgmember-delete-button {
+    margin-top: 5%;
+    padding: 4%;
+}
+
+.orgmember-adder-button-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 50%;
+    height: 92%;
+    color: #C0B7B1;
+    --background: #F8F9FA;
+    border-style: dashed;
+    border-color: #C0B7B1;
+    border-width: 1%;
 }
