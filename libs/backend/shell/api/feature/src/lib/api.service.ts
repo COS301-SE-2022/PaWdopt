@@ -474,15 +474,7 @@ export class ApiService {
         }
     }
 
-    /**
-     * find dogs by org
-     * @param {string} name The name of the org to find
-     * @return {Promise<Dog[]>}
-     * 
-     */
-    async findDogsByOrg(orgName: string): Promise<Dog[]> {
-        return this.DogModel.find({orgName: orgName}).exec();
-    }
+    
 
 
     /**
@@ -654,6 +646,17 @@ export class ApiService {
         }
         adopter.dogsLiked.splice(index, 1);
         return adopter.save();
+    }
+
+    /**
+     * used in ownedDogs page
+     * find dogs by org
+     * @param {string} name The name of the org to find
+     * @return {Promise<Dog[]>}
+     * 
+     */
+     async findDogsByOrg(orgName: string): Promise<Dog[]> {
+        return this.DogModel.find({orgName: orgName}).exec();
     }
 
 
