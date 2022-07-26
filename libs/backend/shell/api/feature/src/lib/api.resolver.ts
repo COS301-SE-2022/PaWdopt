@@ -238,7 +238,16 @@ export class ApiResolver {
         return this.DogService.findAdopter(email);
     }
 
-    
+    /**
+     * find adopter by _id
+     * @param _id
+     * @returns adopter
+     * 
+     */
+    @Query(() => AdopterType, {nullable: true})
+    async findAdopterBy_Id(@Args('_id') _id: string) : Promise<AdopterType> {
+        return this.DogService.findAdopterBy_Id(_id);
+    }
 
     /**
      * delete dog by name
