@@ -2,39 +2,40 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { dashboardPageComponentModule } from '@pawdopt/mobile/dashboard/feature'
+import { VarsFacade } from '@pawdopt/shared/data-store';
 @Component({
   selector: 'pawdopt-userinfo',
   templateUrl: 'userinfo.page.html',
   styleUrls: ['userinfo.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo]
+  providers: [Apollo, VarsFacade],
 })
 export class userinfoPageComponent {
   user:{
     name: string,
     email: string,
     IDNum: string,
-    pic: {
-      path: string
-    },
+    pic: string,
     location: {
       lat: number,
       lng: number,
     },
     documents: {
+      type: string,
       path: string
     }[]
   } = {
     name: "",
     email: "",
     IDNum: "",
-    pic: {
-      path: ""
-    },
+    pic: "",
     location: {
       lat: 0,
       lng: 0,
     },
-    documents: []
+    documents: [{
+      type: "",
+      path: ""
+    }]
   };
 
   ident:{
@@ -60,18 +61,20 @@ export class userinfoPageComponent {
   } = {
     path: "../../assets/local-file-not-found.png"
   };
+  t_ID: string;
 
-  // passedEmail = dashboardPageComponentModule.user.email;
-  
-  constructor(private router: Router, private apollo: Apollo){
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
+    this.t_ID = "";
+    this.varsFacade.userID$.subscribe(userID => {
+        this.t_ID = userID;
+    });
+
     const userInfo =  gql`query{
-      findAdopterByEmail(email: "jason@gmail.com"){
+      findAdopterBy_Id(_id: "${this.t_ID}"){
         name,
         email,
         IDNum,
-        pic{
-          path
-        },
+        pic,
         location{
           lat,
           lng,
@@ -89,13 +92,11 @@ export class userinfoPageComponent {
     }).valueChanges.subscribe((result) => {
       console.log(result);
       const  data = result.data as {
-        findAdopterByEmail: {
+        findAdopterBy_Id: {
           name: string,
           email: string,
           IDNum: string,
-          pic: {
-            path: string
-          },
+          pic: string,
           location: {
             lat: number,
             lng: number,
@@ -106,27 +107,29 @@ export class userinfoPageComponent {
           }[]
         }
       };
-      this.user.name = data.findAdopterByEmail.name;
-      this.user.email = data.findAdopterByEmail.email;
-      this.user.IDNum = data.findAdopterByEmail.IDNum;
-      this.user.pic.path = data.findAdopterByEmail.pic.path;
-      this.user.location.lat = data.findAdopterByEmail.location.lat;
-      this.user.location.lng = data.findAdopterByEmail.location.lng;
+      this.user.name = data.findAdopterBy_Id.name;
+      this.user.email = data.findAdopterBy_Id.email;
+      this.user.IDNum = data.findAdopterBy_Id.IDNum;
+      this.user.pic = data.findAdopterBy_Id.pic;
+      //this.user.location.lat = data.findAdopterBy_Id.location.lat;
+      //this.user.location.lng = data.findAdopterBy_Id.location.lng;
+      console.log(this.user);
+
+      if(data.findAdopterBy_Id.documents.length > 0){
 
       //Does not compare type and change path
-      data.findAdopterByEmail.documents.forEach(element => {
-        if(element.type === "identification"){
-          this.ident.path = element.path;
-        }else if(element.type === "poR"){
-          this.poR.path = element.path;
-        }else if(element.type === "bankState"){
-          this.bankState.path = element.path;
-        }else if(element.type === "motivateLet"){
-          this.motivateLet.path = element.path;
-        }else {
-          this.ident.path = "../../assets/local-file-not-found.png";
-        }
-      })
+        data.findAdopterBy_Id.documents.forEach(element => {
+          if(element.type === "ID"){
+            this.ident.path = element.path;
+          }else if(element.type === "poR"){
+            this.poR.path = element.path;
+          }else if(element.type === "bank"){
+            this.bankState.path = element.path;
+          }else if(element.type === "motiv"){
+            this.motivateLet.path = element.path;
+          }
+        })
+      }
     });
   }
 

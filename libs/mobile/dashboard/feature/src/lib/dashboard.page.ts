@@ -127,9 +127,9 @@ export class dashboardPageComponent {
 
   userinfo(id: string){
     // TODO Complete dashboard validation
-    //this.router.navigate(["/userinfo"]);
     this.varsFacade.setUserID(id);
     console.log(id);
+    this.router.navigate(["/userinfo"]);
     
   }
 

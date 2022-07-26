@@ -197,6 +197,17 @@ export class ApiService {
     }
 
     /**
+     * Find adopters by _id
+     * @param {string} _id The _id of the adopter to find
+     * @return {Promise<Adopter || null>}
+     * 
+     */
+    async findAdopterBy_Id(_id: string): Promise<Adopter | null> {
+        return this.AdopterModel.findOne({_id}).exec();
+    }
+
+
+    /**
      * Find a OrgMember by email
      * @param {string} email The email of the orgMember to find
      * @return {Promise<OrgMember || null>}
@@ -489,6 +500,7 @@ export class ApiService {
 
     /**
      * For the AddDog page
+     * for the orgProfile page
      * find organisation by name
      * @param {string} name The name of the organisation to find
      * @return {Promise<Organisation || null>}

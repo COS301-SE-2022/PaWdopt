@@ -108,13 +108,13 @@ export class OrganisationType {
     about: string;
 
     @Field()
-    dateFounded: Date;
+    dateFounded: Date;//date that the org joined the app, for org info page
 
     @Field()
-    totalAdoptions: number;
+    totalAdoptions: number;//of all time
 
     @Field()
-    totalDogs: number;
+    totalDogs: number;//current amount of dogs
 
     @Field(() => [OrgMemberType])
     members: [OrgMember];
@@ -134,6 +134,16 @@ export class OrganisationType {
 
     @Field({ nullable: true })
     logo: string;
+}
+
+@ObjectType('DocType')
+@InputType('DocInputType')
+export class DocType {
+    @Field()
+    type: string;
+
+    @Field()
+    path: string;
 }
 
 @ObjectType('AdopterType')
@@ -157,8 +167,9 @@ export class AdopterType {
     @Field(() => LocationType, {nullable:true})
     location: Location;
 
-    @Field(() => [String], { nullable: true })
-    documents: [string]; //must be in order of: ID, Proof of res, Bank, motivation letter
+    @Field(() => [DocType], {nullable:true})
+    documents: [DocType];
+    //must be in order of: ID (ID), Proof of res (poR), bank (bank), motivation letter (motiv)
 
     @Field(() => [DogType], { nullable: true })
     dogsLiked: [Dog];

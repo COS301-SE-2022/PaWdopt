@@ -3,6 +3,7 @@
   "projects": {
     "backend": "apps/backend",
     "backend-shell-api-feature": "libs/backend/shell/api/feature",
+    "mobile-add-org-member-feature": "libs/mobile/add-org-member/feature",
     "mobile-adddog-feature": "libs/mobile/adddog/feature",
     "mobile-addorg-feature": "libs/mobile/addorg/feature",
     "mobile-adoptionprocess-feature": "libs/mobile/adoptionprocess/feature",

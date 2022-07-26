@@ -227,6 +227,17 @@ export class ApiResolver {
     }
 
     /**
+     * find adopter by _id
+     * @param _id
+     * @returns adopter
+     * 
+     */
+    @Query(() => AdopterType, {nullable: true})
+    async findAdopterBy_Id(@Args('_id') _id: string) : Promise<AdopterType> {
+        return this.DogService.findAdopterBy_Id(_id);
+    }
+
+    /**
      * find dogs by org name
      * @param orgName
      * @returns dogs
@@ -284,6 +295,7 @@ export class ApiResolver {
 
     /**
      * used in AddDog Page
+     * used in orgProfile Page
      * find org by name
      * @param name
      * @returns organisation
