@@ -14,9 +14,6 @@ export class OrgMemberType {
     email: string;
 
     @Field()
-    password: string;
-
-    @Field()
     organisation: string;
 
     @Field({ nullable: true })
@@ -160,9 +157,6 @@ export class AdopterType {
 
     @Field()
     email: string;
-
-    @Field()
-    password: string;
 
     @Field()
     IDNum: string;

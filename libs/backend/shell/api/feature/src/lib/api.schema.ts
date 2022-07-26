@@ -142,9 +142,6 @@ export class Adopter {
     email: string;
 
     @Prop()
-    password: string;
-
-    @Prop()
     IDNum: string;
     
     @Prop()
@@ -177,9 +174,6 @@ export class OrgMember {
 
     @Prop()
     email: string;
-
-    @Prop()
-    password: string;
 
     @Prop()
     organisation: string;  

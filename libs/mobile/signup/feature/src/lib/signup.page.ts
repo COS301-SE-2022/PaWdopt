@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
+
 @Component({
   selector: 'pawdopt-signup',
   templateUrl: 'signup.page.html',
@@ -29,6 +30,9 @@ export class SignupPageComponent {
     this.fireAuth.createUserWithEmailAndPassword(this.email, this.pass).then((user) => {
       console.log("User created");
       console.log(user);
+      user.user?.updateProfile({
+        displayName: "Adopter",
+      });
       this.addUser(user.user?.uid);
     }).catch((error) => {
       console.log(error);
@@ -48,7 +52,6 @@ export class SignupPageComponent {
         _id: "${uid}",
         name: "${this.uName}",
         email: "${this.email}",
-        password: "${this.pass}",
         IDNum: "${this.idnum}",
         uploadedDocs: false,
       })

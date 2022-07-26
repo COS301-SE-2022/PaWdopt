@@ -19,74 +19,25 @@ export class LoginPageComponent {
     
   }
 
+  // getUserType(id: string){
+  //   const getUserType = gql`query {
+  //     getUserType(id: "${id}")
+  //   }`;
 
-
-   loginadoptquery(email: string, password:string){
-    const LoginQueryAdopter = gql`query {
-      loginAdopter(email: "${email}", password: "${password}") { name }
-    }`;
-
-   
-    this.apollo.watchQuery({
-      query: LoginQueryAdopter,
-      fetchPolicy: 'no-cache'
-    }).valueChanges.subscribe((result) => {
-
-    
-        const data = result.data as {
-          loginAdopter: {
-            __typename: string;
-          };
-        };
-
-        if (data.loginAdopter != null) {
-        const typeVar = data.loginAdopter.__typename;
-
-        if (typeVar == "AdopterType") { //"Adopter"
-          this.router.navigate(["/home"]);
-          return true;
-        }
-        else{
-         //successfulquery = this.loginorgquery(email, password);
-         return false;
-        }
-      } else{
-        //successfulquery = this.loginorgquery(email, password);
-        return false;
-      }
-
-    });
-    return false;
-  }
-
-   loginorgquery(email: string, password:string){
-     let successfulquery = false;
-    const LoginQueryOrg = gql`query {
-      loginOrg(email: "${email}", password: "${password}") { name, organisation }
-    }`;
-
-    this.apollo.watchQuery({
-      query: LoginQueryOrg,
-      fetchPolicy: 'no-cache'
-    }).valueChanges.subscribe((result) => {
-        const data = result.data as {
-          loginOrg: {
-            __typename: string;
-          };
-        };
-
-        if (data.loginOrg != null) {
-
-        const typeVar = data.loginOrg.__typename;
-    
-        if (typeVar == "OrgMemberType") { //"Adopter"
-          this.router.navigate(["/owneddogs"]);
-          successfulquery = true;
-        }
-      }
-    });
-    return successfulquery;
-  }
+  //   this.apollo.watchQuery({
+  //     query: getUserType,
+  //     fetchPolicy: 'no-cache'
+  //   }).valueChanges.subscribe((result) => {
+  //     console.log(result);
+  //     const data = result.data as {
+  //       getUserType: {
+  //         userType: string
+  //       }[]
+        
+  //     }
+  //     return data.getUserType;
+  //   });
+  // }
   
   login()
   {
@@ -94,13 +45,23 @@ export class LoginPageComponent {
     const password = this.inputPassword;
     
     this.fireAuth.signInWithEmailAndPassword(email, password).then((user) => {
-      console.log("Successfully signed in");
-      console.log(user);
-      if(!this.loginadoptquery(email, password) && !this.loginorgquery(email, password))
+      if(user.user?.uid)
       {
-        //TODO: Add toast 
-        this.router.navigate(["/login"]);
-      }
+        const userType = user.user?.displayName;
+        console.log(userType);
+          if(userType == "Adopter")
+          {
+            this.router.navigate(['/home']);
+          }
+          else if(userType == "OrgMember")
+          {
+            this.router.navigate(['/owneddogs']);
+          }
+          else{
+            //TODO: Add toast 
+            this.router.navigate(["/login"]);
+          }
+        }
     }).catch((error) => {
       console.log("Error signing in");
       console.log(error);
