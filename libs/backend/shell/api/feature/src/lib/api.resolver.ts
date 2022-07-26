@@ -250,17 +250,6 @@ export class ApiResolver {
     }
 
     /**
-     * find dogs by org name
-     * @param orgName
-     * @returns dogs
-     * 
-     */
-    @Query(() => [DogType])
-    async findDogsByOrgName(@Args('orgName') orgName: string) : Promise<DogType[]> {
-        return this.DogService.findDogsByOrg(orgName);
-    }
-
-    /**
      * delete dog by name
      * @param name
      * @returns dog
@@ -382,5 +371,17 @@ export class ApiResolver {
         });
         return this.DogService.createOrg(org);
     }
+
+    /**
+     * used in ownedDogs page
+     * find dogs by org name
+     * @param orgName
+     * @returns dogs
+     * 
+     */
+     @Query(() => [DogType])
+     async findDogsByOrgName(@Args('orgName') orgName: string) : Promise<DogType[]> {
+         return this.DogService.findDogsByOrg(orgName);
+     }
     
 }
