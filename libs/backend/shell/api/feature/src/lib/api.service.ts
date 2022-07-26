@@ -670,6 +670,20 @@ export class ApiService {
         return this.DogModel.find({orgName: orgName}).exec();
     }
 
+    /**
+     * used in userLikes page
+     * find dogs in adopters dogsLiked
+     * @param {string} uid The _id of the adopter to find
+     * @return {Promise<Dog[]>}
+     */
+    async findDogsInAdopterDogsLiked(uid: string): Promise<Dog[]> {
+        const adopter = await this.AdopterModel.findOne({uid}).exec();
+        if(adopter == null){
+            throw new Error("Adopter does not exist");
+        }
+        return adopter.dogsLiked;
+    }
+
 
 
       
