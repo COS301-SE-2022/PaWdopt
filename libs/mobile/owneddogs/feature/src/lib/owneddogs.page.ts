@@ -12,10 +12,10 @@ import { VarsFacade } from '@pawdopt/shared/data-store';
 })
 export class owneddogsPageComponent {
 
-  //public static GlobalVars = "hello";
   
   inputSearch!: string;
-  orgName = "SPCA";
+  orgName!: string;
+
 
   //get org name for login
 
@@ -28,16 +28,15 @@ export class owneddogsPageComponent {
     breed:string
   }[]=[]
 
-
   // userLikes:{
   //   name:string,
   //   pic:string,
   // }[]=[];
 
   constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
-    /*this.varsFacade.orgName$.subscribe(orgName => {
+    this.varsFacade.orgName$.subscribe(orgName => {
       this.orgName = orgName;
-    });*/
+    });
     console.log(this.orgName);
     this.getDog();
   }
@@ -81,6 +80,12 @@ export class owneddogsPageComponent {
       // this.dog.likes = data.findDog.usersLiked.length;
       // console.log(data);
       // console.log(data.findDogByOrgName);
+      //get the years between a Date and now
+      // const now = new Date();
+      // const birthDate = new Date(data.findDog.dob);
+      // const age = now.getFullYear() - birthDate.getFullYear();
+      const now = new Date();
+
 
       data.findDogsByOrgName.forEach(element => {
         this.dog.push(
@@ -88,7 +93,7 @@ export class owneddogsPageComponent {
             _id: element._id,
             name: element.name,
             pic: element.pics[0],
-            age: 2,
+            age: now.getFullYear() - element.dob.getFullYear(),
             likes: element.usersLiked.length,
             breed: element.breed
           }
@@ -99,58 +104,13 @@ export class owneddogsPageComponent {
 
 
   search(){
-    const getDogQuery = gql`query {
-      findDog(name: "${this.inputSearch}") {
-        _id
-        name
-        dob
-        pics
-        breed
-        usersLiked{
-          name
-        }
-      }
-    }`;
+    //foreach going through each dog and comparing the name to the input search
+    //if it matches, push to new array
+    //if not, do nothing
+    this.dog=[];
+    this.getDog();
+    this.dog = this.dog.filter(dog => dog.name.includes(this.inputSearch));
 
-    this.apollo.watchQuery({
-      query: getDogQuery,
-      fetchPolicy: 'no-cache'
-    }).valueChanges.subscribe((result) => {
-      console.log(result);
-      const data = result.data as {
-        findDog: {
-          _id: string,
-          name: string,
-          dob: Date,
-          pics: string[],
-          breed: string,
-          usersLiked: {
-            name: string
-          }[]
-        }  
-      };
-
-      if(data.findDog == null)
-      {
-        alert("Dog not found");
-        this.dog = [];
-
-      }
-      else{
-        this.dog=[];
-
-        this.dog.push(
-          {
-            _id: data.findDog._id,
-            name: data.findDog.name,
-            pic: data.findDog.pics[0],
-            age: 0,
-            likes: data.findDog.usersLiked.length,
-            breed: data.findDog.breed
-          }
-        )
-      }
-    })
   }
 
   onCancelSearch(){
@@ -165,6 +125,10 @@ export class owneddogsPageComponent {
   update(id: string){
     this.varsFacade.setDogID(id);
     this.router.navigate(["/updateorremovedog"]);
+  }
+
+  updateLikes(id: string){
+    this.varsFacade.setDogID(id);
   }
 
   addDog(){
