@@ -109,7 +109,7 @@ export class AddorgPageComponent {
       });
     });
 
-    const addOrg = `mutation{
+    const addOrg = gql`mutation{
       createOrg(org:{
         _id: "",
         name: "${this.oName}",
@@ -146,12 +146,12 @@ export class AddorgPageComponent {
     }`;
 
     console.log(addOrg);
-    // this.apollo.mutate({
-    //   mutation: addOrg,
-    // }).subscribe(({data}) => {
-    //   console.log('got data', data);
-    //   this.router.navigate(["/dashboard"]);
-    // });
+    this.apollo.mutate({
+      mutation: addOrg,
+    }).subscribe(({data}) => {
+      console.log('got data', data);
+      this.router.navigate(["/dashboard"]);
+    });
   }
 
   addOrgMemberCard(){
