@@ -429,71 +429,18 @@ export class ApiService {
 
      * 
      */
-    //  async updateDogTemperament(name: string, temperament: string[]): Promise<Dog | null> {
-    //     return this.DogModel.findOneAndUpdate({ name }, { temperament }, { new: true }).exec();
-    // }
-    
-      /**
-     * Login an Adopter
-     * @param {string} email The email of the adopter to login
-     * @param {string} password The password of the adopter to login
-     * @return {Promise<Adopter || null>}
-     */
-       async loginAdopter(email: string, password: string): Promise<Adopter | null> {
-        const temp = await this.AdopterModel.findOne({ email }).exec();
-        if(temp != null){
-            //return bcrypt.compareSync(password, temp.password); (fix for demo 3)
-            if(password == temp.password){
-                return temp;
-            }
-            return null;
-        } 
-        else{
-            return null;
-        }
-        
-    }
-
-    /**
-     * Login an OrgMember
-     * @param {string} email The email of the orgMember to login
-     * @param {string} password The password of the orgMember to login
-     * @return {Promise<OrgMember || null>}
-     */
-    async loginOrgMember(email: string, password: string): Promise<OrgMember | null> {
-        const temp = await this.OrgMemberModel.findOne({ email }).exec();
-        if(temp != null){
-            //return bcrypt.compareSync(password, temp.password); (fix for demo 3)
-            if(password == temp.password){
-                return temp;
-            }
-            return null;
-        } 
-        else{
-            return null;
-        }
+    async updateDogTemperament(name: string, temperament: string[]): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ name }, { temperament }, { new: true }).exec();
     }
 
     /**
      * find dogs by org
-     * @param {string} name The name of the org to find
+     * @param {string} orgName The name of the org to find
      * @return {Promise<Dog[]>}
-     * 
      */
     async findDogsByOrg(orgName: string): Promise<Dog[]> {
         return this.DogModel.find({orgName: orgName}).exec();
     }
-
-
-    /**
-     * find dogs by organisation name
-     * @param {string} name The name of the organisation to find
-     * @return {Promise<Dog[]>}
-     * 
-     */
-    //  async findDogsByOrgName(name: string): Promise<Dog[]> {
-    //      return this.DogModel.find({organisation.name : name}).exec();
-    //  }
 
     /**
      * delete dog by name
@@ -654,8 +601,4 @@ export class ApiService {
         adopter.dogsLiked.splice(index, 1);
         return adopter.save();
     }
-
-
-      
-    
 }

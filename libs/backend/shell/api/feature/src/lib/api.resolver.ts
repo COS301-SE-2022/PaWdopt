@@ -215,18 +215,6 @@ export class ApiResolver {
         return this.DogService.updateDogDob(dogName, dob);
     }
 
-    @Query(() => OrgMemberType, {nullable: true})
-    async loginOrg(@Args('email') email: string, @Args('password') password: string) : Promise<OrgMemberType> {
-        
-        return this.DogService.loginOrgMember(email, password);
-         
-    }
-
-    @Query(() => AdopterType, {nullable: true})
-    async loginAdopter(@Args('email') email: string, @Args('password') password: string) : Promise<AdopterType> {
-        return this.DogService.loginAdopter(email, password);
-          
-    }
     /**
      * find adopter by email
      * @param email
@@ -370,5 +358,4 @@ export class ApiResolver {
         });
         return this.DogService.createOrg(org);
     }
-    
 }
