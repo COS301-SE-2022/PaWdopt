@@ -1,5 +1,5 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
-import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter } from './api.schema';
+import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter, Doc } from './api.schema';
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
@@ -173,9 +173,8 @@ export class AdopterType {
     @Field(() => LocationType, {nullable:true})
     location: Location;
 
-    @Field(() => [DocType], {nullable:true})
-    documents: [DocType];
-    //must be in order of: ID (ID), Proof of res (poR), bank (bank), motivation letter (motiv)
+    @Field(() => [DocType], { nullable: true })
+    documents: [Doc]; //must be in order of: ID, Proof of res, Bank, motivation letter
 
     @Field(() => [DogType], { nullable: true })
     dogsLiked: [Dog];
