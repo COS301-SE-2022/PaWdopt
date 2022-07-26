@@ -90,9 +90,12 @@ export class AddorgPageComponent {
     orgMembersForQuery.pop();
 
     this.orgMembers.forEach(o => {
-      this.fireAuth.createUserWithEmailAndPassword(o.email, "cloud5temp").then((user) => {
+      this.fireAuth.createUserWithEmailAndPassword(o.email, "123456").then((user) => {
         console.log("User created");
         console.log(user);
+        user.user?.updateProfile({
+          displayName: "OrgMember",
+        });
         orgMembersForQuery.push({
           _id: user.user?.uid,
           name: o.name,
@@ -105,7 +108,6 @@ export class AddorgPageComponent {
         //TODO: Toast error message
       });
     });
-    
 
     const addOrg = `mutation{
       createOrg(org:{
