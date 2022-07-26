@@ -371,5 +371,16 @@ export class ApiResolver {
      async findDogsByOrgName(@Args('orgName') orgName: string) : Promise<DogType[]> {
          return this.DogService.findDogsByOrg(orgName);
      }
+
+    /**
+     * used in userLikes page
+     * find dogs in adopter's dogsLiked
+     * @param userId
+     * @returns dogs
+     */
+    @Query(() => [DogType])
+    async findDogsLikedByUser(@Args('userId') userId: string) : Promise<DogType[]> {
+        return this.DogService.findDogsInAdopterDogsLiked(userId);
+    }
     
 }

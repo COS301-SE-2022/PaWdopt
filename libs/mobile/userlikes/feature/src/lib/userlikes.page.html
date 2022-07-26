@@ -17,8 +17,13 @@
     </ion-toolbar>
 </ion-header>
 
-<div>&nbsp;</div>
 <ion-content>
+    <!--Search for dogs in user likes-->
+    <div class="searchbar">
+        <ion-searchbar placeholder="Try Millie.." [(ngModel)]="inputSearch" (ionClear)="onCancelSearch()" (input)="search()" animated></ion-searchbar>
+    </div>
+    <div>&nbsp;</div>
+
     <div class="maincontainer" *ngFor="let d of dog">
         <div class="thecard">
             <div class="thefront">

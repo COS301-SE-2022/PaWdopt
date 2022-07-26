@@ -10,6 +10,7 @@ import { adoptionprocessPageComponentRoutingModule } from './adoptionprocess-rou
   declarations: [adoptionprocessPageComponent],
 })
 export class adoptionprocessPageComponentModule {
-  public orgName = adoptionprocessPageComponent.orgName;
-  public static adopterEmail = adoptionprocessPageComponent.adopterEmail;
+  // public orgName = adoptionprocessPageComponent.orgName;
+  // public static adopterEmail = adoptionprocessPageComponent.adopterEmail;
+  //Unsure if this is the best way to do this
 }
