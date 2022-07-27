@@ -17,6 +17,9 @@ export class Location {
 @Schema()
 export class ContactInfo {
     @Prop()
+    _id: string;
+
+    @Prop()
     email: string;
 
     @Prop()
@@ -142,9 +145,6 @@ export class Adopter {
     email: string;
 
     @Prop()
-    password: string;
-
-    @Prop()
     IDNum: string;
     
     @Prop()
@@ -155,6 +155,18 @@ export class Adopter {
 
     @Prop()
     documents: [Doc];
+
+    // @Prop()
+    // idDoc: string;
+
+    // @Prop()
+    // porDoc: string;
+
+    // @Prop()
+    // bankDoc: string;
+
+    // @Prop()
+    // motivDoc: string;
 
     @Prop()
     dogsLiked: [Dog];
@@ -179,7 +191,7 @@ export class OrgMember {
     email: string;
 
     @Prop()
-    password: string;
+    role: string;
 
     @Prop()
     organisation: string;  

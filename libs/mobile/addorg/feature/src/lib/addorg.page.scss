@@ -6,6 +6,7 @@
     align-items: center;
     margin: 0;
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 .logo {
@@ -31,10 +32,11 @@
 .orgmember-adder-card {
     margin-top: 5%;
     margin-bottom: 5%;
-    width: 50%;
+    width: 65%;
     color: #020300;
     --background: #C0B7B1;
     box-shadow: #020300 0px 0px 5px;
+    border-radius: 5%;
 }
 
 .orgmember-slides {
@@ -60,7 +62,7 @@
     justify-content: center;
     margin-top: 5%;
     margin-bottom: 5%;
-    width: 50%;
+    width: 65%;
     height: 92%;
     color: #C0B7B1;
     --background: #F8F9FA;

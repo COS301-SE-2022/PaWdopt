@@ -40,9 +40,9 @@ export const getEmail = createSelector(
   (state: State) => state.email
 );
 
-export const getOrgName = createSelector(
+export const getOrgId = createSelector(
   getVarsState,
-  (state: State) => state.orgName
+  (state: State) => state.orgId
 );
 
 export const getOrgMemberEmail = createSelector(
@@ -58,4 +58,39 @@ export const getDogID = createSelector(
 export const getUserID = createSelector(
   getVarsState,
   (state: State) => state.userID
+);
+
+export const getGender = createSelector(
+  getVarsState,
+  (state: State) => state.gender
+);
+
+export const getLocationRange = createSelector(
+  getVarsState,
+  (state: State) => state.locationrange
+);
+
+export const getBreed = createSelector(
+  getVarsState,
+  (state: State) => state.breed
+);
+
+export const getminSize = createSelector(
+  getVarsState,
+  (state: State) => state.minSize
+);
+
+export const getminAge = createSelector(
+  getVarsState,
+  (state: State) => state.minAge
+);
+
+export const getmaxSize = createSelector(
+  getVarsState,
+  (state: State) => state.maxSize
+);
+
+export const getmaxAge = createSelector(
+  getVarsState,
+  (state: State) => state.maxAge
 );

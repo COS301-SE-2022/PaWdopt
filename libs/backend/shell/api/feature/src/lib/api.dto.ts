@@ -1,5 +1,5 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
-import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter } from './api.schema';
+import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter, Doc } from './api.schema';
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
@@ -14,10 +14,10 @@ export class OrgMemberType {
     email: string;
 
     @Field()
-    password: string;
+    organisation: string;
 
     @Field()
-    organisation: string;
+    role: string;
 
     @Field({ nullable: true })
     verification: Date;
@@ -26,6 +26,9 @@ export class OrgMemberType {
 @ObjectType('ContactInfoType')
 @InputType('ContactInfoInputType')
 export class ContactInfoType {
+    @Field()
+    _id: string;
+
     @Field({ nullable: true })
     email: string;
 
@@ -162,9 +165,6 @@ export class AdopterType {
     email: string;
 
     @Field()
-    password: string;
-
-    @Field()
     IDNum: string;
     
     @Field({nullable:true})
@@ -172,6 +172,18 @@ export class AdopterType {
 
     @Field(() => LocationType, {nullable:true})
     location: Location;
+
+    // @Field({nullable:true})
+    // idDoc: string;
+
+    // @Field({nullable:true})
+    // porDoc: string;
+
+    // @Field({nullable:true})
+    // bankDoc: string;
+
+    // @Field({nullable:true})
+    // motivDoc: string;
 
     @Field(() => [DocType], {nullable:true})
     documents: [DocType];

@@ -11,6 +11,9 @@ import { VarsFacade } from '@pawdopt/shared/data-store';
 })
 export class userlikesPageComponent {
   
+  inputSearch!: string;
+  userId!: string;
+
   dog:{
     name:string,
     age: number,
@@ -21,16 +24,20 @@ export class userlikesPageComponent {
     furLength: string,
     pic:string,
     about:string,
-    organisation:string
+    organisation:string,
+    orgId:string
   }[]=[]
 
   constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade){
+    this.varsFacade.userID$.subscribe(userID => {
+      this.userId = userID;
+    });
     this.getDog();
   }
 
   getDog(){
-    const getDogQuery = gql`query {
-      findDogsLikedByAdopter(adopterName: "jason") {
+    const findDogsLikedByUserQuery = gql`query {
+      findDogsLikedByUser(userId: "${this.varsFacade.userID$}") {
         name
         dob
         height
@@ -38,23 +45,22 @@ export class userlikesPageComponent {
         breed
         furLength
         temperament
-        pics{
-          path
-        }
+        pics
         about
         organisation{
+          _id
           name
         }
       }
     }`;
 
     this.apollo.watchQuery({
-      query: getDogQuery,
+      query: findDogsLikedByUserQuery,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
       console.log(result);
       const data = result.data as {
-        findDogsLikedByAdopter: {
+        findDogsLikedByUser: {
           name: string,
           dob: Date,
           height: number,
@@ -62,29 +68,19 @@ export class userlikesPageComponent {
           breed: string,
           furLength: string,
           temperament: string[],
-          pics: {
-            path: string
-          }[],
+          pics: string[],
           about: string,
           organisation: {
+            _id: string,
             name: string
           }
         }[]
       };
-      
-      // this.dog.name = data.findDog.name;
-      // this.dog.pic = data.findDog.pics[0].path;
-      // this.dog.about = data.findDog.about;
-      // this.dog.age = 0;
-      // this.dog.likes = data.findDog.usersLiked.length;
-      // console.log(data);
-      // console.log(data.findDogByOrgName);
 
-      data.findDogsLikedByAdopter.forEach(element => {
+      data.findDogsLikedByUser.forEach(element => {
         const tempDate = new Date(element.dob);
         const today = new Date();
         const age = today.getFullYear() - tempDate.getFullYear();
-        this.varsFacade.setOrgName(element.organisation.name);
         this.dog.push(
           {
             name:element.name,
@@ -94,13 +90,26 @@ export class userlikesPageComponent {
             breed: element.breed,
             temperament: element.temperament,
             furLength: element.furLength,
-            pic: element.pics[0].path,
+            pic: element.pics[0],
             about: element.about,
-            organisation: element.organisation.name
+            organisation: element.organisation.name,
+            orgId: element.organisation._id
           }
         );
       })  
     })
+  }
+
+  search(){
+    //search for dogs based off regex
+    this.dog=[];
+    this.getDog();
+    this.dog = this.dog.filter(dog => dog.name.includes(this.inputSearch));
+  }
+
+  onCancelSearch(){
+    this.dog=[];
+    this.getDog();
   }
 
   home(){
@@ -117,6 +126,11 @@ export class userlikesPageComponent {
 
   preferences(){
     //this.router.navigate(["/userinfo"]); Not implemented yet
+  }
+
+  orgProfile(orgId:string){
+    this.varsFacade.setOrgId(orgId);
+    this.router.navigate(["/orgprofile"]);
   }
 
 }

@@ -10,13 +10,13 @@ export class ApiResolver {
     constructor(private readonly DogService: ApiService) {}
 
     @Mutation(()  => OrganisationType)
-    async updateOrg(@Args ('name') name: string, @Args('org') org: OrganisationType) : Promise<OrganisationType> {
-        return this.DogService.updateOrg(name, org);
+    async updateOrg(@Args ('_id') _id: string, @Args('org') org: OrganisationType) : Promise<OrganisationType> {
+        return this.DogService.updateOrg(_id, org);
     }
 
     @Mutation(() => OrganisationType)
-    async deleteOrg(@Args('name') name: string) : Promise<OrganisationType> {
-        return this.DogService.deleteOrg(name);
+    async deleteOrg(@Args('_id') _id: string) : Promise<OrganisationType> {
+        return this.DogService.deleteOrg(_id);
     }
 
     @Mutation(() => OrgMemberType)
@@ -25,43 +25,35 @@ export class ApiResolver {
     }
 
     @Mutation(() => OrgMemberType)
-    async updateOrgMember(@Args('email') email: string, @Args('member') member: OrgMemberType) : Promise<OrgMemberType> {
-        return this.DogService.updateOrgMember(email, member);
+    async updateOrgMember(@Args('_id') _id: string, @Args('member') member: OrgMemberType) : Promise<OrgMemberType> {
+        return this.DogService.updateOrgMember(_id, member);
     }
 
     @Mutation(() => OrgMemberType)
-    async deleteOrgMember(@Args('email') email: string) : Promise<OrgMemberType> {
-        return this.DogService.deleteOrgMember(email);
+    async deleteOrgMember(@Args('_id') _id: string) : Promise<OrgMemberType> {
+        return this.DogService.deleteOrgMember(_id);
     }
 
     @Mutation(() => DogType)
-    async deleteDog(@Args('id') id: string) : Promise<DogType> {
-        return this.DogService.deleteDog(id);
-    }
-
-    @Mutation(() => LocationType)
-    async updateLocation(@Args('id') id: string, @Args('location') location: LocationType) : Promise<LocationType> {
-        return this.DogService.updateLocation(id, location);
-    }
-
-    @Mutation(() => LocationType)
-    async deleteLocation(@Args('id') id: string) : Promise<LocationType> {
-        return this.DogService.deleteLocation(id);
+    async deleteDog(@Args('_id') _id: string) : Promise<DogType> {
+        return this.DogService.deleteDog(_id);
     }
 
     @Mutation(() => ContactInfoType)
     async createContactInfo(@Args('contactInfo') contactInfo: ContactInfoType) : Promise<ContactInfoType> {
-        return this.DogService.createContactInfo(contactInfo);
+        const ret = await this.DogService.createContactInfo(contactInfo);
+        ret._id = (new Types.ObjectId()).toHexString();
+        return 
     }
 
     @Mutation(() => ContactInfoType)
-    async updateContactInfo(@Args('id') id: string, @Args('contactInfo') contactInfo: ContactInfoType) : Promise<ContactInfoType> {
-        return this.DogService.updateContactInfo(id, contactInfo);
+    async updateContactInfo(@Args('_id') _id: string, @Args('contactInfo') contactInfo: ContactInfoType) : Promise<ContactInfoType> {
+        return this.DogService.updateContactInfo(_id, contactInfo);
     }
 
     @Mutation(() => ContactInfoType)
-    async deleteContactInfo(@Args('id') id: string) : Promise<ContactInfoType> {
-        return this.DogService.deleteContactInfo(id);
+    async deleteContactInfo(@Args('_id') _id: string) : Promise<ContactInfoType> {
+        return this.DogService.deleteContactInfo(_id);
     }
 
     @Mutation(() => AdopterType)
@@ -70,13 +62,13 @@ export class ApiResolver {
     }
 
     @Mutation(() => AdopterType)
-    async updateAdopter(@Args('email') email: string, @Args('adopter') adopter: AdopterType) : Promise<AdopterType> {
-        return this.DogService.updateAdopter(email, adopter);
+    async updateAdopter(@Args('_id') _id: string, @Args('adopter') adopter: AdopterType) : Promise<AdopterType> {
+        return this.DogService.updateAdopter(_id, adopter);
     }
 
     @Mutation(() => AdopterType)
-    async deleteAdopter(@Args('email') email: string) : Promise<AdopterType> {
-        return this.DogService.deleteAdopter(email);
+    async deleteAdopter(@Args('_id') _id: string) : Promise<AdopterType> {
+        return this.DogService.deleteAdopter(_id);
     }
 
 
@@ -95,10 +87,7 @@ export class ApiResolver {
         return this.DogService.findDogsByBreed(breed);
     }
 
-    @Query(() => [DogType])
-    async findDogs() : Promise<DogType[]> {
-        return this.DogService.findDogs();
-    }
+    
 
     @Query(() => [DogType])
     async findDogsByOrg(@Args('org') org: OrganisationType) : Promise<DogType[]> {
@@ -110,25 +99,12 @@ export class ApiResolver {
         return this.DogService.findOrgMembersByOrganisation(org);
     }
 
-    @Query(() => Boolean)
-    async emailExists(@Args('email') email: string) : Promise<boolean> {
-        const temp1 = await this.DogService.adopterEmailExists(email);
-        const temp2 = await this.DogService.orgMemberEmailExists(email);
-        const temp3 = temp1 || temp2;
-        return temp3;
-    }
-
-    @Query(() => Boolean)
-    async organisationNameExists(@Args('name') name: string) : Promise<boolean> {
-        return this.DogService.organisationNameExists(name);
-    }
-
     @Mutation(() => DogType)
-    async userSwipesRightOnDog(@Args('userName') userName: string, @Args('dogName') dogName: string) : Promise<DogType | null> {
-        const user = await this.DogService.findAdopterByName(userName);
+    async userSwipesRightOnDog(@Args('_id') _id: string, @Args('dogName') dogName: string) : Promise<DogType | null> {
+        const user = await this.DogService.findAdopterBy_Id(_id);
         if(user != null){
             await this.DogService.addDogToDogsLiked(user, dogName);
-            const ret = await this.DogService.addUserToUserLikes(dogName, user);
+            const ret = await this.DogService.addUserToUserLikes(dogName, user._id);
             return ret;
         }
         else{
@@ -136,97 +112,6 @@ export class ApiResolver {
         }
     }
 
-    @Mutation(() => DogType)
-    async updateDogBreed(@Args('dogName') dogName: string, @Args('breed') breed: string) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(breed == dog.breed){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogBreed(dogName, breed);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogGender(@Args('dogName') dogName: string, @Args('gender') gender: string) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(gender == dog.gender){
-            return dog;
-        }
-        else{
-            return this.DogService.updateDogGender(dogName, gender);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogFurlength(@Args('dogName') dogName: string, @Args('furLength') furLength: string) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(furLength == dog.furLength){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogFurLength(dogName, furLength);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogAbout(@Args('dogName') dogName: string, @Args('about') about: string) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(about == dog.about){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogAbout(dogName, about);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogWeight(@Args('dogName') dogName: string, @Args('weight') weight: number) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(weight == dog.weight){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogWeight(dogName, weight);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogHeight(@Args('dogName') dogName: string, @Args('height') height: number) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(height == dog.height){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogHeight(dogName, height);
-        }
-    }
-
-    //query to update temperament of dog
-    /*@Query(() => DogType)
-    async UpdateDogTemperament(@Args('dogName') dogName: string, @Args('temperament') temperament: string[]) : Promise<DogType> {
-        const ret = temperament;
-        return this.DogService.updateDogTemperament(dogName, ret);
-    }*/
-
-    //query to update dogs dob
-    @Query(() => DogType)
-    async updateDogDob(@Args('dogName') dogName: string, @Args('dob') dob: Date) : Promise<DogType> {
-        return this.DogService.updateDogDob(dogName, dob);
-    }
-
-    @Query(() => OrgMemberType, {nullable: true})
-    async loginOrg(@Args('email') email: string, @Args('password') password: string) : Promise<OrgMemberType> {
-        
-        return this.DogService.loginOrgMember(email, password);
-         
-    }
-
-    @Query(() => AdopterType, {nullable: true})
-    async loginAdopter(@Args('email') email: string, @Args('password') password: string) : Promise<AdopterType> {
-        return this.DogService.loginAdopter(email, password);
-          
-    }
     /**
      * find adopter by email
      * @param email
@@ -250,24 +135,13 @@ export class ApiResolver {
     }
 
     /**
-     * delete dog by name
-     * @param name
-     * @returns dog
-     * 
-     */
-    @Mutation(() => DogType)
-    async deleteDogbyName(@Args('name') name: string) : Promise<DogType> {
-        return this.DogService.deleteDogByName(name);
-    }
-
-    /**
      * find dogs liked by adopter
-     * @param adopterName
+     * @param _id
      * @returns dogs
      */
     @Query(() => [DogType])
-    async findDogsLikedByAdopter(@Args('adopterName') adopterName: string) : Promise<DogType[]> {
-        return this.DogService.findDogsLikedByAdopter(adopterName);
+    async findDogsLikedByAdopter(@Args('_id') _id: string) : Promise<DogType[]> {
+        return this.DogService.findDogsLikedByAdopter(_id);
     }
 
     //=========================================================================================================================================================
@@ -283,12 +157,12 @@ export class ApiResolver {
      * used in AddDog Page
      * create a dog
      * @param dog
-     * @param orgName
+     * @param orgId
      * @returns dog
      */
     @Mutation(() => DogType)
-    async createDog(@Args('dog') dog: DogType, @Args('orgName') orgName: string) : Promise<DogType> {
-        const org = await this.DogService.findOrgByName(orgName);
+    async createDog(@Args('dog') dog: DogType, @Args('orgId') orgId: string) : Promise<DogType> {
+        const org = await this.DogService.findOrgById(orgId);
         dog._id = (new Types.ObjectId()).toHexString();
         dog.organisation = org;
         return this.DogService.createDog(dog);
@@ -297,13 +171,13 @@ export class ApiResolver {
     /**
      * used in AddDog Page
      * used in orgProfile Page
-     * find org by name
-     * @param name
+     * find org by id
+     * @param _id
      * @returns organisation
      */
     @Query(() => OrganisationType)
-    async findOrgByName(@Args('name') name: string) : Promise<OrganisationType> {
-        return this.DogService.findOrgByName(name);
+    async findOrgById(@Args('_id') _id: string) : Promise<OrganisationType> {
+        return this.DogService.findOrgById(_id);
     }
 
     /**
@@ -369,6 +243,7 @@ export class ApiResolver {
             member.organisation = org._id;
             this.DogService.createOrgMember(member);
         });
+        org.contactInfo = await this.DogService.createContactInfo(org.contactInfo);
         return this.DogService.createOrg(org);
     }
 
@@ -383,5 +258,106 @@ export class ApiResolver {
      async findDogsByOrgName(@Args('orgName') orgName: string) : Promise<DogType[]> {
          return this.DogService.findDogsByOrg(orgName);
      }
+
+    /**
+     * used in userLikes page
+     * find dogs in adopter's dogsLiked
+     * @param userId
+     * @returns dogs
+     */
+    @Query(() => [DogType])
+    async findDogsLikedByUser(@Args('userId') userId: string) : Promise<DogType[]> {
+        return this.DogService.findDogsInAdopterDogsLiked(userId);
+    }
     
+    /**
+     * used in home swiping page
+     * find all dogs
+     * @returns dogs
+     */
+     @Query(() => [DogType])
+     async findDogs(@Args('na') na: boolean) : Promise<DogType[]> {
+         return this.DogService.findDogs();
+     }
+
+     /**
+      * used in home swiping page
+      * find adopter by _id
+      * @param _id
+      * @returns adopter
+      */
+    @Query(() => AdopterType)
+    async findAdopterById(@Args('_id') _id: string) : Promise<AdopterType> {
+        return this.DogService.findAdopterById(_id);
+    }
+
+    /**
+     * used in home swiping page
+     * call removeDogFromAdopterDogsLikedOrDisliked()
+     * @param userId
+     * @param dogId
+     * @returns adopter
+     */
+    @Mutation(() => AdopterType)
+    async removeDogFromAdopterDogsLikedOrDisliked(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
+        return this.DogService.removeDogFromAdopterDogsLikedOrDisliked(userId, dogId);
+    }
+
+    /**
+     * used in home swiping page
+     * add dog to adopter's dogsLiked and add adopter to dog's usersLiked
+     * @param userId
+     * @param dogId
+     * @returns adopter
+     */
+    @Mutation(() => AdopterType)
+    async userSwipesRight(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
+        await this.DogService.addUserToUserLikes(dogId, userId);
+        return this.DogService.addDogToAdopterDogsLiked(userId, dogId);
+    }
+
+    /**
+     * used in home swiping page
+     * add dog to adopter's dogsDisliked 
+     * @param userId
+     * @param dogId
+     * @returns adopter
+     */
+    @Mutation(() => AdopterType)
+    async userSwipesLeft(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
+        return this.DogService.addDogToAdopterDogsDisliked(userId, dogId);
+    }
+
+
+    /**
+     * getUserType
+     * @param id
+     * @returns string
+     */
+    @Query(() => String)
+    async getUserType(@Args('id') id: string) : Promise<string> {
+        return this.DogService.getUserType(id);
+    }
+
+    /**
+     * used in ownnedDogs page
+     * find orgMember by id
+     * @param _id
+     * @returns orgMember
+     */
+    @Query(() => OrgMemberType)
+    async findOrgMemberById(@Args('_id') _id: string) : Promise<OrgMemberType> {
+        return this.DogService.findOrgMemberById(_id);
+    }
+
+    /**
+     * used in owenedDogs page
+     * find dogs by org id
+     * @param _id
+     * @returns dogs
+     */
+    @Query(() => [DogType])
+    async findDogsByOrgId(@Args('_id') _id: string) : Promise<DogType[]> {
+        return this.DogService.findDogsByOrgId(_id);
+    }
 }

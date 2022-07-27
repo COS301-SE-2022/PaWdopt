@@ -28,19 +28,19 @@
       [height]="500"
       [orientation]="'x'"
       (swiped)="swiped($event, index)">
-      <img [src]="avatar.image" [alt]="avatar.name">
-      <h2><b>{{avatar.name}}, {{avatar.age}} </b><div class="ion-float-right"><b>{{avatar.shelter}}<ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon></b></div></h2>
+      <img [src]="avatar.pic" [alt]="avatar.name">
+      <h2><b>{{avatar.name}}, {{avatar.age}} </b><div class="ion-float-right"><b>{{avatar.organisation}}<ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon></b></div></h2>
     </div>
   </sw-card-wrapper>
 
   <!--Shows results page and underlying cards-->
   <div class="card_bg_box">
+    <ion-thumbnail class="avatar">
+      <img src="../../assets/lastDog.png">
+    </ion-thumbnail>
     <div class="card_bg_1">
-      <ion-item  *ngFor="let result of results">
-        <ion-label>{{ result }}</ion-label>
-      </ion-item>
     </div>
-    <div class="card_bg_2"></div>
+  
   </div>
 
   <div class="button_box">

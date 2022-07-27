@@ -10,7 +10,7 @@ import { VarsFacade } from '@pawdopt/shared/data-store';
 })
 export class orgprofilePageComponent {
   
-  orgName!:string;
+  orgId!:string;
 
   org:{
     orgName: string,
@@ -33,15 +33,15 @@ export class orgprofilePageComponent {
   }
 
   constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade){
-    this.varsFacade.orgName$.subscribe(orgName => {
-      this.orgName = orgName;
+    this.varsFacade.orgId$.subscribe(orgId => {
+      this.orgId = orgId;
     });
     this.getOrg();
   }
 
   getOrg(){
-    const findOrgByNameQuery = gql`query {
-      findOrgByName(orgName: "${this.orgName}") {
+    const findOrgByIdQuery = gql`query {
+      findOrgById(_id: "${this.orgId}") {
         orgName
         dateCreated
         location {
@@ -52,12 +52,12 @@ export class orgprofilePageComponent {
         totalAdoptions
     }`;
     this.apollo.watchQuery({
-      query: findOrgByNameQuery,
+      query: findOrgByIdQuery,
       fetchPolicy: 'network-only'
     }).valueChanges.subscribe((result) => {
       console.log(result);
       const data = result.data as {
-        findOrgByName: {
+        findOrgById: {
           orgName: string,
           dateCreated: Date,
           location: {
@@ -68,7 +68,7 @@ export class orgprofilePageComponent {
           totalAdoptions: number
         }
       };
-    this.org = data.findOrgByName; //if error then do each var indiv.
+    this.org = data.findOrgById; //if error then do each var indiv.
     });
   }
 

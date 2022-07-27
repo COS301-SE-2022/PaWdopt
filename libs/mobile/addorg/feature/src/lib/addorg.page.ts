@@ -30,13 +30,10 @@ export class AddorgPageComponent {
   slideOpts = {
     slidesPerView: 1,
     freeMode: false,
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    },
+    effect: 'fade',
+    fadeEffect: {
+      crossfade: true
+    }
   }
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth) {
@@ -90,9 +87,12 @@ export class AddorgPageComponent {
     orgMembersForQuery.pop();
 
     this.orgMembers.forEach(o => {
-      this.fireAuth.createUserWithEmailAndPassword(o.email, "cloud5temp").then((user) => {
+      this.fireAuth.createUserWithEmailAndPassword(o.email, "123456").then((user) => {
         console.log("User created");
         console.log(user);
+        user.user?.updateProfile({
+          displayName: o.name,
+        });
         orgMembersForQuery.push({
           _id: user.user?.uid,
           name: o.name,
@@ -105,9 +105,8 @@ export class AddorgPageComponent {
         //TODO: Toast error message
       });
     });
-    
 
-    const addOrg = `mutation{
+    const addOrg = gql`mutation{
       createOrg(org:{
         _id: "",
         name: "${this.oName}",
@@ -129,6 +128,7 @@ export class AddorgPageComponent {
         },
         rulesReq: "${this.rulesReq}",
         contactInfo:{
+          _id: "",
           email: "${this.email}",
           phone: "${this.phone}",
           website: "${this.website}",
@@ -144,15 +144,15 @@ export class AddorgPageComponent {
     }`;
 
     console.log(addOrg);
-    // this.apollo.mutate({
-    //   mutation: addOrg,
-    // }).subscribe(({data}) => {
-    //   console.log('got data', data);
-    //   this.router.navigate(["/dashboard"]);
-    // });
+    this.apollo.mutate({
+      mutation: addOrg,
+    }).subscribe(({data}) => {
+      console.log('got data', data);
+      this.router.navigate(["/dashboard"]);
+    });
   }
 
-  addOrgMemberCard(){
+  async addOrgMemberCard(){
     this.orgMembers.push({
       name: "",
       email: "",
@@ -163,6 +163,8 @@ export class AddorgPageComponent {
   deleteOrgMemberCard(o: {name: string; email: string; role: string;}){
     const index = this.orgMembers.indexOf(o);
     this.orgMembers.splice(index, 1);
+    const slides = document.querySelector('ion-slides');
+    slides?.slidePrev();
   }
 
   uploadPic(){
