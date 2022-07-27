@@ -19,6 +19,9 @@ class breed_detector:
     
 
     def get_data_sets(self):
+    # Get Data Sets from Images folder
+        self.get_data_sets()
+
         self.train_ds = keras.preprocessing.image_dataset_from_directory(
             "Images",
             validation_split=0.2,

@@ -26,7 +26,6 @@ def predict():
 
 @app.route('/train', methods=['GET'])
 def train():
-    detector.get_data_sets()
     detector.train_model()
     return "Model Training Completed"
 
