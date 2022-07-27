@@ -28,6 +28,38 @@ export class adoptionprocessPageComponent {
     this.getAdoptions();
   }
 
+  // getAdoptions(){//fix this to only show dogs in org and not in usersLiked
+  //   const getOrgByNameQuery = gql`
+  //     query GetOrgByName(orgName: "${this.orgName}") {
+  //       potentialAdopters{
+  //         _id
+  //         name
+  //         pics
+  //         dogsLiked{
+  //           _id
+  //           name
+  //           pics
+  //         }[]
+  //       }`
+  //   this.apollo.watchQuery({
+  //     query: getOrgByNameQuery,
+  //     fetchPolicy: 'no-cache'
+  //   }).valueChanges.subscribe((result) => {
+  //     console.log(result);
+  //     const data = result.data as {
+  //       findOrgByName: {
+  //         potentialAdopters: {
+  //           _id: string;
+  //           name: string;
+  //           pics: string[];
+  //           dogsLiked: {
+  //             _id: string;
+  //             name: string;
+  //             pics: string[];
+  //           }[]
+  //         }[]
+  //       }
+  //     };
   getAdoptions(){
     const userId = this.afAuth.currentUser.then(user => {
       return user?.uid;

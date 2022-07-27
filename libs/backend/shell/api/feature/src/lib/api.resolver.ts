@@ -34,6 +34,14 @@ export class ApiResolver {
         return this.DogService.deleteOrgMember(_id);
     }
 
+    @Mutation(() => LocationType)
+    async updateLocation(@Args('id') id: string, @Args('location') location: LocationType) : Promise<LocationType> {
+        return this.DogService.updateLocation(id, location);
+    }
+
+    @Mutation(() => LocationType)
+    async deleteLocation(@Args('id') id: string) : Promise<LocationType> {
+        return this.DogService.deleteLocation(id);
     @Mutation(() => DogType)
     async deleteDog(@Args('_id') _id: string) : Promise<DogType> {
         return this.DogService.deleteDog(_id);
@@ -98,6 +106,21 @@ export class ApiResolver {
     async findOrgMembersByOrganisation(@Args('org') org: string) : Promise<OrgMemberType[]> {
         return this.DogService.findOrgMembersByOrganisation(org);
     }
+
+    @Query(() => Boolean)
+    async emailExists(@Args('email') email: string) : Promise<boolean> {
+        const temp1 = await this.DogService.adopterEmailExists(email);
+        const temp2 = await this.DogService.orgMemberEmailExists(email);
+        const temp3 = temp1 || temp2;
+        return temp3;
+    }
+
+    @Query(() => Boolean)
+    async organisationNameExists(@Args('name') name: string) : Promise<boolean> {
+        return this.DogService.organisationNameExists(name);
+    }
+
+    
 
     @Mutation(() => DogType)
     async userSwipesRightOnDog(@Args('_id') _id: string, @Args('dogName') dogName: string) : Promise<DogType | null> {
@@ -327,6 +350,53 @@ export class ApiResolver {
     async userSwipesLeft(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
         return this.DogService.addDogToAdopterDogsDisliked(userId, dogId);
     }
+
+    /**
+     * used in updateorremove dog page
+     * call the update queries
+     * @param dogId
+     * @param breed
+     * @param gender
+     * @param dob
+     * @param about
+     * @param height
+     * @param weight
+     * @param furlength
+     * @param temperament
+     * @returns dog
+     */
+    async updateDog(@Args('dogId') dogId: string, 
+                    @Args('breed') breed: string, 
+                    @Args('gender') gender: string,
+                    @Args('dob') dob: Date,
+                    @Args('about') about: string,
+                    @Args('height') height: number,
+                    @Args('weight') weight: number,
+                    @Args('furlength') furlength: string,
+                    @Args('temperament') temperament: [string]) : Promise<DogType> {
+        this.DogService.updateDogBreed(dogId, breed);
+        this.DogService.updateDogGender(dogId, gender);
+        this.DogService.updateDogdob(dogId, dob);
+        this.DogService.updateDogabout(dogId, about);
+        this.DogService.updateDogheight(dogId, height);
+        this.DogService.updateDogweight(dogId, weight);
+        this.DogService.updateDogfurLength(dogId, furlength);
+        return this.DogService.updateDogtemperament(dogId, temperament);
+    }
+
+    /**
+     * used in updateorremove dog page
+     * call the remove queries
+     * @param dogId
+     * @returns dog
+     * @throws error if dog does not exist
+     */
+    async deleteDog(@Args('dogId') dogId: string) : Promise<DogType> {
+        return this.DogService.deleteDog(dogId);
+    }
+
+
+
 
 
     /**
