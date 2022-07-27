@@ -22,13 +22,13 @@ export const getEmail = createAction(
   '[Vars Page] Get Email'
 );
 
-export const storeOrgName = createAction(
-  '[Vars Page] Store OrgName',
-  props<{ orgName: string }>()
+export const storeOrgId = createAction(
+  '[Vars Page] Store OrgId',
+  props<{ orgId: string }>()
 );
 
-export const getOrgName = createAction(
-  '[Vars Page] Get OrgName'
+export const getOrgId = createAction(
+  '[Vars Page] Get OrgId'
 );
 
 export const storeOrgMemberEmail = createAction(//used in adddog and login page

@@ -51,9 +51,11 @@
                 <!-- <p id="likesperdog"><b><ion-icon name="heart-outline"></ion-icon>&nbsp;{{d.likes}}</b></p> -->
                 <!--api implement-->
                 <p>{{d.breed}}</p>
-                <ion-button class="ion-float-left" fill="clear" (click)="dashboard()">
+                <ion-button class="ion-float-left" fill="clear" (click)="dashboard(d.orgId)">
                     <!-- <ion-icon name="list"></ion-icon> -->
-                    <a href="/dashboard" onclick="updateLikes(d.id)"><p id="likesperdog"><b><ion-icon name="heart"></ion-icon>&nbsp;{{d.likes}}</b></p></a>
+                    <a href="/dashboard" onclick="updateLikes(d.id)">
+                        <p id="likesperdog"><b><ion-icon name="heart"></ion-icon>&nbsp;{{d.likes}}</b></p>
+                    </a>
                 </ion-button>
                 <ion-button class="ion-float-right" fill="clear" (click)="update(d._id)">
                     <ion-icon name="create-outline"></ion-icon>

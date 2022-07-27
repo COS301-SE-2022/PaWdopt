@@ -17,6 +17,9 @@ export class Location {
 @Schema()
 export class ContactInfo {
     @Prop()
+    _id: string;
+
+    @Prop()
     email: string;
 
     @Prop()
@@ -186,6 +189,9 @@ export class OrgMember {
 
     @Prop()
     email: string;
+
+    @Prop()
+    role: string;
 
     @Prop()
     organisation: string;  

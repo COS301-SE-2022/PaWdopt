@@ -11,7 +11,7 @@ export interface State extends EntityState<VarsEntity> {
   loaded: boolean; // has the Vars list been loaded
   error?: string | null; // last known error (if any)
   email: string; // from dashboard to userprofile
-  orgName: string;
+  orgId: string;
   orgMemberEmail: string;
   dogID: string;
   userID: string;
@@ -36,7 +36,7 @@ export const initialState: State = varsAdapter.getInitialState({
   // set initial required properties
   loaded: false,
   email: '',
-  orgName: '',
+  orgId: '',
   orgMemberEmail: '',
   dogID: '',
   userID: '',
@@ -59,8 +59,8 @@ const varsReducer = createReducer(
   on(VarsActions.loadVarsFailure, (state, { error }) => ({ ...state, error })),
   on(VarsActions.storeEmail, (state, { email }) => ({ ...state, email })),
   on(VarsActions.getEmail, (state) => state),
-  on(VarsActions.storeOrgName, (state, { orgName }) => ({ ...state, orgName })),
-  on(VarsActions.getOrgName, (state) => state),
+  on(VarsActions.storeOrgId, (state, { orgId }) => ({ ...state, orgId })),
+  on(VarsActions.getOrgId, (state) => state),
   on(VarsActions.storeOrgMemberEmail, (state, { orgMemberEmail }) => ({ ...state, orgMemberEmail })),
   on(VarsActions.getOrgMemberEmail, (state) => state),
   on(VarsActions.storeDogID, (state, { dogID }) => ({ ...state, dogID })),
