@@ -121,19 +121,6 @@ export class ApiResolver {
     }
 
     @Mutation(() => DogType)
-    async userSwipesRightOnDog(@Args('userName') userName: string, @Args('dogName') dogName: string) : Promise<DogType | null> {
-        const user = await this.DogService.findAdopterByName(userName);
-        if(user != null){
-            await this.DogService.addDogToDogsLiked(user, dogName);
-            const ret = await this.DogService.addUserToUserLikes(dogName, user);
-            return ret;
-        }
-        else{
-            return null;
-        }
-    }
-
-    @Mutation(() => DogType)
     async updateDogBreed(@Args('dogName') dogName: string, @Args('breed') breed: string) : Promise<DogType> {
         const dog = await this.DogService.findDog(dogName);
         if(breed == dog.breed){
@@ -411,6 +398,31 @@ export class ApiResolver {
     @Mutation(() => AdopterType)
     async removeDogFromAdopterDogsLikedOrDisliked(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
         return this.DogService.removeDogFromAdopterDogsLikedOrDisliked(userId, dogId);
+    }
+
+    /**
+     * used in home swiping page
+     * add dog to adopter's dogsLiked and add adopter to dog's usersLiked
+     * @param userId
+     * @param dogId
+     * @returns adopter
+     */
+    @Mutation(() => AdopterType)
+    async userSwipesRight(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
+        await this.DogService.addUserToUserLikes(dogId, userId);
+        return this.DogService.addDogToAdopterDogsLiked(userId, dogId);
+    }
+
+    /**
+     * used in home swiping page
+     * add dog to adopter's dogsDisliked 
+     * @param userId
+     * @param dogId
+     * @returns adopter
+     */
+    @Mutation(() => AdopterType)
+    async userSwipesLeft(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
+        return this.DogService.addDogToAdopterDogsDisliked(userId, dogId);
     }
 
 }

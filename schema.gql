@@ -185,7 +185,6 @@ type Mutation {
   createAdopter(adopter: AdopterInputType!): AdopterType!
   updateAdopter(email: String!, adopter: AdopterInputType!): AdopterType!
   deleteAdopter(email: String!): AdopterType!
-  userSwipesRightOnDog(userName: String!, dogName: String!): DogType!
   updateDogBreed(dogName: String!, breed: String!): DogType!
   updateDogGender(dogName: String!, gender: String!): DogType!
   updateDogFurlength(dogName: String!, furLength: String!): DogType!
@@ -198,4 +197,6 @@ type Mutation {
   clickedHeartIcon(userId: String!, dogId: String!): DogType!
   createOrg(org: OrganisationInputType!): OrganisationType!
   removeDogFromAdopterDogsLikedOrDisliked(userId: String!, dogId: String!): AdopterType!
+  userSwipesRight(userId: String!, dogId: String!): AdopterType!
+  userSwipesLeft(userId: String!, dogId: String!): AdopterType!
 }

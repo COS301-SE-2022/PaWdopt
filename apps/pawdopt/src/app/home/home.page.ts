@@ -193,7 +193,7 @@ export class HomePage {
     //if there are no more dogs, show a message
     //if there are more dogs, show them
 
-    /*const findAdopterByIdQuery = gql`query{
+    const findAdopterByIdQuery = gql`query{
       findAdopterById(_id: "${this.t_ID}"){
         dogsLiked{
           _id
@@ -222,6 +222,7 @@ export class HomePage {
         data.findAdopterById.dogsLiked.forEach(element2 => {
           if(element._id == element2._id){
             this.avatars.splice(this.avatars.indexOf(element), 1);
+            this.currentIndex--;
           }
         }
         );
@@ -231,28 +232,34 @@ export class HomePage {
         data.findAdopterById.dogsDisliked.forEach(element2 => {
           if(element._id == element2._id){
             this.avatars.splice(this.avatars.indexOf(element), 1);
+            this.currentIndex--;
           }
         });
       });
-    });*/
+    });
     
   }
 
   swiped(event: boolean, index: number) {
+    
+    console.log(this.t_ID);
     console.log(this.avatars[index].name + ' swiped ' + event);
      if(event)
        this.addDogToLiked(index);
+      else
+        this.addDogToDisliked(index);
     this.avatars[index].visible = false;
     this.results.push(this.avatars[index].name + ' swiped ' + event);
-    this.currentIndex--;
     console.log(index);
     console.log(this.currentIndex);
+    this.currentIndex--;
   }
 
 
   swipeleft() {
     if(this.currentIndex > -1){
       console.log(this.currentIndex);
+      this.addDogToDisliked(this.currentIndex);
       this.avatars[this.currentIndex].visible = false;
       this.results.push(this.avatars[this.currentIndex].name + ' swiped false');
       this.currentIndex--;
@@ -268,8 +275,9 @@ export class HomePage {
     }
   }
 
-  retry() {//The retry works but I'm not sure if the query is being executed correctly
+  retry() {//The retry works but the mutation call errors out
     this.currentIndex++;
+    console.log(this.currentIndex + "this is the current index");
     this.avatars[this.currentIndex].visible = true;
     const removeDogFromAdopterDogsLikedOrDislikedQuery = gql`mutation{
         removeDogFromAdopterDogsLikedOrDisliked(
@@ -313,16 +321,32 @@ export class HomePage {
 
       
   addDogToLiked(index: number) {
-    const dogName = this.avatars[index].name;
     const addDogToLikedMutation = gql`
       mutation {
-        userSwipesRightOnDog(userName: "jason", dogName: "${dogName}") {
+        userSwipesRight(userId: "${this.t_ID}", dogId: "${this.avatars[index]._id}") {
           name
         }
       }
     `;
     this.apollo.mutate({
       mutation: addDogToLikedMutation,
+    }).subscribe(({data}) => {
+      console.log('got data', data);
+    }, (error) => {
+      console.log('there was an error sending the query', error);
+    });
+  }
+  
+  addDogToDisliked(index: number) {
+    const addDogToDislikedMutation = gql`
+      mutation {
+        userSwipesLeft(userId: "${this.t_ID}", dogId: "${this.avatars[index]._id}") {
+          name
+        }
+      }
+    `;
+    this.apollo.mutate({
+      mutation: addDogToDislikedMutation,
     }).subscribe(({data}) => {
       console.log('got data', data);
     }, (error) => {
