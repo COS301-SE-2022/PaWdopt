@@ -30,13 +30,10 @@ export class AddorgPageComponent {
   slideOpts = {
     slidesPerView: 1,
     freeMode: false,
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    },
+    effect: 'fade',
+    fadeEffect: {
+      crossfade: true
+    }
   }
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth) {
@@ -94,7 +91,7 @@ export class AddorgPageComponent {
         console.log("User created");
         console.log(user);
         user.user?.updateProfile({
-          displayName: "OrgMember",
+          displayName: o.name,
         });
         orgMembersForQuery.push({
           _id: user.user?.uid,
@@ -131,6 +128,7 @@ export class AddorgPageComponent {
         },
         rulesReq: "${this.rulesReq}",
         contactInfo:{
+          _id: "",
           email: "${this.email}",
           phone: "${this.phone}",
           website: "${this.website}",
@@ -154,7 +152,7 @@ export class AddorgPageComponent {
     });
   }
 
-  addOrgMemberCard(){
+  async addOrgMemberCard(){
     this.orgMembers.push({
       name: "",
       email: "",
@@ -165,6 +163,8 @@ export class AddorgPageComponent {
   deleteOrgMemberCard(o: {name: string; email: string; role: string;}){
     const index = this.orgMembers.indexOf(o);
     this.orgMembers.splice(index, 1);
+    const slides = document.querySelector('ion-slides');
+    slides?.slidePrev();
   }
 
   uploadPic(){

@@ -24,7 +24,8 @@ export class userlikesPageComponent {
     furLength: string,
     pic:string,
     about:string,
-    organisation:string
+    organisation:string,
+    orgId:string
   }[]=[]
 
   constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade){
@@ -47,6 +48,7 @@ export class userlikesPageComponent {
         pics
         about
         organisation{
+          _id
           name
         }
       }
@@ -69,6 +71,7 @@ export class userlikesPageComponent {
           pics: string[],
           about: string,
           organisation: {
+            _id: string,
             name: string
           }
         }[]
@@ -78,7 +81,6 @@ export class userlikesPageComponent {
         const tempDate = new Date(element.dob);
         const today = new Date();
         const age = today.getFullYear() - tempDate.getFullYear();
-        this.varsFacade.setOrgName(element.organisation.name);//Used to transfer data to org profile
         this.dog.push(
           {
             name:element.name,
@@ -90,7 +92,8 @@ export class userlikesPageComponent {
             furLength: element.furLength,
             pic: element.pics[0],
             about: element.about,
-            organisation: element.organisation.name
+            organisation: element.organisation.name,
+            orgId: element.organisation._id
           }
         );
       })  
@@ -123,6 +126,11 @@ export class userlikesPageComponent {
 
   preferences(){
     //this.router.navigate(["/userinfo"]); Not implemented yet
+  }
+
+  orgProfile(orgId:string){
+    this.varsFacade.setOrgId(orgId);
+    this.router.navigate(["/orgprofile"]);
   }
 
 }

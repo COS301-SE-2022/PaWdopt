@@ -27,119 +27,103 @@ export class ApiService {
 
     /**
      * Update an Organisation
-     * @param {string} name The name of the organisation to update
+     * @param {string} _id The id of the organisation to update
      * @param {Organisation} updatedOrg The new organisation information
      * @return {Promise<Organisation || null>}
-
      */
-    async updateOrg(name: string, updatedOrg: Organisation): Promise<Organisation | null> {
-        return this.OrganisationModel.findOneAndUpdate({ name }, updatedOrg, { new: true }).exec();
+    async updateOrg(_id: string, updatedOrg: Organisation): Promise<Organisation | null> {
+        return this.OrganisationModel.findOneAndUpdate({ _id }, updatedOrg, { new: true }).exec();
     }
 
     /**
      * Delete an Organisation
-     * @param {string} name The name of the organisation to delete
+     * @param {string} _id The id of the organisation to delete
      * @return {Promise<Organisation || null>}
 
      */
-    async deleteOrg(name: string): Promise<Organisation | null> {
-        return this.OrganisationModel.findOneAndDelete({ name }).exec();
+    async deleteOrg(_id: string): Promise<Organisation | null> {
+        return this.OrganisationModel.findOneAndDelete({ _id }).exec();
     }
     
     /**
      * Create a new OrgMember
      * @param {OrgMember} orgMember The orgMember to create
      * @return {Promise<OrgMember || null>}
-
      */
     async createOrgMember(orgMember: OrgMember): Promise<OrgMember | null> {
-        // orgMember.password = await bcrypt.hash(orgMember.password, "cloud5");
         return this.OrgMemberModel.create(orgMember);
     }
 
     /**
      * Update an OrgMember
-     * @param {string} email The email of the orgMember to update
+     * @param {string} _id The id of the orgMember to update
      * @param {OrgMember} updatedOrgMember The new orgMember information
      * @return {Promise<OrgMember || null>}
-
      */
-    async updateOrgMember(email: string, updatedOrgMember: OrgMember): Promise<OrgMember | null> {
-        // updatedOrgMember.password = await bcrypt.hash(updatedOrgMember.password, "cloud5");
-        return this.OrgMemberModel.findOneAndUpdate({ email }, updatedOrgMember, { new: true }).exec();
+    async updateOrgMember(_id: string, updatedOrgMember: OrgMember): Promise<OrgMember | null> {
+        return this.OrgMemberModel.findOneAndUpdate({ _id }, updatedOrgMember, { new: true }).exec();
     }
 
     /**
      * Delete an OrgMember
-     * @param {string} email The email of the orgMember to delete
+     * @param {string} _id The id of the orgMember to delete
      * @return {Promise<OrgMember || null>}
-
      */
-    async deleteOrgMember(email: string): Promise<OrgMember | null> {
-        return this.OrgMemberModel.findOneAndDelete({ email }).exec();
+    async deleteOrgMember(_id: string): Promise<OrgMember | null> {
+        return this.OrgMemberModel.findOneAndDelete({ _id }).exec();
     }
 
     /**
      * Create a new Adopter
      * @param {Adopter} adopter The adopter to create
      * @return {Promise<Adopter || null>}
-
      */
     async createAdopter(adopter: Adopter): Promise<Adopter | null> {
-        // adopter.password = await bcrypt.hash(adopter.password, "cloud5");
         return this.AdopterModel.create(adopter);
     }
 
     /**
      * Update an Adopter
-     * @param {string} email The email of the adopter to update
+     * @param {string} _id The id of the adopter to update
      * @param {Adopter} updatedAdopter The new adopter information
      * @return {Promise<Adopter || null>}
-
      */
-    async updateAdopter(email: string, updatedAdopter: Adopter): Promise<Adopter | null> {
-        // updatedAdopter.password = await bcrypt.hash(updatedAdopter.password, "cloud5");
-        return this.AdopterModel.findOneAndUpdate({ email }, updatedAdopter, { new: true }).exec();
+    async updateAdopter(_id: string, updatedAdopter: Adopter): Promise<Adopter | null> {
+        return this.AdopterModel.findOneAndUpdate({ _id }, updatedAdopter, { new: true }).exec();
     }
 
     /**
      * Delete an Adopter
-     * @param {string} email The email of the adopter to delete
+     * @param {string} _id The id of the adopter to delete
      * @return {Promise<Adopter || null>}
-
      */
-    async deleteAdopter(email: string): Promise<Adopter | null> {
-        return this.AdopterModel.findOneAndDelete({ email }).exec();
+    async deleteAdopter(_id: string): Promise<Adopter | null> {
+        return this.AdopterModel.findOneAndDelete({ _id }).exec();
     }
 
     /**
      * Update an Dog
-     * @param {string} name The name of the dog to update
+     * @param {string} _id The id of the dog to update
      * @param {Dog} updatedDog The new dog information
      * @return {Promise<Dog || null>}
-
      */
-    async updateDog(name: string, updatedDog: Dog): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, updatedDog, { new: true }).exec();
+    async updateDog(_id: string, updatedDog: Dog): Promise<Dog | null> {
+        return this.DogModel.findOneAndUpdate({ _id }, updatedDog, { new: true }).exec();
     }
-
-
 
     /**
      * Delete an Dog
-     * @param {string} id The id of the dog to delete
+     * @param {string} _id The id of the dog to delete
      * @return {Promise<Dog || null>}
-
      */
-    async deleteDog(id: string): Promise<Dog | null> {
-        return this.DogModel.findOneAndDelete({ id }).exec();
+    async deleteDog(_id: string): Promise<Dog | null> {
+        return this.DogModel.findOneAndDelete({ _id }).exec();
     }
 
     /**
      * Create a new Contact Info
      * @param {ContactInfo} contactInfo The contactInfo to create
      * @return {Promise<ContactInfo || null>}
-
      */
     async createContactInfo(contactInfo: ContactInfo): Promise<ContactInfo | null> {
         return this.ContactInfoModel.create(contactInfo);
@@ -147,50 +131,27 @@ export class ApiService {
 
     /**
      * Update an Contact Info
-     * @param {string} name The name of the contactInfo to update
+     * @param {string} _id The id of the contactInfo to update
      * @param {ContactInfo} updatedContactInfo The new contactInfo information
      * @return {Promise<ContactInfo || null>}
-
      */
-    async updateContactInfo(name: string, updatedContactInfo: ContactInfo): Promise<ContactInfo | null> {
-        return this.ContactInfoModel.findOneAndUpdate({ name }, updatedContactInfo, { new: true }).exec();
+    async updateContactInfo(_id: string, updatedContactInfo: ContactInfo): Promise<ContactInfo | null> {
+        return this.ContactInfoModel.findOneAndUpdate({ _id }, updatedContactInfo, { new: true }).exec();
     }
 
     /**
      * Delete an Contact Info
-     * @param {string} name The name of the contactInfo to delete
+     * @param {string} _id The id of the contactInfo to delete
      * @return {Promise<ContactInfo || null>}
-
      */
-    async deleteContactInfo(name: string): Promise<ContactInfo | null> {
-        return this.ContactInfoModel.findOneAndDelete({ name }).exec();
+    async deleteContactInfo(_id: string): Promise<ContactInfo | null> {
+        return this.ContactInfoModel.findOneAndDelete({ _id }).exec();
     }
 
     /**
-     * Update an Location
-     * @param {string} name The name of the location to update
-     * @param {Location} updatedLocation The new location information
-     * @return {Promise<Location || null>}
-
-     */
-    async updateLocation(name: string, updatedLocation: Location): Promise<Location | null> {
-        return this.LocationModel.findOneAndUpdate({ name }, updatedLocation, { new: true }).exec();
-    }
-
-    /**
-     * Delete an Location
-     * @param {string} name The name of the location to delete
-     * @return {Promise<Location || null>}
-
-     */
-    async deleteLocation(name: string): Promise<Location | null> {
-        return this.LocationModel.findOneAndDelete({ name }).exec();
-    }
-    /**
-     * Find a Adopter by email
+     * Find an Adopter by email
      * @param {string} email The email of the adopter to find
      * @return {Promise<Adopter || null>}
-
      */
     async findAdopter(email: string): Promise<Adopter | null> {
         return this.AdopterModel.findOne({ email }).exec();
@@ -200,7 +161,6 @@ export class ApiService {
      * Find adopters by _id
      * @param {string} _id The _id of the adopter to find
      * @return {Promise<Adopter || null>}
-     * 
      */
     async findAdopterBy_Id(_id: string): Promise<Adopter | null> {
         return this.AdopterModel.findOne({_id}).exec();
@@ -208,31 +168,27 @@ export class ApiService {
 
 
     /**
-     * Find a OrgMember by email
-     * @param {string} email The email of the orgMember to find
-     * @return {Promise<OrgMember || null>}
-
-     * 
+     * Find a OrgMember by id
+     * @param {string} _id The id of the orgMember to find
+     * @return {Promise<OrgMember || null>} 
      */
-    async findOrgMember(email: string): Promise<OrgMember | null> {
-        return this.OrgMemberModel.findOne({ email }).exec();
+    async findOrgMember(_id: string): Promise<OrgMember | null> {
+        return this.OrgMemberModel.findOne({ _id }).exec();
     }
 
     /**
-     * Find a Dog by name
-     * @param {string} name The name of the dog to find
+     * Find a Dog by id
+     * @param {string} _id The id of the dog to find
      * @return {Promise<Dog || null>}
-
      */
-     async findDog(name: string): Promise<Dog | null> {
-        return this.DogModel.findOne({ name }).exec();
+     async findDog(_id: string): Promise<Dog | null> {
+        return this.DogModel.findOne({ _id }).exec();
     }
 
     /**
-     * Find a Dog by name
-     * @param {string} name The name of the dog to find
+     * Find Dogs by name
+     * @param {string} name The name of the dogs to find
      * @return {Promise<Dog[] || null>}
-
      */
     async findDogsByName(name: string): Promise<Dog[] | null> {
         return this.DogModel.find({ name }).exec();
@@ -242,7 +198,6 @@ export class ApiService {
      * Find all Dogs by Organisation
      * @param {Organisation} organisation The organisation to find all dogs for
      * @return {Promise<Dog[]>}
-
      */
     async findDogsByOrganisation(organisation: Organisation): Promise<Dog[]> {
         return this.DogModel.find({ organisation }).exec();
@@ -253,7 +208,6 @@ export class ApiService {
      * Find all Dogs by breed
      * @param {string} breed The breed to find all dogs for
      * @return {Promise<Dog[]>}
-
      */
      async findDogsByBreed(breed: string): Promise<Dog[]> {
         return this.DogModel.find({ breed }).exec();
@@ -261,173 +215,44 @@ export class ApiService {
 
     /**
      * Find all OrgMembers by Organisation
-     * @param {string} organisation The organisation to find all orgMembers for
+     * @param {string} organisation The organisation id to find all orgMembers for
      * @return {Promise<OrgMember[]>}
-
      */
     async findOrgMembersByOrganisation(organisation: string): Promise<OrgMember[]> {
         return this.OrgMemberModel.find({ organisation }).exec();
     }
 
-
     /**
-     * Check if email has been used by a Adopter
-     * @param {string} email The email to check
-     * @return {Promise<boolean>}
-
-     * 
+     * add dog to dogsLiked of adopter
+     * @param {Adopter} adopter The adopter to add the dog to
+     * @param {string} dogName The name of the dog to add to the adopter
+     * @return {Promise<Adopter || null>}
      */
-    async adopterEmailExists(email: string): Promise<boolean> {
-        const temp = await this.AdopterModel.findOne({ email }).exec();
-        return temp !== null;
+    async addDogToDogsLiked(adopter: Adopter, dogName: string): Promise<Adopter | null> {
+        const dog = await this.findDog(dogName);
+        // if(adopter.dogsLiked.includes(dog)){
+            
+        // }
+        adopter.dogsLiked.push(dog);
+        return this.updateAdopter(adopter.email, adopter);
     }
-
-    /**
-     * Check if email has been used by a OrgMember
-     * @param {string} email The email to check
-     * @return {Promise<boolean>}
-
-     */
-    async orgMemberEmailExists(email: string): Promise<boolean> {
-        const temp = await this.OrgMemberModel.findOne({ email }).exec();
-        return temp !== null;
-    }
-
-    /**
-     * Check if organisation name has been used by a Organisation
-     * @param {string} name The name to check
-     * @return {Promise<boolean>}
-     
-    */
-    async organisationNameExists(name: string): Promise<boolean> {
-        const temp = await this.OrganisationModel.findOne({ name }).exec();
-        return temp !== null;
-    }
-    
-
-    
 
     /**
      * find adopter by name
      * @param {string} name The name of the adopter to find
      * @return {Promise<Adopter || null>}
-
      */
     async findAdopterByName(name: string): Promise<Adopter | null> {
         return this.AdopterModel.findOne({ name }).exec();
     }
 
     /**
-     * update a dogs breed
-     * @param {string} name The name of the dog to update
-     * @param {string} breed The new breed of the dog
-     * @return {Promise<Dog || null>}
-     * 
-     */
-    async updateDogBreed(name: string, breed: string): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, { breed }, { new: true }).exec();
-    }
-
-    /**
-     * update a dogs gender
-     * @param {string} name The name of the dog to update
-     * @param {string} gender The new gender of the dog
-     * @return {Promise<Dog || null>}
-     * 
-     */ 
-     async updateDogGender(name: string, gender: string): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, { gender }, { new: true }).exec();
-    }
-
-    /**
-     * update a dogs about
-     * @param {string} name The name of the dog to update
-     * @param {string} about The new about of the dog
-     * @return {Promise<Dog || null>}
-     * 
-     */
-     async updateDogAbout(name: string, about: string): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, { about }, { new: true }).exec();
-    }
-
-    /**
-     * update a dogs furLength
-     * @param {string} name The name of the dog to update
-     * @param {string} furLength The new furLength of the dog
-     * @return {Promise<Dog || null>}
-     * 
-     */
-     async updateDogFurLength(name: string, furLength: string): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, { furLength }, { new: true }).exec();
-    }
-
-    /**
-     * update a dogs dob
-     * @param {string} name The name of the dog to update
-     * @param {Date} dob The new dob of the dog
-     * @return {Promise<Dog || null>}
-     * 
-     */
-     async updateDogDob(name: string, dob: Date): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, { dob }, { new: true }).exec();
-    }
-
-    /**
-     * update a dogs weight
-     * @param {string} name The name of the dog to update
-     * @param {number} weight The new weight of the dog
-     * @return {Promise<Dog || null>}
-     * 
-     */
-     async updateDogWeight(name: string, weight: number): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, { weight }, { new: true }).exec();
-    }
-
-    /**
-     * update a dogs height
-     * @param {string} name The name of the dog to update
-     * @param {number} height The new height of the dog
-     * @return {Promise<Dog || null>}
-     * 
-     */
-     async updateDogHeight(name: string, height: number): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, { height }, { new: true }).exec();
-    }
-
-    /**
-     * update a dogs temperament
-     * @param {string} name The name of the dog to update
-     * @param {string[]} temperament The new temperament of the dog
-     * @return {Promise<Dog || null>}
-
-     * 
-     */
-    async updateDogTemperament(name: string, temperament: string[]): Promise<Dog | null> {
-        return this.DogModel.findOneAndUpdate({ name }, { temperament }, { new: true }).exec();
-    }
-
-    
-
-    /**
-     * delete dog by name
-     * @param {string} name The name of the dog to delete
-     * @return {Promise<Dog || null>}
-     */
-    async deleteDogByName(name: string): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({ name }).exec();
-        if(dog == null){
-            throw new Error("Dog does not exist");
-        }
-        return this.DogModel.findOneAndDelete({ name }).exec();
-    }
-
-    /**
      * find all dogs liked by an adopter
-     * @param {string} name The name of the adopter to find
+     * @param {string} _id The id of the adopter to find
      * @return {Promise<Dog[] || null>}
      */
-    async findDogsLikedByAdopter(name: string): Promise<Dog[] | null> {
-        const adopter = await this.AdopterModel.findOne({ name }).exec();
+    async findDogsLikedByAdopter(_id: string): Promise<Dog[] | null> {
+        const adopter = await this.AdopterModel.findOne({ _id }).exec();
         if(adopter == null){
             return null;
         }
@@ -455,14 +280,13 @@ export class ApiService {
 
     /**
      * For the AddDog page
-     * for the orgProfile page
-     * for the adoptionProcess page
-     * find organisation by name
-     * @param {string} name The name of the organisation to find
+     * for the orgProfile and adoption process page
+     * find organisation by id
+     * @param {string} _id The id of the organisation to find
      * @return {Promise<Organisation || null>}
      */
-    async findOrgByName(name: string): Promise<Organisation | null> {
-        return this.OrganisationModel.findOne({ name }).exec();
+    async findOrgById(_id: string): Promise<Organisation | null> {
+        return this.OrganisationModel.findOne({ _id }).exec();
     }
 
     /**
@@ -679,4 +503,40 @@ export class ApiService {
         return adopter.save();
     }
 
+    /* getUserType
+     * @param {string} id The id of the user to find
+     * @return {Promise<string>}
+     */
+    async getUserType(id: string): Promise<string> {
+        const user = await this.AdopterModel.findOne({_id: id}).exec();
+        if(user == null){
+            const user = await this.OrgMemberModel.findOne({_id: id}).exec();
+            if(user == null){
+                throw new Error("User does not exist");
+            }
+            return "OrgMember";
+        }
+        return "Adopter";
+    }
+
+    /**
+     * used in ownedDogs page
+     * find orgMember by id
+     * @param {string} _id The id of the orgMember to find
+     * @return {Promise<OrgMember || null>}
+     */
+    async findOrgMemberById(_id: string): Promise<OrgMember | null> {
+        return this.OrgMemberModel.findOne({ _id }).exec();
+    }
+
+    /**
+     * used in ownedDogs page
+     * find dogs by orgId
+     * @param {string} _id The id of the org to find
+     * @return {Promise<Dog[]>}
+     */
+    async findDogsByOrgId(_id: string): Promise<Dog[]> {
+        const org = await this.OrganisationModel.findOne({_id}).exec();
+        return this.DogModel.find({organisation: org}).exec();
+    }
 }

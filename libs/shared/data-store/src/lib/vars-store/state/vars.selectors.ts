@@ -40,9 +40,9 @@ export const getEmail = createSelector(
   (state: State) => state.email
 );
 
-export const getOrgName = createSelector(
+export const getOrgId = createSelector(
   getVarsState,
-  (state: State) => state.orgName
+  (state: State) => state.orgId
 );
 
 export const getOrgMemberEmail = createSelector(
