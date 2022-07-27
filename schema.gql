@@ -153,7 +153,6 @@ type Query {
   findDog(name: String!): DogType
   findDogsByName(name: String!): [DogType!]!
   findDogsByBreed(breed: String!): [DogType!]!
-  findDogs: [DogType!]!
   findDogsByOrg(org: OrganisationInputType!): [DogType!]!
   findOrgMembersByOrganisation(org: String!): [OrgMemberType!]!
   emailExists(email: String!): Boolean!
@@ -161,11 +160,14 @@ type Query {
   updateDogDob(dogName: String!, dob: DateTime!): DogType!
   findAdopterByEmail(email: String!): AdopterType
   findAdopterBy_Id(_id: String!): AdopterType
-  findDogsByOrgName(orgName: String!): [DogType!]!
   findDogsLikedByAdopter(adopterName: String!): [DogType!]!
   findOrgByName(name: String!): OrganisationType!
   findOrgMemberByEmail(email: String!): OrgMemberType!
   findDogById(_id: String!): DogType!
+  findDogsByOrgName(orgName: String!): [DogType!]!
+  findDogsLikedByUser(userId: String!): [DogType!]!
+  findDogs(na: Boolean!): [DogType!]!
+  findAdopterById(_id: String!): AdopterType!
 }
 
 type Mutation {
@@ -195,4 +197,5 @@ type Mutation {
   clickedTrashIcon(userId: String!, dogId: String!): DogType!
   clickedHeartIcon(userId: String!, dogId: String!): DogType!
   createOrg(org: OrganisationInputType!): OrganisationType!
+  removeDogFromAdopterDogsLikedOrDisliked(userId: String!, dogId: String!): AdopterType!
 }

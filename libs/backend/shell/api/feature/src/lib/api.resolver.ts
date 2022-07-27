@@ -95,10 +95,7 @@ export class ApiResolver {
         return this.DogService.findDogsByBreed(breed);
     }
 
-    @Query(() => [DogType])
-    async findDogs() : Promise<DogType[]> {
-        return this.DogService.findDogs();
-    }
+    
 
     @Query(() => [DogType])
     async findDogsByOrg(@Args('org') org: OrganisationType) : Promise<DogType[]> {
@@ -383,4 +380,37 @@ export class ApiResolver {
         return this.DogService.findDogsInAdopterDogsLiked(userId);
     }
     
+    /**
+     * used in home swiping page
+     * find all dogs
+     * @returns dogs
+     */
+     @Query(() => [DogType])
+     async findDogs(@Args('na') na: boolean) : Promise<DogType[]> {
+         return this.DogService.findDogs();
+     }
+
+     /**
+      * used in home swiping page
+      * find adopter by _id
+      * @param _id
+      * @returns adopter
+      */
+    @Query(() => AdopterType)
+    async findAdopterById(@Args('_id') _id: string) : Promise<AdopterType> {
+        return this.DogService.findAdopterById(_id);
+    }
+
+    /**
+     * used in home swiping page
+     * call removeDogFromAdopterDogsLikedOrDisliked()
+     * @param userId
+     * @param dogId
+     * @returns adopter
+     */
+    @Mutation(() => AdopterType)
+    async removeDogFromAdopterDogsLikedOrDisliked(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
+        return this.DogService.removeDogFromAdopterDogsLikedOrDisliked(userId, dogId);
+    }
+
 }

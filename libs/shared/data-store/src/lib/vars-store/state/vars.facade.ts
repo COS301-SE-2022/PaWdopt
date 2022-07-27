@@ -20,6 +20,13 @@ export class VarsFacade {
   orgMemberEmail$ = this.store.pipe(select(VarsSelectors.getOrgMemberEmail));
   dogID$ = this.store.pipe(select(VarsSelectors.getDogID));
   userID$ = this.store.pipe(select(VarsSelectors.getUserID));
+  gender$ = this.store.pipe(select(VarsSelectors.getGender));
+  locationrange$ = this.store.pipe(select(VarsSelectors.getLocationRange));
+  breed$ = this.store.pipe(select(VarsSelectors.getBreed));
+  minSize$ = this.store.pipe(select(VarsSelectors.getminSize));
+  maxSize$ = this.store.pipe(select(VarsSelectors.getmaxSize));
+  minAge$ = this.store.pipe(select(VarsSelectors.getminAge));
+  maxAge$ = this.store.pipe(select(VarsSelectors.getmaxAge));
 
   constructor(private readonly store: Store) {}
 
@@ -50,4 +57,33 @@ export class VarsFacade {
   setUserID(userID: string) {
     this.store.dispatch(VarsActions.storeUserID({ userID }));
   }
+
+  setGender(gender: string) {
+    this.store.dispatch(VarsActions.storeGender({ gender }));
+  }
+
+  setLocationRange(locationrange: number) {
+    this.store.dispatch(VarsActions.storeLocationRange({ locationrange }));
+  }
+
+  setBreed(breed: string) {
+    this.store.dispatch(VarsActions.storeBreed({ breed }));
+  }
+
+  setminSize(minSize: number) {
+    this.store.dispatch(VarsActions.storeminSize({ minSize }));
+  }
+
+  setminAge(minAge: number) {
+    this.store.dispatch(VarsActions.storeminAge({ minAge }));
+  }
+
+  setmaxSize(maxSize: number) {
+    this.store.dispatch(VarsActions.storemaxSize({ maxSize }));
+  }
+  
+  setmaxAge(maxAge: number) {
+    this.store.dispatch(VarsActions.storemaxAge({ maxAge }));
+  }
+
 }
