@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'pawdopt-adddog',
   templateUrl: 'adddog.page.html',
   styleUrls: ['adddog.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade],
+  providers: [Apollo],
 })
 export class AdddogPageComponent {
-  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private varsFacade: VarsFacade) {}
+  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth) {}
 
 
   inputName!: string;
@@ -24,66 +24,65 @@ export class AdddogPageComponent {
   inputFurlength!: string;
   inputTemperament!: string;
 
-  orgName!: string;
-  orgEmail!: string;
+  orgId!: string;
+  uid?: string;
 
   addDog(){
-
-    this.varsFacade.orgName$.subscribe(orgMemberEmail => {
-      this.orgEmail = orgMemberEmail;
+    this.afAuth.currentUser.then(user => {
+      this.uid = user?.uid;
     });
 
-    //Query used to get the orgName
-    const findOrgMemberByEmailQuery = gql`query {
-      findOrgMemberByEmail(email: "${this.orgEmail}") {
-        organisation 
-      }
-    }`;
+    if(this.uid){
+      //Query used to get the orgId
+      const findOrgMemberByIdQuery = gql`query {
+        findOrgMemberById(id: "${this.uid}") {
+          organisation 
+        }
+      }`;
 
-    this.apollo.watchQuery({
-      query: findOrgMemberByEmailQuery,
-      fetchPolicy: 'no-cache'
-    }).valueChanges.subscribe((result) => {
-      const data = result.data as {
-        findOrgMemberByEmail: {
-          organisation: string;
+      this.apollo.watchQuery({
+        query: findOrgMemberByIdQuery,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe((result) => {
+        const data = result.data as {
+          findOrgMemberById: {
+            organisation: string;
+          };
         };
-      };
-      if (data.findOrgMemberByEmail != null) {
-        const orgName = data.findOrgMemberByEmail.organisation;
-        this.orgName = orgName;
-        console.log(this.orgName);
-      }
+        if (data.findOrgMemberById != null) {
+          const orgId = data.findOrgMemberById.organisation;
+          this.orgId = orgId;
+          console.log(this.orgId);
+        }
+      });
+
+      // pass it through to the mutation query
+      const AddDogMutation = gql`mutation {
+        createDog(dog: {
+          _id: "new_id",
+          name: "${this.inputName}",
+          dob: "${this.inputDOB}",
+          gender: "${this.inputGender}",
+          pics : ["firebaseID"],
+          breed: "${this.inputBreed}",
+          about: "${this.inputAbout}",
+          weight: "${this.inputWeight}",
+          height: "${this.inputHeight}",
+          furlength: "${this.inputFurlength}",
+          temperament: "${this.inputTemperament}"}, "${this.orgId}") {
+            name
+          }`;
+
+      this.apollo.mutate({
+        mutation: AddDogMutation,
+        fetchPolicy: 'no-cache'
+        }).subscribe((result) => {
+          console.log(result);
+        }
+      );
+    }else{
+      console.log("User not logged in");
     }
-    );
-
-
-
-    // pass it through to the mutation query
-    const AddDogMutation = gql`mutation {
-      addDog(dog: {
-        _id: "new_id",
-        name: "${this.inputName}",
-        dob: "${this.inputDOB}",
-        gender: "${this.inputGender}",
-        pics : ["firebaseID"],
-        breed: "${this.inputBreed}",
-        about: "${this.inputAbout}",
-        weight: "${this.inputWeight}",
-        height: "${this.inputHeight}",
-        furlength: "${this.inputFurlength}",
-        temperament: "${this.inputTemperament}"}, "${this.orgName}") {
-          name
-        }`;
-
-    this.apollo.mutate({
-      mutation: AddDogMutation,
-      fetchPolicy: 'no-cache'
-      }).subscribe((result) => {
-        console.log(result);
-      }
-    );
-
   }
   Back(){
     // TODO Complete add dog validation

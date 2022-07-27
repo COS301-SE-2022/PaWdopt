@@ -31,7 +31,7 @@ export class SignupPageComponent {
       console.log("User created");
       console.log(user);
       user.user?.updateProfile({
-        displayName: "Adopter",
+        displayName: this.uName,
       });
       this.addUser(user.user?.uid);
     }).catch((error) => {

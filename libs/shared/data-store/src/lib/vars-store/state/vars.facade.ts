@@ -16,7 +16,7 @@ export class VarsFacade {
   selectedVars$ = this.store.pipe(select(VarsSelectors.getSelected));
 
   email$ = this.store.pipe(select(VarsSelectors.getEmail));
-  orgName$ = this.store.pipe(select(VarsSelectors.getOrgName));
+  orgId$ = this.store.pipe(select(VarsSelectors.getOrgId));
   orgMemberEmail$ = this.store.pipe(select(VarsSelectors.getOrgMemberEmail));
   dogID$ = this.store.pipe(select(VarsSelectors.getDogID));
   userID$ = this.store.pipe(select(VarsSelectors.getUserID));
@@ -42,8 +42,8 @@ export class VarsFacade {
     this.store.dispatch(VarsActions.storeEmail({ email }));
   }
   
-  setOrgName(orgName: string) {
-    this.store.dispatch(VarsActions.storeOrgName({ orgName }));
+  setOrgId(orgId: string) {
+    this.store.dispatch(VarsActions.storeOrgId({ orgId }));
   }
 
   setOrgMemberEmail(orgMemberEmail: string) {

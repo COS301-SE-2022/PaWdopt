@@ -29,7 +29,7 @@
             <div class="thefront">
                 <img src="{{d.pic}}" />
                 <ion-title class="ion-text-center"><b>{{d.name}},{{d.age}}</b></ion-title>
-                <a href="/orgprofile"><b>{{d.organisation}}</b>
+                <a onclick="orgProfile(d.orgId)"><b>{{d.organisation}}</b>
                     <ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon>
                 </a>
                 <p>{{d.about}}</p>

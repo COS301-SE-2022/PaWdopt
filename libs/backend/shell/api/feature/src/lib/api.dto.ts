@@ -16,6 +16,9 @@ export class OrgMemberType {
     @Field()
     organisation: string;
 
+    @Field()
+    role: string;
+
     @Field({ nullable: true })
     verification: Date;
 }
@@ -23,6 +26,9 @@ export class OrgMemberType {
 @ObjectType('ContactInfoType')
 @InputType('ContactInfoInputType')
 export class ContactInfoType {
+    @Field()
+    _id: string;
+
     @Field({ nullable: true })
     email: string;
 

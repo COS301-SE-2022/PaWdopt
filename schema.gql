@@ -7,6 +7,7 @@ type OrgMemberType {
   name: String!
   email: String!
   organisation: String!
+  role: String!
   verification: DateTime
 }
 
@@ -16,6 +17,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type ContactInfoType {
+  _id: String!
   email: String
   phone: String
   website: String
@@ -83,10 +85,12 @@ input OrgMemberInputType {
   name: String!
   email: String!
   organisation: String!
+  role: String!
   verification: DateTime
 }
 
 input ContactInfoInputType {
+  _id: String!
   email: String
   phone: String
   website: String
@@ -155,44 +159,36 @@ type Query {
   findDogsByBreed(breed: String!): [DogType!]!
   findDogsByOrg(org: OrganisationInputType!): [DogType!]!
   findOrgMembersByOrganisation(org: String!): [OrgMemberType!]!
-  emailExists(email: String!): Boolean!
-  organisationNameExists(name: String!): Boolean!
-  updateDogDob(dogName: String!, dob: DateTime!): DogType!
   findAdopterByEmail(email: String!): AdopterType
   findAdopterBy_Id(_id: String!): AdopterType
-  findDogsLikedByAdopter(adopterName: String!): [DogType!]!
-  findOrgByName(name: String!): OrganisationType!
+  findDogsLikedByAdopter(_id: String!): [DogType!]!
+  findOrgById(_id: String!): OrganisationType!
   findOrgMemberByEmail(email: String!): OrgMemberType!
   findDogById(_id: String!): DogType!
   findDogsByOrgName(orgName: String!): [DogType!]!
   findDogsLikedByUser(userId: String!): [DogType!]!
   findDogs(na: Boolean!): [DogType!]!
   findAdopterById(_id: String!): AdopterType!
+  getUserType(id: String!): String!
+  findOrgMemberById(_id: String!): OrgMemberType!
+  findDogsByOrgId(_id: String!): [DogType!]!
 }
 
 type Mutation {
-  updateOrg(name: String!, org: OrganisationInputType!): OrganisationType!
-  deleteOrg(name: String!): OrganisationType!
+  updateOrg(_id: String!, org: OrganisationInputType!): OrganisationType!
+  deleteOrg(_id: String!): OrganisationType!
   createOrgMember(member: OrgMemberInputType!): OrgMemberType!
-  updateOrgMember(email: String!, member: OrgMemberInputType!): OrgMemberType!
-  deleteOrgMember(email: String!): OrgMemberType!
-  deleteDog(id: String!): DogType!
-  updateLocation(id: String!, location: LocationInputType!): LocationType!
-  deleteLocation(id: String!): LocationType!
+  updateOrgMember(_id: String!, member: OrgMemberInputType!): OrgMemberType!
+  deleteOrgMember(_id: String!): OrgMemberType!
+  deleteDog(_id: String!): DogType!
   createContactInfo(contactInfo: ContactInfoInputType!): ContactInfoType!
-  updateContactInfo(id: String!, contactInfo: ContactInfoInputType!): ContactInfoType!
-  deleteContactInfo(id: String!): ContactInfoType!
+  updateContactInfo(_id: String!, contactInfo: ContactInfoInputType!): ContactInfoType!
+  deleteContactInfo(_id: String!): ContactInfoType!
   createAdopter(adopter: AdopterInputType!): AdopterType!
-  updateAdopter(email: String!, adopter: AdopterInputType!): AdopterType!
-  deleteAdopter(email: String!): AdopterType!
-  updateDogBreed(dogName: String!, breed: String!): DogType!
-  updateDogGender(dogName: String!, gender: String!): DogType!
-  updateDogFurlength(dogName: String!, furLength: String!): DogType!
-  updateDogAbout(dogName: String!, about: String!): DogType!
-  updateDogWeight(dogName: String!, weight: Float!): DogType!
-  updateDogHeight(dogName: String!, height: Float!): DogType!
-  deleteDogbyName(name: String!): DogType!
-  createDog(dog: DogInputType!, orgName: String!): DogType!
+  updateAdopter(_id: String!, adopter: AdopterInputType!): AdopterType!
+  deleteAdopter(_id: String!): AdopterType!
+  userSwipesRightOnDog(_id: String!, dogName: String!): DogType!
+  createDog(dog: DogInputType!, orgId: String!): DogType!
   clickedTrashIcon(userId: String!, dogId: String!): DogType!
   clickedHeartIcon(userId: String!, dogId: String!): DogType!
   createOrg(org: OrganisationInputType!): OrganisationType!
