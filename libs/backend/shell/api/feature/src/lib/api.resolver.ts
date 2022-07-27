@@ -34,11 +34,6 @@ export class ApiResolver {
         return this.DogService.deleteOrgMember(email);
     }
 
-    @Mutation(() => DogType)
-    async deleteDog(@Args('id') id: string) : Promise<DogType> {
-        return this.DogService.deleteDog(id);
-    }
-
     @Mutation(() => LocationType)
     async updateLocation(@Args('id') id: string, @Args('location') location: LocationType) : Promise<LocationType> {
         return this.DogService.updateLocation(id, location);
@@ -120,84 +115,7 @@ export class ApiResolver {
         return this.DogService.organisationNameExists(name);
     }
 
-    @Mutation(() => DogType)
-    async updateDogBreed(@Args('dogName') dogName: string, @Args('breed') breed: string) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(breed == dog.breed){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogBreed(dogName, breed);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogGender(@Args('dogName') dogName: string, @Args('gender') gender: string) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(gender == dog.gender){
-            return dog;
-        }
-        else{
-            return this.DogService.updateDogGender(dogName, gender);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogFurlength(@Args('dogName') dogName: string, @Args('furLength') furLength: string) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(furLength == dog.furLength){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogFurLength(dogName, furLength);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogAbout(@Args('dogName') dogName: string, @Args('about') about: string) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(about == dog.about){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogAbout(dogName, about);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogWeight(@Args('dogName') dogName: string, @Args('weight') weight: number) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(weight == dog.weight){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogWeight(dogName, weight);
-        }
-    }
-
-    @Mutation(() => DogType)
-    async updateDogHeight(@Args('dogName') dogName: string, @Args('height') height: number) : Promise<DogType> {
-        const dog = await this.DogService.findDog(dogName);
-        if(height == dog.height){
-            return dog;
-        }
-        else {
-            return this.DogService.updateDogHeight(dogName, height);
-        }
-    }
-
-    //query to update temperament of dog
-    /*@Query(() => DogType)
-    async UpdateDogTemperament(@Args('dogName') dogName: string, @Args('temperament') temperament: string[]) : Promise<DogType> {
-        const ret = temperament;
-        return this.DogService.updateDogTemperament(dogName, ret);
-    }*/
-
-    //query to update dogs dob
-    @Query(() => DogType)
-    async updateDogDob(@Args('dogName') dogName: string, @Args('dob') dob: Date) : Promise<DogType> {
-        return this.DogService.updateDogDob(dogName, dob);
-    }
+    
 
     /**
      * find adopter by email
@@ -424,5 +342,52 @@ export class ApiResolver {
     async userSwipesLeft(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
         return this.DogService.addDogToAdopterDogsDisliked(userId, dogId);
     }
+
+    /**
+     * used in updateorremove dog page
+     * call the update queries
+     * @param dogId
+     * @param breed
+     * @param gender
+     * @param dob
+     * @param about
+     * @param height
+     * @param weight
+     * @param furlength
+     * @param temperament
+     * @returns dog
+     */
+    async updateDog(@Args('dogId') dogId: string, 
+                    @Args('breed') breed: string, 
+                    @Args('gender') gender: string,
+                    @Args('dob') dob: Date,
+                    @Args('about') about: string,
+                    @Args('height') height: number,
+                    @Args('weight') weight: number,
+                    @Args('furlength') furlength: string,
+                    @Args('temperament') temperament: [string]) : Promise<DogType> {
+        this.DogService.updateDogBreed(dogId, breed);
+        this.DogService.updateDogGender(dogId, gender);
+        this.DogService.updateDogdob(dogId, dob);
+        this.DogService.updateDogabout(dogId, about);
+        this.DogService.updateDogheight(dogId, height);
+        this.DogService.updateDogweight(dogId, weight);
+        this.DogService.updateDogfurLength(dogId, furlength);
+        return this.DogService.updateDogtemperament(dogId, temperament);
+    }
+
+    /**
+     * used in updateorremove dog page
+     * call the remove queries
+     * @param dogId
+     * @returns dog
+     * @throws error if dog does not exist
+     */
+    async deleteDog(@Args('dogId') dogId: string) : Promise<DogType> {
+        return this.DogService.deleteDog(dogId);
+    }
+
+
+
 
 }

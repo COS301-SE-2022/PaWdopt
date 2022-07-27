@@ -12,6 +12,23 @@
 //     height:100%;
 // }
 
+.middleButton{
+    justify-content: center;
+    display: flex;
+}
+
+.maincontainer{
+    //position: absolute;
+    //transform: translate(-50%, -50%);
+    margin: auto;
+    width: 330px;
+    height: 460px;
+    background: none;
+    top: 50%;
+    left: 50%;
+    
+}
+
 .doglabel{
     position: absolute;
     right: 25%;

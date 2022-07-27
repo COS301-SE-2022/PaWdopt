@@ -131,6 +131,7 @@ export class OrganisationType {
 
     @Field(() => [AdopterType], {nullable: true})
     potentialAdopters: [Adopter]; //use backend to get all dogs liked with same org 
+    //check that the user is not 
 
     @Field({ nullable: true })
     logo: string;

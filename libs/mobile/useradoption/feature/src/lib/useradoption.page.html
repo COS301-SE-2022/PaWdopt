@@ -27,48 +27,68 @@
 
 <!--Content-->
 <ion-content>
-
-    <div class="container">
-        <div class="adoptersname">
-            <p><b><ion-icon name="accessibility-outline"></ion-icon>&nbsp;Current Adoption Processes:</b></p>
-        </div>
-        &nbsp;
-        <!--Implement api similar to owneddogs-->
-        <div class="searchbar">
-            <ion-searchbar animated></ion-searchbar>
-        </div>
-        
-        <!--Implement api similar to dashboard-->
-        <div class="userinfo">
-            <ion-list *ngFor="let l of listedAdoptions"> <!--Ng example: *ngFor="let userLike of userLikes-->
-                <ion-item-sliding id="item1">
-                    <ion-item href="#">
-                        <ion-thumbnail class="avatar">
-                            <img src="../../assets/avatar1.jpg">
-                        </ion-thumbnail>
-                        <div>&nbsp;</div>
-                        <ion-label>
-                            <h2>{{l.nameUser}}</h2>
-                            <p>Adopter</p>
-                        </ion-label>
-                        <ion-label class="doglabel">
-                            <h2>{{l.nameDog}}</h2>
-                        </ion-label>
-                        <ion-thumbnail class="avatar">
-                            <img src="../../assets/husky.jpg">
-                        </ion-thumbnail>
-                    </ion-item>
-                    <ion-item-options side="end">
-                        <ion-item-option color="success" (click)="clickedSwiper(l._idUser, l._idDog)">
-                            <ion-icon slot="icon-only" name="arrow-redo-outline"></ion-icon>
-                        </ion-item-option>
-                    </ion-item-options>
-                    <ion-progress-bar value="0.5" color="dark"></ion-progress-bar>
-                </ion-item-sliding>
-                <!-- <div>&nbsp;</div> -->
-            </ion-list>
+    <div class="maincontainer">
+        <div class="thecard">
+            <div class="thefront">
+                <img [src]="dog.pic" [alt]="dog.name">
+                <ion-title class="ion-text-center"><b>{{dog.name}}, {{dog.age}}</b></ion-title>
+                    <!-- <ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon> -->
+                <p>{{dog.about}}</p>
+            </div>
+            <div class="theback">
+                <h1>Height: </h1>
+                <p>{{dog.height}}</p>
+                <h1>Weight: </h1>
+                <p>{{dog.weight}}</p>
+                <h1>Breed: </h1>
+                <p>{{dog.breed}}</p>
+                <h1>Temperament: </h1>
+                <p>
+                    <ion-chip outline color="success">
+                        <ion-label>{{dog.temperament}}</ion-label>
+                    </ion-chip>
+                </p>
+                <h1>Fur length: </h1>
+                <p>{{dog.furlength}}</p>
+            </div>
         </div>
     </div> 
+    <div class="userinfo">
+        <!-- <div>&nbsp;</div> -->
+        <ion-list>
+            <ion-item-sliding id="item1">
+                <ion-item href="#">
+                    <ion-thumbnail class="avatar">
+                        <img [src]="user.pic" [alt]="user.name">
+                    </ion-thumbnail>
+                    <div>&nbsp;</div>
+                    <ion-label>
+                        <h2>{{user.name}}</h2>
+                        <p>Verified user</p>
+                        <p>All documentation is up to date.</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item-options side="end">
+                    <ion-item-option color="success">
+                        <ion-icon slot="icon-only" name="book"></ion-icon>
+                    </ion-item-option>
+                    <ion-item-option color="warning">
+                        <ion-icon slot="icon-only" name="chatbox"></ion-icon>
+                    </ion-item-option>    
+                </ion-item-options>
+            </ion-item-sliding>
+            <ion-grid class="middleButton">
+                <ion-row>
+                  <ion-col col-6>
+                    <ion-button class="greyButton">Accept</ion-button>
+                  </ion-col>
+                  <ion-col col-6>
+                    <ion-button class="greyButton">Reject</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+        </ion-list>
+    </div>
 
   </ion-content>
 

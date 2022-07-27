@@ -30,7 +30,7 @@ export class adoptionprocessPageComponent {
      this.getAdoptions();
   }
 
-  getAdoptions(){
+  getAdoptions(){//fix this to only show dogs in org and not in usersLiked
     const getOrgByNameQuery = gql`
       query GetOrgByName(orgName: "${this.orgName}") {
         potentialAdopters{

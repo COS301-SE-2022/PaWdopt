@@ -11,77 +11,145 @@ import { VarsFacade } from '@pawdopt/shared/data-store';
 })
 export class useradoptionPageComponent {
 
+  dogID!: string;
+  userID!: string;
   orgName!:string;
   adopterEmail!:string;
 
-  listedAdoptions:{
-    _idUser: string;
-    _idDog: string;
-    nameUser: string;
-    nameDog: string;
-    picsUser: string;
-    picsDog: string;
-  }[] = [];
+  dog:{
+    _id: string,
+    name: string,
+    age: number,
+    breed: string,
+    pic: string,
+    about: string,
+    height: number,
+    weight: number,
+    furlength: string,
+    temperament: string
+  }={
+    _id: "",
+    name: "",
+    age: 0,
+    breed: "",
+    pic: "",
+    about: "",
+    height: 0,
+    weight: 0,
+    furlength: "",
+    temperament: ""
+  }
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade){
-    //  this.varsFacade.orgName$.subscribe(orgName => {
-    //    this.orgName = orgName;
-    //  });
+  user:{
+    _id: string,
+    name: string,
+    pic: string,
+    uploadedDoc: boolean
+  }={
+    _id: "",
+    name: "",
+    pic: "",
+    uploadedDoc: false
+  }
+
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade){ 
+    //UserID + DogID from adoption process page
+    this.varsFacade.dogID$.subscribe(dogID => {
+       this.dogID = dogID;
+     });
+     this.varsFacade.userID$.subscribe(userID => {
+      this.userID = userID;
+    });
     //  this.getAdoptions();
   }
 
   getAdoptions(){
-    const getOrgByNameQuery = gql`
-      query GetOrgByName(orgName: "${this.orgName}") {
-        potentialAdopters{
-          _id
-          name
-          pics
-          dogsLiked{
-            _id
-            name
-            pics
-          }[]
-        }`
+    const findDogByIdQuery = gql` query{
+      findDogById(dogID: "${this.dogID}"){
+        _id
+        name
+        dob
+        breed
+        pics
+        about
+        height
+        weight
+        furlength
+        temperament
+    }
+    }`;
     this.apollo.watchQuery({
-      query: getOrgByNameQuery,
+      query: findDogByIdQuery,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
       console.log(result);
       const data = result.data as {
-        findOrgByName: {
-          potentialAdopters: {
-            _id: string;
-            name: string;
-            pics: string[];
-            dogsLiked: {
-              _id: string;
-              name: string;
-              pics: string[];
-            }[]
-          }[]
-        }
-      };
+        findDogById: {
+          _id: string,
+          name: string,
+          dob: Date,
+          breed: string,
+          pics: [string],
+          about: string,
+          height: number,
+          weight: number,
+          furlength: string,
+          temperament: string
 
-      data.findOrgByName.potentialAdopters.forEach(adopter => {
-        adopter.dogsLiked.forEach(dog => {
-          this.listedAdoptions.push({
-            _idUser: adopter._id,
-            _idDog: dog._id,
-            nameUser: adopter.name,
-            nameDog: dog.name,
-            picsUser: adopter.pics[0],
-            picsDog: dog.pics[0]
-          });
-        });
-      });
-    });
+      }
+    }
+    this.dog._id = data.findDogById._id;
+    this.dog.name = data.findDogById.name;
+    //this.dog.age needs to be calculated from dob
+    this.dog.age = data.findDogById.dob.getFullYear() - new Date().getFullYear();
+    this.dog.breed = data.findDogById.breed;
+    this.dog.pic = data.findDogById.pics[0];
+    this.dog.about = data.findDogById.about;
+    this.dog.height = data.findDogById.height;
+    this.dog.weight = data.findDogById.weight;
+    this.dog.furlength = data.findDogById.furlength;
+    this.dog.temperament = data.findDogById.temperament;
+    }
+    );
+
+    const findUserByIdQuery = gql` query{ 
+      findUserById(userID: "${this.userID}"){
+        _id
+        name
+        pic
+        uploadedDocs
+      }
+    }`;
+    this.apollo.watchQuery({
+      query: findUserByIdQuery,
+      fetchPolicy: 'no-cache'
+    }).valueChanges.subscribe((result) => {
+      console.log(result);
+      const data = result.data as {
+        findUserById: {
+          _id: string,
+          name: string,
+          pic: string,
+          uploadedDocs: boolean
+        }
+      }
+      this.user._id = data.findUserById._id;
+      this.user.name = data.findUserById.name;
+      this.user.pic = data.findUserById.pic;
+      this.user.uploadedDoc = data.findUserById.uploadedDocs;
+    }
+    );
   }
 
-  clickedSwiper(userId: string, dogID: string){
-    this.varsFacade.setUserID(userId);
-    this.varsFacade.setDogID(dogID);
-    this.router.navigate(["/useradoption"]);
+  onAccept(){
+    //dog needs to be deleted from db
+    //appointment for pickup needs to be made
+  }
+
+  onDecline(){
+    //dog needs to be removed from adopters likedDogs and added to adopters dislikedDogs
+    //user needs to be removed from dogs usersLiked
+    //user needs to be removed from orgs potentialAdopters
   }
 
 
