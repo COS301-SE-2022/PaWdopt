@@ -248,14 +248,6 @@ export class ApiService {
         return this.DogModel.find({ organisation }).exec();
     }
 
-    /**
-     * Find all Dogs
-     * @return {Promise<Dog[]>}
-
-     */
-    async findDogs(): Promise<Dog[]> {
-        return this.DogModel.find().exec();
-    }
 
     /**
      * Find all Dogs by breed
@@ -313,37 +305,7 @@ export class ApiService {
     }
     
 
-    /**
-     * add a user to userLikes in dog
-     * @param {string} dogName The name of the dog to add the user to
-     * @param {Adopter} userName The name of the user to add to the dog
-     * @return {Promise<Dog || null>}
-
-     * 
-     */
-    async addUserToUserLikes(dogName: string, userName: Adopter): Promise<Dog | null> {
-        const dog = await this.findDog(dogName);
-        // if(dog.usersLiked.includes(userName)){
-            
-        // }
-        dog.usersLiked.push(userName);
-        return this.updateDog(dogName, dog);
-    }
-
-    /**
-     * add dog to dogsLiked of adopter
-     * @param {Adopter} adopter The adopter to add the dog to
-     * @param {string} dogName The name of the dog to add to the adopter
-     * @return {Promise<Adopter || null>}
-     */
-    async addDogToDogsLiked(adopter: Adopter, dogName: string): Promise<Adopter | null> {
-        const dog = await this.findDog(dogName);
-        // if(adopter.dogsLiked.includes(dog)){
-            
-        // }
-        adopter.dogsLiked.push(dog);
-        return this.updateAdopter(adopter.email, adopter);
-    }
+    
 
     /**
      * find adopter by name
@@ -567,12 +529,12 @@ export class ApiService {
     /**
      * for the Dashboard Page
      * add a dog to adopters dogsDisliked
-     * @param {string} uid The _id of the adopter to update
+     * @param {string} _id The _id of the adopter to update
      * @param {string} dogId The _id of the dog to add
      * @return {Promise<Adopter || null>}
      */
-    async addDogToAdopterDogsDisliked(uid: string, dogId: string): Promise<Adopter | null> {
-        const adopter = await this.AdopterModel.findOne({uid}).exec();
+    async addDogToAdopterDogsDisliked(_id: string, dogId: string): Promise<Adopter | null> {
+        const adopter = await this.AdopterModel.findOne({_id}).exec();
         if(adopter == null){
             throw new Error("Adopter does not exist");
         }
@@ -587,12 +549,12 @@ export class ApiService {
     /**
      * for the Dashboard Page
      * remove a dog from adopters dogsLiked
-     * @param {string} uid The _id of the adopter to update
+     * @param {string} _id The _id of the adopter to update
      * @param {string} dogId The _id of the dog to remove
      * @return {Promise<Adopter || null>}
      */
-    async removeDogFromAdopterDogsLiked(uid: string, dogId: string): Promise<Adopter | null> {
-        const adopter = await this.AdopterModel.findOne({uid}).exec();
+    async removeDogFromAdopterDogsLiked(_id: string, dogId: string): Promise<Adopter | null> {
+        const adopter = await this.AdopterModel.findOne({_id}).exec();
         if(adopter == null){
             throw new Error("Adopter does not exist");
         }
@@ -622,18 +584,99 @@ export class ApiService {
     /**
      * used in userLikes page
      * find dogs in adopters dogsLiked
-     * @param {string} uid The _id of the adopter to find
+     * @param {string} _id The _id of the adopter to find
      * @return {Promise<Dog[]>}
      */
-    async findDogsInAdopterDogsLiked(uid: string): Promise<Dog[]> {
-        const adopter = await this.AdopterModel.findOne({uid}).exec();
+    async findDogsInAdopterDogsLiked(_id: string): Promise<Dog[]> {
+        const adopter = await this.AdopterModel.findOne({_id}).exec();
         if(adopter == null){
             throw new Error("Adopter does not exist");
         }
         return adopter.dogsLiked;
     }
 
+    /**
+     * used in home swiping page
+     * Find all Dogs
+     * @return {Promise<Dog[]>}
+     */
+     async findDogs(): Promise<Dog[]> {
+        return this.DogModel.find().exec();
+    }
 
-      
-    
+    /**
+     * used in home swiping page
+     * find adopter by _id
+     * @param {string} _id The _id of the adopter to find
+     * @return {Promise<Adopter || null>}
+     */
+    async findAdopterById(_id: string): Promise<Adopter | null> {
+        return this.AdopterModel.findOne({ _id }).exec();
+    }
+
+    /**
+     * used in home swiping page
+     * remove a dog from a adopters dogsLiked or dogsDisliked
+     * @param {string} _id The _id of the adopter to update
+     * @param {string} dogId The _id of the dog to remove
+     * @return {Promise<Adopter || null>}
+     */
+    async removeDogFromAdopterDogsLikedOrDisliked(_id: string, dogId: string): Promise<Adopter | null> {
+        const adopter = await this.AdopterModel.findOne({_id}).exec();
+        if(adopter == null){
+            throw new Error("Adopter does not exist");
+        }
+        const dog = await this.DogModel.findOne({dogId}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        const index = adopter.dogsLiked.indexOf(dog);
+        if(index != -1){
+            adopter.dogsLiked.splice(index, 1);
+        }
+        const index2 = adopter.dogsDisliked.indexOf(dog);
+        if(index2 != -1){
+            adopter.dogsDisliked.splice(index2, 1);
+        }
+        return adopter.save();
+    }
+
+    /**
+     * used in Home page
+     * add an adopter to a dogs usersLiked
+     * @param {string} dogId The name of the dog to add the user to
+     * @param {Adopter} userId The name of the user to add to the dog
+     * @return {Promise<Dog || null>}
+     */
+    async addUserToUserLikes(dogId: string, userId: string): Promise<Dog | null> {
+        const dog = await this.DogModel.findOne({dogId}).exec();
+        const adopter = await this.AdopterModel.findOne({userId}).exec();
+        if(adopter == null){
+            throw new Error("Adopter does not exist111111111111111111");
+        }
+        dog.usersLiked.push(adopter);
+        dog.save();
+        return dog;
+    }
+
+    /**
+     * used in Home page
+     * add a dog to adopter dogsLiked
+     * @param {string} _id The _id of the adopter to update
+     * @param {string} dogId The _id of the dog to add
+     * @return {Promise<Adopter || null>}
+     */
+    async addDogToAdopterDogsLiked(_id: string, dogId: string): Promise<Adopter | null> {
+        const adopter = await this.AdopterModel.findOne({_id}).exec();
+        if(adopter == null){
+            throw new Error("Adopter does not exist");
+        }
+        const dog = await this.DogModel.findOne({dogId}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        adopter.dogsLiked.push(dog);
+        return adopter.save();
+    }
+
 }

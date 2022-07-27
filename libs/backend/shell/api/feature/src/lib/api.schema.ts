@@ -153,6 +153,18 @@ export class Adopter {
     @Prop()
     documents: [Doc];
 
+    // @Prop()
+    // idDoc: string;
+
+    // @Prop()
+    // porDoc: string;
+
+    // @Prop()
+    // bankDoc: string;
+
+    // @Prop()
+    // motivDoc: string;
+
     @Prop()
     dogsLiked: [Dog];
 

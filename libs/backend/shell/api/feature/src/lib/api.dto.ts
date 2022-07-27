@@ -167,8 +167,21 @@ export class AdopterType {
     @Field(() => LocationType, {nullable:true})
     location: Location;
 
-    @Field(() => [DocType], { nullable: true })
-    documents: [Doc]; //must be in order of: ID, Proof of res, Bank, motivation letter
+    // @Field({nullable:true})
+    // idDoc: string;
+
+    // @Field({nullable:true})
+    // porDoc: string;
+
+    // @Field({nullable:true})
+    // bankDoc: string;
+
+    // @Field({nullable:true})
+    // motivDoc: string;
+
+    @Field(() => [DocType], {nullable:true})
+    documents: [DocType];
+    //must be in order of: ID (ID), Proof of res (poR), bank (bank), motivation letter (motiv)
 
     @Field(() => [DogType], { nullable: true })
     dogsLiked: [Dog];

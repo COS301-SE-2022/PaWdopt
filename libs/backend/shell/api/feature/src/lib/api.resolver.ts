@@ -95,10 +95,7 @@ export class ApiResolver {
         return this.DogService.findDogsByBreed(breed);
     }
 
-    @Query(() => [DogType])
-    async findDogs() : Promise<DogType[]> {
-        return this.DogService.findDogs();
-    }
+    
 
     @Query(() => [DogType])
     async findDogsByOrg(@Args('org') org: OrganisationType) : Promise<DogType[]> {
@@ -121,19 +118,6 @@ export class ApiResolver {
     @Query(() => Boolean)
     async organisationNameExists(@Args('name') name: string) : Promise<boolean> {
         return this.DogService.organisationNameExists(name);
-    }
-
-    @Mutation(() => DogType)
-    async userSwipesRightOnDog(@Args('userName') userName: string, @Args('dogName') dogName: string) : Promise<DogType | null> {
-        const user = await this.DogService.findAdopterByName(userName);
-        if(user != null){
-            await this.DogService.addDogToDogsLiked(user, dogName);
-            const ret = await this.DogService.addUserToUserLikes(dogName, user);
-            return ret;
-        }
-        else{
-            return null;
-        }
     }
 
     @Mutation(() => DogType)
@@ -383,4 +367,62 @@ export class ApiResolver {
         return this.DogService.findDogsInAdopterDogsLiked(userId);
     }
     
+    /**
+     * used in home swiping page
+     * find all dogs
+     * @returns dogs
+     */
+     @Query(() => [DogType])
+     async findDogs(@Args('na') na: boolean) : Promise<DogType[]> {
+         return this.DogService.findDogs();
+     }
+
+     /**
+      * used in home swiping page
+      * find adopter by _id
+      * @param _id
+      * @returns adopter
+      */
+    @Query(() => AdopterType)
+    async findAdopterById(@Args('_id') _id: string) : Promise<AdopterType> {
+        return this.DogService.findAdopterById(_id);
+    }
+
+    /**
+     * used in home swiping page
+     * call removeDogFromAdopterDogsLikedOrDisliked()
+     * @param userId
+     * @param dogId
+     * @returns adopter
+     */
+    @Mutation(() => AdopterType)
+    async removeDogFromAdopterDogsLikedOrDisliked(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
+        return this.DogService.removeDogFromAdopterDogsLikedOrDisliked(userId, dogId);
+    }
+
+    /**
+     * used in home swiping page
+     * add dog to adopter's dogsLiked and add adopter to dog's usersLiked
+     * @param userId
+     * @param dogId
+     * @returns adopter
+     */
+    @Mutation(() => AdopterType)
+    async userSwipesRight(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
+        await this.DogService.addUserToUserLikes(dogId, userId);
+        return this.DogService.addDogToAdopterDogsLiked(userId, dogId);
+    }
+
+    /**
+     * used in home swiping page
+     * add dog to adopter's dogsDisliked 
+     * @param userId
+     * @param dogId
+     * @returns adopter
+     */
+    @Mutation(() => AdopterType)
+    async userSwipesLeft(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
+        return this.DogService.addDogToAdopterDogsDisliked(userId, dogId);
+    }
+
 }
