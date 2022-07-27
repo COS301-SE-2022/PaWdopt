@@ -2038,6 +2038,11 @@
   dependencies:
     tslib "^2.1.0"
 
+"@capacitor/geolocation@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/geolocation/-/geolocation-1.3.1.tgz#9fb92a1cfb9b0721eba61dce07b98c4113d8def5"
+  integrity sha512-3u9Hu4E0VBMa6r0d2t9MENDIR+bv5Tf144uPmb2Bl7XLQeFwvu4BSp2neNq39x58PvcROPMNX1BOTSGpQep+1Q==
+
 "@capacitor/google-maps@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@capacitor/google-maps/-/google-maps-1.1.0.tgz#eeb8794ac1f9f1635c761f0f952f310e4a444189"
