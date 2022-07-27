@@ -1,9 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ApiService} from './api.service';
-import { Dog, Organisation, Location, OrgMember, ContactInfo,  Adopter, DogDocument,  OrgMemberDocument, OrganisationDocument, AdopterDocument,  ContactInfoDocument, LocationDocument } from './api.schema';
-import { DogType, OrganisationType, LocationType,  ContactInfoType,  AdopterType, OrgMemberType } from './api.dto';
-import { Model } from 'mongoose';
-import { getModelToken } from '@nestjs/mongoose';
+// import { Test, TestingModule } from '@nestjs/testing';
+// import { ApiService} from './api.service';
+// import { Dog, Organisation, Location, OrgMember, ContactInfo,  Adopter, DogDocument,  OrgMemberDocument, OrganisationDocument, AdopterDocument,  ContactInfoDocument, LocationDocument } from './api.schema';
+// import { DogType, OrganisationType, LocationType,  ContactInfoType,  AdopterType, OrgMemberType } from './api.dto';
+// import { Model } from 'mongoose';
+// import { getModelToken } from '@nestjs/mongoose';
 
 describe('apiService', () => {
     // let actions: Observable<Action>;
