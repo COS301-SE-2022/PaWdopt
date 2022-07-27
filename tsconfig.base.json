@@ -59,6 +59,9 @@
       "@pawdopt/mobile/uploaddoc/feature": [
         "libs/mobile/uploaddoc/feature/src/index.ts"
       ],
+      "@pawdopt/mobile/useradoption/feature": [
+        "libs/mobile/useradoption/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/userinfo/feature": [
         "libs/mobile/userinfo/feature/src/index.ts"
       ],
