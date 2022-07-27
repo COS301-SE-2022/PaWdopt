@@ -4,6 +4,12 @@ import { ActionSheetController } from '@ionic/angular';
 import {Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
+// Capacitor Imports
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Storage } from '@capacitor/storage';
+import { handleRetry } from '@nestjs/mongoose/dist/common/mongoose.utils';
+
 @Component({
   selector: 'pawdopt-adddog',
   templateUrl: 'adddog.page.html',
@@ -114,12 +120,18 @@ export class AdddogPageComponent {
         icon: 'camera-outline',
         handler: () => {
           console.log('Take picture clicked');
+          this.getPhoto(true).then(data => this.postToML(data)).then(result => {
+            this.inputBreed = JSON.parse(result).breed;
+          });
         }
       }, {
         text: 'Choose a picture from your gallery',
         icon: 'image-outline',
         handler: () => {
           console.log('Choose a picture clicked');
+          this.getPhoto(false).then(data => this.postToML(data)).then(result => {
+            this.inputBreed = JSON.parse(result).breed;
+          });
         }
       }, {
         text: 'Cancel',
@@ -134,5 +146,49 @@ export class AdddogPageComponent {
 
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);
+  }
+
+  async getPhoto(fromCamera:boolean) {
+    let sourceIn: CameraSource;
+
+  if(fromCamera){
+    sourceIn = CameraSource.Camera;
+  }
+  else{
+    sourceIn = CameraSource.Photos;
+  }
+
+  const capturedPhoto = await Camera.getPhoto({
+    resultType: CameraResultType.DataUrl,
+    source: sourceIn,
+    quality: 100
+  });
+
+  //TODO Do firebase upload here
+
+  const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
+  return data;
+  }
+
+  async postToML(uri: string){
+    const data = uri.split(",");
+    const type = data[0].split(";");
+    const image_type = type[0].split("/");
+
+    const headersList = {
+    "Accept": "*/*",
+      }
+
+    const bodyContent = new FormData();
+    bodyContent.append("image", data[1]);
+    bodyContent.append("extension", image_type[1]);
+
+    return fetch("http://localhost:5000/predict", {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList
+    }).then(function(response) {
+      return response.text();
+    });
   }
 }
