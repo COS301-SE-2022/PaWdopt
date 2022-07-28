@@ -16,32 +16,34 @@
     </ion-toolbar>
 </ion-header>
 
- <!--Back-->
- <div>
-    <ion-button class="ion-float-left" fill="clear" size="large">
-      <ion-icon  name="arrow-back-circle"></ion-icon>
+<!--Back-->
+<div>
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
     </ion-button>
-  </div>
-  
+</div>
+
 <!--Content-->
-  <ion-content>
+<ion-content>
     <ion-thumbnail class="logo">
-      <!-- <img [src]="user.pic.path" [alt]="user.name"> -->
-      <img class="logo" src="../../assets/spcalogo-meta.png">
+        <!-- <img [src]="user.pic.path" [alt]="user.name"> -->
+        <img class="logo" src="../../assets/spcalogo-meta.png">
     </ion-thumbnail>
     <div class="companyprofile">
-      <h1><b>{{org.name}}</b></h1>
-      <!-- Use google maps api return a string (suburb) of the coordinates-->
-      <p><b><ion-icon name="location"></ion-icon>&nbsp;Pretoria</b></p>
-      <p><b>Joined PaWdopt on {{dateString}}</b></p>
-    
-    <div class="container">
-        <h1><ion-icon name="paw"></ion-icon>&nbsp;{{org.totalDogs}} dogs available</h1>
-        <h1><ion-icon name="checkmark-outline"></ion-icon>&nbsp;{{org.totalAdoptions}} dogs adopted</h1>
+        <h1><b>{{org.name}}</b></h1>
+        <!-- Use google maps api return a string (suburb) of the coordinates-->
+        <p><b><ion-icon name="location"></ion-icon>&nbsp;Pretoria</b></p>
+        <p><b>Joined PaWdopt on {{dateString}}</b></p>
 
-    </div> 
+        <div class="container">
+            <h1>
+                <ion-icon name="paw"></ion-icon>&nbsp;{{org.totalDogs}} dogs available</h1>
+            <h1>
+                <ion-icon name="checkmark-outline"></ion-icon>&nbsp;{{org.totalAdoptions}} dogs adopted</h1>
+
+        </div>
     </div>
-  </ion-content>
+</ion-content>
 
 
 <!--Footer-->

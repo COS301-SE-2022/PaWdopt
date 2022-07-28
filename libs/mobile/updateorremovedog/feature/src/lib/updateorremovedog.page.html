@@ -22,49 +22,53 @@
         <div class="dogname">
             <p><b>{{dog.name}}</b></p>
         </div>
-        <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()"><ion-icon name="camera-outline"></ion-icon>&nbsp;Upload a picture</ion-button>
+        <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">
+            <ion-icon name="camera-outline"></ion-icon>&nbsp;Upload a picture</ion-button>
         <br>
         <ion-list class="form">
             <ion-item-group class="form-border">
 
                 <ion-item class="form-item">
                     <ion-label position="floating" class="form-input-label">Breed</ion-label>
-                    <ion-input class="form-input" id="breed-field" clear-on-edit=true value="{{dog.breed}}" [(ngModel)]="inputBreed"></ion-input>
+                    <ion-input class="form-input" id="breed-field" clear-on-edit=false value="{{dog.breed}}" [(ngModel)]="inputBreed"></ion-input>
                 </ion-item>
                 <ion-item class="form-item">
                     <ion-label position="floating" class="form-input-label">Gender</ion-label>
-                    <ion-input class="form-input" id="gender-field" clear-on-edit=true value="{{dog.gender}}" [(ngModel)]="inputGender"></ion-input>
+                    <ion-input class="form-input" id="gender-field" clear-on-edit=false value="{{dog.gender}}" [(ngModel)]="inputGender"></ion-input>
                 </ion-item>
                 <ion-item class="form-item">
                     <ion-label position="floating" class="form-input-label">Date Of Birth</ion-label>
-                    <ion-input class="form-input" id="age-field" clear-on-edit=true value="{{dog.dob}}" [(ngModel)]="inputDob"></ion-input>
+                    <ion-input class="form-input" id="age-field" clear-on-edit=false value="{{dog.dob}}" [(ngModel)]="inputDob"></ion-input>
                 </ion-item>
                 <ion-item class="form-item">
                     <ion-label position="floating" class="form-input-label">About</ion-label>
-                    <ion-input class="form-input" id="about-field" type="text" clear-on-edit=true wrap="hard" value="{{dog.about}}" [(ngModel)]="inputAbout"></ion-input>
+                    <ion-input class="form-input" id="about-field" type="text" clear-on-edit=false wrap="hard" value="{{dog.about}}" [(ngModel)]="inputAbout"></ion-input>
                 </ion-item>
                 <ion-item class="form-item">
                     <ion-label position="floating" class="form-input-label">Height (in cm)</ion-label>
-                    <ion-input class="form-input" id="height-field" clear-on-edit=true value="{{dog.height}}" [(ngModel)]="inputHeight"></ion-input>
+                    <ion-input class="form-input" id="height-field" clear-on-edit=false value="{{dog.height}}" [(ngModel)]="inputHeight"></ion-input>
                 </ion-item>
                 <ion-item class="form-item">
                     <ion-label position="floating" class="form-input-label">Weight (in kg)</ion-label>
-                    <ion-input class="form-input" id="weight-field" clear-on-edit=true value="{{dog.weight}}" [(ngModel)]="inputWeight"></ion-input>
+                    <ion-input class="form-input" id="weight-field" clear-on-edit=false value="{{dog.weight}}" [(ngModel)]="inputWeight"></ion-input>
                 </ion-item>
                 <ion-item class="form-item">
                     <ion-label position="floating" class="form-input-label">Furlength</ion-label>
-                    <ion-input class="form-input" id="furlength-field" clear-on-edit=true value="{{dog.furlength}}" [(ngModel)]="inputFurlength"></ion-input>
+                    <ion-input class="form-input" id="furlength-field" clear-on-edit=false value="{{dog.furlength}}" [(ngModel)]="inputFurlength"></ion-input>
                 </ion-item>
                 <ion-item class="form-item form-end" lines="none">
                     <ion-label position="floating" class="form-input-label">Temperament</ion-label>
-                    <ion-textarea class="form-input" id="temperament-field" clear-on-edit=true value="{{temperamentString}}" [(ngModel)]="inputTemperament"></ion-textarea>
+                    <ion-textarea class="form-input" id="temperament-field" clear-on-edit=false value="{{temperamentString}}" [(ngModel)]="inputTemperament"></ion-textarea>
                 </ion-item>
             </ion-item-group>
         </ion-list>
         <br>
-        <ion-button class="greyButton" id="update-dog-button" (click)="updateDog()"><ion-icon name="build-outline"></ion-icon>&nbsp; Update a dog</ion-button>
-        <ion-button class="greyButton" id="autofill-dog-button"><ion-icon name="color-fill-outline"></ion-icon>&nbsp; Autofill</ion-button>
-        <ion-button class="greyButton" id="delete-dog-button" (click)="deleteDog()"><ion-icon name="trash-outline"></ion-icon>&nbsp; Delete a dog</ion-button>
+        <ion-button class="greyButton" id="update-dog-button" (click)="updateDog()">
+            <ion-icon name="build-outline"></ion-icon>&nbsp; Update a dog</ion-button>
+        <ion-button class="greyButton" id="autofill-dog-button">
+            <ion-icon name="color-fill-outline"></ion-icon>&nbsp; Autofill</ion-button>
+        <ion-button class="greyButton" id="delete-dog-button" (click)="deleteDog()">
+            <ion-icon name="trash-outline"></ion-icon>&nbsp; Delete a dog</ion-button>
 
     </div>
 </ion-content>

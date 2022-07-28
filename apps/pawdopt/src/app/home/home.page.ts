@@ -68,13 +68,22 @@ export class HomePage {
 
   async setPrefs(){
     const filters = await this.getObject();
-    this.gender = filters.value.gender;
-    this.breed = filters.value.breed;
-    this.minAge = filters.value.age.lower;
-    this.maxAge = filters.value.age.upper;
-    this.minSize = filters.value.size.lower;
-    this.maxSize = filters.value.size.upper;
-    this.maxDistance = filters.value.location.upper;
+    if(filters){
+      if(filters.value.gender)
+        this.gender = filters.value.gender;
+      if(filters.value.breed)
+        this.breed = filters.value.breed;
+      if(filters.value.age.lower)
+        this.minAge = filters.value.age.lower;
+      if(filters.value.age.upper)
+        this.maxAge = filters.value.age.upper;
+      if(filters.value.size.lower)
+        this.minSize = filters.value.size.lower;
+      if(filters.value.size.upper)
+        this.maxSize = filters.value.size.upper;
+      if(filters.value.distance)
+        this.maxDistance = filters.value.location.upper;
+    }
   }
 
   getDogs(){
@@ -88,10 +97,6 @@ export class HomePage {
         breed
         organisation{
           name
-          location{
-            lat
-            lng
-          }
         }
         height
       }
@@ -113,8 +118,10 @@ export class HomePage {
           breed: string,
           height: number,
           dob: Date,
-          organisation: string,
-          pic: string[]
+          organisation: {
+            name: string
+          },
+          pics: string[]
         }[];
       }
       
@@ -130,12 +137,11 @@ export class HomePage {
             height: element.height,
             lat: 0,
             lng: 0,
-            // lat: element.organisation.location.lat,
+            // lat: element.organisation.location.lat
             // lng: element.organisation.location.lng,
             age: sage,
-            organisation: element.organisation,
-            pic: "",
-            // pic: element.pic[0],
+            organisation: element.organisation.name,
+            pic: element.pics[0],
             visible: true
           }
         );
@@ -166,44 +172,57 @@ export class HomePage {
             }[]
           }
         }
-        this.avatars.forEach(element => {
+        console.log(this.avatars);
+        console.log(data.findAdopterById.dogsLiked);
+        // this.avatars.forEach(element => {
           data.findAdopterById.dogsLiked.forEach(element2 => {
-            if(element._id == element2._id){
-              this.avatars.splice(this.avatars.indexOf(element), 1);
+            const index = this.avatars.findIndex(function(dog){
+              return dog._id == element2._id;
+            });
+            if(index != -1){
+              this.avatars.splice(index, 1);
               this.currentIndex--;
             }
           }
           );
-        }
-        );
-        this.avatars.forEach(element => {
+        // }
+        // );
+        // this.avatars.forEach(element => {
           data.findAdopterById.dogsDisliked.forEach(element2 => {
-            if(element._id == element2._id){
-              this.avatars.splice(this.avatars.indexOf(element), 1);
+            const index = this.avatars.findIndex(function(dog){
+              return dog._id == element2._id;
+            });
+            if(index != -1){
+              this.avatars.splice(index, 1);
               this.currentIndex--;
             }
           });
-        });
+        // });
         //loop through avatars and exclude elements that dont confide to the filters
         this.avatars.forEach(element => {
           let splice = false;
-          if(element.breed != this.breed){
-            splice = true;
-          }
-          if(element.gender != this.gender){
-            splice = true;
-          }
+          if(this.breed)
+            if(element.breed != this.breed){
+              splice = true;
+            }
+          if(this.gender)
+            if(element.gender != this.gender){
+              splice = true;
+            }
           const distance = 0;
           //distnace is calculated from user and orgs lat and lng
-          if(distance >= this.maxDistance){
-            splice = true;
-          }
-          if(element.age <= this.minAge && element.age >= this.maxAge){
-            splice = true;
-          }
-          if(element.height <= this.minSize && element.height >= this.maxSize){
-            splice = true;
-          }
+          if(this.maxDistance)
+            if(distance >= this.maxDistance){
+              splice = true;
+            }
+          if(this.minAge && this.maxAge)
+            if(element.age <= this.minAge && element.age >= this.maxAge){
+              splice = true;
+            }
+          if(this.minSize && this.maxSize)
+            if(element.height <= this.minSize && element.height >= this.maxSize){
+              splice = true;
+            }
           if(splice){
             this.avatars.splice(this.avatars.indexOf(element), 1);
             this.currentIndex--;

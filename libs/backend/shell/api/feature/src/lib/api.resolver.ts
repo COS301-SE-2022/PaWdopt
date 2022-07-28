@@ -160,8 +160,6 @@ export class ApiResolver {
         const org = await this.DogService.findOrgById(orgId);
         org.totalDogs++;
         await this.DogService.updateOrg(orgId, org);
-        org.totalAdoptions++;
-        await this.DogService.updateOrg(orgId, org);
         dog._id = (new Types.ObjectId()).toHexString();
         dog.organisation = org;
         return this.DogService.createDog(dog);

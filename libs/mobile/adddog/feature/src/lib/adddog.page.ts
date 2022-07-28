@@ -33,6 +33,8 @@ export class AdddogPageComponent {
   orgId!: string;
   uid?: string;
 
+  imageString!: string;
+
   addDog(){
     this.afAuth.currentUser.then(user => {
       this.uid = user?.uid;
@@ -66,7 +68,7 @@ export class AdddogPageComponent {
               name: "${this.inputName}",
               dob: "${this.inputDOB}",
               gender: "${this.inputGender}",
-              pics : ["firebaseID"],
+              pics : ["${this.imageString}"],
               breed: "${this.inputBreed}",
               about: "${this.inputAbout}",
               weight: ${this.inputWeight},
@@ -173,6 +175,7 @@ export class AdddogPageComponent {
   //TODO Do firebase upload here
 
   const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
+  this.imageString = data;
   return data;
   }
 

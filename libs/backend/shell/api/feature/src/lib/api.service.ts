@@ -698,8 +698,15 @@ export class ApiService {
      * @return {Promise<Dog[]>}
      */
     async findDogsByOrgId(_id: string): Promise<Dog[]> {
-        const org = await this.OrganisationModel.findOne({_id}).exec();
-        return this.DogModel.find({organisation: org}).exec();
+        // const org = await this.OrganisationModel.findOne({_id}).exec();
+        const dog = await this.DogModel.find().exec();
+        const ret = [];
+        dog.forEach(dog => {
+            if(dog.organisation._id == _id){    
+                ret.push(dog);
+            }
+        });
+        return ret;
     }
 
     /**
