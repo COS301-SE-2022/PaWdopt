@@ -312,8 +312,11 @@ export class ApiService {
         if(dog == null){
             throw new Error("Dog does not exist");
         }
-        const user = await this.AdopterModel.findOne({userId}).exec();
-        const index = dog.usersLiked.indexOf(user);
+        const user = await this.AdopterModel.findOne({_id: userId}).exec();
+        const index = dog.usersLiked.findIndex(function(aUser){
+            return user._id == aUser._id;
+        });
+
         if(index == -1){
             throw new Error("User not found");
         }
@@ -333,7 +336,7 @@ export class ApiService {
         if(org == null){
             throw new Error("Org does not exist");
         }
-        const user = await this.AdopterModel.findOne({userId}).exec();
+        const user = await this.AdopterModel.findOne({_id: userId}).exec();
         if(user == null){
             throw new Error("User does not exist");
         }
@@ -353,7 +356,7 @@ export class ApiService {
         if(adopter == null){
             throw new Error("Adopter does not exist");
         }
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -373,14 +376,13 @@ export class ApiService {
         if(adopter == null){
             throw new Error("Adopter does not exist");
         }
-        const dog = await this.DogModel.findOne({dogId}).exec();
-        if(dog == null){
-            throw new Error("Dog does not exist");
-        }
-        const index = adopter.dogsLiked.indexOf(dog);
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
+        const index = adopter.dogsLiked.findIndex(function(aDog){
+            return dog._id == aDog._id;
+        });
         if(index == -1){
             throw new Error("Dog not found");
-        }
+        } 
         adopter.dogsLiked.splice(index, 1);
         return adopter.save();
     }
@@ -445,7 +447,7 @@ export class ApiService {
         if(adopter == null){
             throw new Error("Adopter does not exist");
         }
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -468,8 +470,8 @@ export class ApiService {
      * @return {Promise<Dog || null>}
      */
     async addUserToUserLikes(dogId: string, userId: string): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({dogId}).exec();
-        const adopter = await this.AdopterModel.findOne({userId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
+        const adopter = await this.AdopterModel.findOne({_id: userId}).exec();
         if(adopter == null){
             throw new Error("Adopter does not exist111111111111111111");
         }
@@ -490,7 +492,7 @@ export class ApiService {
         if(adopter == null){
             throw new Error("Adopter does not exist");
         }
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -506,7 +508,7 @@ export class ApiService {
      * @return {Promise<Dog || null>}
      */
     async updateDogBreed(dogId: string, breed: string): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -522,7 +524,7 @@ export class ApiService {
      * @return {Promise<Dog || null>}
      */
      async updateDogGender(dogId: string, gender: string): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -538,7 +540,7 @@ export class ApiService {
      * @return {Promise<Dog || null>}
      */
       async updateDogdob(dogId: string, dob: Date): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -554,7 +556,7 @@ export class ApiService {
      * @return {Promise<Dog || null>}
      */
       async updateDogabout(dogId: string, about: string): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -570,7 +572,7 @@ export class ApiService {
          * @return {Promise<Dog || null>}
          */
             async updateDogheight(dogId: string, height: number): Promise<Dog | null> {
-                const dog = await this.DogModel.findOne({dogId}).exec();
+                const dog = await this.DogModel.findOne({_id: dogId}).exec();
                 if(dog == null){
                     throw new Error("Dog does not exist");
                 }
@@ -586,7 +588,7 @@ export class ApiService {
      * @return {Promise<Dog || null>}
      */
     async updateDogweight(dogId: string, weight: number): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -602,7 +604,7 @@ export class ApiService {
      * @return {Promise<Dog || null>}
      */
     async updateDogfurLength(dogId: string, furLength: string): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -618,7 +620,7 @@ export class ApiService {
      * @return {Promise<Dog || null>}
      */
     async updateDogtemperament(dogId: string, temperament: [string]): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }
@@ -633,7 +635,7 @@ export class ApiService {
      * @return {Promise<Dog || null>}
      */
     async deleteDog(dogId: string): Promise<Dog | null> {
-        const dog = await this.DogModel.findOne({dogId}).exec();
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
         if(dog == null){
             throw new Error("Dog does not exist");
         }

@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
+import { Storage } from '@capacitor/storage';
+
+
 @Component({
   selector: 'pawdopt-updateorremovedog',
   templateUrl: 'updateorremovedog.page.html',
@@ -14,27 +17,27 @@ export class updateorremovedogPageComponent {
   dogID!: string;
   inputBreed!: string;
   inputGender!: string;
-  inputDob!: Date;
+  inputDob!: string;
   inputAbout!: string;
   inputHeight!: number;
   inputWeight!: number;
   inputFurlength!: string;
   inputTemperament!: string;
-
-  newBreed = this.inputBreed;
-  newGender = this.inputGender;
-  newDob = this.inputDob;
-  newAbout = this.inputAbout;
-  newHeight = this.inputHeight;
-  newWeight = this.inputWeight;
-  newFurlength = this.inputFurlength;
-  newTemperament = this.inputTemperament;
   
   constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo: Apollo, private varsFacade: VarsFacade ){
-    this.varsFacade.dogID$.subscribe(dogID => {
-      this.dogID = dogID;
-    });
+    // this.varsFacade.dogID$.subscribe(dogID => {
+    //   console.log("hello im here");
+    //   this.dogID = dogID;
+    //   console.log(this.dogID);
+    // });
     this.loadDog();
+  }
+
+  async getObject() {
+    const ret = await Storage.get({ key: 'dogID' });
+    if(ret.value){
+      return JSON.parse(ret.value);
+    }
   }
 
   dog:{
@@ -61,7 +64,9 @@ export class updateorremovedogPageComponent {
 
   temperamentString = "";
 
-  loadDog(){
+  async loadDog(){
+
+    this.dogID = (await this.getObject()).name;
     const getDogQuery = gql`query {
       findDogById(_id: "${this.dogID}"){
         name
@@ -80,9 +85,8 @@ export class updateorremovedogPageComponent {
       query: getDogQuery,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
       const data = result.data as {
-        findDog: {
+        findDogById: {
           name: string,
           dob: Date,
           gender: string,
@@ -93,44 +97,54 @@ export class updateorremovedogPageComponent {
           temperament: string[],
           furLength: string
         }
-      };
-      
-      this.dog.name = data.findDog.name;
-      this.dog.about = data.findDog.about;
-      const tempDate = new Date(data.findDog.dob); 
-      this.dog.dob = tempDate.toDateString();
-      this.dog.gender = data.findDog.gender;
-      this.dog.height = data.findDog.height;
-      this.dog.weight = data.findDog.weight;
-      this.dog.breed = data.findDog.breed;
-      this.dog.temperament = data.findDog.temperament;
-      this.dog.furlength = data.findDog.furLength;
-
-      //list all elements in temperament into temperamentString
-      this.temperamentString = "";
-      for(let i = 0; i < this.dog.temperament.length; i++){
-        this.temperamentString += this.dog.temperament[i];
-        if(i!=this.dog.temperament.length-1){
-          this.temperamentString += ", ";
-        }
       }
-    });
+
+        // this.inputName = data.findDogById.name;
+        this.inputAbout = data.findDogById.about;
+        const tempDate = new Date(data.findDogById.dob); 
+        this.inputDob = (tempDate.getFullYear() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getDate()).toString();
+        this.inputGender = data.findDogById.gender;
+        this.inputHeight = data.findDogById.height;
+        this.inputWeight = data.findDogById.weight;
+        this.inputBreed = data.findDogById.breed;
+        this.dog.temperament = data.findDogById.temperament;
+        this.inputFurlength = data.findDogById.furLength;
+
+        //list all elements in temperament into temperamentString
+        this.temperamentString = "";
+        for(let i = 0; i < this.dog.temperament.length; i++){
+          this.temperamentString += this.dog.temperament[i];
+          if(i!=this.dog.temperament.length-1){
+            this.temperamentString += ", ";
+          }
+        }
+        this.inputTemperament = this.temperamentString;
+      }
+    )
   }
 
 
+
   updateDog(){
-  
+    
+    let temperamentString1 = "";
+    const temperament = this.inputTemperament.replace(/\s+/g, "").split(",");
+    temperament.forEach(element => {
+      temperamentString1 += '"' + element + '",'; 
+      
+    });
+    
     const updateDogQuery = gql`mutation {
       updateDog(
-        _id: "${this.dogID}",
-        breed: "${this.newBreed}",
-        gender: "${this.newGender}",
-        dob: "${this.newDob}",
-        about: "${this.newAbout}",
-        height: "${this.newHeight}",
-        weight: "${this.newWeight}",
-        furlength: "${this.newFurlength}",
-        temperament: "${this.newTemperament}")
+        dogId: "${this.dogID}",
+        breed: "${this.inputBreed}",
+        gender: "${this.inputGender}",
+        dob: "${this.inputDob}",
+        about: "${this.inputAbout}",
+        height: ${this.inputHeight},
+        weight: ${this.inputWeight},
+        furlength: "${this.inputFurlength}",
+        temperament: [${temperamentString1}])
       {
         _id
       }
@@ -139,7 +153,6 @@ export class updateorremovedogPageComponent {
       mutation: updateDogQuery,
       fetchPolicy: 'no-cache'
     }).subscribe((result) => {
-      console.log(result);
       this.router.navigate(["/owneddogs"]);
     }
     );
@@ -155,7 +168,6 @@ export class updateorremovedogPageComponent {
       mutation: deleteDogQuery,
       fetchPolicy: 'no-cache'
     }).subscribe((result) => {
-      console.log(result);
       this.router.navigate(["/owneddogs"]);
     })
   };

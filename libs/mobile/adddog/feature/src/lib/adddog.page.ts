@@ -30,59 +30,65 @@ export class AdddogPageComponent {
   addDog(){
     this.afAuth.currentUser.then(user => {
       this.uid = user?.uid;
+      console.log(this.uid);
+
+      if(this.uid){
+        //Query used to get the orgId
+        const findOrgMemberByIdQuery = gql`query {
+          findOrgMemberById(_id: "${this.uid}") {
+            organisation 
+          }
+        }`;
+  
+        this.apollo.watchQuery({
+          query: findOrgMemberByIdQuery,
+          fetchPolicy: 'no-cache'
+        }).valueChanges.subscribe((result) => {
+          const data = result.data as {
+            findOrgMemberById: {
+              organisation: string;
+            };
+          };
+          if (data.findOrgMemberById != null) {
+            const orgId = data.findOrgMemberById.organisation;
+            this.orgId = orgId;
+            console.log(this.orgId);
+          }
+          const AddDogMutation = gql`mutation {
+            createDog(dog: {
+              _id: "new_id",
+              name: "${this.inputName}",
+              dob: "${this.inputDOB}",
+              gender: "${this.inputGender}",
+              pics : ["firebaseID"],
+              breed: "${this.inputBreed}",
+              about: "${this.inputAbout}",
+              weight: ${this.inputWeight},
+              height: ${this.inputHeight},
+              furLength: "${this.inputFurlength}",
+              temperament: "${this.inputTemperament}"}, orgId:"${this.orgId}") {
+                name
+              }
+            }`;
+
+              console.log(AddDogMutation);
+    
+          this.apollo.mutate({
+            mutation: AddDogMutation,
+            fetchPolicy: 'no-cache'
+            }).subscribe((result) => {
+              console.log(result);
+            }
+          );
+        });
+        // pass it through to the mutation query
+      }else{
+        console.log("User not logged in");
+      }
+      this.router.navigate(["/owneddogs"]);
     });
 
-    if(this.uid){
-      //Query used to get the orgId
-      const findOrgMemberByIdQuery = gql`query {
-        findOrgMemberById(id: "${this.uid}") {
-          organisation 
-        }
-      }`;
-
-      this.apollo.watchQuery({
-        query: findOrgMemberByIdQuery,
-        fetchPolicy: 'no-cache'
-      }).valueChanges.subscribe((result) => {
-        const data = result.data as {
-          findOrgMemberById: {
-            organisation: string;
-          };
-        };
-        if (data.findOrgMemberById != null) {
-          const orgId = data.findOrgMemberById.organisation;
-          this.orgId = orgId;
-          console.log(this.orgId);
-        }
-      });
-
-      // pass it through to the mutation query
-      const AddDogMutation = gql`mutation {
-        createDog(dog: {
-          _id: "new_id",
-          name: "${this.inputName}",
-          dob: "${this.inputDOB}",
-          gender: "${this.inputGender}",
-          pics : ["firebaseID"],
-          breed: "${this.inputBreed}",
-          about: "${this.inputAbout}",
-          weight: "${this.inputWeight}",
-          height: "${this.inputHeight}",
-          furlength: "${this.inputFurlength}",
-          temperament: "${this.inputTemperament}"}, "${this.orgId}") {
-            name
-          }`;
-
-      this.apollo.mutate({
-        mutation: AddDogMutation,
-        fetchPolicy: 'no-cache'
-        }).subscribe((result) => {
-          console.log(result);
-        }
-      );
-    }else{
-      console.log("User not logged in");
-    }
+    
   }
   Back(){
     // TODO Complete add dog validation

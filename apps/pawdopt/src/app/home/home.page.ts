@@ -50,6 +50,7 @@ export class HomePage {
         if(user?.uid){
           this.t_ID = user.uid;
           console.log(this.t_ID);
+          this.getDogs();
         }
       });
       // get in all global vars here (preferences)
@@ -81,7 +82,6 @@ export class HomePage {
     //   this.varsFacade.minSize$.subscribe(minSize => {
     //     this.minSize = minSize;
     //     });
-      this.getDogs();
     }
   
 
@@ -152,6 +152,50 @@ export class HomePage {
         );
         this.currentIndex++;
       });
+      const findAdopterByIdQuery = gql`query{
+        findAdopterById(_id: "${this.t_ID}"){
+          dogsLiked{
+            _id
+          }
+          dogsDisliked{
+            _id
+          }
+        }
+      }`
+      this.apollo.watchQuery({
+        query: findAdopterByIdQuery,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe((result) => {
+        console.log(result);
+        const data = result.data as {
+          findAdopterById: {
+            dogsLiked: {
+              _id: string
+            }[],
+            dogsDisliked: {
+              _id: string
+            }[]
+          }
+        }
+        this.avatars.forEach(element => {
+          data.findAdopterById.dogsLiked.forEach(element2 => {
+            if(element._id == element2._id){
+              this.avatars.splice(this.avatars.indexOf(element), 1);
+              this.currentIndex--;
+            }
+          }
+          );
+        }
+        );
+        this.avatars.forEach(element => {
+          data.findAdopterById.dogsDisliked.forEach(element2 => {
+            if(element._id == element2._id){
+              this.avatars.splice(this.avatars.indexOf(element), 1);
+              this.currentIndex--;
+            }
+          });
+        });
+      });
     });
 
     //loop through avatars and exclude elements that dont confide to the filters
@@ -192,71 +236,26 @@ export class HomePage {
     //if they are not liked or disliked, keep them in the avatars
     //if there are no more dogs, show a message
     //if there are more dogs, show them
-
-    const findAdopterByIdQuery = gql`query{
-      findAdopterById(_id: "${this.t_ID}"){
-        dogsLiked{
-          _id
-        }
-        dogsDisliked{
-          _id
-        }
-      }
-    }`
-    this.apollo.watchQuery({
-      query: findAdopterByIdQuery,
-      fetchPolicy: 'no-cache'
-    }).valueChanges.subscribe((result) => {
-      console.log(result);
-      const data = result.data as {
-        findAdopterById: {
-          dogsLiked: {
-            _id: string
-          }[],
-          dogsDisliked: {
-            _id: string
-          }[]
-        }
-      }
-      this.avatars.forEach(element => {
-        data.findAdopterById.dogsLiked.forEach(element2 => {
-          if(element._id == element2._id){
-            this.avatars.splice(this.avatars.indexOf(element), 1);
-            this.currentIndex--;
-          }
-        }
-        );
-      }
-      );
-      this.avatars.forEach(element => {
-        data.findAdopterById.dogsDisliked.forEach(element2 => {
-          if(element._id == element2._id){
-            this.avatars.splice(this.avatars.indexOf(element), 1);
-            this.currentIndex--;
-          }
-        });
-      });
-    });
     
   }
 
-  swiped(event: boolean, index: number) {
+  async swiped(event: boolean, index: number) {
     
     console.log(this.t_ID);
     console.log(this.avatars[index].name + ' swiped ' + event);
      if(event)
-       this.addDogToLiked(index);
+       await this.addDogToLiked(this.currentIndex);
       else
-        this.addDogToDisliked(index);
+        await this.addDogToDisliked(this.currentIndex);
     this.avatars[index].visible = false;
-    this.results.push(this.avatars[index].name + ' swiped ' + event);
+    this.results.push(this.avatars[index].name + ' swiped ' + event); 
     console.log(index);
     console.log(this.currentIndex);
     this.currentIndex--;
   }
 
 
-  swipeleft() {
+  swipeleft() { 
     if(this.currentIndex > -1){
       console.log(this.currentIndex);
       this.addDogToDisliked(this.currentIndex);
@@ -288,7 +287,8 @@ export class HomePage {
         }
       }`;
       this.apollo.mutate({
-        mutation: removeDogFromAdopterDogsLikedOrDislikedQuery
+        mutation: removeDogFromAdopterDogsLikedOrDislikedQuery,
+        fetchPolicy: 'no-cache'
       }).subscribe((result) => {
         console.log(result);
         const data = result.data as {
@@ -320,7 +320,7 @@ export class HomePage {
   }
 
       
-  addDogToLiked(index: number) {
+  async addDogToLiked(index: number) {    
     const addDogToLikedMutation = gql`
       mutation {
         userSwipesRight(userId: "${this.t_ID}", dogId: "${this.avatars[index]._id}") {
@@ -330,6 +330,7 @@ export class HomePage {
     `;
     this.apollo.mutate({
       mutation: addDogToLikedMutation,
+      fetchPolicy: 'no-cache'
     }).subscribe(({data}) => {
       console.log('got data', data);
     }, (error) => {
@@ -337,7 +338,7 @@ export class HomePage {
     });
   }
   
-  addDogToDisliked(index: number) {
+  async addDogToDisliked(index: number) {
     const addDogToDislikedMutation = gql`
       mutation {
         userSwipesLeft(userId: "${this.t_ID}", dogId: "${this.avatars[index]._id}") {
@@ -347,6 +348,7 @@ export class HomePage {
     `;
     this.apollo.mutate({
       mutation: addDogToDislikedMutation,
+      fetchPolicy: 'no-cache'
     }).subscribe(({data}) => {
       console.log('got data', data);
     }, (error) => {

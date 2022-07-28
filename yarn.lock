@@ -2043,6 +2043,11 @@
   resolved "https://registry.npmjs.org/@capacitor/ios/-/ios-3.5.1.tgz"
   integrity sha512-295L9dHe/QaejUpGI8Pxwb1i2yVgick1ExIDK26xk+tk1km3B1HVjsIS8qkf2SOp7tuwP9+W5T5p7rLMNN4v5g==
 
+"@capacitor/storage@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@capacitor/storage/-/storage-1.2.5.tgz#48206869cbbf1404fcdbb5c440a882140bd3abd8"
+  integrity sha512-pWhnw4U7wN/zFV4lA4BLMypSufTktCbk548Yk4whSb0KAq3R0mLfSubRIHkGdcPqQWCsM6g/zUuszurhz6ncWQ==
+
 "@colors/colors@1.5.0":
   version "1.5.0"
   resolved "https://registry.npmjs.org/@colors/colors/-/colors-1.5.0.tgz"
@@ -5358,6 +5363,14 @@ caniuse-lite@^1.0.30001299, caniuse-lite@^1.0.30001335, caniuse-lite@^1.0.300013
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001349.tgz"
   integrity sha512-VFaWW3jeo6DLU5rwdiasosxhYSduJgSGil4cSyX3/85fbctlE58pXAkWyuRmVA0r2RxsOSVYUTZcySJ8WpbTxw==
 
+capacitor@^0.5.5:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/capacitor/-/capacitor-0.5.5.tgz#c379711ee2939d7a16b95eca78945f38997377b9"
+  integrity sha512-5my22sgl3eUStd29WXtEq8LGVmD5Z57eG9zoVRKplQR4fDa7ETYC3QlBQeziZPzsLeWEyn/6gUvNFvSu6P0DtQ==
+  dependencies:
+    immutable "^3.7.3"
+    lodash "^2.4.1"
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.npmjs.org/caseless/-/caseless-0.12.0.tgz"
@@ -7804,6 +7817,11 @@ immediate@~3.0.5:
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
   integrity sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==
 
+immutable@^3.7.3:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
+  integrity sha512-15gZoQ38eYjEjxkorfbcgBKBL6R7T459OuK+CpcWt7O3KF4uPCx2tD0uFETlUDIyo+1789crbMhTvQBSR5yBMg==
+
 immutable@^4.0.0:
   version "4.1.0"
   resolved "https://registry.npmjs.org/immutable/-/immutable-4.1.0.tgz"
@@ -9052,6 +9070,11 @@ lodash@4.17.21, lodash@^4.17.14, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.7.0
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+
+lodash@^2.4.1:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-2.4.2.tgz#fadd834b9683073da179b3eae6d9c0d15053f73e"
+  integrity sha512-Kak1hi6/hYHGVPmdyiZijoQyz5x2iGVzs6w9GYB/HiXEtylY7tIoYEROMjvM1d9nXJqPOrG2MNPMn01bJ+S0Rw==
 
 log-symbols@^4.0.0, log-symbols@^4.1.0:
   version "4.1.0"
