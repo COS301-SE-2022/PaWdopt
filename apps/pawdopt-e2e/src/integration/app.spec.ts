@@ -20,7 +20,7 @@ describe('Adopter Use Case', () => {
     // cy.get('#create-account-button').click();
   });
 
-  it('should login as adopter', () => {
+  it.skip('should login as adopter', () => {
     cy.visit('/login');
     cy.get('#email-field > .native-input').type('testerman@ci.mintemail.com');
     cy.get('#password-field > .native-input').type('123456');
@@ -33,7 +33,8 @@ describe('Adopter Use Case', () => {
   it.skip('should swipe on some cards', () => {
       cy.get("#like-button").click();
       cy.get(".card").last().should("not.be.visible")
-      cy.get("#dislike-button").click();
+      // cy.get("#dislike-button").click();
+      cy.get("#like-button").click();
       cy.get(".card").last().prev().should("not.be.visible");
   });
 
@@ -43,10 +44,21 @@ describe('Adopter Use Case', () => {
       cy.get("#like-button").click();
   });
 
-  it('should navigate to likeddogs', () => {
+  it('should navigate to userlikes', () => {
       cy.get("#tab-button-liked").click();
-      cy.url().should("include", "/likeddogs");
+      cy.url().should("include", "/userlikes");
   });
+
+  it('should search for dogs', () => {
+      cy.get(".searchbar-input").type("c");
+  });
+  
+  it('should go to a liked dogs profile', () => {
+      cy.get("ion-button").first().click();
+      cy.url().should("include", "/orgprofile");
+  });
+
+
 
 
 
