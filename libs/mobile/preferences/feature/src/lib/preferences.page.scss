@@ -1,0 +1,41 @@
+.container {
+    height: 100%;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: scroll;
+}
+
+// .logo {
+//     margin-top: 20%;
+//     margin-bottom: 10%;
+// }
+.greyButton {
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.back {
+    margin-top: 5%;
+    margin-bottom: 20%;
+}
+
+.form-input-label-slider {
+    padding-bottom: 5px;
+    color: #020300;
+    font-size: medium;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-slider {
+    --knob-background: #2a0800;
+    --bar-background-active: #2a0800;
+}
+
+.table {
+    width: 100%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
