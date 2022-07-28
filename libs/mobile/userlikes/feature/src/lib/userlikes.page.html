@@ -20,7 +20,7 @@
 <ion-content>
     <!--Search for dogs in user likes-->
     <div class="searchbar">
-        <ion-searchbar placeholder="Try Millie.." [(ngModel)]="inputSearch" (ionClear)="onCancelSearch()" (input)="search()" animated></ion-searchbar>
+        <ion-searchbar placeholder="Try Millie.." [(ngModel)]="inputSearch" (ionClear)="getDog(false)" (ionChange)="getDog(true)" animated></ion-searchbar>
     </div>
     <div>&nbsp;</div>
 
@@ -29,9 +29,9 @@
             <div class="thefront">
                 <img src="{{d.pic}}" />
                 <ion-title class="ion-text-center"><b>{{d.name}},{{d.age}}</b></ion-title>
-                <a onclick="orgProfile(d.orgId)"><b>{{d.organisation}}</b>
+                <ion-button (click)="orgProfile(d.orgId)" fill="clear"><b>{{d.organisation}}</b>
                     <ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon>
-                </a>
+                </ion-button>
                 <p>{{d.about}}</p>
             </div>
             <div class="theback">
