@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Storage } from '@capacitor/storage';
+
 
 @Component({
   selector: 'pawdopt-owneddogs',
@@ -37,117 +39,136 @@ export class owneddogsPageComponent {
   // }[]=[];
 
   constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth) {
-    this.getDog();
-    console.log(this.orgId);
+    this.getDog(false);
   }
 
-  getDog(){
-    const uid = this.afAuth.currentUser.then(user => {
-      return user?.uid;
-    });
+  getDog(search: boolean){
+    this.dog=[]
+    this.afAuth.currentUser.then(user => {
+      const uid = user?.uid;
 
-    if(uid){
+      if(uid){
 
-      const getOrgDetailsQuery = gql`query {
-        findOrgMemberById(_id: "${uid}") {
-          organisation
+        const getOrgDetailsQuery = gql`query {
+          findOrgMemberById(_id: "${uid}") {
+            organisation
+          } 
         }`;
-      this.apollo.watchQuery({
-        query: getOrgDetailsQuery,
-        fetchPolicy: 'no-cache'
-      }).valueChanges.subscribe((result) => {
-        const data = result.data as {
-          findOrgMemberById: {
-            organisation: string
-          }
-        }
-        this.orgId = data.findOrgMemberById.organisation;
-        const getDogQuery = gql`query {
-          findDogsByOrgId(_id: "${this.orgId}") {
-            _id
-            name
-            dob
-            pics
-            breed
-            usersLiked{
-              name
-            }
-            organisation{
-              name
-            }
-          }
-        }`;
-  
         this.apollo.watchQuery({
-          query: getDogQuery,
+          query: getOrgDetailsQuery,
           fetchPolicy: 'no-cache'
         }).valueChanges.subscribe((result) => {
-          console.log(result);
           const data = result.data as {
-            findDogsByOrgName: {
-              _id: string,
-              name: string,
-              dob: Date,
-              pics: string[],
-              breed: string,
-              usersLiked: {
-                name: string
-              }[]
-              organisation: {
+            findOrgMemberById: {
+              organisation: string
+            }
+          }
+          this.orgId = data.findOrgMemberById.organisation;
+          const getDogQuery = gql`query {
+            findDogsByOrgId(_id: "${this.orgId}") {
+              _id
+              name
+              dob
+              pics
+              breed
+              usersLiked{
+                name
+              }
+              organisation{
+                name
+              }
+            }
+          }`;
+    
+          this.apollo.watchQuery({
+            query: getDogQuery,
+            fetchPolicy: 'no-cache'
+          }).valueChanges.subscribe((result) => {
+            console.log(result);
+            const data = result.data as {
+              findDogsByOrgId: {
                 _id: string,
-                name: string
+                name: string,
+                dob: Date,
+                pics: string[],
+                breed: string,
+                usersLiked: {
+                  name: string
+                }[]
+                organisation: {
+                  _id: string,
+                  name: string
+                }
+              }[]
+            };
+            this.orgName = data.findDogsByOrgId[0].organisation.name;
+            // this.dog.name = data.findDog.name;
+            // this.dog.pic = data.findDog.pics[0].path;
+            // this.dog.breed = data.findDog.breed;
+            // this.dog.age = 0;
+            // this.dog.likes = data.findDog.usersLiked.length;
+            // console.log(data);
+            // console.log(data.findDogByOrgName);
+            //get the years between a Date and now
+            // const now = new Date();
+            // const birthDate = new Date(data.findDog.dob);
+            // const age = now.getFullYear() - birthDate.getFullYear();
+            const now = new Date();
+    
+    
+            
+          if(search){
+            // console.log(this.dog);
+            // this.dog.map((element) => {
+            //   console.log("hello");
+            //   console.log("1" + element.name.toLowerCase() + this.inputSearch.toLowerCase());
+            //   if(!element.name.toLowerCase().includes(this.inputSearch.toLowerCase())){
+            //     console.log(element.name.toLowerCase() + this.inputSearch.toLowerCase());
+            //     this.dog.splice(this.dog.indexOf(element), 1);
+            //   }
+            // });
+            // console.log(this.dog);
+            // filter the dog array based on the search input
+
+            data.findDogsByOrgId.forEach(element => {
+              const birthDate = new Date(element.dob);
+              if(element.name.toLowerCase().includes(this.inputSearch.toLowerCase())){
+                this.dog.push(
+                  {
+                    _id: element._id,
+                    name: element.name,
+                    pic: element.pics[0],
+                    age: now.getFullYear() - birthDate.getFullYear(),
+                    likes: element.usersLiked.length,
+                    breed: element.breed,
+                    orgId: element.organisation._id
+                  }
+                );
               }
-            }[]
-          };
-          this.orgName = data.findDogsByOrgName[0].organisation.name;
-          // this.dog.name = data.findDog.name;
-          // this.dog.pic = data.findDog.pics[0].path;
-          // this.dog.breed = data.findDog.breed;
-          // this.dog.age = 0;
-          // this.dog.likes = data.findDog.usersLiked.length;
-          // console.log(data);
-          // console.log(data.findDogByOrgName);
-          //get the years between a Date and now
-          // const now = new Date();
-          // const birthDate = new Date(data.findDog.dob);
-          // const age = now.getFullYear() - birthDate.getFullYear();
-          const now = new Date();
-  
-  
-          data.findDogsByOrgName.forEach(element => {
-            this.dog.push(
-              {
-                _id: element._id,
-                name: element.name,
-                pic: element.pics[0],
-                age: now.getFullYear() - element.dob.getFullYear(),
-                likes: element.usersLiked.length,
-                breed: element.breed,
-                orgId: element.organisation._id
-              }
-            );
-          })  
-        })
+            })  
+          }
+          else{
+            data.findDogsByOrgId.forEach(element => {
+              const birthDate = new Date(element.dob);
+              this.dog.push(
+                {
+                  _id: element._id,
+                  name: element.name,
+                  pic: element.pics[0],
+                  age: now.getFullYear() - birthDate.getFullYear(),
+                  likes: element.usersLiked.length,
+                  breed: element.breed,
+                  orgId: element.organisation._id
+                }
+              );
+            })
+          }
+        });
       });
-    }else{
-      console.log("No user logged in");
-    }
-  }
-
-
-  search(){
-    //foreach going through each dog and comparing the name to the input search
-    //if it matches, push to new array
-    //if not, do nothing
-    this.dog=[];
-    this.getDog();
-    this.dog = this.dog.filter(dog => dog.name.includes(this.inputSearch));
-
-  }
-
-  onCancelSearch(){
-    this.dog=[];
-    this.getDog();
+      }else{
+        console.log("No user logged in");
+      }
+    });    
   }
 
   dashboard(id: string){
@@ -156,9 +177,22 @@ export class owneddogsPageComponent {
   }
 
   update(id: string){
-    this.varsFacade.setDogID(id);
+    // console.log(id);
+    // this.varsFacade.setDogID(id);
+    this.setObject(id);
     this.router.navigate(["/updateorremovedog"]);
   }
+
+      // JSON "set" example
+    async setObject(id: string) {
+      await Storage.set({
+      key: 'dogID',
+      value: JSON.stringify({
+        id: 1,
+        name: id
+        })
+      });
+    }
 
   updateLikes(id: string){
     this.varsFacade.setDogID(id);
