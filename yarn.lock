@@ -2009,6 +2009,11 @@
   resolved "https://registry.npmjs.org/@capacitor/android/-/android-3.5.1.tgz"
   integrity sha512-rjehS0+BQBlwoN8hUyrMuzexn/9QJsONb1kmN5uXcL8JuTEbv35fa7z0tSD4x1LKwUFd+3Zeuwt60QRuwijlmw==
 
+"@capacitor/camera@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/camera/-/camera-1.3.1.tgz#bb63bd47e87b9b5916b77cdb164e5c01b2f85e25"
+  integrity sha512-P0Isb1RKUGUpvmLTxsfVOge6bte7hGzp/zObQAQJ96wh9IAGv8S87g7qPm6SLPhg9HK+E8JY3eUmN6KbIRGJNg==
+
 "@capacitor/cli@^3.5.1":
   version "3.5.1"
   resolved "https://registry.npmjs.org/@capacitor/cli/-/cli-3.5.1.tgz"
@@ -2037,6 +2042,24 @@
   integrity sha512-UTROxB7q/hZBnhDLcCN7mVsAX3SxXNMhVuPbtddsDOUCm4hExLXN62gPD7rjgmumhfHMjeXmkw/EfRzSjttL1g==
   dependencies:
     tslib "^2.1.0"
+
+"@capacitor/filesystem@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/filesystem/-/filesystem-1.1.0.tgz#0bd6a8bc185b7fd9a1219c3080ab26c2b54ea8b6"
+  integrity sha512-8O3UuvL8HNUEJvZnmn8yUmvgB1evtXfcF0oxIo3YbSlylqywJwS3JTiuhKmsvSxCdpbTy8IaTsutVh3gZgWbKg==
+
+"@capacitor/geolocation@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/geolocation/-/geolocation-1.3.1.tgz#9fb92a1cfb9b0721eba61dce07b98c4113d8def5"
+  integrity sha512-3u9Hu4E0VBMa6r0d2t9MENDIR+bv5Tf144uPmb2Bl7XLQeFwvu4BSp2neNq39x58PvcROPMNX1BOTSGpQep+1Q==
+
+"@capacitor/google-maps@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/google-maps/-/google-maps-1.1.0.tgz#eeb8794ac1f9f1635c761f0f952f310e4a444189"
+  integrity sha512-VKzyhLxmb3zQTDwvPRHdNT/49ADsZRxtSQlto1xbSzdJ6upilWeahpmix98852XTxtt4XWAzSR/XI19hsOGUdg==
+  dependencies:
+    "@googlemaps/js-api-loader" "^1.13.7"
+    "@googlemaps/markerclusterer" "^2.0.7"
 
 "@capacitor/ios@^3.5.1":
   version "3.5.1"
@@ -2529,6 +2552,21 @@
   version "1.1.3"
   resolved "https://registry.npmjs.org/@gar/promisify/-/promisify-1.1.3.tgz"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
+
+"@googlemaps/js-api-loader@^1.13.7":
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.14.3.tgz#d7a161cd547be04ad46a1cb176e6c2647f6d74a7"
+  integrity sha512-6iIb+qpGgQpgIHmIFO44WhE1rDUxPVHuezNFL30wRJnkvhwFm94tD291UvNg9L05hLDSoL16jd0lbqqmdy4C5g==
+  dependencies:
+    fast-deep-equal "^3.1.3"
+
+"@googlemaps/markerclusterer@^2.0.7":
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/@googlemaps/markerclusterer/-/markerclusterer-2.0.8.tgz#39f037e60a1c62cd9f04d529ea9c4f286af4ec6f"
+  integrity sha512-l/Z3nxTE55iaWDB8NL/HpFdYht2x0khPaJI9pD7KDbfHeZaZyG8yT6xi2cZ0Lb2VvgKFb3OtNKRMpAuS4xm2rg==
+  dependencies:
+    fast-deep-equal "^3.1.3"
+    supercluster "^7.1.3"
 
 "@graphql-tools/merge@8.2.13":
   version "8.2.13"
@@ -8897,6 +8935,11 @@ karma-source-map-support@1.4.0:
   dependencies:
     source-map-support "^0.5.5"
 
+kdbush@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/kdbush/-/kdbush-3.0.0.tgz#f8484794d47004cc2d85ed3a79353dbe0abc2bf0"
+  integrity sha512-hRkd6/XW4HTsA9vjVpY9tuXJYLSlelnkTmVFu4M9/7MIYQtFcHpbugAU7UbOfjOiVSVYl2fqgBuJ32JUmRo5Ew==
+
 kind-of@^6.0.2:
   version "6.0.3"
   resolved "https://registry.npmjs.org/kind-of/-/kind-of-6.0.3.tgz"
@@ -11561,6 +11604,13 @@ subscriptions-transport-ws@0.11.0:
     iterall "^1.2.1"
     symbol-observable "^1.0.4"
     ws "^5.2.0 || ^6.0.0 || ^7.0.0"
+
+supercluster@^7.1.3:
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-7.1.5.tgz#65a6ce4a037a972767740614c19051b64b8be5a3"
+  integrity sha512-EulshI3pGUM66o6ZdH3ReiFcvHpM3vAigyK+vcxdjpJyEbIIrtbmBdY23mGgnI24uXiGFvrGq9Gkum/8U7vJWg==
+  dependencies:
+    kdbush "^3.0.0"
 
 supports-color@^5.3.0:
   version "5.5.0"

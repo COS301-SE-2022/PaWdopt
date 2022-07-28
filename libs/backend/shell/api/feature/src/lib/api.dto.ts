@@ -1,5 +1,5 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
-import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter, Doc } from './api.schema';
+import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter } from './api.schema';
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')

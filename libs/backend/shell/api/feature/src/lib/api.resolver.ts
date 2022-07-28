@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
-import { DogType, OrganisationType, LocationType, ContactInfoType, AdopterType, OrgMemberType } from './api.dto';
-import { Dog,  Organisation, Location, ContactInfo, Adopter} from './api.schema';
+import { DogType, OrganisationType, ContactInfoType, AdopterType, OrgMemberType } from './api.dto';
+// import { Dog,  Organisation, Location, ContactInfo, Adopter} from './api.schema';
 
 import { Types } from 'mongoose';
 
@@ -273,6 +273,7 @@ export class ApiResolver {
      */
      @Query(() => [DogType])
      async findDogs(@Args('na') na: boolean) : Promise<DogType[]> {
+         na;
          return this.DogService.findDogs();
      }
 
