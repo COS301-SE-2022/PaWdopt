@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
+import { Storage } from '@capacitor/storage';
 @Component({
   selector: 'pawdopt-orgprofile',
   templateUrl: 'orgprofile.page.html',
@@ -11,10 +12,11 @@ import { VarsFacade } from '@pawdopt/shared/data-store';
 export class orgprofilePageComponent {
   
   orgId!:string;
+  dateString!: string;
 
   org:{
-    orgName: string,
-    dateCreated: Date,
+    name: string,
+    dateFounded: Date,
     location:{
       lat: number,
       lng: number,
@@ -22,8 +24,8 @@ export class orgprofilePageComponent {
     totalDogs: number,
     totalAdoptions: number
   }={
-    orgName: "",
-    dateCreated: new Date(),
+    name: "",
+    dateFounded: new Date(),
     location:{
       lat: 0,
       lng: 0,
@@ -33,23 +35,30 @@ export class orgprofilePageComponent {
   }
 
   constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade){
-    this.varsFacade.orgId$.subscribe(orgId => {
-      this.orgId = orgId;
-    });
     this.getOrg();
   }
 
-  getOrg(){
+  async getObject() {
+    const ret = await Storage.get({ key: 'dogID' });
+    if(ret.value){
+      return JSON.parse(ret.value);
+    }
+  }
+
+  async getOrg(){
+    
+    this.orgId = (await this.getObject()).name;
     const findOrgByIdQuery = gql`query {
       findOrgById(_id: "${this.orgId}") {
-        orgName
-        dateCreated
+        name
+        dateFounded
         location {
           lat
           lng
         }
         totalDogs
         totalAdoptions
+      }
     }`;
     this.apollo.watchQuery({
       query: findOrgByIdQuery,
@@ -58,8 +67,8 @@ export class orgprofilePageComponent {
       console.log(result);
       const data = result.data as {
         findOrgById: {
-          orgName: string,
-          dateCreated: Date,
+          name: string,
+          dateFounded: Date,
           location: {
             lat: number,
             lng: number,
@@ -69,6 +78,8 @@ export class orgprofilePageComponent {
         }
       };
     this.org = data.findOrgById; //if error then do each var indiv.
+    const date = new Date(this.org.dateFounded);
+    this.dateString = (date.getDay() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()).toString();
     });
   }
 
