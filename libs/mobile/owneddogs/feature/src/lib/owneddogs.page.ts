@@ -19,6 +19,7 @@ export class owneddogsPageComponent {
   inputSearch!: string;
   orgId!: string;
   orgName!: string;
+  uid?: string;
 
 
   //get org name for login
@@ -45,12 +46,12 @@ export class owneddogsPageComponent {
   getDog(search: boolean){
     this.dog=[]
     this.afAuth.currentUser.then(user => {
-      const uid = user?.uid;
+      this.uid = user?.uid;
 
-      if(uid){
+      if(this.uid){
 
         const getOrgDetailsQuery = gql`query {
-          findOrgMemberById(_id: "${uid}") {
+          findOrgMemberById(_id: "${this.uid}") {
             organisation
           } 
         }`;
