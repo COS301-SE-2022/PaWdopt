@@ -15,12 +15,28 @@ export class PreferencesPageComponent {
     lower: number;
     upper: number;
   };
+  size2!: {
+    lower: number;
+    upper: number;
+  };
+  size3!: {
+    lower: number;
+    upper: number;
+  };
   sizeAny!: boolean;
 
   constructor(private router: Router, public actionSheetController: ActionSheetController) {
     this.gender = "any";
     this.breed = "any";
     this.size = {
+      lower: 0,
+      upper: 100
+    };
+    this.size2 = {
+      lower: 0,
+      upper: 100
+    };
+    this.size3 = {
       lower: 0,
       upper: 100
     };
