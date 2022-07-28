@@ -130,7 +130,14 @@ const routes: Routes = [
       import('@pawdopt/mobile/useradoption/feature').then(
         (m) => m.useradoptionPageComponentModule
       )
-  }
+    },
+    {
+    path: 'preferences',
+    loadChildren: () =>
+      import('@pawdopt/mobile/preferences/feature').then(
+        (m) => m.PreferencesPageComponentModule
+      )
+    }
 ];
 
 @NgModule({

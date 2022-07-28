@@ -51,6 +51,12 @@ export class ApiService {
      * @return {Promise<OrgMember || null>}
      */
     async createOrgMember(orgMember: OrgMember): Promise<OrgMember | null> {
+        const org = await this.OrganisationModel.findOne({ _id: orgMember.organisation }).exec();
+        if (org) {
+            org.members.push(orgMember);
+        }else{
+            throw new Error('Organisation not found');
+        }
         return this.OrgMemberModel.create(orgMember);
     }
 
@@ -568,21 +574,21 @@ export class ApiService {
         return dog.save();
      }
 
-        /**
-         * used in updateorremove page
-         * update a dogs height
-         * @param {string} dogId The _id of the dog to update
-         * @param {number} height The new height of the dog
-         * @return {Promise<Dog || null>}
-         */
-            async updateDogheight(dogId: string, height: number): Promise<Dog | null> {
-                const dog = await this.DogModel.findOne({_id: dogId}).exec();
-                if(dog == null){
-                    throw new Error("Dog does not exist");
-                }
-                dog.height = height;
-                return dog.save();
-            }
+    /**
+     * used in updateorremove page
+     * update a dogs height
+     * @param {string} dogId The _id of the dog to update
+     * @param {number} height The new height of the dog
+     * @return {Promise<Dog || null>}
+     */
+    async updateDogheight(dogId: string, height: number): Promise<Dog | null> {
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        dog.height = height;
+        return dog.save();
+    }
 
     /**
      * used in updateorremove page
@@ -645,10 +651,6 @@ export class ApiService {
         }
         return dog.remove();
     }
-
-
-
-    
 
     /* getUserType
      * @param {string} id The id of the user to find

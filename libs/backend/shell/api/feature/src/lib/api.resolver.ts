@@ -238,10 +238,6 @@ export class ApiResolver {
     @Mutation(() => OrganisationType)
     async createOrg(@Args('org') org: OrganisationType) : Promise<OrganisationType> {
         org._id = (new Types.ObjectId()).toHexString();
-        org.members.forEach(member => {
-            member.organisation = org._id;
-            this.DogService.createOrgMember(member);
-        });
         org.contactInfo._id = (new Types.ObjectId()).toHexString();
         org.contactInfo = await this.DogService.createContactInfo(org.contactInfo);
         return this.DogService.createOrg(org);
@@ -406,4 +402,6 @@ export class ApiResolver {
     async findDogsByOrgId(@Args('_id') _id: string) : Promise<DogType[]> {
         return this.DogService.findDogsByOrgId(_id);
     }
+
+    
 }

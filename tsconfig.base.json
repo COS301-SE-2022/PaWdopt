@@ -47,6 +47,9 @@
       "@pawdopt/mobile/owneddogs/feature": [
         "libs/mobile/owneddogs/feature/src/index.ts"
       ],
+      "@pawdopt/mobile/preferences/feature": [
+        "libs/mobile/preferences/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/signup/feature": [
         "libs/mobile/signup/feature/src/index.ts"
       ],

@@ -54,7 +54,7 @@ type OrganisationType {
   dateFounded: DateTime!
   totalAdoptions: Float!
   totalDogs: Float!
-  members: [OrgMemberType!]!
+  members: [OrgMemberType!]
   location: LocationType!
   rulesReq: String
   contactInfo: ContactInfoType!
@@ -127,7 +127,7 @@ input OrganisationInputType {
   dateFounded: DateTime!
   totalAdoptions: Float!
   totalDogs: Float!
-  members: [OrgMemberInputType!]!
+  members: [OrgMemberInputType!]
   location: LocationInputType!
   rulesReq: String
   contactInfo: ContactInfoInputType!
