@@ -280,7 +280,7 @@ export class HomePage {
     this.avatars[this.currentIndex].visible = true;
     const removeDogFromAdopterDogsLikedOrDislikedQuery = gql`mutation{
         removeDogFromAdopterDogsLikedOrDisliked(
-          _id: "${this.t_ID}",
+          userId: "${this.t_ID}",
           dogId: "${this.avatars[this.currentIndex]._id}"
         ){  
           _id

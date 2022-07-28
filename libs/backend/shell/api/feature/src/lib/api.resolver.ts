@@ -158,6 +158,10 @@ export class ApiResolver {
     @Mutation(() => DogType)
     async createDog(@Args('dog') dog: DogType, @Args('orgId') orgId: string) : Promise<DogType> {
         const org = await this.DogService.findOrgById(orgId);
+        org.totalDogs++;
+        await this.DogService.updateOrg(orgId, org);
+        org.totalAdoptions++;
+        await this.DogService.updateOrg(orgId, org);
         dog._id = (new Types.ObjectId()).toHexString();
         dog.organisation = org;
         return this.DogService.createDog(dog);

@@ -457,11 +457,15 @@ export class ApiService {
         if(dog == null){
             throw new Error("Dog does not exist");
         }
-        const index = adopter.dogsLiked.indexOf(dog);
+        const index = adopter.dogsLiked.findIndex(function(aDog){
+            return dog._id == aDog._id;
+        });
         if(index != -1){
             adopter.dogsLiked.splice(index, 1);
         }
-        const index2 = adopter.dogsDisliked.indexOf(dog);
+        const index2 = adopter.dogsDisliked.findIndex(function(aDog){
+            return dog._id == aDog._id;
+        });
         if(index2 != -1){
             adopter.dogsDisliked.splice(index2, 1);
         }
