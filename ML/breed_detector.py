@@ -19,9 +19,6 @@ class breed_detector:
     
 
     def get_data_sets(self):
-    # Get Data Sets from Images folder
-        self.get_data_sets()
-
         self.train_ds = keras.preprocessing.image_dataset_from_directory(
             "Images",
             validation_split=0.2,
@@ -57,6 +54,9 @@ class breed_detector:
     )
 
     def train_model(self):
+        # Get Data Sets from Images folder
+        self.get_data_sets()
+
         # Define Base Model
         base_model = keras.applications.Xception(
             weights='imagenet',  # Load weights pre-trained on ImageNet.
@@ -135,7 +135,7 @@ class breed_detector:
         log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
         callbacks = [
-            tf.keras.callbacks.EarlyStopping(patience=2),
+            tf.keras.callbacks.EarlyStopping(patience=3),
             tf.keras.callbacks.ModelCheckpoint(filepath='./models/breed_classifier_model.h5', save_best_only=True),
             tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1,profile_batch=(10, 15)),
         ]
@@ -149,7 +149,7 @@ class breed_detector:
         test_ds = self.test_ds.prefetch(buffer_size=32)
         
         model.fit(
-        train_ds, epochs=15, callbacks=callbacks, validation_data=test_ds,
+        train_ds, epochs=20, callbacks=callbacks, validation_data=test_ds,
         )
 
     saved_model = keras.models.load_model('./models/breed_classifier_model.h5')
