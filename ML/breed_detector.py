@@ -135,7 +135,7 @@ class breed_detector:
         log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
         callbacks = [
-            tf.keras.callbacks.EarlyStopping(patience=2),
+            tf.keras.callbacks.EarlyStopping(patience=3),
             tf.keras.callbacks.ModelCheckpoint(filepath='./models/breed_classifier_model.h5', save_best_only=True),
             tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1,profile_batch=(10, 15)),
         ]
@@ -149,7 +149,7 @@ class breed_detector:
         test_ds = self.test_ds.prefetch(buffer_size=32)
         
         model.fit(
-        train_ds, epochs=15, callbacks=callbacks, validation_data=test_ds,
+        train_ds, epochs=20, callbacks=callbacks, validation_data=test_ds,
         )
 
     saved_model = keras.models.load_model('./models/breed_classifier_model.h5')
