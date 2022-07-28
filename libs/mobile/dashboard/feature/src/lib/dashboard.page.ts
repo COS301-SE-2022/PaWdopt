@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
+import { Storage } from '@capacitor/storage'
 //import { owneddogsPageComponentModule } from '@pawdopt/mobile/owneddogs/feature';
 @Component({
   selector: 'pawdopt-dashboard',
@@ -45,11 +46,18 @@ export class dashboardPageComponent {
     /*this.varsFacade.dogID$.subscribe(dogID => {
       this.dogID = dogID;
     });*/
-     this.dogID = "eiofe"
     this.getDog();
   }
 
-  getDog(){
+  async getObject() {
+    const ret = await Storage.get({ key: 'dogID' });
+    if(ret.value){
+      return JSON.parse(ret.value);
+    }
+  }
+
+  async getDog(){
+    this.dogID = (await this.getObject()).name
     const getDogQuery = gql`query {
       findDogById(_id: "${this.dogID}") {
         name
@@ -58,7 +66,7 @@ export class dashboardPageComponent {
           name
         }
         usersLiked{
-          uid
+          _id
           name
           pic
         }
@@ -136,9 +144,10 @@ export class dashboardPageComponent {
   heart(id:string){
     console.log("heart");
     const clickedHeartIconquery = gql`mutation {
-      clickHeartIcon(_id: "${id}", dogID: "${this.dogID}") {
+      clickHeartIcon(userId: "${id}", dogID: "${this.dogID}") {
         _id
-      }`;
+      }
+    }`;
     this.apollo.mutate({
       mutation: clickedHeartIconquery,
       fetchPolicy: 'no-cache'
@@ -150,11 +159,12 @@ export class dashboardPageComponent {
   }
 
   trash(id:string){
-    console.log("trash");
+    console.log(id);
     const clickedTrashIconquery = gql`mutation {
-      clickTrashIcon(_id: "${id}", dogID: "${this.dogID}") {
-        _id
-      }`;
+      clickTrashIcon(userId: "${id}", dogID: "${this.dogID}") {
+        name
+      }
+    }`;
     this.apollo.mutate({
       mutation: clickedTrashIconquery,
       fetchPolicy: 'no-cache'
