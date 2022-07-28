@@ -122,7 +122,7 @@ export class OrganisationType {
     @Field()
     totalDogs: number;//current amount of dogs
 
-    @Field(() => [OrgMemberType])
+    @Field(() => [OrgMemberType], { nullable: true })
     members: [OrgMember];
 
     @Field(() => LocationType)

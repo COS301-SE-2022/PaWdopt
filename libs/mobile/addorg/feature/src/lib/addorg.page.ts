@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
-import { timeout } from 'rxjs';
 @Component({
   selector: 'pawdopt-addorg',
   templateUrl: 'addorg.page.html',
@@ -38,6 +37,7 @@ export class AddorgPageComponent {
       crossfade: true
     }
   }
+  oId!: string;
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth) {
     this.orgMembers=[{
@@ -50,7 +50,7 @@ export class AddorgPageComponent {
     this.orgMembers.pop();
   }
 
-  async addOrg(){
+  addOrg(){
     //TODO: Add validation
 
     if(this.rulesReq == null || this.rulesReq == undefined){
@@ -78,37 +78,18 @@ export class AddorgPageComponent {
       this.logo = "";
     }
 
-    console.log(this.orgMembers);
-
-    //
-
-    this.orgMembers.forEach(async o => {
-      const user = await this.fireAuth.createUserWithEmailAndPassword(o.email, "123456")
-        console.log("User created");
-        console.log(user);
-        user.user?.updateProfile({
-          displayName: o.name,
-        });
-        console.log(user.user?.uid);
-        o.id = user.user?.uid;
-        o.verification = new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate();
-      });
-
     //create custom string for orgMembers
-    setTimeout(() => {console.log("slept")},9000);
-    console.log("here" + this.orgMembers[0].id);
-    let orgMembersString = "";
-    this.orgMembers.forEach(o => {
-      orgMembersString += `{\n_id: "` + o.id + `",\n`;
-      orgMembersString += `name: "` + o.name + `",\n`;
-      orgMembersString += `email: "` + o.email + `",\n`;
-      orgMembersString += `role: "` + o.role + `",\n`;
-      orgMembersString += `organisation: "` + "bob" + `",\n`;
-      orgMembersString += `verification: "` + o.verification + `"\n},\n`;
-    });
-
-
-    
+    // 
+    // let orgMembersString = "";
+    // this.orgMembers.forEach(o => {
+    //   o.id = o.email;
+    //   orgMembersString += `{\n_id: "` + o.id + `",\n`;
+    //   orgMembersString += `name: "` + o.name + `",\n`;
+    //   orgMembersString += `email: "` + o.email + `",\n`;
+    //   orgMembersString += `role: "` + o.role + `",\n`;
+    //   orgMembersString += `organisation: "Marcus - return of the king",\n`;
+    //   orgMembersString += `verification: "` + o.verification + `"\n},\n`;
+    // });
 
     const addOrg = gql`mutation{
       createOrg(org:{
@@ -118,7 +99,6 @@ export class AddorgPageComponent {
         dateFounded: "${this.date}",
         totalAdoptions: 0,
         totalDogs: 0,
-        members: [${orgMembersString}],
         location:{
           lat: ${Number(this.lat)},
           lng: ${Number(this.lng)}
@@ -136,16 +116,52 @@ export class AddorgPageComponent {
         logo: "${this.logo}"
       })
       {
+        _id
         name
       }
     }`;
 
-    console.log(addOrg);
+    
     this.apollo.mutate({
       mutation: addOrg,
-    }).subscribe(({data}) => {
-      console.log('got data', data);
-      this.router.navigate(["/owneddogs"]);
+    }).subscribe(result => {
+      const createOrg = result.data as {
+        createOrg: {
+          name: string,
+          _id: string
+        }
+      }
+      this.oId = createOrg.createOrg._id;
+
+      this.orgMembers.forEach(o => {
+        this.fireAuth.createUserWithEmailAndPassword(o.email, "123456").then((user) => {
+          user.user?.updateProfile({
+            displayName: o.name,
+          });
+          const id = user.user?.uid;
+          o.verification = new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate();
+
+          const createOrgMember = gql`mutation{
+            createOrgMember(member:{
+              _id: "${id}",
+              name: "${o.name}",
+              email: "${o.email}",
+              role: "${o.role}",
+              organisation: "${this.oId}",
+              verification: "${o.verification}"
+            }){
+              _id
+            }
+          }`;
+          // 
+          this.apollo.mutate({
+            mutation: createOrgMember,
+            fetchPolicy: 'no-cache'
+          }).subscribe(() => {
+            this.router.navigate(["/owneddogs"]);
+          });
+        })
+      });
     });
   }
 
