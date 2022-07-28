@@ -20,10 +20,10 @@
 <!-- Back -->
 <div>
     <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
-      <ion-icon  name="arrow-back-circle"></ion-icon>
+        <ion-icon name="arrow-back-circle"></ion-icon>
     </ion-button>
 </div>
-  
+
 <div>&nbsp;</div>
 <!-- Make back button not grey -->
 <ion-content>
@@ -40,29 +40,17 @@
         <!--Documentation-->
         <div class="userinfo">
             <ion-list>
-                <ion-item>
-                    <p>ID Copy</p>&nbsp; <!--href="{{ident.path}}"-->
-                    <!--ion-button class="ion-float-right" fill="clear" (click)="idclick()"-->
-                        <a href="{{ident.path}}"><ion-icon name="open-outline"></ion-icon></a>
-                    <!--/ion-button--> 
+                <ion-item href="{{ident.path}}">
+                    <p class="docText">ID Copy</p>&nbsp;
                 </ion-item>
-                <ion-item>
-                    <p>Proof of Residence</p>&nbsp; 
-                    <!--ion-button class="ion-float-right" fill="clear" (click)="idclick()"-->
-                        <a href="{{poR.path}}"><ion-icon name="open-outline"></ion-icon></a>
-                    <!--/ion-button--> 
+                <ion-item href="{{poR.path}}">
+                    <p class="docText">Proof of Residence</p>&nbsp;
                 </ion-item>
-                <ion-item>
-                    <p>Bank Statements</p>&nbsp; 
-                    <!--ion-button class="ion-float-right" fill="clear" (click)="idclick()"-->
-                        <a href="{{bankState.path}}"><ion-icon name="open-outline"></ion-icon></a>
-                    <!--/ion-button--> 
+                <ion-item href="{{bankState.path}}">
+                    <p class="docText">Bank Statements</p>&nbsp;
                 </ion-item>
-                <ion-item>
-                    <p>Motivation letter</p>&nbsp; 
-                    <!--ion-button class="ion-float-right" fill="clear" (click)="idclick()"-->
-                        <a href="{{motivateLet.path}}"><ion-icon name="open-outline"></ion-icon></a>
-                    <!--/ion-button--> 
+                <ion-item href="{{motivateLet.path}}">
+                    <p class="docText">Motivation letter</p>&nbsp;
                 </ion-item>
             </ion-list>
         </div>

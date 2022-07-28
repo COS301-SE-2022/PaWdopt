@@ -183,16 +183,16 @@ export class owneddogsPageComponent {
     this.router.navigate(["/updateorremovedog"]);
   }
 
-      // JSON "set" example
-    async setObject(id: string) {
-      await Storage.set({
-      key: 'dogID',
-      value: JSON.stringify({
-        id: 1,
-        name: id
-        })
-      });
-    }
+    // JSON "set" example
+  async setObject(id: string) {
+    await Storage.set({
+    key: 'dogID',
+    value: JSON.stringify({
+      id: 1,
+      name: id
+      })
+    });
+  }
 
   updateLikes(id: string){
     this.varsFacade.setDogID(id);
@@ -216,6 +216,7 @@ export class owneddogsPageComponent {
   }
 
   preferences(){
+    this.router.navigate(["/orgsettings"]);
     //this.router.navigate(["/userinfo"]); Not implemented yet
   }
 

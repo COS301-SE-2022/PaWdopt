@@ -31,6 +31,20 @@ export class ApiService {
      * @return {Promise<Organisation || null>}
      */
     async updateOrg(_id: string, updatedOrg: Organisation): Promise<Organisation | null> {
+        updatedOrg.members.forEach(async member => {
+            const orgMember = await this.OrgMemberModel.findOne({ _id: member._id }).exec();
+            if (orgMember) {
+                await this.updateOrgMember(orgMember._id, orgMember);
+            }else{
+                await this.createOrgMemberWithoutAddingToOrg(orgMember);
+            }
+        })
+        const orgMembersExisting = await this.OrgMemberModel.find({ organisation: _id }).exec();
+        orgMembersExisting.forEach(async member => {
+            if(!updatedOrg.members.find(m => m._id === member._id)){
+                await this.deleteOrgMember(member._id);
+            }
+        });
         return this.OrganisationModel.findOneAndUpdate({ _id }, updatedOrg, { new: true }).exec();
     }
 
@@ -53,6 +67,7 @@ export class ApiService {
         const org = await this.OrganisationModel.findOne({ _id: orgMember.organisation }).exec();
         if (org) {
             org.members.push(orgMember);
+            await org.save();
         }else{
             throw new Error('Organisation not found');
         }
@@ -161,7 +176,6 @@ export class ApiService {
     async findAdopterBy_Id(_id: string): Promise<Adopter | null> {
         return this.AdopterModel.findOne({_id}).exec();
     }
-
 
     /**
      * Find a OrgMember by id
@@ -686,5 +700,15 @@ export class ApiService {
     async findDogsByOrgId(_id: string): Promise<Dog[]> {
         const org = await this.OrganisationModel.findOne({_id}).exec();
         return this.DogModel.find({organisation: org}).exec();
+    }
+
+    /**
+     * used in updateOrg function
+     * create an orgMember without adding them to the org
+     * @param {OrgMember} member The orgMember
+     * @return {Promise<OrgMember || null>}
+     */
+    async createOrgMemberWithoutAddingToOrg(member: OrgMember): Promise<OrgMember | null> {
+        return this.OrgMemberModel.create(member);
     }
 }

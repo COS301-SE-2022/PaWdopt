@@ -20,7 +20,7 @@
  <!--Back-->
  <div>
   <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
-    <ion-icon  name="arrow-back-circle"></ion-icon>
+    <ion-icon  name="arrow-back-sharp"></ion-icon>
   </ion-button>
 </div>
 
@@ -28,8 +28,8 @@
 
 <ion-content>
   <ion-thumbnail class="avatar">
-    <!-- <img [src]="user.pic.path" [alt]="user.name"> -->
-    <img class="logo" src="../../assets/avatar1.jpg">
+    <img [src]="user.pic" [alt]="user.name">
+    <!-- <img class="logo" src="../../assets/avatar1.jpg"> -->
   </ion-thumbnail>
   <div class="profile">
     <h1>{{user.name}}</h1>
@@ -38,9 +38,7 @@
 
   <!--Buttons-->
   <div class="container">
-    <ion-button class="greyButton" id="doc-org-button"><ion-icon name="add-circle-outline"></ion-icon>&nbsp;Upload documentation</ion-button>
-    <ion-button class="greyButton" id="question-org-button"><ion-icon name="clipboard-outline"></ion-icon>&nbsp;Questionnaires</ion-button>
-    <ion-button class="greyButton" id="settings-org-button"><ion-icon name="accessibility-outline"></ion-icon>&nbsp;My Profile</ion-button>
+    <ion-button class="greyButton" id="upload-documents-dialog" (click)="uploadDocs()" ><ion-icon name="add-circle-outline"></ion-icon>&nbsp;Upload documentation</ion-button>
     <ion-button class="greyButton" id="signout-org-button" (click)="signout()">Signout</ion-button>
   </div> 
   </div>

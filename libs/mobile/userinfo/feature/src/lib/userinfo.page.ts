@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { dashboardPageComponentModule } from '@pawdopt/mobile/dashboard/feature'
 import { VarsFacade } from '@pawdopt/shared/data-store';
 @Component({
   selector: 'pawdopt-userinfo',
@@ -90,7 +89,7 @@ export class userinfoPageComponent {
       query: userInfo,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
+      // console.log(result);
       const  data = result.data as {
         findAdopterBy_Id: {
           name: string,
@@ -113,7 +112,7 @@ export class userinfoPageComponent {
       this.user.pic = data.findAdopterBy_Id.pic;
       //this.user.location.lat = data.findAdopterBy_Id.location.lat;
       //this.user.location.lng = data.findAdopterBy_Id.location.lng;
-      console.log(this.user);
+      // console.log(this.user);
 
       if(data.findAdopterBy_Id.documents.length > 0){
 
@@ -131,7 +130,7 @@ export class userinfoPageComponent {
         })
       }
     });
-  }
+  }//modal dialog
 
   back(){
     //Takes you back to the previous page

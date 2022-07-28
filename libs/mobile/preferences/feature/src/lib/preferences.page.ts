@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'pawdopt-preferences',
@@ -43,6 +44,18 @@ export class PreferencesPageComponent {
     this.sizeAny = true;
   }
 
+  async setObject() {
+    await Storage.set({
+    key: 'preferences',
+    value: JSON.stringify({
+      gender: this.gender,
+      breed: this.breed,
+      size: this.size,
+      age: this.size2,
+      location: this.size3
+      })
+    });
+  }
   Back(){
     // TODO Complete add dog validation
     this.router.navigate(["/owneddogs"]);
@@ -62,5 +75,10 @@ export class PreferencesPageComponent {
 
   preferences(){
     //this.router.navigate(["/orgsettings"]); Not implemented yet
+  }
+
+  saveChanges(){
+    this.setObject();
+    this.router.navigate(["/home"]);
   }
 }

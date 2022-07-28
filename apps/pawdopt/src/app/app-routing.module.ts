@@ -137,6 +137,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/preferences/feature').then(
         (m) => m.PreferencesPageComponentModule
       )
+    },
+    {
+    path: 'orgsettings',
+    loadChildren: () =>
+      import('@pawdopt/mobile/orgsettings/feature').then(
+        (m) => m.OrgSettingsPageComponentModule
+      )
     }
 ];
 
