@@ -123,7 +123,21 @@ const routes: Routes = [
       import('@pawdopt/mobile/uploaddoc/feature').then(
         (m) => m.uploaddocPageComponentModule
       )
-  }
+  },
+  {
+    path: 'useradoption',
+    loadChildren: () =>
+      import('@pawdopt/mobile/useradoption/feature').then(
+        (m) => m.useradoptionPageComponentModule
+      )
+    },
+    {
+    path: 'preferences',
+    loadChildren: () =>
+      import('@pawdopt/mobile/preferences/feature').then(
+        (m) => m.PreferencesPageComponentModule
+      )
+    }
 ];
 
 @NgModule({

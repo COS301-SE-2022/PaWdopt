@@ -45,6 +45,7 @@
         "apollo-client": "^2.6.10",
         "apollo-server-express": "^3.8.1",
         "bcryptjs": "^2.4.3",
+        "capacitor": "^0.5.5",
         "firebase": "^9.9.0",
         "graphql": "^16.5.0",
         "graphql-tools": "^8.2.11",

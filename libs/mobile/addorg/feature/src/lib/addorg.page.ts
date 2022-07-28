@@ -23,9 +23,11 @@ export class AddorgPageComponent {
   twitter!: string;
   logo!: string;
   orgMembers: [{
+    id?: string;
     name: string;
     email: string;
     role: string;
+    verification: string;
   }]
   slideOpts = {
     slidesPerView: 1,
@@ -35,12 +37,15 @@ export class AddorgPageComponent {
       crossfade: true
     }
   }
+  oId!: string;
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth) {
     this.orgMembers=[{
+      id: "",
       name: "",
       email: "",
-      role: ""
+      role: "",
+      verification: new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()
       }];
     this.orgMembers.pop();
   }
@@ -69,42 +74,22 @@ export class AddorgPageComponent {
     if(this.twitter == null || this.twitter == undefined){
       this.twitter = "";
     }
+    if(this.logo == null || this.logo == undefined){
+      this.logo = "";
+    }
 
-
-    const orgMembersForQuery: [{
-      _id?: string;
-      name: string;
-      email: string;
-      role: string;
-      verification: string;
-    }] = [{
-      _id: "asdfasdf",
-      name: this.orgMembers[0].name,
-      email: this.orgMembers[0].email,
-      role: this.orgMembers[0].role,
-      verification: new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate()
-    }];
-    orgMembersForQuery.pop();
-
-    this.orgMembers.forEach(o => {
-      this.fireAuth.createUserWithEmailAndPassword(o.email, "123456").then((user) => {
-        console.log("User created");
-        console.log(user);
-        user.user?.updateProfile({
-          displayName: o.name,
-        });
-        orgMembersForQuery.push({
-          _id: user.user?.uid,
-          name: o.name,
-          email: o.email,
-          role: o.role,
-          verification: new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate()
-        });
-      }).catch((error) => {
-        console.log(error);
-        //TODO: Toast error message
-      });
-    });
+    //create custom string for orgMembers
+    // 
+    // let orgMembersString = "";
+    // this.orgMembers.forEach(o => {
+    //   o.id = o.email;
+    //   orgMembersString += `{\n_id: "` + o.id + `",\n`;
+    //   orgMembersString += `name: "` + o.name + `",\n`;
+    //   orgMembersString += `email: "` + o.email + `",\n`;
+    //   orgMembersString += `role: "` + o.role + `",\n`;
+    //   orgMembersString += `organisation: "Marcus - return of the king",\n`;
+    //   orgMembersString += `verification: "` + o.verification + `"\n},\n`;
+    // });
 
     const addOrg = gql`mutation{
       createOrg(org:{
@@ -112,16 +97,8 @@ export class AddorgPageComponent {
         name: "${this.oName}",
         about: "${this.about}",
         dateFounded: "${this.date}",
-        members: [${orgMembersForQuery.map(o => `{
-          _id: "${o._id}",
-          name: "${o.name}",
-          email: "${o.email}",
-          organisation: "",
-          role: "${o.role}",
-          verification: "${o.verification}"
-        }`).join(",")}],
-        }],
-        }],
+        totalAdoptions: 0,
+        totalDogs: 0,
         location:{
           lat: ${Number(this.lat)},
           lng: ${Number(this.lng)}
@@ -139,28 +116,66 @@ export class AddorgPageComponent {
         logo: "${this.logo}"
       })
       {
+        _id
         name
       }
     }`;
 
-    console.log(addOrg);
+    
     this.apollo.mutate({
       mutation: addOrg,
-    }).subscribe(({data}) => {
-      console.log('got data', data);
-      this.router.navigate(["/dashboard"]);
+    }).subscribe(result => {
+      const createOrg = result.data as {
+        createOrg: {
+          name: string,
+          _id: string
+        }
+      }
+      this.oId = createOrg.createOrg._id;
+
+      this.orgMembers.forEach(o => {
+        this.fireAuth.createUserWithEmailAndPassword(o.email, "123456").then((user) => {
+          user.user?.updateProfile({
+            displayName: o.name,
+          });
+          const id = user.user?.uid;
+          o.verification = new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate();
+
+          const createOrgMember = gql`mutation{
+            createOrgMember(member:{
+              _id: "${id}",
+              name: "${o.name}",
+              email: "${o.email}",
+              role: "${o.role}",
+              organisation: "${this.oId}",
+              verification: "${o.verification}"
+            }){
+              _id
+            }
+          }`;
+          // 
+          this.apollo.mutate({
+            mutation: createOrgMember,
+            fetchPolicy: 'no-cache'
+          }).subscribe(() => {
+            this.router.navigate(["/owneddogs"]);
+          });
+        })
+      });
     });
   }
 
   async addOrgMemberCard(){
     this.orgMembers.push({
+      id: "",
       name: "",
       email: "",
-      role: ""
+      role: "",
+      verification: new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()
     });
   }
 
-  deleteOrgMemberCard(o: {name: string; email: string; role: string;}){
+  deleteOrgMemberCard(o: {id?: string; name: string; email: string; role: string; verification: string;}){
     const index = this.orgMembers.indexOf(o);
     this.orgMembers.splice(index, 1);
     const slides = document.querySelector('ion-slides');

@@ -54,7 +54,7 @@ type OrganisationType {
   dateFounded: DateTime!
   totalAdoptions: Float!
   totalDogs: Float!
-  members: [OrgMemberType!]!
+  members: [OrgMemberType!]
   location: LocationType!
   rulesReq: String
   contactInfo: ContactInfoType!
@@ -127,7 +127,7 @@ input OrganisationInputType {
   dateFounded: DateTime!
   totalAdoptions: Float!
   totalDogs: Float!
-  members: [OrgMemberInputType!]!
+  members: [OrgMemberInputType!]
   location: LocationInputType!
   rulesReq: String
   contactInfo: ContactInfoInputType!
@@ -180,7 +180,6 @@ type Mutation {
   createOrgMember(member: OrgMemberInputType!): OrgMemberType!
   updateOrgMember(_id: String!, member: OrgMemberInputType!): OrgMemberType!
   deleteOrgMember(_id: String!): OrgMemberType!
-  deleteDog(_id: String!): DogType!
   createContactInfo(contactInfo: ContactInfoInputType!): ContactInfoType!
   updateContactInfo(_id: String!, contactInfo: ContactInfoInputType!): ContactInfoType!
   deleteContactInfo(_id: String!): ContactInfoType!
@@ -195,4 +194,5 @@ type Mutation {
   removeDogFromAdopterDogsLikedOrDisliked(userId: String!, dogId: String!): AdopterType!
   userSwipesRight(userId: String!, dogId: String!): AdopterType!
   userSwipesLeft(userId: String!, dogId: String!): AdopterType!
+  updateDog(dogId: String!, breed: String!, gender: String!, dob: DateTime!, about: String!, height: Float!, weight: Float!, furlength: String!, temperament: [String!]!): DogType!
 }

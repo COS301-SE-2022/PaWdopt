@@ -34,11 +34,6 @@ export class ApiResolver {
         return this.DogService.deleteOrgMember(_id);
     }
 
-    @Mutation(() => DogType)
-    async deleteDog(@Args('_id') _id: string) : Promise<DogType> {
-        return this.DogService.deleteDog(_id);
-    }
-
     @Mutation(() => ContactInfoType)
     async createContactInfo(@Args('contactInfo') contactInfo: ContactInfoType) : Promise<ContactInfoType> {
         const ret = await this.DogService.createContactInfo(contactInfo);
@@ -163,6 +158,10 @@ export class ApiResolver {
     @Mutation(() => DogType)
     async createDog(@Args('dog') dog: DogType, @Args('orgId') orgId: string) : Promise<DogType> {
         const org = await this.DogService.findOrgById(orgId);
+        org.totalDogs++;
+        await this.DogService.updateOrg(orgId, org);
+        org.totalAdoptions++;
+        await this.DogService.updateOrg(orgId, org);
         dog._id = (new Types.ObjectId()).toHexString();
         dog.organisation = org;
         return this.DogService.createDog(dog);
@@ -192,7 +191,7 @@ export class ApiResolver {
     }
 
     /**
-     * used in dashboard page
+     * used in dashboard page 
      * find dog by _id
      * @param _id
      * @returns dog
@@ -212,9 +211,9 @@ export class ApiResolver {
     @Mutation(() => DogType)
     async clickedTrashIcon(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<DogType> {
         //remove adopter from dogs usersLiked
-        this.DogService.addDogToAdopterDogsDisliked(dogId, userId);
-        this.DogService.removeDogFromAdopterDogsLiked(dogId, userId);
-        return this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
+        await this.DogService.addDogToAdopterDogsDisliked(userId, dogId);
+        await  this.DogService.removeDogFromAdopterDogsLiked(userId, dogId);
+        return await this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
     }
 
     /**
@@ -239,10 +238,7 @@ export class ApiResolver {
     @Mutation(() => OrganisationType)
     async createOrg(@Args('org') org: OrganisationType) : Promise<OrganisationType> {
         org._id = (new Types.ObjectId()).toHexString();
-        org.members.forEach(member => {
-            member.organisation = org._id;
-            this.DogService.createOrgMember(member);
-        });
+        org.contactInfo._id = (new Types.ObjectId()).toHexString();
         org.contactInfo = await this.DogService.createContactInfo(org.contactInfo);
         return this.DogService.createOrg(org);
     }
@@ -314,7 +310,8 @@ export class ApiResolver {
     @Mutation(() => AdopterType)
     async userSwipesRight(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<AdopterType> {
         await this.DogService.addUserToUserLikes(dogId, userId);
-        return this.DogService.addDogToAdopterDogsLiked(userId, dogId);
+        const user = await this.DogService.addDogToAdopterDogsLiked(userId, dogId);
+        return user;
     }
 
     /**
@@ -329,6 +326,51 @@ export class ApiResolver {
         return this.DogService.addDogToAdopterDogsDisliked(userId, dogId);
     }
 
+    /**
+     * used in updateorremove dog page
+     * call the update queries
+     * @param dogId
+     * @param breed
+     * @param gender
+     * @param dob
+     * @param about
+     * @param height
+     * @param weight
+     * @param furlength
+     * @param temperament
+     * @returns dog
+     */
+    @Mutation(() => DogType)
+    async updateDog(@Args('dogId') dogId: string, 
+                    @Args('breed') breed: string, 
+                    @Args('gender') gender: string,
+                    @Args('dob') dob: Date,
+                    @Args('about') about: string,
+                    @Args('height') height: number,
+                    @Args('weight') weight: number, 
+                    @Args('furlength') furlength: string,
+                    @Args({ name: "temperament", type: () => [String] }) temperament: [string] ) : Promise<DogType> {
+        await this.DogService.updateDogBreed(dogId, breed);
+        await this.DogService.updateDogGender(dogId, gender);
+        await this.DogService.updateDogdob(dogId, dob);
+        await this.DogService.updateDogabout(dogId, about);
+        await this.DogService.updateDogheight(dogId, height);
+        await this.DogService.updateDogweight(dogId, weight);
+        await this.DogService.updateDogfurLength(dogId, furlength);
+        await this.DogService.updateDogtemperament(dogId, temperament);
+        return this.DogService.findDogById(dogId);
+    }
+
+    /**
+     * used in updateorremove dog page
+     * call the remove queries
+     * @param dogId
+     * @returns dog
+     * @throws error if dog does not exist
+     */
+    async deleteDog(@Args('dogId') dogId: string) : Promise<DogType> {
+        return this.DogService.deleteDog(dogId);
+    }
 
     /**
      * getUserType
@@ -361,4 +403,6 @@ export class ApiResolver {
     async findDogsByOrgId(@Args('_id') _id: string) : Promise<DogType[]> {
         return this.DogService.findDogsByOrgId(_id);
     }
+
+    
 }

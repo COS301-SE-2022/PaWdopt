@@ -47,6 +47,9 @@
       "@pawdopt/mobile/owneddogs/feature": [
         "libs/mobile/owneddogs/feature/src/index.ts"
       ],
+      "@pawdopt/mobile/preferences/feature": [
+        "libs/mobile/preferences/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/signup/feature": [
         "libs/mobile/signup/feature/src/index.ts"
       ],
@@ -58,6 +61,9 @@
       ],
       "@pawdopt/mobile/uploaddoc/feature": [
         "libs/mobile/uploaddoc/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/useradoption/feature": [
+        "libs/mobile/useradoption/feature/src/index.ts"
       ],
       "@pawdopt/mobile/userinfo/feature": [
         "libs/mobile/userinfo/feature/src/index.ts"

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
+import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'pawdopt-userlikes',
@@ -28,19 +30,28 @@ export class userlikesPageComponent {
     orgId:string
   }[]=[]
 
-  constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade){
-    this.varsFacade.userID$.subscribe(userID => {
-      this.userId = userID;
-    });
-    this.getDog();
+  constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade, private fireAuth: AngularFireAuth){
+    this.fireAuth.currentUser.then(user =>{
+      console.log(user?.uid);
+        if(user?.uid){
+          this.userId = user.uid;
+          console.log(this.userId);
+          this.getDog(false);
+        }
+    })
+
+    // this.varsFacade.userID$.subscribe(userID => {
+    //   this.userId = userID;
+    // });
   }
 
-  getDog(){
+  getDog(search: boolean){
+    this.dog = [];
     const findDogsLikedByUserQuery = gql`query {
-      findDogsLikedByUser(userId: "${this.varsFacade.userID$}") {
+      findDogsLikedByUser(userId: "${this.userId}") {
         name
         dob
-        height
+        height 
         weight
         breed
         furLength
@@ -77,39 +88,56 @@ export class userlikesPageComponent {
         }[]
       };
 
-      data.findDogsLikedByUser.forEach(element => {
-        const tempDate = new Date(element.dob);
-        const today = new Date();
-        const age = today.getFullYear() - tempDate.getFullYear();
-        this.dog.push(
-          {
-            name:element.name,
-            age: age,
-            height: element.height,
-            weight: element.weight,
-            breed: element.breed,
-            temperament: element.temperament,
-            furLength: element.furLength,
-            pic: element.pics[0],
-            about: element.about,
-            organisation: element.organisation.name,
-            orgId: element.organisation._id
+       
+      
+      if(search){
+        data.findDogsLikedByUser.forEach(element => {
+          if(element.name.toLowerCase().includes(this.inputSearch.toLowerCase())){
+            const tempDate = new Date(element.dob);
+            const today = new Date();
+            const age = today.getFullYear() - tempDate.getFullYear();
+            this.dog.push(
+              {
+                name:element.name,
+                age: age,
+                height: element.height,
+                weight: element.weight,
+                breed: element.breed,
+                temperament: element.temperament,
+                furLength: element.furLength,
+                pic: element.pics[0],
+                about: element.about,
+                organisation: element.organisation.name,
+                orgId: element.organisation._id
+              }
+            );
           }
-        );
-      })  
+        })
+      }
+      else{
+        data.findDogsLikedByUser.forEach(element => {
+          const tempDate = new Date(element.dob);
+          const today = new Date();
+          const age = today.getFullYear() - tempDate.getFullYear();
+          this.dog.push(
+            {
+              name:element.name,
+              age: age,
+              height: element.height,
+              weight: element.weight,
+              breed: element.breed,
+              temperament: element.temperament,
+              furLength: element.furLength,
+              pic: element.pics[0],
+              about: element.about,
+              organisation: element.organisation.name,
+              orgId: element.organisation._id
+            }
+          );
+        })
+      }
+
     })
-  }
-
-  search(){
-    //search for dogs based off regex
-    this.dog=[];
-    this.getDog();
-    this.dog = this.dog.filter(dog => dog.name.includes(this.inputSearch));
-  }
-
-  onCancelSearch(){
-    this.dog=[];
-    this.getDog();
   }
 
   home(){
@@ -129,8 +157,19 @@ export class userlikesPageComponent {
   }
 
   orgProfile(orgId:string){
-    this.varsFacade.setOrgId(orgId);
+    this.setObject(orgId);
+    console.log(orgId);
     this.router.navigate(["/orgprofile"]);
+  }
+
+  async setObject(id: string) {
+    await Storage.set({
+    key: 'dogID',
+    value: JSON.stringify({
+      id: 1,
+      name: id
+      })
+    });
   }
 
 }

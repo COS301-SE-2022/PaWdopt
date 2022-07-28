@@ -29,7 +29,7 @@
 
     <!--Search bar-->
     <div class="searchbar">
-        <ion-searchbar placeholder="Try Millie.." [(ngModel)]="inputSearch" (ionClear)="onCancelSearch()" (input)="search()" animated></ion-searchbar>
+        <ion-searchbar placeholder="Try Millie.." (ionChange)="getDog(true)" [(ngModel)]="inputSearch" (ionClear)="getDog(false)"  animated></ion-searchbar>
     </div>
     <!--api implement-->
     <div>&nbsp;</div>
@@ -53,7 +53,7 @@
                 <p>{{d.breed}}</p>
                 <ion-button class="ion-float-left" fill="clear" (click)="dashboard(d.orgId)">
                     <!-- <ion-icon name="list"></ion-icon> -->
-                    <a href="/dashboard" onclick="updateLikes(d.id)">
+                    <a href="/dashboard" onclick="updateLikes(d._id)">
                         <p id="likesperdog"><b><ion-icon name="heart"></ion-icon>&nbsp;{{d.likes}}</b></p>
                     </a>
                 </ion-button>

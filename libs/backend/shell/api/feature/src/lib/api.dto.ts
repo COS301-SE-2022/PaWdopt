@@ -122,7 +122,7 @@ export class OrganisationType {
     @Field()
     totalDogs: number;//current amount of dogs
 
-    @Field(() => [OrgMemberType])
+    @Field(() => [OrgMemberType], { nullable: true })
     members: [OrgMember];
 
     @Field(() => LocationType)
@@ -137,6 +137,7 @@ export class OrganisationType {
 
     @Field(() => [AdopterType], {nullable: true})
     potentialAdopters: [Adopter]; //use backend to get all dogs liked with same org 
+    //check that the user is not 
 
     @Field({ nullable: true })
     logo: string;
