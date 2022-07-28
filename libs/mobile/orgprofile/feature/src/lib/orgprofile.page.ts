@@ -83,18 +83,12 @@ export class orgprofilePageComponent {
     });
   }
 
-
-  signup(){
-    // Done in signup
-    this.router.navigate(["/signup"]);
-  }
-  
-  addorg(){
-    this.router.navigate(["/addorg"]);
+  back(){
+    this.router.navigate(['/userlikes']);
   }
 
   home(){
-    this.router.navigate(["/owneddogs"]);
+    this.router.navigate(["/home"]);
   }
 
   likeddogs(){
@@ -106,7 +100,7 @@ export class orgprofilePageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/preferences"]); 
   }
 
 }
