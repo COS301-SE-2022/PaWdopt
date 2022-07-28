@@ -1,29 +1,33 @@
 <div class="container">
-      <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
-  <ion-list class="form">
-    <ion-item-group class="form-border">
-        <ion-item class="form-item form-start">
-            <ion-label position="floating" class="form-input-label">Username</ion-label>
-            <ion-input class="form-input" [(ngModel)]="uName" id="username-field" clear-on-edit=true></ion-input>
-        </ion-item>
-        <ion-item class="form-item">
-            <ion-label position="floating" class="form-input-label">Password</ion-label>
-            <ion-input class="form-input" type="password" [(ngModel)]="pass" id="password-field" clear-on-edit=true></ion-input>
-        </ion-item>
-        <ion-item class="form-item">
-            <ion-label position="floating" class="form-input-label">Re-enter Password</ion-label>
-            <ion-input class="form-input" type="password" [(ngModel)]="rePass" id="re-enter-password-field" clear-on-edit=true></ion-input>
-        </ion-item>
-        <ion-item class="form-item">
-            <ion-label position="floating" class="form-input-label">ID number</ion-label>
-            <ion-input class="form-input" [(ngModel)]="idnum" id="idnum-field"clear-on-edit=true></ion-input>
-        </ion-item>
-        <ion-item class="form-item form-end" lines="none">
-            <ion-label position="floating">Email address</ion-label>
-            <ion-input class="form-input" [(ngModel)]="email" id="email-field" clear-on-edit=true></ion-input>
-        </ion-item>
-    </ion-item-group>
-  </ion-list>
-  <ion-button class="greyButton" id="create-account-button" (click)="signUp()">Create account</ion-button>
-  <ion-button class="greyButton" id="create-account-button" (click)="back()">Back</ion-button>
+    <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
+    <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">
+        <ion-icon name="cloud-upload-outline"></ion-icon>&nbsp;Upload a picture</ion-button>
+    &nbsp;
+    <ion-list class="form">
+        <ion-item-group class="form-border">
+            <ion-item class="form-item form-start">
+                <ion-label position="floating" class="form-input-label">Username</ion-label>
+                <ion-input class="form-input" [(ngModel)]="uName" id="username-field" clear-on-edit=false></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Password</ion-label>
+                <ion-input class="form-input" type="password" [(ngModel)]="pass" id="password-field" clear-on-edit=false></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Re-enter Password</ion-label>
+                <ion-input class="form-input" type="password" [(ngModel)]="rePass" id="re-enter-password-field" clear-on-edit=false></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">ID number</ion-label>
+                <ion-input class="form-input" [(ngModel)]="idnum" id="idnum-field" clear-on-edit=false></ion-input>
+            </ion-item>
+            <ion-item class="form-item form-end" lines="none">
+                <ion-label position="floating">Email address</ion-label>
+                <ion-input class="form-input" [(ngModel)]="email" id="email-field" clear-on-edit=false></ion-input>
+            </ion-item>
+        </ion-item-group>
+    </ion-list>
+    <ion-button class="greyButton" id="create-account-button" (click)="signUp()">
+        <ion-icon name="person-outline"></ion-icon>&nbsp;Create account</ion-button>
+    <ion-button class="greyButton" id="create-account-button" (click)="back()">Back</ion-button>
 </div>
