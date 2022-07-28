@@ -105,10 +105,29 @@ describe('OrgMember Use Case', () => {
 
   it('search dogs', () => {
     cy.get(".searchbar-input").type("c");
+    cy.get(".searchbar-input").clear();
   });
 
+  // Fix these
   it('should go to a dog profile', () => {
-    cy.get(':nth-child(7) > .thecard > .thefront > .ion-float-left').click();
-    // cy.url().should("include", "/dogprofile");
+    cy.get("#likesperdog").click();
+    cy.url().should("include", "/dogprofile");
   });
+
+  // Fix bin user
+  it.skip('should bin a user', () => {
+    cy.url().should("include", "/");
+  });
+
+  // fix user profile
+  it.skip('should check user profile',() => {
+    cy.url().should("include", "/");
+  });
+
+  // fix this
+  it.skip('should check documentation links', () => {
+    cy.url().should("include", "/");
+  });
+
+
 });
