@@ -482,7 +482,7 @@ export class ApiService {
         const dog = await this.DogModel.findOne({_id: dogId}).exec();
         const adopter = await this.AdopterModel.findOne({_id: userId}).exec();
         if(adopter == null){
-            throw new Error("Adopter does not exist111111111111111111");
+            throw new Error("Adopter does not exist");
         }
         dog.usersLiked.push(adopter);
         dog.save();
