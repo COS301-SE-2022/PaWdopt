@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'pawdopt-home',
@@ -13,13 +14,13 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 export class HomePage {
 
   //global vars
-  // breed!: string;
-  // gender!: string;
-  // maxDistance = 0;
-  // minAge= 0;
-  // maxAge= 0;
-  // minSize = 0;
-  // maxSize = 0;
+  breed!: string;
+  gender!: string;
+  maxDistance = 0;
+  minAge= 0;
+  maxAge= 0;
+  minSize = 0;
+  maxSize = 0;
 
   avatars:{
     _id: string,
@@ -44,7 +45,7 @@ export class HomePage {
     constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth) {
       this.t_ID = "";
       this.currentIndex = -1;
-
+      this.setPrefs();
       this.fireAuth.currentUser.then(user => {
         console.log(user?.uid);
         if(user?.uid){
@@ -53,40 +54,28 @@ export class HomePage {
           this.getDogs();
         }
       });
-      // get in all global vars here (preferences)
-      // Gender
-    //   this.varsFacade.gender$.subscribe(gender => {
-    //     this.gender = gender;
-    //   });
-    //   //Location range
-    //   this.varsFacade.locationrange$.subscribe(locationrange => {
-    //     this.maxDistance = locationrange;
-    //   });
-    //   //Breed
-    //   this.varsFacade.breed$.subscribe(breed => {
-    //     this.breed = breed;
-    //   });
-    //   //MaxAge
-    //   this.varsFacade.maxAge$.subscribe(maxAge => {
-    //   this.maxAge = maxAge;
-    //   });
-    //   //MinAge
-    //   this.varsFacade.minAge$.subscribe(minAge => {
-    //     this.minAge = minAge;
-    //   });
-    //   //MaxSize
-    //   this.varsFacade.maxSize$.subscribe(maxSize => {
-    //     this.maxSize = maxSize;
-    //     });
-    //   //MinSize
-    //   this.varsFacade.minSize$.subscribe(minSize => {
-    //     this.minSize = minSize;
-    //     });
     }
   
 
   // this.apollo.query(getDogsQuery);
   
+  async getObject() {
+    const ret = await Storage.get({ key: 'preferences' });
+    if(ret.value){
+      return JSON.parse(ret.value);
+    }
+  }
+
+  async setPrefs(){
+    const filters = await this.getObject();
+    this.gender = filters.value.gender;
+    this.breed = filters.value.breed;
+    this.minAge = filters.value.age.lower;
+    this.maxAge = filters.value.age.upper;
+    this.minSize = filters.value.size.lower;
+    this.maxSize = filters.value.size.upper;
+    this.maxDistance = filters.value.location.upper;
+  }
 
   getDogs(){
     const getDogsQuery = gql`query {
@@ -195,40 +184,33 @@ export class HomePage {
             }
           });
         });
+        //loop through avatars and exclude elements that dont confide to the filters
+        this.avatars.forEach(element => {
+          let splice = false;
+          if(element.breed != this.breed){
+            splice = true;
+          }
+          if(element.gender != this.gender){
+            splice = true;
+          }
+          const distance = 0;
+          //distnace is calculated from user and orgs lat and lng
+          if(distance >= this.maxDistance){
+            splice = true;
+          }
+          if(element.age <= this.minAge && element.age >= this.maxAge){
+            splice = true;
+          }
+          if(element.height <= this.minSize && element.height >= this.maxSize){
+            splice = true;
+          }
+          if(splice){
+            this.avatars.splice(this.avatars.indexOf(element), 1);
+            this.currentIndex--;
+          }
+        });
       });
     });
-
-    //loop through avatars and exclude elements that dont confide to the filters
-    // this.avatars.forEach(element => {
-    //   if(element.breed != this.breed){
-    //     this.avatars.splice(this.avatars.indexOf(element), 1);
-    //     this.currentIndex--;
-    //     continue;
-    //   }
-    //   if(element.gender != this.gender){
-    //     this.avatars.splice(this.avatars.indexOf(element), 1);
-    //     this.currentIndex--;
-    //     continue;
-    //   }
-    //   const distance = 0;
-    //   //distnace is calculated from user and orgs lat and lng
-    //   if(distance >= this.maxDistance){
-    //     this.avatars.splice(this.avatars.indexOf(element), 1);
-    //     this.currentIndex--;
-    //     continue;
-    //   }
-    //   if(element.age <= this.minAge && element.age >= this.maxAge){
-    //     this.avatars.splice(this.avatars.indexOf(element), 1);
-    //     this.currentIndex--;
-    //     continue;
-    //   }
-    //   if(element.height <= this.minSize && element.height >= this.maxSize){
-    //     this.avatars.splice(this.avatars.indexOf(element), 1);
-    //     this.currentIndex--;
-    //     continue;
-    //   }
-    // });
-
     //we have filtered out the dogs
     //compare the dogs with the liked dogs
     //if they are liked, remove them from the avatars
@@ -236,7 +218,6 @@ export class HomePage {
     //if they are not liked or disliked, keep them in the avatars
     //if there are no more dogs, show a message
     //if there are more dogs, show them
-    
   }
 
   async swiped(event: boolean, index: number) {

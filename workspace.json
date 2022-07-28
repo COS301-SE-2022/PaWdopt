@@ -12,6 +12,7 @@
     "mobile-dashboard-feature": "libs/mobile/dashboard/feature",
     "mobile-login-feature": "libs/mobile/login/feature",
     "mobile-orgprofile-feature": "libs/mobile/orgprofile/feature",
+    "mobile-orgsettings-feature": "libs/mobile/orgsettings/feature",
     "mobile-owneddogs-feature": "libs/mobile/owneddogs/feature",
     "mobile-preferences-feature": "libs/mobile/preferences/feature",
     "mobile-signup-feature": "libs/mobile/signup/feature",

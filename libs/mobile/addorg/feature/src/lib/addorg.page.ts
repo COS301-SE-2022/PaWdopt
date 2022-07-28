@@ -134,6 +134,7 @@ export class AddorgPageComponent {
       this.oId = createOrg.createOrg._id;
 
       this.orgMembers.forEach(o => {
+        o.email.toLowerCase();
         this.fireAuth.createUserWithEmailAndPassword(o.email, "123456").then((user) => {
           user.user?.updateProfile({
             displayName: o.name,

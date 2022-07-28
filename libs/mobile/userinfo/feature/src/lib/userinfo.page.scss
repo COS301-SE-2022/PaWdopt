@@ -1,10 +1,10 @@
-.avatar{
+.avatar {
     --border-radius: 100px;
     --size: 180px;
     margin: auto;
 }
 
-.profile{
+.profile {
     // justify-content: center;
     // align-content: center;
     // align-items: center;
@@ -14,7 +14,7 @@
     left: 50%;
 }
 
-.userinfo{
+.userinfo {
     margin: auto;
     width: 330px;
     height: 460px;
@@ -22,4 +22,17 @@
     top: 50%;
     left: 50%;
     border-color: black;
+}
+
+.openDocs {
+    position: absolute;
+    right: 0;
+    justify-content: center;
+    align-content: center;
+}
+
+.docText {
+    justify-content: center;
+    align-content: center;
+    position: absolute;
 }
