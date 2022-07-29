@@ -1,6 +1,4 @@
-import { type } from "os";
-
-describe.skip('Adopter Use Case', () => {
+describe('Adopter Use Case', () => {
   it('should add adopter', () => {
     cy.visit("/login");
     cy.get("#signup-link").click();
@@ -51,7 +49,7 @@ describe.skip('Adopter Use Case', () => {
   });
 
   it('should search for dogs', () => {
-      cy.get(".searchbar-input").type("c");
+      cy.get(".searchbar-input").type("p");
   });
   
   it('should go to a liked dogs profile', () => {
