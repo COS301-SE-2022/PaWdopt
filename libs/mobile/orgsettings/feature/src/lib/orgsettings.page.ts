@@ -25,6 +25,7 @@ export class OrgSettingsPageComponent {
   logo!: string;
 
   orgMembers: [{
+    _id: string;
     name: string;
     email: string;
     role: string;
@@ -42,11 +43,20 @@ export class OrgSettingsPageComponent {
   }
   t_ID: string;
   t_OrgID: string;
+  conInfoId: string;
+  totalAdoptions: string;
+  totalDogs: string;
+  loggedInUserRole: string;
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth) {
     this.t_ID = "";
     this.t_OrgID = "";
+    this.conInfoId = "";
+    this.totalAdoptions = "";
+    this.totalDogs = "";
+    this.loggedInUserRole = "";
     this.orgMembers=[{
+      _id: "",
       name: "",
       email: "",
       role: ""
@@ -59,6 +69,7 @@ export class OrgSettingsPageComponent {
         const findOrganistaionId = gql`query{
           findOrgMemberById(_id: "${this.t_ID}"){
             organisation
+            role
           }
         }`;
         this.apollo.watchQuery({
@@ -68,9 +79,23 @@ export class OrgSettingsPageComponent {
           const  data = result.data as {
             findOrgMemberById: {
               organisation: string;
+              role: string;
             }
           }
           this.t_OrgID = data.findOrgMemberById.organisation;
+          this.loggedInUserRole = data.findOrgMemberById.role;
+          // const nameInput = document.getElementById('org-member-name-field');
+          // const emailInput = document.getElementById('org-member-email-field');
+          // const roleInput = document.getElementById('org-member-role-field');
+          // if(this.loggedInUserRole === "admin"){
+          //   nameInput?.removeAttribute('disabled');
+          //   emailInput?.removeAttribute('disabled');
+          //   roleInput?.removeAttribute('disabled');
+          // } else {
+          //   nameInput?.setAttribute('disabled', 'true');
+          //   emailInput?.setAttribute('disabled', 'true');
+          //   roleInput?.setAttribute('disabled', 'true');
+          // }
     
           const findOrganistaion = gql`query{
             findOrgById(_id: "${this.t_OrgID}"){
@@ -83,6 +108,7 @@ export class OrgSettingsPageComponent {
               }
               rulesReq
               contactInfo{
+                _id
                 email
                 phone
                 website
@@ -92,10 +118,13 @@ export class OrgSettingsPageComponent {
               }
               logo
               members{
+                _id
                 name
                 email
                 role
               }
+              totalAdoptions
+              totalDogs
             }
           }`;
           // console.log(findOrganistaion);
@@ -107,13 +136,14 @@ export class OrgSettingsPageComponent {
               findOrgById: {
                 name: string;
                 about: string;
-                date: Date;
+                dateFounded: Date;
                 location: {
                   lat: string;
                   lng: string;
                 },
                 rulesReq: string;
                 contactInfo: {
+                  _id: string;
                   email: string;
                   phone: string;
                   website: string;
@@ -123,17 +153,23 @@ export class OrgSettingsPageComponent {
                 }
                 logo: string;
                 members: [{
+                  _id: string;
                   name: string;
                   email: string;
                   role: string;
-                }]
+                }];
+                totalAdoptions: string;
+                totalDogs: string;
               }
             }
             this.oName = data.findOrgById.name;
             this.about = data.findOrgById.about;
-            this.date = data.findOrgById.date;
+            this.date = data.findOrgById.dateFounded;
             this.lat = data.findOrgById.location.lat;
             this.lng = data.findOrgById.location.lng;
+            this.totalAdoptions = data.findOrgById.totalAdoptions;
+            this.totalDogs = data.findOrgById.totalDogs;
+            this.conInfoId = data.findOrgById.contactInfo._id;
             if(data.findOrgById.rulesReq)
               this.rulesReq = data.findOrgById.rulesReq;
             if(data.findOrgById.contactInfo.email)
@@ -164,38 +200,38 @@ export class OrgSettingsPageComponent {
     this.orgMembers.forEach(member => {
       member.email.toLowerCase();
       orgMembersString += `{
+        _id: "${member._id}",
         name: "${member.name}",
         email: "${member.email}",
-        role: "${member.role}"
+        role: "${member.role}",
+        organisation: "${this.t_OrgID}"
       },`;
     });
 
+    const date = new Date(this.date);
     const updateOrg = gql`mutation{
       updateOrg(_id: "${this.t_OrgID}",
         org: {
+          _id: "${this.t_OrgID}",
           name: "${this.oName}"
           about: "${this.about}"
-          dateFounded: "${this.date}"
+          dateFounded: "${date.getFullYear()}-${date.getMonth()}-${date.getDate()}"
           location: {
-            lat: "${this.lat}"
-            lng: "${this.lng}"
+            lat: ${this.lat}
+            lng: ${this.lng}
           }
-          rulesReq: "${this.rulesReq}"
           contactInfo: {
-            email: "${this.email}"
-            phone: "${this.phone}"
-            website: "${this.website}"
-            facebook: "${this.facebook}"
-            instagram: "${this.instagram}"
-            twitter: "${this.twitter}"
+            _id: "${this.conInfoId}"
           }
-          logo: "${this.logo}"
           members: [${orgMembersString}]
+          totalAdoptions: ${this.totalAdoptions}
+          totalDogs: ${this.totalDogs}
         }
       ){
         _id
       }
     }`;
+    console.log(updateOrg);
     this.apollo.mutate({
       mutation: updateOrg,
       fetchPolicy: 'no-cache'
@@ -206,24 +242,20 @@ export class OrgSettingsPageComponent {
         }
       }
       console.log(data);
+      this.router.navigate(['/owneddogs']);
     });
   }
 
   addOrgMemberCard(){
     this.orgMembers.push({
+      _id: "",
       name: "",
       email: "",
       role: ""
     });
   }
 
-  updateOrgMemberCard(o: {name: string; email: string; role: string;}){
-    const index = this.orgMembers.indexOf(o);
-    this.orgMembers.splice(index, 1);
-    this.orgMembers.push(o);
-  }
-
-  deleteOrgMemberCard(o: {name: string; email: string; role: string;}){
+  deleteOrgMemberCard(o: {_id: string; name: string; email: string; role: string;}){
     const index = this.orgMembers.indexOf(o);
     this.orgMembers.splice(index, 1);
   }
@@ -237,6 +269,6 @@ export class OrgSettingsPageComponent {
   }
 
   Back(){
-    this.router.navigate(["/login"]);
+    this.router.navigate(["/owneddogs"]);
   }
 }

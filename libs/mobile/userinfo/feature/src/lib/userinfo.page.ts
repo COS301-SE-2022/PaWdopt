@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
+import { Storage } from '@capacitor/storage'
 @Component({
   selector: 'pawdopt-userinfo',
   templateUrl: 'userinfo.page.html',
@@ -60,16 +61,24 @@ export class userinfoPageComponent {
   } = {
     path: "../../assets/local-file-not-found.png"
   };
-  t_ID: string;
+  
+  t_ID!: string;
 
   constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
     this.t_ID = "";
-    this.varsFacade.userID$.subscribe(userID => {
-        this.t_ID = userID;
-    });
+    // this.varsFacade.userID$.subscribe(userID => {
+    //     this.t_ID = userID;
+    // });
+   
+   this.getUserId();
+   console.log(this.t_ID);
+  }
+
+  async getUserId() {
+    this.t_ID = (await this.getObject()).uId;
 
     const userInfo =  gql`query{
-      findAdopterBy_Id(_id: "${this.t_ID}"){
+      findAdopterById(_id: "${this.t_ID}"){
         name,
         email,
         IDNum,
@@ -91,7 +100,7 @@ export class userinfoPageComponent {
     }).valueChanges.subscribe((result) => {
       // console.log(result);
       const  data = result.data as {
-        findAdopterBy_Id: {
+        findAdopterById: {
           name: string,
           email: string,
           IDNum: string,
@@ -106,18 +115,18 @@ export class userinfoPageComponent {
           }[]
         }
       };
-      this.user.name = data.findAdopterBy_Id.name;
-      this.user.email = data.findAdopterBy_Id.email;
-      this.user.IDNum = data.findAdopterBy_Id.IDNum;
-      this.user.pic = data.findAdopterBy_Id.pic;
-      //this.user.location.lat = data.findAdopterBy_Id.location.lat;
-      //this.user.location.lng = data.findAdopterBy_Id.location.lng;
+      this.user.name = data.findAdopterById.name;
+      this.user.email = data.findAdopterById.email;
+      this.user.IDNum = data.findAdopterById.IDNum;
+      this.user.pic = data.findAdopterById.pic;
+      //this.user.location.lat = data.findAdopterById.location.lat;
+      //this.user.location.lng = data.findAdopterById.location.lng;
       // console.log(this.user);
 
-      if(data.findAdopterBy_Id.documents.length > 0){
+      if(data.findAdopterById.documents.length > 0){
 
       //Does not compare type and change path
-        data.findAdopterBy_Id.documents.forEach(element => {
+        data.findAdopterById.documents.forEach(element => {
           if(element.type === "ID"){
             this.ident.path = element.path;
           }else if(element.type === "poR"){
@@ -130,7 +139,14 @@ export class userinfoPageComponent {
         })
       }
     });
-  }//modal dialog
+  }
+
+  async getObject() {
+    const ret = await Storage.get({ key: 'userId' });
+    if(ret.value){
+      return JSON.parse(ret.value);
+    }
+  }
 
   back(){
     //Takes you back to the previous page
