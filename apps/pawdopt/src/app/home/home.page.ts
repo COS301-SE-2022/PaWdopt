@@ -45,7 +45,7 @@ export class HomePage {
     constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth) {
       this.t_ID = "";
       this.currentIndex = -1;
-      this.setPrefs();
+      this.setObject();
       this.fireAuth.currentUser.then(user => {
         console.log(user?.uid);
         if(user?.uid){
@@ -55,7 +55,35 @@ export class HomePage {
         }
       });
     }
+
+    async setObject() {
+      await Storage.set({
+      key: 'preferences',
+      value: JSON.stringify({
+        gender:"",
+        // breed: this.breed,
+        size: {
+          upper:0,
+          lower:0
+        },
+        age: {
+          lower: 0,
+          upper: 0
+        },
+        location: {
+          lower: 0,
+          upper: 0
+        }
+        })
+      });
+    }
   
+    ionViewWillEnter(){
+      this.avatars = [];
+      this.currentIndex = -1;
+      this.setPrefs();
+      this.getDogs();
+    }
 
   // this.apollo.query(getDogsQuery);
   
@@ -68,22 +96,25 @@ export class HomePage {
 
   async setPrefs(){
     const filters = await this.getObject();
-    if(filters){
-      if(filters.value.gender)
-        this.gender = filters.value.gender;
-      if(filters.value.breed)
-        this.breed = filters.value.breed;
-      if(filters.value.age.lower)
-        this.minAge = filters.value.age.lower;
-      if(filters.value.age.upper)
-        this.maxAge = filters.value.age.upper;
-      if(filters.value.size.lower)
-        this.minSize = filters.value.size.lower;
-      if(filters.value.size.upper)
-        this.maxSize = filters.value.size.upper;
-      if(filters.value.distance)
-        this.maxDistance = filters.value.location.upper;
+    console.log(filters);
+    if(filters && filters != undefined){
+      if(filters.gender != undefined)
+        this.gender = filters.gender;
+      if(filters.breed != undefined)
+        this.breed = filters.breed;
+      if(filters.age.lower != undefined)
+        this.minAge = filters.age.lower;
+      if(filters.age.upper != undefined)
+        this.maxAge = filters.age.upper;
+      if(filters.size.lower != undefined)
+        this.minSize = filters.size.lower;
+      if(filters.size.upper != undefined)
+        this.maxSize = filters.size.upper;
+      if(filters.distance != undefined)
+        this.maxDistance = filters.location.upper;
     }
+    if(this.gender == "Any")
+      this.gender = "";
   }
 
   getDogs(){
@@ -198,36 +229,50 @@ export class HomePage {
             }
           });
         // });
+        
         //loop through avatars and exclude elements that dont confide to the filters
+        const temp:{
+          _id: string,
+          name: string,
+          gender: string,
+          breed: string,
+          height: number,
+          lat: number,
+          lng: number,
+          age: number,
+          organisation:string,
+          pic: string,
+          visible: boolean
+          }[] = [];
         this.avatars.forEach(element => {
           let splice = false;
-          if(this.breed)
-            if(element.breed != this.breed){
-              splice = true;
-            }
+          // if(this.breed)
+          //   if(element.breed != this.breed){
+          //     splice = true;
+          //   }
           if(this.gender)
-            if(element.gender != this.gender){
+            if(element.gender != this.gender && this.gender != ""){
               splice = true;
             }
           const distance = 0;
           //distnace is calculated from user and orgs lat and lng
           if(this.maxDistance)
-            if(distance >= this.maxDistance){
+            if(distance >= this.maxDistance && this.maxDistance != 0){
               splice = true;
             }
           if(this.minAge && this.maxAge)
-            if(element.age <= this.minAge && element.age >= this.maxAge){
+            if((element.age < this.minAge || element.age >= this.maxAge) && this.minAge != 0 && this.maxAge != 0){
               splice = true;
             }
           if(this.minSize && this.maxSize)
-            if(element.height <= this.minSize && element.height >= this.maxSize){
+            if((element.height <= this.minSize || element.height >=this.maxSize) && this.minSize != 0 && this.maxSize != 0){
               splice = true;
             }
-          if(splice){
-            this.avatars.splice(this.avatars.indexOf(element), 1);
-            this.currentIndex--;
+          if(!splice){
+            temp.push(element);
           }
         });
+        this.avatars = temp;
       });
     });
     //we have filtered out the dogs
@@ -316,7 +361,7 @@ export class HomePage {
   }
 
   preferences(){
-    //Not implemented yet
+    this.router.navigate(["/preferences"]);
   }
 
       
