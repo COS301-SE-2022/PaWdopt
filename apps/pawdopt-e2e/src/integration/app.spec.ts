@@ -6,26 +6,26 @@ describe.skip('Adopter Use Case', () => {
     cy.get("#signup-link").click();
     cy.url().should('include', '/signup');
     // Fill in form
-    cy.get('#username-field > .native-input').type('Testerman');
+    cy.get('#username-field > .native-input').type('Patrick');
     cy.get('#password-field > .native-input').type('123456');
     cy.get('#re-enter-password-field > .native-input').type('123456');
     cy.get('#idnum-field > .native-input').type('123456789012');
-    cy.get('#email-field > .native-input').type('testerman@ci.mintemail.com');
+    cy.get('#email-field > .native-input').type('patrick@star.com');
     // Check
-    cy.get('#username-field > .native-input').should('have.value', 'Testerman');
+    cy.get('#username-field > .native-input').should('have.value', 'Patrick');
     cy.get('#password-field > .native-input').should('have.value', '123456');
     cy.get('#re-enter-password-field > .native-input').should('have.value', '123456');
     cy.get('#idnum-field > .native-input').should('have.value', '123456789012');
-    cy.get('#email-field > .native-input').should('have.value', 'testerman@ci.mintemail.com');
+    cy.get('#email-field > .native-input').should('have.value', 'patrick@star.com');
     // Submit
     // cy.get('#create-account-button').click();
   });
 
   it('should login as adopter', () => {
     cy.visit('/login');
-    cy.get('#email-field > .native-input').type('testerman@ci.mintemail.com');
+    cy.get('#email-field > .native-input').type('patrick@star.com');
     cy.get('#password-field > .native-input').type('123456');
-    cy.get('#email-field > .native-input').should('have.value', 'testerman@ci.mintemail.com');
+    cy.get('#email-field > .native-input').should('have.value', 'patrick@star.com');
     cy.get('#password-field > .native-input').should('have.value', '123456');
     cy.get('#login-button').click();
     cy.url().should('include', '/home');
@@ -81,9 +81,9 @@ describe.skip('Adopter Use Case', () => {
 describe('OrgMember Use Case', () => {
   it('should login as org member', () => {
     cy.visit('/login');
-    cy.get('#email-field > .native-input').type('krabs@krusty.com');
+    cy.get('#email-field > .native-input').type('spongebob@krusty.com');
     cy.get('#password-field > .native-input').type('123456');
-    cy.get('#email-field > .native-input').should('have.value', 'krabs@krusty.com');
+    cy.get('#email-field > .native-input').should('have.value', 'spongebob@krusty.com');
     cy.get('#password-field > .native-input').should('have.value', '123456');
     cy.get('#login-button').click();
     cy.url().should('include', '/owneddogs');
@@ -107,25 +107,24 @@ describe('OrgMember Use Case', () => {
     cy.get(".searchbar-input").type("c");
     cy.get(".searchbar-input").clear();
   });
-
-  // Fix these
   it('should go to a dog profile', () => {
     cy.get("#likesperdog").click();
-    cy.url().should("include", "/dogprofile");
+    cy.url().should("include", "/dashboard");
+    
   });
 
-  // Fix bin user
   it.skip('should bin a user', () => {
-    cy.url().should("include", "/");
+    // Can't get there because Ion slider
+    cy.get(".ion-color-danger").scrollIntoView().click();
   });
 
-  // fix user profile
   it.skip('should check user profile',() => {
+    // Can't get there because Ion slider
     cy.url().should("include", "/");
   });
 
-  // fix this
   it.skip('should check documentation links', () => {
+    // Can't get there because Ion slider
     cy.url().should("include", "/");
   });
 
