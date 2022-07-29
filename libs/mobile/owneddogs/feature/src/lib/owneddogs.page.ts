@@ -173,7 +173,8 @@ export class owneddogsPageComponent {
   }
 
   dashboard(id: string){
-    this.varsFacade.setOrgId(id);
+    this.setObject(id);
+    console.log(id);
     this.router.navigate(["/dashboard"]);
   }
 
