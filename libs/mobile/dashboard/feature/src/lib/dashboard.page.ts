@@ -58,6 +58,7 @@ export class dashboardPageComponent {
 
   async getDog(){
     this.dogID = (await this.getObject()).name
+    console.log(this.dogID);
     const getDogQuery = gql`query {
       findDogById(_id: "${this.dogID}") {
         name
@@ -161,7 +162,7 @@ export class dashboardPageComponent {
   trash(id:string){
     console.log(id);
     const clickedTrashIconquery = gql`mutation {
-      clickTrashIcon(userId: "${id}", dogID: "${this.dogID}") {
+      clickedTrashIcon(userId: "${id}", dogId: "${this.dogID}") {
         name
       }
     }`;
@@ -170,9 +171,9 @@ export class dashboardPageComponent {
       fetchPolicy: 'no-cache'
     }).subscribe((result) => {
       console.log(result);
+      this.getDog();
     }
     )
-    this.getDog();
   }
 
   home(){
