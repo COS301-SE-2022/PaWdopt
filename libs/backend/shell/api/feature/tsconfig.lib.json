@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../../../dist/out-tsc",
+    "declaration": true,
+    "composite": true,
+    "types": [],
+    "target": "es6"
+  },
+  "include": ["**/*.ts", "../../../../../src/api/api.resolver.ts", "../../../../../src/api/api.service.ts"],
+  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
+}

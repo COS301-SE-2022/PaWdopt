@@ -1,0 +1,68 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+#Angular
+.angular
+
+# NPM
+/package-lock.json
+
+# Yarn
+/yarn.lock
+
+#Ignore mobile builds
+/apps/pawdopt/android
+/apps/pawdopt/ios
+
+# Ignore ML dataset and Jupyter settings
+/ml/Images
+/ml/env
+/ml/.ipynb_checkpoints
+/ml/.vscode
+/ml/*.h5
+/ml/tests
+/ml/checkpoints
+/ml/logs
+/ml/models
+/ml/__pycache__/
+
+# GraphQL
+/schema.gql
+schema.gql

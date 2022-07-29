@@ -1,0 +1,287 @@
+
+sw-card-wrapper {
+  height: 550px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.avatar{
+  --border-radius: 10px;
+  --size: 180px;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 2;
+  top: 24%;
+}
+
+// .backPhoto{
+//   top: 100%;
+//   left: 0;
+//   z-index: 10;
+// }
+
+.card {
+  box-shadow: 0px 1px 3px #000000;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  position: absolute;
+  background-color: #DCCEC5;
+}
+.card img{
+  height: 450px;
+  min-width: 100%;
+  max-width: none;
+}
+.card h2{
+  background-color: #DCCEC5;
+  font-size: 20px;
+  margin: 10px 15px;
+}
+.visible {
+  display: block;
+}
+.hidden {
+  display: none;
+}
+
+
+.card_bg_box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card_bg_1 {
+  position: absolute;
+  box-shadow: 0px 1px 4px #000000;
+  background-color: #ffffff;
+  // background: url(../../assets/images/lastDog.png);
+  height: 481px;
+  width: 340px;
+  top: 5%;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.button_box {
+  width: 90%;
+  display: flex;
+  align-items: flex-start;
+  margin-left: 5%;
+  justify-content: center;
+ 
+}
+.large_button {
+  font-size: 30px;
+  --border-radius: 50%;
+  --border-width: 3px;
+  --border-color: #8E6E53;
+  --padding-start: 15px;
+  --padding-end: 15px;
+  margin-right: -2px;
+  margin-left: -3px;
+  --background-activated: #8E6E53;
+}
+
+.redo_button {
+  font-size: 30px;
+  --border-radius: 50%;
+  --border-width: 3px;
+  --border-color: #ffc409;
+  --padding-start: 15px;
+  --padding-end: 15px;
+  margin-right: -2px;
+  margin-left: -3px;
+  --background-activated: #8E6E53;
+}
+
+.cancel_button {
+  font-size: 30px;
+  --border-radius: 50%;
+  --border-width: 3px;
+  --border-color: #B72020;
+  --padding-start: 15px;
+  --padding-end: 15px;
+  margin-right: -2px;
+  margin-left: -3px;
+  --background-activated: #8E6E53;
+}
+
+.like_button {
+  font-size: 30px;
+  --border-radius: 50%;
+  --border-width: 3px;
+  --border-color: #2dd36f;
+  --padding-start: 15px;
+  --padding-end: 15px;
+  margin-right: -2px;
+  margin-left: -3px;
+  --background-activated: #8E6E53;
+}
+
+.location_button {
+  font-size: 30px;
+  --border-radius: 50%;
+  --border-width: 3px;
+  --border-color: #2a0800;
+  --padding-start: 15px;
+  --padding-end: 15px;
+  margin-right: -2px;
+  margin-left: -3px;
+  --background-activated: #8E6E53;
+}
+
+.space {
+  width: 12px;
+}
+ion-slides{
+  box-shadow: 0px 1px 3px #000000;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  background-color: #7A7265;
+  margin: 15px 15px;
+}
+
+
+.bg-1{
+  height:400px;
+ width: 400px;
+}
+
+.centered {
+  position: absolute;
+  top: 100%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+}
+
+.wrap-text {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+}
+
+.ion-color-twitter {
+  --ion-color-base: var(--ion-color-twitter);
+  --ion-color-base-rgb: var(--ion-color-twitter-rgb);
+  --ion-color-contrast: var(--ion-color-twitter-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-twitter-contrast-rgb);
+  --ion-color-shade: var(--ion-color-twitter-shade);
+  --ion-color-tint: var(--ion-color-twitter-tint);
+}
+
+// .logo {
+//   height: 40px;
+// }
+
+
+
+
+// sw-card-wrapper {
+//   height: 550px;
+//   display: flex;
+//   width: 100%;
+//   justify-content: center;
+//   align-items: center;
+//   z-index: 5;
+// }
+// .card {
+//   box-shadow: 0px 1px 3px #e6e6e6;
+//   border-radius: 10px;
+//   margin-bottom: 30px;
+//   overflow: hidden;
+//   position: absolute;
+//   background-color: white;
+// }
+// .card img{
+//   height: 450px;
+//   min-width: 100%;
+//   max-width: none;
+// }
+// .card h2{
+//   background-color: white;
+//   font-size: 20px;
+//   margin: 10px 15px;
+// }
+// .visible {
+//   display: block;
+// }
+// .hidden {
+//   display: none;
+// }
+
+
+
+
+
+
+// .card_bg_box {
+//   width: 100%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+// .card_bg_1 {
+//   position: absolute;
+//   box-shadow: 0px 1px 4px #cecece;
+//   background-color: white;
+//   height: 481px;
+//   width: 340px;
+//   top: 50px;
+//   border-radius: 10px;
+//   z-index: 1;
+// }
+// .card_bg_2 {
+//   position: absolute;
+//   box-shadow: 0px 1px 4px #cecece;
+//   background-color: white;
+//   height: 481px;
+//   width: 330px;
+//   top: 55px;
+//   border-radius: 10px;
+//   z-index: 0;
+// }
+
+
+
+
+
+// .button_box {
+//   width: 90%;
+//   display: flex;
+//   align-items: flex-start;
+//   margin-left: 5%;
+//   justify-content: center;
+// }
+// .small_button {
+//   font-size: 20px;
+//   --border-radius: 50%;
+//   --border-width: 8px;
+//   --border-color: #f3f3f3;
+//   --padding-start: 8px;
+//   --padding-end: 8px;
+//   --background-activated: #f3f3f3;
+// }
+// .large_button {
+//   font-size: 30px;
+//   --border-radius: 50%;
+//   --border-width: 8px;
+//   --border-color: #f3f3f3;
+//   --padding-start: 15px;
+//   --padding-end: 15px;
+//   margin-right: -10px;
+//   margin-left: -10px;
+//   --background-activated: #f3f3f3;
+// }
+// .space {
+//   width: 12px;
+// }

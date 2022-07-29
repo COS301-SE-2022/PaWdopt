@@ -1,0 +1,111 @@
+<div class="container">
+    <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
+    <ion-chip class="orgmember-section-title">
+        <ion-icon name="help-buoy-sharp"></ion-icon>
+        <ion-label>Organisation details: </ion-label>
+    </ion-chip>
+    <ion-list class="form">
+        <ion-item-group class="form-border">
+            <ion-item class="form-item form-start">
+                <ion-label position="floating" class="form-input-label">Name</ion-label>
+                <ion-input class="form-input" [(ngModel)]="oName" id="org-name-field"></ion-input>
+            </ion-item>
+            <ion-item class="form-item" lines="none">
+                <ion-label position="floating">About</ion-label>
+                <ion-input class="form-input" [(ngModel)]="about" id="about-field"></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Date founded</ion-label>
+                <ion-input value="{{ date | date: 'yyyy.MM.dd' }}" id="date" class="ion-text-end"></ion-input>
+                <ion-popover trigger="date" size="cover">
+                    <ng-template>
+                        <ion-datetime presentation="date" [(ngModel)]="date"></ion-datetime>
+                    </ng-template>
+                </ion-popover>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label>Location</ion-label>
+                <ion-label position="floating" class="form-input-label">Latitude</ion-label>
+                <ion-input class="form-input" [(ngModel)]="lat" id="lat-field">
+                </ion-input>
+                <ion-label position="floating" class="form-input-label">Longitude</ion-label>
+                <ion-input class="form-input" [(ngModel)]="lng" id="long-field">
+                </ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Contact email (optional)</ion-label>
+                <ion-input class="form-input" [(ngModel)]="email" id="email-field"></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Contact number (optional)</ion-label>
+                <ion-input class="form-input" [(ngModel)]="phone" id="phone-field"></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Website link (optional)</ion-label>
+                <ion-input class="form-input" [(ngModel)]="website" id="website-field"></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Facebook link (optional)</ion-label>
+                <ion-input class="form-input" [(ngModel)]="facebook" id="facebook-field"></ion-input>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Instagram link (optional)</ion-label>
+                <ion-input class="form-input" [(ngModel)]="instagram" id="instagram-field"></ion-input>
+            </ion-item>
+            <ion-item class="form-item form-end">
+                <ion-label position="floating" class="form-input-label">Twitter link (optional)</ion-label>
+                <ion-input class="form-input" [(ngModel)]="twitter" id="twitter-field"></ion-input>
+            </ion-item>
+        </ion-item-group>
+    </ion-list>
+    <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">
+        <ion-icon name="image-sharp"></ion-icon> Upload an organisation logo
+    </ion-button>
+    <ion-button class="greyButton" id="image-upload-button" (click)="uploadDoc()">
+        <ion-icon name="document-sharp"></ion-icon> Upload list of adoption rules
+    </ion-button>
+    <ion-chip class="orgmember-section-title">
+        <ion-icon name="accessibility-sharp"></ion-icon>
+        <ion-label>Add members: </ion-label>
+    </ion-chip>
+    <ion-slides class="orgmember-slides" [options]="slideOpts">
+        <ion-slide class="orgmember-slide" *ngFor="let o of orgMembers">
+            <ion-card class="orgmember-adder-card">
+                <ion-card-header>
+                    <ion-card-title>Member details: </ion-card-title>
+                </ion-card-header>
+                <ion-card-content style="padding: 0;">
+                    <ion-item class="form-item">
+                        <ion-label position="floating" class="form-input-label">Name</ion-label>
+                        <ion-input class="form-input" [(ngModel)]="o.name" id="org-member-name-field">
+                        </ion-input>
+                    </ion-item>
+                    <ion-item class="form-item">
+                        <ion-label position="floating" class="form-input-label">Email</ion-label>
+                        <ion-input class="form-input" [(ngModel)]="o.email" id="org-member-email-field">
+                        </ion-input>
+                    </ion-item>
+                    <ion-item class="form-item">
+                        <ion-label position="floating" class="form-input-label">Role</ion-label>
+                        <ion-select [(ngModel)]="o.role" id="org-member-role-field">
+                            <ion-select-option value="admin">Admin</ion-select-option>
+                            <ion-select-option value="member">Member</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-button class="orgmember-delete-button" (click)="deleteOrgMemberCard(o)" color="danger">
+                        <ion-icon name="trash"></ion-icon>
+                    </ion-button>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+        <ion-slide class="orgmember-slide">
+            <ion-card class="orgmember-adder-button-card" (click)="addOrgMemberCard()">
+                <ion-icon name="add-circle-sharp" style="font-size: x-large;"></ion-icon>
+                <ion-text style="margin-top: 5%; font-weight: bold;">Add Member</ion-text>
+            </ion-card>
+        </ion-slide>
+    </ion-slides>
+
+    <ion-button class="greyButton" id="add-org-button" (click)="addOrg()">Add organisation</ion-button>
+    <ion-button class="greyButton" id="add-org-button" (click)="Back()">Back</ion-button>
+</div>

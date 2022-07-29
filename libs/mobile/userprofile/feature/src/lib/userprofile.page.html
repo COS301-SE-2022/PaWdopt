@@ -1,0 +1,60 @@
+<!--Header-->
+<ion-header >
+  <ion-toolbar color = "secondary">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="dark" (click)="preferences()">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
+    </ion-title>
+    <ion-buttons slot="end" (click)="profile()">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+ <!--Back-->
+ <div>
+  <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+    <ion-icon  name="arrow-back-sharp"></ion-icon>
+  </ion-button>
+</div>
+
+<div>&nbsp;</div>
+
+<ion-content>
+  <ion-thumbnail class="avatar">
+    <img [src]="user.pic" [alt]="user.name">
+    <!-- <img class="logo" src="../../assets/avatar1.jpg"> -->
+  </ion-thumbnail>
+  <div class="profile">
+    <h1>{{user.name}}</h1>
+    <p>{{user.email}}</p>
+    <p><ion-icon name="location"></ion-icon>&nbsp;Pretoria</p>
+
+  <!--Buttons-->
+  <div class="container">
+    <ion-button class="greyButton" id="upload-documents-dialog" (click)="uploadDocs()" ><ion-icon name="add-circle-outline"></ion-icon>&nbsp;Upload documentation</ion-button>
+    <ion-button class="greyButton" id="signout-org-button" (click)="signout()">Signout</ion-button>
+  </div> 
+  </div>
+ 
+</ion-content>
+
+
+<!-- Footer-->
+<ion-tab-bar color="secondary" slot="bottom">
+  <ion-tab-button tab="home" (click)="home()">
+  <ion-icon color = "dark" name="home"></ion-icon>
+  </ion-tab-button>
+  <ion-tab-button tab="liked" (click)="likeddogs()">
+    <ion-icon color = "dark" name="paw"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="chats">
+      <ion-icon color = "dark" name="chatbox"></ion-icon>
+      </ion-tab-button>
+</ion-tab-bar>

@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:5
+    restart: unless-stopped
+    container_name: mongodb
+    env_file: .env
+    ports:
+      - "27017:27017"
+    networks:
+      - pawdopt-private
+    command: mongod
+  ml:
+    build:
+      context: ./ml/
+      dockerfile: Dockerfile
+    container_name: ml-api
+    ports:
+      - "5000:5000"
+    networks:
+      - pawdopt-private
+
+networks:
+  pawdopt-private:

@@ -1,0 +1,93 @@
+<!--Header-->
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-button fill="clear" color="dark" (click)="preferences()">
+                <ion-icon slot="icon-only" name="settings"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
+        </ion-title>
+        <ion-buttons slot="end" (click)="profile()">
+            <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="person"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<!--Back-->
+<div>
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="Back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-button>
+</div>
+
+
+<ion-content>
+    <div class="userinfo">
+        <div class="table">
+            <ion-item>
+                <ion-label>Gender</ion-label>
+                <ion-select [(ngModel)]="gender" id="gender-select">
+                    <ion-select-option value="Any">Any</ion-select-option>
+                    <ion-select-option value="Male">Male</ion-select-option>
+                    <ion-select-option value="Female">Female</ion-select-option>
+                </ion-select>
+            </ion-item>
+            &nbsp;
+            <ion-item>
+                <ion-label position="floating">Breed</ion-label>
+                <!-- <ion-select [(ngModel)]="breed" id="breed-select">
+                        <ion-select-option value="any">Any</ion-select-option>
+                    </ion-select> -->
+                <!-- Will be implemented properly demo 4, for now use static search -->
+                <ion-input></ion-input>
+            </ion-item>
+            &nbsp;
+            <ion-item>
+                <div style="display: flex; flex-direction: column;">
+                    <ion-label>Size of the dog</ion-label>
+                    <!-- <div style="display: flex; align-items: center;">
+                            <ion-label style="margin-right:2%;">Doesn't matter</ion-label>
+                            <ion-checkbox [(ngModel)]="sizeAny" id="size-checkbox">Doesn't matter</ion-checkbox>
+                        </div> -->
+                    <!-- <ion-label>Dog weight in kg</ion-label> -->
+                    <ion-range [dualKnobs]="true" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="size" pin="true"></ion-range>
+                </div>
+            </ion-item>
+            &nbsp;
+            <ion-item>
+                <div style="display: flex; flex-direction: column;">
+                    <ion-label>Age range of dog</ion-label>
+                    <ion-range [dualKnobs]="true" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="size2" pin="true"></ion-range>
+                </div>
+            </ion-item>
+            &nbsp;
+            <ion-item>
+                <div style="display: flex; flex-direction: column;">
+                    <ion-label>Location range of dog</ion-label>
+                    <ion-range [dualKnobs]="true" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="size3" pin="true"></ion-range>
+                </div>
+            </ion-item>
+            <div class="annoyingButton">
+                <ion-button class="greyButton" (click)="saveChanges()">Save changes</ion-button>
+            </div>
+        </div>
+    </div>
+
+</ion-content>
+
+<!-- Footer-->
+<ion-tab-bar color="secondary" slot="bottom">
+    <ion-tab-button tab="home" (click)="home()">
+        <ion-icon color="dark" name="home"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="liked" (click)="likeddogs()">
+        <ion-icon color="dark" name="paw"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="chats">
+        <ion-icon color="dark" name="chatbox"></ion-icon>
+    </ion-tab-button>
+</ion-tab-bar>

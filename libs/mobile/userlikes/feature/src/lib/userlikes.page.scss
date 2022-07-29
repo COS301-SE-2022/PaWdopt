@@ -1,0 +1,57 @@
+.maincontainer{
+    //position: absolute;
+    //transform: translate(-50%, -50%);
+    margin: auto;
+    width: 330px;
+    height: 480px;
+    background: none;
+    top: 50%;
+    left: 50%;
+    
+}
+
+.thecard{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+    
+}
+
+.thecard:active {
+    transform: rotateY(180deg);
+}
+
+.thefront{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    background: #F8F9FA;
+    text-align: center;
+    color: #000;
+    
+}
+
+.theback{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    background: #F8F9FA;
+    color: #333;
+    text-align: center;
+    transform: rotateY(180deg);
+  }

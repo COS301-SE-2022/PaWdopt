@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-button fill="clear" color="dark" (click)="preferences()">
+                <ion-icon slot="icon-only" name="settings"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
+        </ion-title>
+        <ion-buttons slot="end" (click)="profile()">
+            <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="person"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<!--Back-->
+<div>
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-button>
+</div>
+
+<!--Content-->
+<ion-content>
+    <ion-thumbnail class="logo">
+        <!-- <img [src]="user.pic.path" [alt]="user.name"> -->
+        <img class="logo" src="../../assets/spcalogo-meta.png">
+    </ion-thumbnail>
+    <div class="companyprofile">
+        <h1><b>{{org.name}}</b></h1>
+        <!-- Use google maps api return a string (suburb) of the coordinates-->
+        <p><b><ion-icon name="location"></ion-icon>&nbsp;Pretoria</b></p>
+        <p><b>Joined PaWdopt on {{dateString}}</b></p>
+
+        <div class="container">
+            <h1>
+                <ion-icon name="paw"></ion-icon>&nbsp;{{org.totalDogs}} dogs available</h1>
+            <h1>
+                <ion-icon name="checkmark-outline"></ion-icon>&nbsp;{{org.totalAdoptions}} dogs adopted</h1>
+
+        </div>
+    </div>
+</ion-content>
+
+
+<!--Footer-->
+<ion-tab-bar color="secondary" slot="bottom">
+    <ion-tab-button tab="home" (click)="home()">
+        <ion-icon color="dark" name="home"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="liked" (click)="likeddogs()">
+        <ion-icon color="dark" name="paw"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="chats">
+        <ion-icon color="dark" name="chatbox"></ion-icon>
+    </ion-tab-button>
+</ion-tab-bar>
