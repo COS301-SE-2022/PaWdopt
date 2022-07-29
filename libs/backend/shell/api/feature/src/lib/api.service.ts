@@ -36,7 +36,7 @@ export class ApiService {
             if (orgMember) {
                 await this.updateOrgMember(orgMember._id, orgMember);
             }else{
-                await this.createOrgMemberWithoutAddingToOrg(orgMember);
+                await this.createOrgMemberWithoutAddingToOrg(member);
             }
         })
         const orgMembersExisting = await this.OrgMemberModel.find({ organisation: _id }).exec();

@@ -223,7 +223,8 @@ export class ApiResolver {
      */
     @Mutation(() => DogType)
     async clickedHeartIcon(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<DogType> {
-        this.DogService.addAdopterToOrgPotentialAdopters(dogId, userId);
+        const orgId = (await this.DogService.findDogById(dogId)).organisation._id;
+        await this.DogService.addAdopterToOrgPotentialAdopters(orgId, userId);
         return this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
          
     }
