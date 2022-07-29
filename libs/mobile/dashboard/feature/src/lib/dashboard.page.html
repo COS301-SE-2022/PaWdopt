@@ -64,7 +64,7 @@
             <ion-item-sliding id="item1">
                 <ion-item href="#">
                     <ion-thumbnail class="avatar">
-                        <img src="../../assets/avatar1.jpg">
+                        <img src={{userLike.pic}}>
                     </ion-thumbnail>
                     <div>&nbsp;</div>
                     <ion-label>
@@ -72,9 +72,6 @@
                         <p>Verified user</p>
                         <p>All documentation is up to date.</p>
                     </ion-label>
-                    <ion-note slot="end">
-                        10:45 AM
-                    </ion-note>
                 </ion-item>
                 <ion-item-options side="start">
                     <ion-item-option color="success" (click)="heart(userLike._id)">

@@ -72,7 +72,8 @@ export class adoptionprocessPageComponent {
           organisation{
             _id
           }
-        }`
+        }
+      }`
 
       this.apollo.watchQuery({
         query: findOrgMemberByIdQuery,
@@ -89,7 +90,7 @@ export class adoptionprocessPageComponent {
         this.orgId = data.findOrgMemberById.organisation._id;
 
         const getOrgByNameQuery = gql`
-          query findOrgById(_id: "${this.orgId}") {
+          query { findOrgById(_id: "${this.orgId}") {
             potentialAdopters{
               _id
               name
@@ -99,7 +100,8 @@ export class adoptionprocessPageComponent {
                 name
                 pics
               }[]
-            }`
+            }
+          }`
         this.apollo.watchQuery({
           query: getOrgByNameQuery,
           fetchPolicy: 'no-cache'
@@ -138,8 +140,8 @@ export class adoptionprocessPageComponent {
   }
 
   clickedSwiper(userId: string, dogID: string){
-    this.varsFacade.setUserID(userId);
-    this.varsFacade.setDogID(dogID);
+    // this.varsFacade.setUserID(userId);
+    // this.varsFacade.setDogID(dogID);
     this.router.navigate(["/useradoption"]);
   }
 

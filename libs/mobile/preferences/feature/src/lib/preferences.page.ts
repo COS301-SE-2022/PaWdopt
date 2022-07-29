@@ -49,16 +49,16 @@ export class PreferencesPageComponent {
     key: 'preferences',
     value: JSON.stringify({
       gender: this.gender,
-      breed: this.breed,
+      // breed: this.breed,
       size: this.size,
       age: this.size2,
       location: this.size3
       })
     });
   }
+
   Back(){
-    // TODO Complete add dog validation
-    this.router.navigate(["/owneddogs"]);
+    this.router.navigate(["/home"]);
   }
 
   home(){
@@ -77,8 +77,8 @@ export class PreferencesPageComponent {
     //this.router.navigate(["/orgsettings"]); Not implemented yet
   }
 
-  saveChanges(){
-    this.setObject();
+  async saveChanges(){
+    await this.setObject();
     this.router.navigate(["/home"]);
   }
 }

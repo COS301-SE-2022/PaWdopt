@@ -41,11 +41,14 @@ export class dashboardPageComponent {
     name:string,
     pic:string,
   }[]=[];
+
+  userId!: string;
   
   constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade ) {
     /*this.varsFacade.dogID$.subscribe(dogID => {
       this.dogID = dogID;
     });*/
+    this.userId = "";
     this.getDog();
   }
 
@@ -123,29 +126,28 @@ export class dashboardPageComponent {
           {
             _id: element._id,
             name: element.name,
-            pic: "../../assets/avatar1.jpg"
+            pic: element.pic
           }
         );
       })
     })
   }
-
   clickedUserID!: string;
 
 
 
-  userinfo(id: string){
+  async userinfo(id: string){
     // TODO Complete dashboard validation
-    this.varsFacade.setUserID(id);
+    this.userId = id;
+    await this.setObject();
     console.log(id);
     this.router.navigate(["/userinfo"]);
-    
   }
 
   heart(id:string){
     console.log("heart");
     const clickedHeartIconquery = gql`mutation {
-      clickHeartIcon(userId: "${id}", dogID: "${this.dogID}") {
+      clickedHeartIcon(userId: "${id}", dogId: "${this.dogID}") {
         _id
       }
     }`;
@@ -154,9 +156,9 @@ export class dashboardPageComponent {
       fetchPolicy: 'no-cache'
     }).subscribe((result) => {
       console.log(result);
+      this.getDog();
     }
     )
-    this.getDog();
   }
 
   trash(id:string){
@@ -171,9 +173,19 @@ export class dashboardPageComponent {
       fetchPolicy: 'no-cache'
     }).subscribe((result) => {
       console.log(result);
+      this.userLikes = [];
       this.getDog();
     }
     )
+  }
+
+  async setObject() {
+    await Storage.set({
+    key: 'userId',
+    value: JSON.stringify({
+      uId: this.userId
+      })
+    });
   }
 
   home(){
@@ -181,7 +193,7 @@ export class dashboardPageComponent {
   }
 
   likeddogs(){
-    this.router.navigate(["/userlikes"]);
+    this.router.navigate(["/adoptionprocess"]);
   }
 
   profile(){
