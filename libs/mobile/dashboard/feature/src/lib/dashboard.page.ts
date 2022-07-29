@@ -61,6 +61,7 @@ export class dashboardPageComponent {
 
   async getDog(){
     this.dogID = (await this.getObject()).name
+    console.log(this.dogID);
     const getDogQuery = gql`query {
       findDogById(_id: "${this.dogID}") {
         name
