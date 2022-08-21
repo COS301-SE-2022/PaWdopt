@@ -17,9 +17,10 @@
     </ion-toolbar>
 </ion-header>
 
+&nbsp;
 
 <ion-content>
-
+    <ion-label class="hint"><ion-icon name="information-circle-outline"></ion-icon>&nbsp;Slide left to dislike or right to like a dog or make use of the buttons below.</ion-label>
     <sw-card-wrapper #cardWrapper>
         <div class="card" *ngFor="let avatar of avatars, let index = index" [class.visible]="avatar.visible" [class.hidden]="!avatar.visible" swSwipeable [width]="350" [height]="500" [orientation]="'x'" (swiped)="swiped($event, index)">
             <img [src]="avatar.pic" [alt]="avatar.name">
