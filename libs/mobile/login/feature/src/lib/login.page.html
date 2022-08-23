@@ -6,7 +6,7 @@
                 <ion-label position="floating" class="form-input-label">Email</ion-label>
                 <ion-input class="form-input" id="email-field" clear-on-edit=false [(ngModel)]="inputEmail"></ion-input>
             </ion-item>
-            <ion-item class="form-item">
+            <ion-item class="form-item form-end">
                 <ion-label position="floating" class="form-input-label">Password</ion-label>
                 <ion-input class="form-input" id="password-field" clear-on-edit=false [(ngModel)]="inputPassword" type="password"></ion-input>
             </ion-item>
@@ -15,7 +15,7 @@
     <ion-button class="greyButton" id="login-button" (click)="login()"><b>Continue</b></ion-button>
     <!-- <ion-button class="greyButton" id="login-button" (click)="addorg()"><b>Add organization</b></ion-button> -->
     <ion-button class="greyButton" id="login-apple-button" (click)="appleSignin()">
-        <ion-icon name="logo-apple"></ion-icon>&nbsp; Login with Apple</ion-button>
+        <ion-icon name="logo-apple"></ion-icon>&nbsp;&nbsp;Login with Apple&nbsp;&nbsp;&nbsp;</ion-button>
     <ion-button class="greyButton" id="login-google-button" (click)="googleSignin()">
         <ion-icon name="logo-google"></ion-icon>&nbsp; Login with Google</ion-button>
     <div class="noaccount">

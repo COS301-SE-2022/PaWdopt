@@ -21,7 +21,7 @@
 
   <ion-content>
     <div class="container">
-      <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">Upload a picture</ion-button>
+      <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()"><ion-icon name="camera"></ion-icon>&nbsp;Upload a picture</ion-button>
       <ion-list class="form">
           <ion-item-group class="form-border">
               <ion-item class="form-item form-start">
@@ -41,10 +41,6 @@
                   <ion-input class="form-input" id="age-field" clear-on-edit=false [(ngModel)]="inputDOB"></ion-input>
               </ion-item>
               <ion-item class="form-item">
-                <ion-label position="floating" class="form-input-label">About</ion-label>
-                <ion-input class="form-input" id="about-field" clear-on-edit=false [(ngModel)]="inputAbout"></ion-input>
-            </ion-item>
-              <ion-item class="form-item">
                   <ion-label position="floating" class="form-input-label">Height (in cm)</ion-label>
                   <ion-input class="form-input" id="height-field" clear-on-edit=false [(ngModel)]="inputHeight"></ion-input>
               </ion-item>
@@ -60,9 +56,22 @@
                   <ion-label position="floating">Temperament</ion-label>
                   <ion-input class="form-input" id="temperament-field" placeholder="Active, Brave, Calm..." [(ngModel)]="inputTemperament"></ion-input>
               </ion-item>
+              <!-- <ion-item class="form-item form-end">
+                <ion-label position="floating" class="form-input-label">About</ion-label>
+                <ion-input class="form-input" id="about-field" clear-on-edit=false [(ngModel)]="inputAbout"></ion-input>
+            </ion-item> -->
           </ion-item-group>
       </ion-list>
-      <ion-button class="greyButton" id="add-dog-button" (click)="addDog()">Add a dog</ion-button>  
+      &nbsp;
+      <ion-list class="form">
+        <ion-item-group class="form-border">
+          <ion-item class="form-item">
+            <ion-label position="floating" class="form-input-label">About</ion-label>
+            <ion-textarea class="form-input" id="about-field" clear-on-edit=false [(ngModel)]="inputAbout"></ion-textarea>
+        </ion-item>
+        </ion-item-group>
+      </ion-list>
+      <ion-button class="greyButton" id="add-dog-button" (click)="addDog()"><ion-icon name="add"></ion-icon>&nbsp; Add a dog</ion-button>  
   </div>
   </ion-content>
 
