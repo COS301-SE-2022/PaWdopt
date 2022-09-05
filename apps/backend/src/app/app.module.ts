@@ -6,9 +6,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-// import * as dotenv from 'dotenv';
-// dotenv.config();
- 
 
 @Module({
   imports: [
@@ -18,7 +15,7 @@ import { ConfigModule } from '@nestjs/config';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql'
     }),
-    MongooseModule.forRoot(process.env.DB_URL+"nest"),
+    MongooseModule.forRoot(process.env.DB_URL),
   ],
   controllers: [AppController],
   providers: [AppService], 
