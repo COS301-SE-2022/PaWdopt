@@ -5,8 +5,10 @@ import { GraphQLModule} from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
- 
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+ 
 @Module({
   imports: [
     BackendShellApiFeatureModule,
@@ -14,7 +16,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql'
     }),
-    MongooseModule.forRoot(process.env.DB_URL+"nest"),
+    MongooseModule.forRoot(process.env.DB_URL),
   ],
   controllers: [AppController],
   providers: [AppService],
