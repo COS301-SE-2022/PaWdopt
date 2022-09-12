@@ -34,7 +34,10 @@
               </ion-item>
               <ion-item class="form-item">
                   <ion-label position="floating" class="form-input-label">Gender</ion-label>
-                  <ion-input class="form-input" id="gender-field" clear-on-edit=false [(ngModel)]="inputGender"></ion-input>
+                  <ion-select [(ngModel)]="inputGender" id="gender-select">
+                    <ion-select-option value="Male">Male</ion-select-option>
+                    <ion-select-option value="Female">Female</ion-select-option>
+                </ion-select>
               </ion-item>
               <ion-item class="form-item">
                   <ion-label position="floating" class="form-input-label">Date of birth</ion-label>
