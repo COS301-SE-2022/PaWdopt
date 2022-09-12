@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
 import { Storage } from '@capacitor/storage'
+import { AlertController } from '@ionic/angular';
 //import { owneddogsPageComponentModule } from '@pawdopt/mobile/owneddogs/feature';
 @Component({
   selector: 'pawdopt-dashboard',
@@ -44,12 +45,35 @@ export class dashboardPageComponent {
 
   userId!: string;
   
-  constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade ) {
+  constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade, private alertController: AlertController ) {
     /*this.varsFacade.dogID$.subscribe(dogID => {
       this.dogID = dogID;
     });*/
     this.userId = "";
     this.getDog();
+  }
+
+  async _alert() {
+    const alert = await this.alertController.create({
+      header: 'User Rejection',
+      subHeader: '',
+      message: 'Are you sure you want to reject this user?',
+      backdropDismiss: true,
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          cssClass: 'my-alert-class',
+          handler: (value:  any) => {
+            console.log('ok clicked')
+        }
+      },
+      {
+        text: 'Cancel',
+      }
+    ]
+    });
+    await alert.present();
   }
 
   async getObject() {
@@ -144,8 +168,20 @@ export class dashboardPageComponent {
     this.router.navigate(["/userinfo"]);
   }
 
-  heart(id:string){
-    console.log("heart");
+  async heart(id:string){
+
+    const alert = await this.alertController.create({
+      header: 'Start Adoption Process?',
+      subHeader: '',
+      message: 'Are you sure you want to start the adoption process of this user?',
+      backdropDismiss: true,
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'cancel',
+          cssClass: 'my-alert-class',
+          handler: (value:  any) => {
+            console.log("heart");
     const clickedHeartIconquery = gql`mutation {
       clickedHeartIcon(userId: "${id}", dogId: "${this.dogID}") {
         _id
@@ -159,10 +195,29 @@ export class dashboardPageComponent {
       this.getDog();
     }
     )
+        }
+      },
+      {
+        text: 'Cancel',
+      }
+    ]
+    });
+    await alert.present();
   }
 
-  trash(id:string){
-    console.log(id);
+  async trash(id:string){
+    const alert = await this.alertController.create({
+      header: 'User Rejection',
+      subHeader: '',
+      message: 'Are you sure you want to reject this user?',
+      backdropDismiss: true,
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'cancel',
+          cssClass: 'my-alert-class',
+          handler: (value:  any) => {
+            console.log(id);
     const clickedTrashIconquery = gql`mutation {
       clickedTrashIcon(userId: "${id}", dogId: "${this.dogID}") {
         name
@@ -177,6 +232,14 @@ export class dashboardPageComponent {
       this.getDog();
     }
     )
+        }
+      },
+      {
+        text: 'Cancel',
+      }
+    ]
+    });
+    await alert.present();
   }
 
   async setObject() {
