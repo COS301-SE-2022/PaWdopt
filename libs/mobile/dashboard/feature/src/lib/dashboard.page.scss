@@ -4,14 +4,33 @@
     align-content: center;
     align-items: center;
     margin: auto;
-    width: 300px;
+    width: 200px;
     height: 50px;
     // width: 100%;
     // height: 100%;
-    border-radius: 5px;
+    border-radius: 30px;
     background-color: #C0B7B1;
     border-color: black;
 
+}
+
+.hint {
+    display: flex;
+    justify-content: center;
+    font-size: 11px;
+  }
+
+.dog-section-title {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: auto;
+
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 5%;
+    font-weight: bold;
 }
 
 .userinfo{

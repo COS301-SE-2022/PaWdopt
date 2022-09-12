@@ -20,8 +20,12 @@
 <ion-content>
     <!--Dog name-->
     <div class="dogname">
-        <p><b>{{dog.name}}</b></p>
+        <p><b><ion-icon name="paw"></ion-icon>&nbsp;{{dog.name}}</b></p>
     </div>
+    <!-- <ion-chip class="dog-section-title">
+        <ion-icon name="help-buoy-sharp"></ion-icon>
+        <ion-label>{{dog.name}}</ion-label>
+    </ion-chip> -->
     <div>&nbsp;</div>
     <!--Dog info-->
     <div class="maincontainer">
@@ -57,6 +61,8 @@
     <div class="dogname">
         <p><b>Users that liked me!</b></p>
     </div>
+    &nbsp;
+    <ion-label class="hint"><ion-icon name="information-circle-outline"></ion-icon>&nbsp;Slide right to start adoption process or left to reject or view info on user.</ion-label>
     <div class="userinfo">
         <div>&nbsp;</div>
         <ion-list *ngFor="let userLike of userLikes">
@@ -79,7 +85,7 @@
                     </ion-item-option>
                 </ion-item-options>
                 <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="trash(userLike._id)">
+                    <ion-item-option color="danger" (click)="trash(userLike._id)"> <!--_alert()-->
                         <ion-icon slot="icon-only" name="trash"></ion-icon>
                     </ion-item-option>
                     <ion-item-option color="primary" (click)="userinfo(userLike._id)">
