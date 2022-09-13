@@ -25,6 +25,7 @@
     "mobile-userprofile-feature": "libs/mobile/userprofile/feature",
     "pawdopt": "apps/pawdopt",
     "pawdopt-e2e": "apps/pawdopt-e2e",
-    "shared-data-store": "libs/shared/data-store"
+    "shared-data-store": "libs/shared/data-store",
+    "shared-ml-feature": "libs/shared/ml/feature"
   }
 }

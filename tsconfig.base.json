@@ -77,7 +77,8 @@
       "@pawdopt/mobile/userprofile/feature": [
         "libs/mobile/userprofile/feature/src/index.ts"
       ],
-      "@pawdopt/shared/data-store": ["libs/shared/data-store/src/index.ts"]
+      "@pawdopt/shared/data-store": ["libs/shared/data-store/src/index.ts"],
+      "@pawdopt/shared/ml/feature": ["libs/shared/ml/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
