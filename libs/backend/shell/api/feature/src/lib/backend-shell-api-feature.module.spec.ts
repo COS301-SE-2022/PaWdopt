@@ -30,35 +30,35 @@ describe('BackendShellApiFeatureModule', () => {
         expect(app).toBeDefined();
     });
 
-    it('should create an adopter', async () => {
-        adopter = {
-            _id: 'testID',
-            name: 'John Doe',
-            email: 'johntesterman@test.com',
-            IDNum: '1234567890123',
-            pic: '',
-            location: {
-                lat: 0,
-                lng: 0
-            },
-            documents: null,
-            dogsLiked: null,
-            dogsDisliked: null,
-            uploadedDocs: false
-        };
-        expect((await apiService.createAdopter(adopter)).name).toEqual(adopter.name);
-    });
+    // it('should create an adopter', async () => {
+    //     adopter = {
+    //         _id: 'testID',
+    //         name: 'John Doe',
+    //         email: 'johntesterman@test.com',
+    //         IDNum: '1234567890123',
+    //         pic: '',
+    //         location: {
+    //             lat: 0,
+    //             lng: 0
+    //         },
+    //         documents: null,
+    //         dogsLiked: null,
+    //         dogsDisliked: null,
+    //         uploadedDocs: false
+    //     };
+    //     expect((await apiService.createAdopter(adopter)).name).toEqual(adopter.name);
+    // });
 
-    it('should get an adopter', async () => {
-        const req = "johntesterman@test.com";
-        adopter = await apiService.findAdopter(req);
-        expect(adopter.email).toBe(req);
-    });
+    // it('should get an adopter', async () => {
+    //     const req = "johntesterman@test.com";
+    //     adopter = await apiService.findAdopter(req);
+    //     expect(adopter.email).toBe(req);
+    // });
 
-    it('should update an adopter', async () => {
-        adopter.email = "johntesterman@updatedtest.com";
-        expect((await apiService.updateAdopter(adopter._id, adopter)).email).toBeTruthy();
-    });
+    // it('should update an adopter', async () => {
+    //     adopter.email = "johntesterman@updatedtest.com";
+    //     expect((await apiService.updateAdopter(adopter._id, adopter)).email).toBeTruthy();
+    // });
     
     // it('should delete an adopter', async () => {
     //     adopter = await apiService.findAdopter("johntesterman@updatedtest.com");
