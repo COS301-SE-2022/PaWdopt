@@ -1,15 +1,20 @@
 import { Module } from '@nestjs/common';
 import { SharedMlFeatureService } from './shared-ml-feature.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   controllers: [],
+  imports: [HttpModule],
   providers: [SharedMlFeatureService],
   exports: [SharedMlFeatureService],
 })
 export class SharedMlFeatureModule {
-  mlService: SharedMlFeatureService;
+  constructor(private mlService: SharedMlFeatureService){}
   
-  async postToML(data: string){
-    return this.mlService.postToML(data);
+  async postToML(image: {
+    data,
+    mimetype
+  }){
+    return this.mlService.postToML(image);
   }
 }

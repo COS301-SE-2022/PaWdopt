@@ -1,27 +1,29 @@
-import { Injectable } from '@nestjs/common';
+import {  Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+
 
 @Injectable()
 export class SharedMlFeatureService {
-    async postToML(uri: string){
-        const data = uri.split(",");
-        const type = data[0].split(";");
-        const image_type = type[0].split("/");
+  constructor(private readonly httpService: HttpService) {}
+
+    async postToML(image: {
+      data,
+      mimetype
+    }){
+        const data = image.data;
+        const image_type = image.mimetype.split("/");
     
-        const headersList = {
-        "Accept": "*/*",
-          }
-    
-        const bodyContent = new FormData();
-        bodyContent.append("image", data[1]);
-        bodyContent.append("extension", image_type[1]);
-    
+        const bodyContent = {
+          image: data,
+          extension: image_type[1]
+        }
+
+
         //! TODO Change this to a real endpoint
-        return fetch("http://localhost:5000/predict", {
-          method: "POST",
-          body: bodyContent,
-          headers: headersList
-        }).then(function(response) {
-          return response.text();
+       return await this.httpService.axiosRef.post("http://localhost:5000/predict", 
+          bodyContent,{headers: {'content-type': 'multipart/form-data'}}
+        ).then((response) => {
+          return response.data;
         });
       }
 }
