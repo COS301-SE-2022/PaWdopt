@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
-import {Apollo, gql } from 'apollo-angular';
+import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { SharedMlFeatureModule } from '@pawdopt/shared/ml/feature';
 
 // Capacitor Imports
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -17,7 +18,9 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   providers: [Apollo],
 })
 export class AdddogPageComponent {
-  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth) {}
+  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth, private mlModule: SharedMlFeatureModule) {}
+
+
   inputName!: string;
   inputBreed!: string;
   inputGender!: string;
@@ -167,7 +170,7 @@ export class AdddogPageComponent {
         icon: 'camera-outline',
         handler: () => {
           console.log('Take picture clicked');
-          this.getPhoto(true).then(data => this.postToML(data)).then(result => {
+          this.getPhoto(true).then(data => this.mlModule.postToML(data)).then(result => {
             this.inputBreed = JSON.parse(result).breed;
           });
         }
@@ -176,7 +179,7 @@ export class AdddogPageComponent {
         icon: 'image-outline',
         handler: () => {
           console.log('Choose a picture clicked');
-          this.getPhoto(false).then(data => this.postToML(data)).then(result => {
+          this.getPhoto(false).then(data => this.mlModule.postToML(data)).then(result => {
             this.inputBreed = JSON.parse(result).breed;
           });
         }
@@ -218,25 +221,5 @@ export class AdddogPageComponent {
   return data;
   }
 
-  async postToML(uri: string){
-    const data = uri.split(",");
-    const type = data[0].split(";");
-    const image_type = type[0].split("/");
-
-    const headersList = {
-    "Accept": "*/*",
-      }
-
-    const bodyContent = new FormData();
-    bodyContent.append("image", data[1]);
-    bodyContent.append("extension", image_type[1]);
-
-    return fetch("http://localhost:5000/predict", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList
-    }).then(function(response) {
-      return response.text();
-    });
-  }
+  
 }
