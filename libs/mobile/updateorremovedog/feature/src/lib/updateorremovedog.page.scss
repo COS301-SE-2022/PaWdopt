@@ -1,3 +1,35 @@
+.newback{
+    background-color: #F8F9FA;
+}
+
+ion-modal {
+    --background: rgba(44, 39, 45, 0.2);
+
+    &::part(content){
+        backdrop-filter: blur(6px);
+    }
+
+    ion-content{
+        --background: transparent;
+        --padding-top: 25vh;
+        --padding-start: 20px;
+        --padding-end: 20px;
+    }
+}
+
+ion-range {
+    --bar-background: #f9fbfd;
+    --bar-background-active: #bde0fe;
+    --bar-height: 5px;
+    --bar-border-radius: 5px;
+    --knob-background: #F8F9FA;
+    --knob-size: 30px;
+    --pin-background: #000000;
+    --pin-color: #F8F9FA;
+  }
+
+.testclass{ font-size: 21px !important; }
+
 .container {
     height: 100%;
     background-color: #F8F9FA;

@@ -25,23 +25,23 @@
       <ion-list class="form">
           <ion-item-group class="form-border">
               <ion-item class="form-item form-start">
-                  <ion-label position="floating" class="form-input-label">Name</ion-label>
-                  <ion-input class="form-input" id="name-field" clear-on-edit=false [(ngModel)]="inputName"></ion-input>
+                  <ion-label position="floating" class="form-input-label">Name*</ion-label>
+                  <ion-input class="form-input" id="name-field" clear-on-edit=false [(ngModel)]="inputName" required></ion-input>
               </ion-item>
               <ion-item class="form-item">
-                  <ion-label position="floating" class="form-input-label">Breed</ion-label>
-                  <ion-input class="form-input" id="breed-field" clear-on-edit=false [(ngModel)]="inputBreed"></ion-input>
+                  <ion-label position="floating" class="form-input-label">Breed*</ion-label>
+                  <ion-input class="form-input" id="breed-field" clear-on-edit=false [(ngModel)]="inputBreed" required></ion-input>
               </ion-item>
               <ion-item class="form-item">
-                  <ion-label position="floating" class="form-input-label">Gender</ion-label>
-                  <ion-select [(ngModel)]="inputGender" id="gender-select">
+                  <ion-label position="floating" class="form-input-label">Gender*</ion-label>
+                  <ion-select [(ngModel)]="inputGender" id="gender-select" required="">
                     <ion-select-option value="Male">Male</ion-select-option>
                     <ion-select-option value="Female">Female</ion-select-option>
                 </ion-select>
               </ion-item>
               <ion-item class="form-item" id="open-modal">
-                  <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Date of birth</ion-label>
-                  <ion-input class="form-input" id="age-field" clear-on-edit=false [(ngModel)]="inputDOB"></ion-input>
+                  <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Date of birth*</ion-label>
+                  <ion-input class="form-input" id="age-field" clear-on-edit=false [(ngModel)]="inputDOB" required=""></ion-input>
                   <ion-modal trigger="open-modal">
                     <ng-template>
                       <ion-content>
@@ -52,23 +52,23 @@
               </ion-item>
               <ion-item class="form-item">
                 <div style="display: flex; flex-direction: column;">
-                  <ion-label position="floating" class="testclass">Height (in cm)</ion-label>
+                  <ion-label position="floating" class="testclass">Height (in cm)*</ion-label>
                 </div>
-                  <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputHeight" pin="true"></ion-range>
+                  <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputHeight" pin="true" required=""></ion-range>
               </ion-item>
               <ion-item class="form-item">
                 <div style="display: flex; flex-direction: column;">
-                  <ion-label position="floating" class="testclass">Weight (in kg)</ion-label>
+                  <ion-label position="floating" class="testclass">Weight (in kg)*</ion-label>
                 </div>
-                  <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputWeight" pin="true"></ion-range>
+                  <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputWeight" pin="true" required=""></ion-range>
               </ion-item>
               <ion-item class="form-item">
-                <ion-label position="floating" class="form-input-label">Fur length</ion-label>
-                <ion-input class="form-input" id="furlength-field" placeholder="Short, Medium or Long" [(ngModel)]="inputFurlength"></ion-input>
+                <ion-label position="floating" class="form-input-label">Fur length*</ion-label>
+                <ion-input class="form-input" id="furlength-field" placeholder="Short, Medium or Long" [(ngModel)]="inputFurlength" required=""></ion-input>
             </ion-item>
               <ion-item class="form-item form-end" lines="none">
-                  <ion-label position="floating">Temperament</ion-label>
-                  <ion-input class="form-input" id="temperament-field" placeholder="Active, Brave, Calm..." [(ngModel)]="inputTemperament"></ion-input>
+                  <ion-label position="floating">Temperament*</ion-label>
+                  <ion-input class="form-input" id="temperament-field" placeholder="Active, Brave, Calm..." [(ngModel)]="inputTemperament" required=""></ion-input>
               </ion-item>
               <!-- <ion-item class="form-item form-end">
                 <ion-label position="floating" class="form-input-label">About</ion-label>
@@ -80,8 +80,8 @@
       <ion-list class="form">
         <ion-item-group class="form-border">
           <ion-item class="form-item">
-            <ion-label position="floating" class="form-input-label">About</ion-label>
-            <ion-textarea cols="24" class="form-input" id="about-field" clear-on-edit=false [(ngModel)]="inputAbout"></ion-textarea>
+            <ion-label position="floating" class="form-input-label">About*</ion-label>
+            <ion-textarea cols="24" class="form-input" id="about-field" clear-on-edit=false [(ngModel)]="inputAbout" required=""></ion-textarea>
         </ion-item>
         </ion-item-group>
       </ion-list>
