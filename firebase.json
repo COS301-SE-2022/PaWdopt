@@ -25,6 +25,6 @@
     }
   },
   "remoteconfig": {
-    "template": " "
+    "template": "remoteconfig.template.json"
   }
 }
