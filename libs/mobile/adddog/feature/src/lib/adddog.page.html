@@ -34,19 +34,33 @@
               </ion-item>
               <ion-item class="form-item">
                   <ion-label position="floating" class="form-input-label">Gender</ion-label>
-                  <ion-input class="form-input" id="gender-field" clear-on-edit=false [(ngModel)]="inputGender"></ion-input>
+                  <ion-select [(ngModel)]="inputGender" id="gender-select">
+                    <ion-select-option value="Male">Male</ion-select-option>
+                    <ion-select-option value="Female">Female</ion-select-option>
+                </ion-select>
               </ion-item>
-              <ion-item class="form-item">
-                  <ion-label position="floating" class="form-input-label">Date of birth</ion-label>
+              <ion-item class="form-item" id="open-modal">
+                  <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Date of birth</ion-label>
                   <ion-input class="form-input" id="age-field" clear-on-edit=false [(ngModel)]="inputDOB"></ion-input>
+                  <ion-modal trigger="open-modal">
+                    <ng-template>
+                      <ion-content>
+                        <ion-datetime display-format="DD-MMM-YY" [(ngModel)]="inputDOB" showDefaultButtons="true"></ion-datetime>
+                      </ion-content>
+                    </ng-template>
+                  </ion-modal>
               </ion-item>
               <ion-item class="form-item">
-                  <ion-label position="floating" class="form-input-label">Height (in cm)</ion-label>
-                  <ion-input class="form-input" id="height-field" clear-on-edit=false [(ngModel)]="inputHeight"></ion-input>
+                <div style="display: flex; flex-direction: column;">
+                  <ion-label position="floating" class="testclass">Height (in cm)</ion-label>
+                </div>
+                  <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputHeight" pin="true"></ion-range>
               </ion-item>
               <ion-item class="form-item">
-                  <ion-label position="floating" class="form-input-label">Weight (in kg)</ion-label>
-                  <ion-input class="form-input" id="weight-field" clear-on-edit=false [(ngModel)]="inputWeight"></ion-input>
+                <div style="display: flex; flex-direction: column;">
+                  <ion-label position="floating" class="testclass">Weight (in kg)</ion-label>
+                </div>
+                  <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputWeight" pin="true"></ion-range>
               </ion-item>
               <ion-item class="form-item">
                 <ion-label position="floating" class="form-input-label">Fur length</ion-label>

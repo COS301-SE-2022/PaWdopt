@@ -26,8 +26,8 @@ export class AdddogPageComponent {
   inputGender!: string;
   inputDOB!: Date;
   inputAbout!: string;
-  inputHeight!: number;
-  inputWeight!: number;
+  // inputHeight!: number;
+  // inputWeight!: number;
   inputFurlength!: string;
   inputTemperament!: string;
 
@@ -35,6 +35,15 @@ export class AdddogPageComponent {
   uid?: string;
 
   imageString!: string;
+
+  inputHeight!: {
+    lower: number;
+    upper: number;
+  };
+  inputWeight!: {
+    lower: number;
+    upper: number;
+  };
 
   addDog(){
     this.afAuth.currentUser.then(user => {
