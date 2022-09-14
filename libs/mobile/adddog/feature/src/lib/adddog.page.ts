@@ -65,6 +65,9 @@ export class AdddogPageComponent {
     if(this.inputTemperament == null || this.inputTemperament == ""){
       valid = false;
     }
+    if(this.inputGender == null || this.inputGender == ""){
+      valid = false;
+    }
     return valid;
   }  
 
