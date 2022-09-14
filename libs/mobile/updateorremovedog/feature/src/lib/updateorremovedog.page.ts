@@ -19,8 +19,16 @@ export class updateorremovedogPageComponent {
   inputGender!: string;
   inputDob!: string;
   inputAbout!: string;
-  inputHeight!: number;
-  inputWeight!: number;
+  // inputHeight!: number;
+  // inputWeight!: number;
+  inputHeight!: {
+    lower: number;
+    upper: number;
+  };
+  inputWeight!: {
+    lower: number;
+    upper: number;
+  };
   inputFurlength!: string;
   inputTemperament!: string;
   
@@ -32,6 +40,30 @@ export class updateorremovedogPageComponent {
     // });
     this.loadDog();
   }
+
+  fieldvalidate(){
+    //TODO: Make validation better
+    let valid = true;
+    if(this.inputBreed == null || this.inputBreed == ""){
+      valid = false;
+    }
+    if(this.inputDob == null){
+      valid = false;
+    }
+    if(this.inputAbout == null || this.inputAbout == ""){
+      valid = false;
+    }
+    if(this.inputFurlength == null || this.inputFurlength == ""){
+      valid = false;
+    }
+    if(this.inputTemperament == null || this.inputTemperament == ""){
+      valid = false;
+    }
+    if(this.inputGender == null || this.inputGender == ""){
+      valid = false;
+    }
+    return valid;
+  }  
 
   async getObject() {
     const ret = await Storage.get({ key: 'dogID' });
@@ -104,8 +136,8 @@ export class updateorremovedogPageComponent {
         const tempDate = new Date(data.findDogById.dob); 
         this.inputDob = (tempDate.getFullYear() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getDate()).toString();
         this.inputGender = data.findDogById.gender;
-        this.inputHeight = data.findDogById.height;
-        this.inputWeight = data.findDogById.weight;
+        this.inputHeight.upper = data.findDogById.height; //might not work
+        this.inputWeight.upper = data.findDogById.weight; //might not work
         this.inputBreed = data.findDogById.breed;
         this.dog.temperament = data.findDogById.temperament;
         this.inputFurlength = data.findDogById.furLength;
@@ -126,6 +158,9 @@ export class updateorremovedogPageComponent {
 
 
   updateDog(){
+    
+    if(!this.fieldvalidate())
+    return;
     
     let temperamentString1 = "";
     const temperament = this.inputTemperament.replace(/\s+/g, "").split(",");
@@ -174,6 +209,10 @@ export class updateorremovedogPageComponent {
 
   home(){
     this.router.navigate(["/home"]);
+  }
+
+  back(){
+    this.router.navigate(["/owneddogs"]);
   }
 
   likeddogs(){
