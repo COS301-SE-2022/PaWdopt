@@ -40,7 +40,7 @@
         <!--Documentation-->
         <div class="userinfo">
             <ion-list>
-                <ion-item href="{{ident.path}}">
+                <!-- <ion-item href="{{ident.path}}">
                     <p class="docText">ID Copy</p>&nbsp;
                 </ion-item>
                 <ion-item href="{{poR.path}}">
@@ -51,6 +51,30 @@
                 </ion-item>
                 <ion-item href="{{motivateLet.path}}">
                     <p class="docText">Motivation letter</p>&nbsp;
+                </ion-item> -->
+                <ion-item>
+                    <p>ID Copy</p>&nbsp;
+                    <ion-button class="uploadButtons2" fill="clear" href="{{ident.path}}">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </ion-button>
+                </ion-item>
+                <ion-item>
+                    <p>Proof Of Residence</p>&nbsp;
+                    <ion-button class="uploadButtons2" fill="clear" href="{{poR.path}}">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </ion-button>
+                </ion-item>
+                <ion-item>
+                    <p>Bank Statements</p>&nbsp;
+                    <ion-button class="uploadButtons2" fill="clear" href="{{bankState.path}}">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </ion-button>
+                </ion-item>
+                <ion-item>
+                    <p>Motivation Letter</p>&nbsp;
+                    <ion-button class="uploadButtons2" fill="clear" href="{{motivateLet.path}}">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </ion-button>
                 </ion-item>
             </ion-list>
         </div>

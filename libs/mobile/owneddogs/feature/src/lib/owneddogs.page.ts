@@ -4,6 +4,7 @@ import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Storage } from '@capacitor/storage';
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -39,11 +40,22 @@ export class owneddogsPageComponent {
   //   pic:string,
   // }[]=[];
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth) {
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
+    // this.showLoading();
     this.getDog(false);
   }
 
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Awaiting for dogs, if no dogs appear you will need to add them...',
+      duration: 4000,
+    });
+
+    loading.present();
+  }
+
   getDog(search: boolean){
+    this.showLoading();
     this.dog=[]
     this.afAuth.currentUser.then(user => {
       this.uid = user?.uid;
