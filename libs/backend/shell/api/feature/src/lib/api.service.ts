@@ -674,7 +674,7 @@ export class ApiService {
         if(user == null){
             const user = await this.OrgMemberModel.findOne({_id: id}).exec();
             if(user == null){
-                throw new Error("User does not exist");
+                return "User does not exist";
             }
             return "OrgMember";
         }
