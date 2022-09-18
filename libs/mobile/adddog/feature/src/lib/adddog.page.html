@@ -39,16 +39,14 @@
                     <ion-select-option value="Female">Female</ion-select-option>
                 </ion-select>
               </ion-item>
-              <ion-item class="form-item" id="open-modal">
+              <ion-item class="form-item">
                   <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Date of birth*</ion-label>
-                  <ion-input class="form-input" id="age-field" clear-on-edit=false [(ngModel)]="inputDOB" required=""></ion-input>
-                  <ion-modal trigger="open-modal">
+                  <ion-input value="{{ inputDOB | date: 'yyyy-MM-dd' }}" id="date" class="ion-text-end"></ion-input>
+                <ion-popover trigger="date" size="auto">
                     <ng-template>
-                      <ion-content>
-                        <ion-datetime display-format="DD-MMM-YY" [(ngModel)]="inputDOB" showDefaultButtons="true"></ion-datetime>
-                      </ion-content>
+                        <ion-datetime color="datetimecolor" presentation="date" [(ngModel)]="inputDOB"></ion-datetime>
                     </ng-template>
-                  </ion-modal>
+                </ion-popover>
               </ion-item>
               <ion-item class="form-item">
                 <div style="display: flex; flex-direction: column;">
