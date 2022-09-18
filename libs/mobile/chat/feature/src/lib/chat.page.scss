@@ -12,6 +12,49 @@
 //     height:100%;
 // }
 
+.message{
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+}
+
+.other-message {
+    background: var(--ion-color-light);
+    color: #fff
+}
+
+.my-message {
+    background: var(--ion-color-twitter);
+    color: #fff
+}
+
+.time{
+    color: #dfdfdf;
+    float: right;
+    font-size: small;
+}
+
+.msg-btn{
+    --padding-start: 0.5em;
+    --padding-end: 0.5em;
+}
+
+.message-input{
+    width: 100%;
+    border: 1px solid var(--ion-color-light);
+    border-radius: 10px;
+    background: #fff;
+    resize: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.sender{
+    background: black;
+    border-color: black;
+}
+
 .dogname{
     display: flex;
     justify-content: center;
