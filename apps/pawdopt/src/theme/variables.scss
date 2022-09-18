@@ -74,6 +74,22 @@
     --ion-color-twitter-contrast-rgb: 255, 255, 255;
     --ion-color-twitter-shade: #5ca56c;
     --ion-color-twitter-tint: #78c288;
+    /** datetimecolor **/
+    --ion-color-datetimecolor: 	#4169E1; 
+	--ion-color-datetimecolor-rgb: 79,64,99;
+	--ion-color-datetimecolor-contrast: #ffffff;
+	--ion-color-datetimecolor-contrast-rgb: 255,255,255;
+	--ion-color-datetimecolor-shade: #fdfdfd;
+	--ion-color-datetimecolor-tint: #e6e3eb;
+}
+
+.ion-color-datetimecolor {
+	--ion-color-base: var(--ion-color-datetimecolor);
+	--ion-color-base-rgb: var(--ion-color-datetimecolor-rgb);
+	--ion-color-contrast: var(--ion-color-datetimecolor-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-datetimecolor-contrast-rgb);
+	--ion-color-shade: var(--ion-color-datetimecolor-shade);
+	--ion-color-tint: var(--ion-color-datetimecolor-tint);
 }
 
 // @media (prefers-color-scheme: dark) {
