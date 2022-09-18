@@ -21,6 +21,8 @@ export class updateorremovedogPageComponent {
   inputAbout!: string;
   // inputHeight!: number;
   // inputWeight!: number;
+  loadHeight!: number;
+  loadWeight!: number;
   inputHeight!: {
     lower: number;
     upper: number;
@@ -136,8 +138,10 @@ export class updateorremovedogPageComponent {
         const tempDate = new Date(data.findDogById.dob); 
         this.inputDob = (tempDate.getFullYear() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getDate()).toString();
         this.inputGender = data.findDogById.gender;
-        this.inputHeight.upper = data.findDogById.height; //might not work
-        this.inputWeight.upper = data.findDogById.weight; //might not work
+        // this.inputHeight.upper = data.findDogById.height; //might not work
+        // this.inputWeight.upper = data.findDogById.weight; //might not work
+        this.loadHeight = data.findDogById.height; 
+        this.loadWeight = data.findDogById.weight; 
         this.inputBreed = data.findDogById.breed;
         this.dog.temperament = data.findDogById.temperament;
         this.inputFurlength = data.findDogById.furLength;
