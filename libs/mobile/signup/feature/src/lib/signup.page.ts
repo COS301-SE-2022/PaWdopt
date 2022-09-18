@@ -34,8 +34,9 @@ export class SignupPageComponent {
   }
   
   
-  signUp(){
-    if(!this.validate()){
+  async signUp(){
+    const boolVal = await this.validate();
+    if(!boolVal){
       return;
     }
 
@@ -88,6 +89,7 @@ export class SignupPageComponent {
   async validate(){
     let valid = true;
     if(this.uName == null || this.uName == ""){
+      valid = false;
       const alert = await this.alertController.create({
         header: 'Alert',
         subHeader: 'Username is empty',
@@ -95,10 +97,10 @@ export class SignupPageComponent {
         buttons: ['OK'],
       });
       await alert.present();
-      valid = false;
     }
 
     if(this.pass == null || this.pass == "" || this.pass.length < 6 || this.pass.length > 20 || !this.checkPassword() || !this.checkNumber() || !this.checkUpper() || !this.checkLower()){
+      valid = false;
       const alert = await this.alertController.create({
         header: 'Alert',
         subHeader: 'Password is invalid',
@@ -106,9 +108,9 @@ export class SignupPageComponent {
         buttons: ['OK'],
       });
       await alert.present();
-      valid = false;
     }
-    if(this.rePass == null || this.rePass == "" || this.rePass != this.pass){
+    if(this.rePass != this.pass){
+      valid = false;
       const alert = await this.alertController.create({
         header: 'Alert',
         subHeader: 'Passwords do not match',
@@ -116,11 +118,10 @@ export class SignupPageComponent {
         buttons: ['OK'],
       });
       await alert.present();
-      valid = false;
     }
     if(this.email == null || this.email == "" || !this.email.includes("@") || !this.email.includes(".")){
-      //alex/chris finish this up
       valid = false;
+      //alex/chris finish this up make it so that it checks if email exists
     }
     return valid;
   }  

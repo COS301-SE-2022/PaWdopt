@@ -49,6 +49,7 @@
         "apollo-server-express": "^3.8.1",
         "bcryptjs": "^2.4.3",
         "capacitor": "^0.5.5",
+        "cordova": "^11.0.0",
         "cordova-plugin-geolocation": "^4.1.0",
         "cordova-plugin-nativegeocoder": "^3.4.1",
         "firebase": "^9.9.0",
