@@ -44,16 +44,23 @@ export class SignupPageComponent {
       return;
     }
 
-    this.fireAuth.createUserWithEmailAndPassword(this.email, this.pass).then((user) => {
+    await this.fireAuth.createUserWithEmailAndPassword(this.email, this.pass).then((user) => {
       console.log("User created");
       console.log(user);
       user.user?.updateProfile({
         displayName: this.uName,
       });
+      user.user?.sendEmailVerification();
       this.addUser(user.user?.uid);
-    }).catch((error) => {
+    }).catch(async (error) => {
       console.log(error);
-      //TODO: Toast error message
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        subHeader: 'Error',
+        message: "Error creating user",
+        buttons: ['OK'],
+      });
+      await alert.present();
     });
 
     // this.fireAuth.currentUser.then((user) => {
