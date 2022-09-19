@@ -97,7 +97,6 @@ googleSignin(){
               _id: "${user.user?.uid}",
               name: "${user.user?.displayName}",
               email: "${user.user?.email}",
-              IDNum: "",
               pic: "${user.user?.photoURL}",
               uploadedDocs: false,
             })
@@ -108,6 +107,7 @@ googleSignin(){
           this.apollo.mutate({
             mutation: addUser,
           }).subscribe(() => {
+            user.user?.sendEmailVerification();
             this.router.navigate(["/home"]);
           });
         }
