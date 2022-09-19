@@ -18,7 +18,6 @@ on:
         - unit
         # - e2e
         - all
-        - merge
 
 #jobs in the workflow with passed in parameters
 jobs:
@@ -28,10 +27,6 @@ jobs:
     with:
       test: 'affected'
       testtype: 'lint'
-
-  test-merge:
-    if: ${{github.event.inputs.testchoice == 'merge'}}
-    uses: ./.github/workflows/firebase-hosting-merge.yml
 
   test-affected-build:
     uses: ./.github/workflows/nxtest.yml
