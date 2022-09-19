@@ -10,13 +10,25 @@ import {Apollo, gql } from 'apollo-angular';
 })
 export class appointmentpagePageComponent {
 
+  // inputEmail!: string;
+  // inputPassword!: string;
+  // public static orgName:string;
+  // public static adopterEmail:string;
+  inputName!: string;
   inputEmail!: string;
-  inputPassword!: string;
-  public static orgName:string;
-  public static adopterEmail:string;
+  inputLocation!: string;
+  inputDescription!: string;
+  inputStartDate!: Date;
+  inputEndDate!: Date;
+  // startTime!: string;
+  // endTime!: string;
 
   constructor(private router: Router, private apollo: Apollo){
     
+  }
+
+  makeAppointment(){
+    return;
   }
 
   signup(){
@@ -29,7 +41,7 @@ export class appointmentpagePageComponent {
   }
 
   home(){
-    this.router.navigate(["/owneddogs"]);
+    this.router.navigate(["/home"]);
   }
 
   likeddogs(){

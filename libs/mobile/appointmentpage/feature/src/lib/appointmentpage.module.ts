@@ -10,6 +10,6 @@ import { appointmentpagePageComponentRoutingModule } from './appointmentpage-rou
   declarations: [appointmentpagePageComponent],
 })
 export class appointmentpagePageComponentModule {
-  public orgName = appointmentpagePageComponent.orgName;
-  public static adopterEmail = appointmentpagePageComponent.adopterEmail;
+  // public orgName = appointmentpagePageComponent.orgName;
+  // public static adopterEmail = appointmentpagePageComponent.adopterEmail;
 }

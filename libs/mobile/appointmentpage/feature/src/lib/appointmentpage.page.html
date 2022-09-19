@@ -16,10 +16,74 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
+
+<!--Back-->
+<div class="newback">
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="home()">
+      <ion-icon  name="arrow-back-circle"></ion-icon>
+    </ion-button>
+</div>
 <ion-content>
     <div class="container">
         <!--Tried using the ionic2-calendar package, ran into issues with the implementation (seems as though its not compatible with Ionic 6)-->
-        <ion-datetime></ion-datetime>
+          <ion-list class="form">
+          <ion-item-group class="form-border">
+              <ion-item class="form-item form-start">
+                  <ion-label position="floating" class="form-input-label">Name</ion-label>
+                  <ion-input class="form-input" id="name-field" clear-on-edit=false [(ngModel)]="inputName"></ion-input>
+              </ion-item>
+              <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Email</ion-label>
+                <ion-input class="form-input" id="email-field" clear-on-edit=false [(ngModel)]="inputEmail"></ion-input>
+            </ion-item>
+              <ion-item class="form-item">
+                  <ion-label position="floating" class="form-input-label">Location</ion-label>
+                  <ion-input class="form-input" id="location-field" clear-on-edit=false [(ngModel)]="inputLocation"></ion-input>
+              </ion-item>
+              <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label">Description</ion-label>
+                <ion-textarea autoGrow="true" class="form-input" id="description-field" clear-on-edit=false [(ngModel)]="inputDescription"></ion-textarea>
+              </ion-item>
+              <ion-item class="form-item">
+                  <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Start Time</ion-label>
+                  <ion-input value="{{ inputStartDate | date: 'yyyy/MM/dd HH:mm' }}" id="startdate" class="ion-text-end"></ion-input>
+                <ion-popover trigger="startdate" size="auto" alignment="center" side="top" >
+                    <ng-template>
+                        <ion-datetime color="datetimecolor" presentation="date-time" [(ngModel)]="inputStartDate"></ion-datetime>
+                    </ng-template>
+                </ion-popover>
+                </ion-item>
+                <ion-item class="form-item">
+                <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;End Time</ion-label>
+                <ion-input value="{{ inputEndDate | date: 'yyyy/MM/dd HH:mm' }}" id="enddate" class="ion-text-end"></ion-input>
+              <ion-popover trigger="enddate" size="auto" alignment="center" side="top">
+                  <ng-template>
+                      <ion-datetime color="datetimecolor" presentation="date-time" [(ngModel)]="inputEndDate"></ion-datetime>
+                  </ng-template>
+              </ion-popover>
+              </ion-item>
+                <!-- <ion-item class="form-item">
+                    <ion-label position="floating" class="form-input-label"><ion-icon name="time-outline"></ion-icon>&nbsp;Start Time</ion-label>
+                    <ion-input value="{{ startTime | date: 'shortTime' }}" id="starttime" class="ion-text-end"></ion-input>
+                  <ion-popover trigger="starttime" size="auto">
+                      <ng-template>
+                          <ion-datetime color="datetimecolor" presentation="time" [(ngModel)]="startTime"></ion-datetime>
+                      </ng-template>
+                  </ion-popover>
+                </ion-item>
+                <ion-item class="form-item">
+                    <ion-label position="floating" class="form-input-label"><ion-icon name="time-outline"></ion-icon>&nbsp;End Time</ion-label>
+                    <ion-input value="{{ endTime | date: 'shortTime' }}" id="endtime" class="ion-text-end"></ion-input>
+                  <ion-popover trigger="endtime" size="auto">
+                      <ng-template>
+                          <ion-datetime color="datetimecolor" presentation="time" [(ngModel)]="endTime"></ion-datetime>
+                      </ng-template>
+                  </ion-popover>
+                </ion-item> -->
+          </ion-item-group>
+      </ion-list>
+      &nbsp;
+      <ion-button class="greyButton" id="add-appointment-button" (click)="makeAppointment()"><ion-icon name="add"></ion-icon>&nbsp; Create Appointment</ion-button>  
     </div>
 </ion-content>
 <!--Footer-->
