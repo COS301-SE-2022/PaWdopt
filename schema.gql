@@ -71,7 +71,6 @@ type AdopterType {
   _id: String!
   name: String!
   email: String!
-  IDNum: String!
   pic: String
   location: LocationType
   documents: [DocType!]
@@ -144,7 +143,6 @@ input AdopterInputType {
   _id: String!
   name: String!
   email: String!
-  IDNum: String!
   pic: String
   location: LocationInputType
   documents: [DocInputType!]

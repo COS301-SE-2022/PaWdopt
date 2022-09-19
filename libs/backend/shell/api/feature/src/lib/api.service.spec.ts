@@ -105,7 +105,6 @@ describe('ApiService', () => {
         _id: 'adopterId',
         name: 'name',
         email: 'email',
-        IDNum: 'IDNum',
         pic: 'pic',
         location: loc,
         documents: [doc],
