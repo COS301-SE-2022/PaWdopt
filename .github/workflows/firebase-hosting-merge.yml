@@ -5,13 +5,12 @@ name: Deploy to Firebase Hosting on merge
 'on':
   push:
     branches:
-      - main
+      - 'main'
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # Commenetd out the test that are in different steps
       # -name: Install yarn
       #   run: npm install yarn -g
 
