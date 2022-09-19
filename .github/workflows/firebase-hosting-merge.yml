@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      # Commenetd out the test that are in different steps
       # -name: Install yarn
       #   run: npm install yarn -g
 
