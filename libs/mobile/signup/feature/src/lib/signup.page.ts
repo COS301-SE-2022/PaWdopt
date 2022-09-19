@@ -4,6 +4,7 @@ import {Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { ActionSheetController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
@@ -26,11 +27,14 @@ export class SignupPageComponent {
   imageToShow!: string;
   
   imageString!: string;
+  apiKey: string;
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private actionSheetController: ActionSheetController, private alertController: AlertController) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private actionSheetController: ActionSheetController, private alertController: AlertController, private http: HttpClient) {
     this.uid = "";
     this.imageToShow = "";
     this.imageString = "";
+
+    this.apiKey = "cbc1406a-451d-4d04-8a49-76ac229e64a6";
   }
   
   
@@ -40,16 +44,23 @@ export class SignupPageComponent {
       return;
     }
 
-    this.fireAuth.createUserWithEmailAndPassword(this.email, this.pass).then((user) => {
+    await this.fireAuth.createUserWithEmailAndPassword(this.email, this.pass).then((user) => {
       console.log("User created");
       console.log(user);
       user.user?.updateProfile({
         displayName: this.uName,
       });
+      user.user?.sendEmailVerification();
       this.addUser(user.user?.uid);
-    }).catch((error) => {
+    }).catch(async (error) => {
       console.log(error);
-      //TODO: Toast error message
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        subHeader: 'Error',
+        message: "Error creating user",
+        buttons: ['OK'],
+      });
+      await alert.present();
     });
 
     // this.fireAuth.currentUser.then((user) => {
@@ -119,12 +130,28 @@ export class SignupPageComponent {
       });
       await alert.present();
     }
-    if(this.email == null || this.email == "" || !this.email.includes("@") || !this.email.includes(".")){
+    if(!await this.checkEmail()){
       valid = false;
-      //alex/chris finish this up make it so that it checks if email exists
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        subHeader: 'Email is invalid',
+        message: 'Please enter a valid email',
+        buttons: ['OK'],
+      });
+      await alert.present();
+    }
+    if(!await this.checkEmailUsed()){
+      valid = false;
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        subHeader: 'Email is already in use',
+        message: 'Please enter a different email',
+        buttons: ['OK'],
+      });
+      await alert.present();
     }
     return valid;
-  }  
+  }
 
   async uploadPic(){
     const actionSheet = await this.actionSheetController.create({
@@ -227,5 +254,47 @@ export class SignupPageComponent {
     }
   }
 
+  //function to check if the email is valid
+  async checkEmail(){
+    if(this.email){
+      return await this.http
+        .get<{ status: string }>(
+          "https://isitarealemail.com/api/email/validate",
+          {
+            params: { email: this.email },
+            headers: {
+              Authorization: this.apiKey ? "Bearer " + this.apiKey : [],
+            },
+          }
+        )
+        .toPromise()
+        .then((result) => {
+          if (result) {
+            if (result.status === "invalid") {
+              return false;
+            } else if (result.status === "unknown") {
+              return false;
+            } else if (result.status === "valid") {
+              return true;
+            }
+          } else {
+            return true;
+          }
+          return false;
+        });
+      }else{
+          return false;
+      }
+    }
 
+  async checkEmailUsed(){
+    return await this.fireAuth.fetchSignInMethodsForEmail(this.email).then((data) => {
+      if(data.length == 0){
+        return true;
+      }
+      else{
+        return false;
+      }
+    });
+  }
 }
