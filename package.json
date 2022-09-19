@@ -53,6 +53,7 @@
         "mongodb": "^4.6.0",
         "mongoose": "6.2.2",
         "ng-swipe-card": "^0.0.4",
+        "ngx-autosize": "^2.0.2",
         "reflect-metadata": "^0.1.13",
         "rxjs": "^7.5.5",
         "tslib": "^2.4.0",
