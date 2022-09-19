@@ -164,9 +164,6 @@ export class AdopterType {
 
     @Field()
     email: string;
-
-    @Field()
-    IDNum: string;
     
     @Field({nullable:true})
     pic: string;

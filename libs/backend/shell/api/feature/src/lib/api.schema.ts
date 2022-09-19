@@ -143,9 +143,6 @@ export class Adopter {
 
     @Prop()
     email: string;
-
-    @Prop()
-    IDNum: string;
     
     @Prop()
     pic: string;
