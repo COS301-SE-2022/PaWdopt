@@ -207,12 +207,15 @@ export class Chat {
     orgId: string;
 
     @Prop()
-    messages: [Message];
+    messages: [MessageObj];
+
+    @Prop()
+    dogId: string;
 }
 
 @ObjectType()
 @Schema()
-export class Message {
+export class MessageObj {
     @Prop()
     userId: string;
 
@@ -236,5 +239,5 @@ export type OrgMemberDocument = OrgMember & Document;
 export const OrgMemberSchema = SchemaFactory.createForClass(OrgMember);
 export type ChatDocument = Chat & Document;
 export const ChatSchema = SchemaFactory.createForClass(Chat);
-export type MessageDocument = Message & Document;
-export const MessageSchema = SchemaFactory.createForClass(Message);
+export type MessageDocument = MessageObj & Document;
+export const MessageSchema = SchemaFactory.createForClass(MessageObj);
