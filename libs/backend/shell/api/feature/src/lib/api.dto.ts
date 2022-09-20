@@ -1,5 +1,5 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
-import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter, Chat, Message } from './api.schema';
+import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter, Chat, MessageObj } from './api.schema';
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
@@ -202,30 +202,24 @@ export class AdopterType {
 @InputType('ChatInputType')
 export class ChatType {
     @Field()
-    _id: string;
-
-    @Field(() => [AdopterType])
-    users: [Adopter];
-
-    @Field(() => [MessageType])
-    messages: [Message];
+    adopterId: string;
 
     @Field()
-    lastMessage: Date;
+    orgId: string;
+
+    @Field(() => [MessageObjType], { nullable: true })
+    messages: [MessageObj];
+
+    @Field()
+    dogId: string;
 }
 
-@ObjectType('MessageType')
-@InputType('MessageInputType')
-export class MessageType {
-    @Field()
-    _id: string;
-
+@ObjectType('MessageObjType')
+@InputType('MessageObjInputType')
+export class MessageObjType {
     @Field()
     sender: string;
 
     @Field()
-    text: string;
-
-    @Field()
-    time: Date;
+    message: string;
 }
