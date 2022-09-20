@@ -79,11 +79,15 @@ type AdopterType {
   uploadedDocs: Boolean!
 }
 
+type ChatType {
+  adopterId: String!
+  orgId: String!
+  messages: [MessageType!]
+}
+
 type MessageType {
-  _id: String!
   sender: String!
-  text: String!
-  time: DateTime!
+  message: String!
 }
 
 input OrgMemberInputType {
@@ -158,11 +162,15 @@ input AdopterInputType {
   uploadedDocs: Boolean!
 }
 
+input ChatInputType {
+  adopterId: String!
+  orgId: String!
+  messages: [MessageInputType!]
+}
+
 input MessageInputType {
-  _id: String!
   sender: String!
-  text: String!
-  time: DateTime!
+  message: String!
 }
 
 type Query {
@@ -184,6 +192,9 @@ type Query {
   getUserType(id: String!): String!
   findOrgMemberById(_id: String!): OrgMemberType!
   findDogsByOrgId(_id: String!): [DogType!]!
+  findChatsByOrgId(orgId: String!): [ChatType!]!
+  findChatsByAdopterId(adopterId: String!): [ChatType!]!
+  findChatByOrgIdAndAdopterId(orgId: String!, adopterId: String!): ChatType!
 }
 
 type Mutation {
@@ -207,4 +218,5 @@ type Mutation {
   userSwipesRight(userId: String!, dogId: String!): AdopterType!
   userSwipesLeft(userId: String!, dogId: String!): AdopterType!
   updateDog(dogId: String!, breed: String!, gender: String!, dob: DateTime!, about: String!, height: Float!, weight: Float!, furlength: String!, temperament: [String!]!): DogType!
+  createChat(orgId: String!, adopterId: String!): ChatType!
 }
