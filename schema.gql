@@ -79,6 +79,13 @@ type AdopterType {
   uploadedDocs: Boolean!
 }
 
+type MessageType {
+  _id: String!
+  sender: String!
+  text: String!
+  time: DateTime!
+}
+
 input OrgMemberInputType {
   _id: String!
   name: String!
@@ -149,6 +156,13 @@ input AdopterInputType {
   dogsLiked: [DogInputType!]
   dogsDisliked: [DogInputType!]
   uploadedDocs: Boolean!
+}
+
+input MessageInputType {
+  _id: String!
+  sender: String!
+  text: String!
+  time: DateTime!
 }
 
 type Query {
