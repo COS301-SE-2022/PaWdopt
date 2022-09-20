@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument } from './api.schema';
+import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, Message, MessageDocument } from './api.schema';
 
 @Injectable()
 export class ApiService {
@@ -12,6 +12,8 @@ export class ApiService {
         @InjectModel(Adopter.name) private readonly AdopterModel : Model<AdopterDocument>,
         @InjectModel(ContactInfo.name) private readonly ContactInfoModel : Model<ContactInfoDocument>,
         @InjectModel(Location.name) private readonly LocationModel : Model<LocationDocument>,
+        @InjectModel(Chat.name) private readonly ChatModel : Model<ChatDocument>,
+        @InjectModel(Message.name) private readonly MessageModel : Model<MessageDocument>,
         ) {}
 
     /**
@@ -718,4 +720,64 @@ export class ApiService {
     async createOrgMemberWithoutAddingToOrg(member: OrgMember): Promise<OrgMember | null> {
         return this.OrgMemberModel.create(member);
     }
+
+    /**
+     * used in chatlist page
+     * find all chats for an organisation
+     * @param {string} orgId The id of the org to find
+     * @return {Promise<Chat[]>}
+     */
+    async findChatsByOrgId(orgId: string): Promise<Chat[]> {
+        const chat = await this.ChatModel.find().exec();
+        const ret = [];
+        chat.forEach(chat => {
+            if(chat.orgId == orgId){    
+                ret.push(chat);
+            }
+        });
+        return ret;
+    }
+
+    /**
+     * used in chatlist page
+     * find all chats for an adopter
+     * @param {string} adopterId The id of the adopter to find
+     * @return {Promise<Chat[]>}
+     */
+    async findChatsByAdopterId(adopterId: string): Promise<Chat[]> {
+        const chat = await this.ChatModel.find().exec();
+        const ret = [];
+        chat.forEach(chat => {
+            if(chat.adopterId == adopterId){    
+                ret.push(chat);
+            }
+        });
+        return ret;
+    }
+
+    /**
+     * used in chat page
+     * find a chat by orgId and adopterId
+     * @param {string} orgId The id of the org to find
+     * @param {string} adopterId The id of the adopter to find
+     * @return {Promise<Chat || null>}
+     */
+    async findChatByOrgIdAndAdopterId(orgId: string, adopterId: string): Promise<Chat | null> {
+        return this.ChatModel.findOne({orgId, adopterId}).exec();
+    }
+
+    /**
+     * used in chat page
+     * send a message
+     * @param {string} orgId The id of the org to find
+     * @param {string} adopterId The id of the adopter to find
+     * @param {string} senderId The id of the sender
+     * @param {string} message The message to send
+     * @return {Promise<Chat || null>}
+     */
+    /*async sendMessage(orgId: string, adopterId: string, senderId: string, message: string): Promise<Chat | null> {
+        const hashedMessage = await crypto.hash(message, 10);
+        const msg = new Message(senderId, message);
+        const chat = await this.ChatModel.findOne({orgId, adopterId}).exec();*/
+
 }
