@@ -2,6 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonContent } from '@ionic/angular';
 import {Apollo, gql } from 'apollo-angular';
+import { Storage } from '@capacitor/storage';
+import { AngularFireAuth } from "@angular/fire/compat/auth";
+
 // import { Adopter, OrgMember } from 'libs/backend/shell/api/feature/src/lib/api.schema';
 @Component({
   selector: 'pawdopt-chat',
@@ -11,14 +14,10 @@ import {Apollo, gql } from 'apollo-angular';
 })
 export class chatPageComponent {
 
-
-  userID !: string;
+  currentUserId?: string;
+  userID ?: string;
   orgID !: string;
-  // inputEmail!: string;
-  // inputPassword!: string;
-  // public static orgName:string;
-  // public static adopterEmail:string;
-
+  
   chatMessages: { 
     user: string;
     msg: string;
@@ -52,17 +51,137 @@ export class chatPageComponent {
   currentUser = 'Jason'; //done through a service 
   @ViewChild(IonContent)
   content!: IonContent;
-  constructor(private router: Router, private apollo: Apollo){
+  constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth) {
+  }
     
+
+  async getObject() {
+    const ret = await Storage.get({ key: 'ChatID' });
+    if(ret.value){
+      return JSON.parse(ret.value);
+    }
   }
 
-  //logic to get orgID and userID from storage - from the chatlist page
 
-  //query to fill chatMessages
+  //logic to get the chat messages from the db using orgId and userId
+  async getChat(chateeId : string, DogId : string){
+    this.chatMessages = [];
+    //get the type of user
+    this.afAuth.currentUser.then(user => {
+      this.currentUserId = user?.uid;
 
+      if(this.currentUserId){
+        const getUserType = gql`query {
+          getUserType(id: "${this.currentUserId}")
+        }`;
+
+        this.apollo.watchQuery({
+          query: getUserType,
+          fetchPolicy: 'no-cache'
+        }).valueChanges.subscribe((result) => {
+          console.log(result);
+          const data = result.data as {
+            getUserType: string
+          }
+          if(data.getUserType == "Adopter"){
+            //if adopter, then the orgID is in local storage
+            this.getObject().then((obj) => {
+              this.orgID = obj.chateeId;
+              this.userID = this.currentUserId;
+              //get the chat using the orgId and adopterId
+              const getChat = gql`query {
+                findChatByOrgIdAndAdopterId(orgId: "${this.orgID}", adopterId: "${this.userID}"){
+                  messages{
+                    sender
+                    message
+                  }
+                }
+              }`;
+
+              this.apollo.watchQuery({
+                query: getChat,
+                fetchPolicy: 'no-cache'
+              }).valueChanges.subscribe((result) => {
+                console.log(result);
+                const data = result.data as {
+                  findChatByOrgIdAndAdopterId: {
+                    messages: {
+                      sender: string,
+                      message: string
+                    }[]
+                  }
+                }
+                //add the messages to the chatMessages array using a foreach
+                data.findChatByOrgIdAndAdopterId.messages.forEach((message) => {
+                  this.chatMessages.push({
+                    user: message.sender,
+                    msg: message.message
+                  });
+                });
+              });
+            });
+          } else if(data.getUserType == "OrgMember"){
+            //if orgmember, then the adopterID is in local storage, and the org id can be gotten from the orgmember
+            this.getObject().then((obj) => {
+              this.userID = obj.chateeId;
+              const getOrgId = gql`query {
+                findOrgMemberByUserId(userId: "${this.currentUserId}"){
+                  orgId
+                }
+              }`;
+
+              this.apollo.watchQuery({
+                query: getOrgId,
+                fetchPolicy: 'no-cache'
+              }).valueChanges.subscribe((result) => {
+                console.log(result);
+                const data = result.data as {
+                  findOrgMemberByUserId: {
+                    orgId: string
+                  }
+                }
+                this.orgID = data.findOrgMemberByUserId.orgId;
+                //get the chat using the orgId and adopterId
+                const getChat = gql`query {
+                  findChatByOrgIdAndAdopterId(orgId: "${this.orgID}", adopterId: "${this.userID}"){
+                    messages{
+                      sender
+                      message
+                    }
+                  }
+                }`;
+
+                this.apollo.watchQuery({
+                  query: getChat,
+                  fetchPolicy: 'no-cache'
+                }).valueChanges.subscribe((result) => {
+                  console.log(result);
+                  const data = result.data as {
+                    findChatByOrgIdAndAdopterId: {
+                      messages: {
+                        sender: string,
+                        message: string
+                      }[]
+                    }
+                  }
+                  //add the messages to the chatMessages array using a foreach
+                  data.findChatByOrgIdAndAdopterId.messages.forEach((message) => {
+                    this.chatMessages.push({
+                      user: message.sender,
+                      msg: message.message
+                    });
+                  });
+                });
+              });
+            });
+          }
+        });
+      }
+    });
+  }
+  
   //query to add message to the chat
-
-
+  //TODO: add the message to the chat
   sendMessage(){ //Backend dev -> replace with HTTPREQUEST OR FIREBASE logic
       this.messages.push({
         user: 'Jason', //currentUser sending a msg
