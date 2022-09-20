@@ -29,7 +29,8 @@
 
     <!--Search bar-->
     <div class="searchbar">
-        <ion-searchbar placeholder="Try Millie.." (ionChange)="getDog(true)" [(ngModel)]="inputSearch" (ionClear)="getDog(false)"  animated></ion-searchbar>
+        <!-- Removed the animated to make the placeholder not be centered on load -->
+        <ion-searchbar placeholder="Try Millie Or Dalmatian" (ionChange)="getDog(true)" [(ngModel)]="inputSearch" (ionClear)="getDog(false)" animated></ion-searchbar>
     </div>
     <!--api implement-->
     <div>&nbsp;</div>

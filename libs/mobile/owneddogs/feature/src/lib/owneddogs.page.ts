@@ -157,8 +157,20 @@ export class owneddogsPageComponent {
                     orgId: element.organisation._id
                   }
                 );
+              }else if(element.breed.toLowerCase().includes(this.inputSearch.toLowerCase())){
+                this.dog.push(
+                  {
+                    _id: element._id,
+                    name: element.name,
+                    pic: element.pics[0],
+                    age: now.getFullYear() - birthDate.getFullYear(),
+                    likes: element.usersLiked.length,
+                    breed: element.breed,
+                    orgId: element.organisation._id
+                  }
+                );
               }
-            })  
+            })
           }
           else{
             data.findDogsByOrgId.forEach(element => {
