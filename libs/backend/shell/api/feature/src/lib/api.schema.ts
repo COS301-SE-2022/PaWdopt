@@ -197,6 +197,31 @@ export class OrgMember {
     verification: Date;
 }
 
+@ObjectType()
+@Schema()
+export class Chat {
+    @Prop()
+    adopterId: string;
+
+    @Prop()
+    orgId: string;
+
+    @Prop()
+    messages: [Message];
+}
+
+@ObjectType()
+@Schema()
+export class Message {
+    @Prop()
+    userId: string;
+
+    @Prop()
+    message: string;
+
+}
+
+
 export type ContactInfoDocument = ContactInfo & Document;
 export const ContactInfoSchema = SchemaFactory.createForClass(ContactInfo);
 export type LocationDocument = Location & Document;
@@ -209,3 +234,7 @@ export type AdopterDocument = Adopter & Document;
 export const AdopterSchema = SchemaFactory.createForClass(Adopter);
 export type OrgMemberDocument = OrgMember & Document;
 export const OrgMemberSchema = SchemaFactory.createForClass(OrgMember);
+export type chatDocument = Chat & Document;
+export const chatSchema = SchemaFactory.createForClass(Chat);
+export type messageDocument = Message & Document;
+export const messageSchema = SchemaFactory.createForClass(Message);
