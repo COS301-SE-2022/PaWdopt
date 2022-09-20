@@ -75,21 +75,53 @@
     --ion-color-twitter-shade: #5ca56c;
     --ion-color-twitter-tint: #78c288;
     /** datetimecolor **/
-    --ion-color-datetimecolor: 	#4169E1; 
-	--ion-color-datetimecolor-rgb: 79,64,99;
-	--ion-color-datetimecolor-contrast: #ffffff;
-	--ion-color-datetimecolor-contrast-rgb: 255,255,255;
-	--ion-color-datetimecolor-shade: #fdfdfd;
-	--ion-color-datetimecolor-tint: #e6e3eb;
+    --ion-color-datetimecolor: #4169E1;
+    --ion-color-datetimecolor-rgb: 79, 64, 99;
+    --ion-color-datetimecolor-contrast: #ffffff;
+    --ion-color-datetimecolor-contrast-rgb: 255, 255, 255;
+    --ion-color-datetimecolor-shade: #fdfdfd;
+    --ion-color-datetimecolor-tint: #e6e3eb;
+    /** mymessagecolor **/
+    --ion-color-mymessage: #A99985;
+    --ion-color-mymessage-rgb: 169, 153, 133;
+    --ion-color-mymessage-contrast: #000000;
+    --ion-color-mymessage-contrast-rgb: 0, 0, 0;
+    --ion-color-mymessage-shade: #958775;
+    --ion-color-mymessage-tint: #b2a391;
+    /** othermessagecolor **/
+    --ion-color-othermessage: #DAD2BC;
+    --ion-color-othermessage-rgb: 218, 210, 188;
+    --ion-color-othermessage-contrast: #000000;
+    --ion-color-othermessage-contrast-rgb: 0, 0, 0;
+    --ion-color-othermessage-shade: #c0b9a5;
+    --ion-color-othermessage-tint: #ded7c3;
 }
 
 .ion-color-datetimecolor {
-	--ion-color-base: var(--ion-color-datetimecolor);
-	--ion-color-base-rgb: var(--ion-color-datetimecolor-rgb);
-	--ion-color-contrast: var(--ion-color-datetimecolor-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-datetimecolor-contrast-rgb);
-	--ion-color-shade: var(--ion-color-datetimecolor-shade);
-	--ion-color-tint: var(--ion-color-datetimecolor-tint);
+    --ion-color-base: var(--ion-color-datetimecolor);
+    --ion-color-base-rgb: var(--ion-color-datetimecolor-rgb);
+    --ion-color-contrast: var(--ion-color-datetimecolor-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-datetimecolor-contrast-rgb);
+    --ion-color-shade: var(--ion-color-datetimecolor-shade);
+    --ion-color-tint: var(--ion-color-datetimecolor-tint);
+}
+
+.ion-color-mymessage {
+    --ion-color-base: var(--ion-color-mymessage);
+    --ion-color-base-rgb: var(--ion-color-mymessage-rgb);
+    --ion-color-contrast: var(--ion-color-mymessage-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-mymessage-contrast-rgb);
+    --ion-color-shade: var(--ion-color-mymessage-shade);
+    --ion-color-tint: var(--ion-color-mymessage-tint);
+}
+
+.ion-color-othermessage {
+    --ion-color-base: var(--ion-color-othermessage);
+    --ion-color-base-rgb: var(--ion-color-othermessage-rgb);
+    --ion-color-contrast: var(--ion-color-othermessage-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-othermessage-contrast-rgb);
+    --ion-color-shade: var(--ion-color-othermessage-shade);
+    --ion-color-tint: var(--ion-color-othermessage-tint);
 }
 
 // @media (prefers-color-scheme: dark) {

@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
-import { DogType, OrganisationType, ContactInfoType, AdopterType, OrgMemberType } from './api.dto';
+import { DogType, OrganisationType, ContactInfoType, AdopterType, OrgMemberType, ChatType, MessageObjType } from './api.dto';
 // import { Dog,  Organisation, Location, ContactInfo, Adopter} from './api.schema';
 
 import { Types } from 'mongoose';
@@ -403,5 +403,74 @@ export class ApiResolver {
         return this.DogService.findDogsByOrgId(_id);
     }
 
+    /**
+     * used in chat page
+     * call findChatsByOrgId()
+     * @param orgId
+     * @returns chats
+     * @throws error if org does not exist
+     * @throws error if org does not have chats
+     */
+    @Query(() => [ChatType])
+    async findChatsByOrgId(@Args('orgId') orgId: string) : Promise<ChatType[]> {
+        return this.DogService.findChatsByOrgId(orgId);
+    }
+
+    /**
+     * used in chat page
+     * call findChatsByAdopterId()
+     * @param adopterId
+     * @returns chats
+     * @throws error if adopter does not exist
+     * @throws error if adopter does not have chats
+     */
+    @Query(() => [ChatType])
+    async findChatsByAdopterId(@Args('adopterId') adopterId: string) : Promise<ChatType[]> {
+        return this.DogService.findChatsByAdopterId(adopterId);
+    }
+    
+    /**
+     * used in chat page
+     * call findChatsByOrgIdAndAdopterId()
+     * @param orgId
+     * @param adopterId
+     * @returns chat
+     * @throws error if chat does not exist
+     * @throws error if chat does not have messages
+     * @throws error if chat does not have org
+     * @throws error if chat does not have adopter
+     * @throws error if chat does not have org id
+     */
+    @Query(() => ChatType)
+    async findChatByOrgIdAndAdopterId(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string) : Promise<ChatType> {
+        return this.DogService.findChatByOrgIdAndAdopterId(orgId, adopterId);
+    }
+
+    /**
+     * used in chat page
+     * call createChat()
+     * @param orgId
+     * @param adopterId
+     * @param dogId
+     * @returns chat
+     */
+    @Mutation(() => ChatType)
+    async createChat(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<ChatType> {
+        return this.DogService.createChat(orgId, adopterId, dogId);
+    }
+
+    /**
+     * used in chat page
+     * call sendMessage
+     * @param orgId
+     * @param adopterId
+     * @param senderId
+     * @param message
+     * @returns chat
+    */
+    @Mutation(() => ChatType)
+    async sendMessage(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('senderId') senderId: string, @Args('message') message: string) : Promise<ChatType> {
+        return this.DogService.sendMessage(orgId, adopterId, senderId, message);
+    }
     
 }

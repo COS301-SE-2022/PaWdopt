@@ -34,7 +34,12 @@
       "@pawdopt/mobile/appointmentpage/feature": [
         "libs/mobile/appointmentpage/feature/src/index.ts"
       ],
-      "@pawdopt/mobile/chat/feature": ["libs/mobile/chat/feature/src/index.ts"],
+      "@pawdopt/mobile/chat/feature": [
+        "libs/mobile/chat/feature/src/index.ts"
+      ],
+      "@pawdopt/mobile/chatlist/feature": [
+        "libs/mobile/chatlist/feature/src/index.ts"
+      ],
       "@pawdopt/mobile/dashboard/feature": [
         "libs/mobile/dashboard/feature/src/index.ts"
       ],

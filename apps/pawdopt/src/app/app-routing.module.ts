@@ -144,6 +144,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/orgsettings/feature').then(
         (m) => m.OrgSettingsPageComponentModule
       )
+    },
+    {
+      path: 'chatlist',
+      loadChildren: () =>
+        import('@pawdopt/mobile/chatlist/feature').then(
+          (m) => m.chatlistPageComponentModule
+        )
     }
 ];
 
