@@ -13,42 +13,43 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
   providers: [Apollo]
 })
 export class chatPageComponent {
-
+  //Not real-time messaging
   currentUserId?: string;
   userID ?: string;
   orgID !: string;
+  chateeName ?: string;
   
-  chatMessages: { 
+  messages: { 
     user: string;
     msg: string;
   }[] = [];
 
 
   //messages below will be handled through service/backend with the db
-  messages = [
-    {
-      user: 'Jason',
-      msg: 'Hello there!'
-    },
-    {
-      user: 'Maxine',
-      msg: 'Whats up?'
-    },
-    {
-      user: 'Jason',
-      msg: 'Nothing much. Just chilling, wanna jam some games?'
-    },
-    {
-      user: 'Maxine',
-      msg: 'Sure. What do you have in mind?'
-    },
-    {
-      user: 'Jason',
-      msg: 'League of Legends?'
-    }
-  ];
+  // messages = [
+  //   {
+  //     user: 'Jason',
+  //     msg: 'Hello there!'
+  //   },
+  //   {
+  //     user: 'Maxine',
+  //     msg: 'Whats up?'
+  //   },
+  //   {
+  //     user: 'Jason',
+  //     msg: 'Nothing much. Just chilling, wanna jam some games?'
+  //   },
+  //   {
+  //     user: 'Maxine',
+  //     msg: 'Sure. What do you have in mind?'
+  //   },
+  //   {
+  //     user: 'Jason',
+  //     msg: 'League of Legends?'
+  //   }
+  // ];
   newMsg = '';
-  currentUser = 'Jason'; //done through a service 
+  currentUser = 'You';
   @ViewChild(IonContent)
   content!: IonContent;
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth) {
@@ -65,7 +66,7 @@ export class chatPageComponent {
 
   //logic to get the chat messages from the db using orgId and userId
   async getChat(chateeId : string, DogId : string){
-    this.chatMessages = [];
+    this.messages = [];
     //get the type of user
     this.afAuth.currentUser.then(user => {
       this.currentUserId = user?.uid;
@@ -111,12 +112,31 @@ export class chatPageComponent {
                     }[]
                   }
                 }
-                //add the messages to the chatMessages array using a foreach
+                //add the messages to the messages array using a foreach
                 data.findChatByOrgIdAndAdopterId.messages.forEach((message) => {
-                  this.chatMessages.push({
+                  this.messages.push({
                     user: message.sender,
                     msg: message.message
                   });
+                });
+
+                const getOrgNameQuery = gql`query {
+                  findOrgById(id: "${this.userID}"){
+                    name
+                  }
+                }`;
+
+                this.apollo.watchQuery({
+                  query: getOrgNameQuery,
+                  fetchPolicy: 'no-cache'
+                }).valueChanges.subscribe((result) => {
+                  console.log(result);
+                  const data = result.data as {
+                    findOrgById: {
+                      name: string
+                    }
+                  }
+                  this.chateeName = data.findOrgById.name;
                 });
               });
             });
@@ -164,12 +184,31 @@ export class chatPageComponent {
                       }[]
                     }
                   }
-                  //add the messages to the chatMessages array using a foreach
+                  //add the messages to the messages array using a foreach
                   data.findChatByOrgIdAndAdopterId.messages.forEach((message) => {
-                    this.chatMessages.push({
+                    this.messages.push({
                       user: message.sender,
                       msg: message.message
                     });
+                  });
+
+                  const getAdopterNameQuery = gql`query {
+                    findAdopterById(id: "${this.userID}"){
+                      name
+                    }
+                  }`;
+  
+                  this.apollo.watchQuery({
+                    query: getAdopterNameQuery,
+                    fetchPolicy: 'no-cache'
+                  }).valueChanges.subscribe((result) => {
+                    console.log(result);
+                    const data = result.data as {
+                      findAdopterById: {
+                        name: string
+                      }
+                    }
+                    this.chateeName = data.findAdopterById.name;
                   });
                 });
               });
@@ -182,15 +221,25 @@ export class chatPageComponent {
   
   //query to add message to the chat
   //TODO: add the message to the chat
-  sendMessage(){ //Backend dev -> replace with HTTPREQUEST OR FIREBASE logic
-      this.messages.push({
-        user: 'Jason', //currentUser sending a msg
-        msg: this.newMsg
-      });
-      
-      this.newMsg = ''; 
-      setTimeout(() => {
-        this.content.scrollToBottom(300);
+  sendMessage(){      
+      const messageQuery = gql`mutation {
+        sendMessage(orgId: "${this.orgID}", adopterId: "${this.userID}", senderId: "${this.userID}", message: "${this.newMsg}"){
+          orgId
+        }
+      }`;
+
+      this.apollo.mutate({
+        mutation: messageQuery,
+        fetchPolicy: 'no-cache'
+      }).subscribe((result) => {
+        this.messages.push({
+          user: "You", //currentUser sending a msg
+          msg: this.newMsg
+        });
+        this.newMsg = ''; 
+        setTimeout(() => {
+          this.content.scrollToBottom(300);
+        });
       });
   }
 
