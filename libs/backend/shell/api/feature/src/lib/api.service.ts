@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, Message, MessageDocument } from './api.schema';
+import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, MessageObj, MessageDocument } from './api.schema';
 
 @Injectable()
 export class ApiService {
@@ -13,7 +13,7 @@ export class ApiService {
         @InjectModel(ContactInfo.name) private readonly ContactInfoModel : Model<ContactInfoDocument>,
         @InjectModel(Location.name) private readonly LocationModel : Model<LocationDocument>,
         @InjectModel(Chat.name) private readonly ChatModel : Model<ChatDocument>,
-        @InjectModel(Message.name) private readonly MessageModel : Model<MessageDocument>,
+        @InjectModel(MessageObj.name) private readonly MessageModel : Model<MessageDocument>,
         ) {}
 
     /**
@@ -775,9 +775,33 @@ export class ApiService {
      * @param {string} message The message to send
      * @return {Promise<Chat || null>}
      */
-    /*async sendMessage(orgId: string, adopterId: string, senderId: string, message: string): Promise<Chat | null> {
-        const hashedMessage = await crypto.hash(message, 10);
-        const msg = new Message(senderId, message);
-        const chat = await this.ChatModel.findOne({orgId, adopterId}).exec();*/
+    async sendMessage(orgId: string, adopterId: string, senderId: string, message: string): Promise<Chat | null> {
+        const chat = await this.ChatModel.findOne({orgId, adopterId}).exec();
+        if(chat == null){
+            throw new Error("Chat does not exist");
+        }else{
+            const msg = await this.MessageModel.create({senderId, message});
+            chat.messages.push(msg);
+            return chat.save();
+        }
+    }
+
+    /**
+     * used in chat page
+     * create a chat
+     * @param {string} orgId The id of the org to find
+     * @param {string} adopterId The id of the adopter to find
+     * @param {string} dogId The id of the dog
+     * @return {Promise<Chat || null>}
+     */
+    async createChat(orgId: string, adopterId: string, dogId: string): Promise<Chat | null> {
+        const chat = new Chat();
+        chat.orgId = orgId;
+        chat.adopterId = adopterId;
+        chat.dogId = dogId;
+        return this.ChatModel.create(chat);
+    }
+
+
 
 }
