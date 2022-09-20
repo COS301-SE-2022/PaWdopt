@@ -1,5 +1,5 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
-import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter } from './api.schema';
+import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter, Chat, Message } from './api.schema';
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
@@ -195,4 +195,37 @@ export class AdopterType {
 
     @Field() 
     uploadedDocs : boolean;//on create account set to false
+
+}
+
+@ObjectType('ChatType')
+@InputType('ChatInputType')
+export class ChatType {
+    @Field()
+    _id: string;
+
+    @Field(() => [AdopterType])
+    users: [Adopter];
+
+    @Field(() => [MessageType])
+    messages: [Message];
+
+    @Field()
+    lastMessage: Date;
+}
+
+@ObjectType('MessageType')
+@InputType('MessageInputType')
+export class MessageType {
+    @Field()
+    _id: string;
+
+    @Field()
+    sender: string;
+
+    @Field()
+    text: string;
+
+    @Field()
+    time: Date;
 }
