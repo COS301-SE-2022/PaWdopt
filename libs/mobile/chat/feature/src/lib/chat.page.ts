@@ -11,36 +11,40 @@ import {Apollo, gql } from 'apollo-angular';
 })
 export class chatPageComponent {
 
+
+  userID !: string;
+  orgID !: string;
   // inputEmail!: string;
   // inputPassword!: string;
   // public static orgName:string;
   // public static adopterEmail:string;
 
+  chatMessages: { 
+    user: string;
+    msg: string;
+  }[] = [];
+
+
   //messages below will be handled through service/backend with the db
   messages = [
     {
       user: 'Jason',
-      createdAt: '5:30 PM', //most likely in the final implementation it will be values.
       msg: 'Hello there!'
     },
     {
       user: 'Maxine',
-      createdAt: '5:40 PM',
       msg: 'Whats up?'
     },
     {
       user: 'Jason',
-      createdAt: '5:41 PM',
       msg: 'Nothing much. Just chilling, wanna jam some games?'
     },
     {
       user: 'Maxine',
-      createdAt: '5:45 PM',
       msg: 'Sure. What do you have in mind?'
     },
     {
       user: 'Jason',
-      createdAt: '5:50 PM',
       msg: 'League of Legends?'
     }
   ];
@@ -52,12 +56,16 @@ export class chatPageComponent {
     
   }
 
+  //logic to get orgID and userID from storage - from the chatlist page
+
+  //query to fill chatMessages
+
+  //query to add message to the chat
+
 
   sendMessage(){ //Backend dev -> replace with HTTPREQUEST OR FIREBASE logic
-    const tempDate = new Date().getTime();
       this.messages.push({
-        user: 'Jason',
-        createdAt: tempDate.toString(),
+        user: 'Jason', //currentUser sending a msg
         msg: this.newMsg
       });
       
