@@ -47,6 +47,7 @@
         "apollo-angular": "^3.0.1",
         "apollo-client": "^2.6.10",
         "apollo-server-express": "^3.8.1",
+        "bcrypt": "^5.0.1",
         "bcryptjs": "^2.4.3",
         "capacitor": "^0.5.5",
         "cordova": "^11.0.0",
