@@ -1,7 +1,7 @@
 <!--Back-->
 <div class="newback">
     <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
-      <ion-icon  name="arrow-back-circle"></ion-icon>
+        <ion-icon name="arrow-back-circle"></ion-icon>
     </ion-button>
 </div>
 
@@ -9,8 +9,9 @@
     <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
     <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">
         <ion-icon name="cloud-upload-outline"></ion-icon>&nbsp;Upload a picture</ion-button>
-        <img src={{this.imageToShow}} style="display: block;">
-    &nbsp;
+    <div class="imageContainer">
+        <ion-img [src]="imageToShow" class="uploadedImage" id="imageUpload" hidden></ion-img>
+    </div>
     <ion-list class="form">
         <ion-item-group class="form-border">
             <ion-item class="form-item form-start">
