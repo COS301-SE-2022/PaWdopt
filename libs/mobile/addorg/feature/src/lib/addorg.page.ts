@@ -135,8 +135,8 @@ export class AddorgPageComponent {
         totalAdoptions: 0,
         totalDogs: 0,
         location:{
-          lat: ${Number(this.lat)},
-          lng: ${Number(this.lng)}
+          lat: ${Number(this.latitude)},
+          lng: ${Number(this.longitude)},
         },
         rulesReq: "${this.rulesReq}",
         contactInfo:{
