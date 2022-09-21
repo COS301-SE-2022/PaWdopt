@@ -48,7 +48,7 @@ export class owneddogsPageComponent {
   async showLoading() {
     const loading = await this.loadingCtrl.create({
       message: 'Waiting for dogs, if no dogs appear you will need to add them...',
-      duration: 3000,
+      duration: 1500,
     });
 
     loading.present();
@@ -131,18 +131,8 @@ export class owneddogsPageComponent {
     
             
           if(search){
-            // console.log(this.dog);
-            // this.dog.map((element) => {
-            //   console.log("hello");
-            //   console.log("1" + element.name.toLowerCase() + this.inputSearch.toLowerCase());
-            //   if(!element.name.toLowerCase().includes(this.inputSearch.toLowerCase())){
-            //     console.log(element.name.toLowerCase() + this.inputSearch.toLowerCase());
-            //     this.dog.splice(this.dog.indexOf(element), 1);
-            //   }
-            // });
-            // console.log(this.dog);
             // filter the dog array based on the search input
-
+            this.dog=[]
             data.findDogsByOrgId.forEach(element => {
               const birthDate = new Date(element.dob);
               if(element.name.toLowerCase().includes(this.inputSearch.toLowerCase())){
@@ -173,6 +163,7 @@ export class owneddogsPageComponent {
             })
           }
           else{
+            this.dog=[];
             data.findDogsByOrgId.forEach(element => {
               const birthDate = new Date(element.dob);
               this.dog.push(

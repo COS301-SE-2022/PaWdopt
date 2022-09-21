@@ -4,7 +4,11 @@ import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Platform } from '@ionic/angular';
-import * as NodeGeocoder from 'node-geocoder';
+import { ActionSheetController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+
 
 @Component({
   selector: 'pawdopt-addorg',
@@ -15,6 +19,8 @@ import * as NodeGeocoder from 'node-geocoder';
 
 
 export class AddorgPageComponent {
+  imageString!: string;
+
   oName!: string;
   about!: string;
   date!: Date;
@@ -57,8 +63,9 @@ export class AddorgPageComponent {
     enableHighAccuracy: true, 
     maximumAge: 3600
   };
+  imageToShow!: string;
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform, public actionSheetController: ActionSheetController, public alertController: AlertController) {
     this.getGeolocation();
     this.orgMembers=[{
       id: "",
@@ -92,7 +99,7 @@ export class AddorgPageComponent {
         .catch(error => {
             console.log(error);
         })
-      }).catch((error: any) => {
+      }).catch((error) => {
         alert('Error getting location' + JSON.stringify(error));
       });
     });
@@ -148,7 +155,7 @@ export class AddorgPageComponent {
           instagram: "${this.instagram}",
           twitter: "${this.twitter}"
         },
-        logo: "${this.logo}"
+        logo: "${this.imageString}"
       })
       {
         _id
@@ -218,15 +225,101 @@ export class AddorgPageComponent {
     slides?.slidePrev();
   }
 
-  uploadPic(){
-    // TODO: Upload pic
-  }
-
-  uploadDoc(){
-    // TODO: Upload doc
-  }
-
   Back(){
     this.router.navigate(["/login"]);
+  }
+
+  showImage(){
+    // TODO: unhide pic
+    return this.imageString;
+  }
+
+  async uploadPic(){
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Upload picture',
+      buttons: [{
+        text: 'Take picture using your camera',
+        icon: 'camera-outline',
+        handler: () => {
+          console.log('Take picture clicked');
+          this.getPhoto(true);
+        }
+      }, {
+        text: 'Choose a picture from your gallery',
+        icon: 'image-outline',
+        handler: async () => {
+          console.log('Choose a picture clicked');
+          await this.getPhoto(false);
+          this.imageToShow = this.showImage();
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role, data } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role and data', role, data);
+  }
+
+  async uploadDoc(){
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Upload picture',
+      buttons: [{
+        text: 'Take picture using your camera',
+        icon: 'camera-outline',
+        handler: () => {
+          console.log('Take picture clicked');
+          this.getPhoto(true);
+        }
+      }, {
+        text: 'Choose a picture from your gallery',
+        icon: 'image-outline',
+        handler: async () => {
+          console.log('Choose a picture clicked');
+          await this.getPhoto(false);
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role, data } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role and data', role, data);
+  }
+
+
+  async getPhoto(fromCamera:boolean) {
+    let sourceIn: CameraSource;
+
+    if(fromCamera){
+      sourceIn = CameraSource.Camera;
+    }
+    else{
+      sourceIn = CameraSource.Photos;
+    }
+
+    const capturedPhoto = await Camera.getPhoto({
+      resultType: CameraResultType.DataUrl,
+      source: sourceIn,
+      quality: 100
+    });
+
+    //TODO Do firebase upload here
+
+    const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
+    this.imageString = data;
+    return data;
   }
 }

@@ -7,9 +7,6 @@ import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { Filesystem, Directory } from '@capacitor/filesystem';
-import { Storage } from '@capacitor/storage';
-import { handleRetry } from '@nestjs/mongoose/dist/common/mongoose.utils';
 
 @Component({
   selector: 'pawdopt-signup',
