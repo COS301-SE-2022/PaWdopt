@@ -9,6 +9,9 @@ import { OrgMember, OrgMemberSchema } from './api.schema';
 import { Adopter, AdopterSchema } from './api.schema';
 import { ContactInfo, ContactInfoSchema } from './api.schema';
 import { Location, LocationSchema } from './api.schema';
+import { Chat, ChatSchema } from './api.schema';
+import { MessageObj, MessageSchema } from './api.schema';
+
 
 @Module({
   imports: [
@@ -18,7 +21,9 @@ import { Location, LocationSchema } from './api.schema';
     MongooseModule.forFeature([{ name: OrgMember.name, schema: OrgMemberSchema }]),
     MongooseModule.forFeature([{ name: Adopter.name, schema: AdopterSchema }]),
     MongooseModule.forFeature([{ name: ContactInfo.name, schema: ContactInfoSchema }]),
-    MongooseModule.forFeature([{ name: Location.name, schema: LocationSchema }])
+    MongooseModule.forFeature([{ name: Location.name, schema: LocationSchema }]),
+    MongooseModule.forFeature([{ name: Chat.name, schema: ChatSchema }]),
+    MongooseModule.forFeature([{ name: MessageObj.name, schema: MessageSchema }]),
   ],
   controllers: [],
   providers: [ApiService, ApiResolver],

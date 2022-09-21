@@ -16,21 +16,24 @@
     </ion-toolbar>
 </ion-header>
 &nbsp;
+
+<div class="newback">
+    <ion-button class="ion-float-left" fill="clear" size="large">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-button>
+</div>
+
 <ion-content>
     <ion-grid>
         <ion-row *ngFor="let message of messages">
             <ion-col size="9" *ngIf="currentUser !== message.user" class="message other-message">
                 <b>{{message.user}}</b><br>
                 <span>{{message.msg}}</span>
-                <!-- <div class="time" text-right><br>
-                {{message.createdAt}}</div> -->
             </ion-col>
 
             <ion-col offset="3" size="9" *ngIf="currentUser === message.user" class="message my-message">
                 <b>{{message.user}}</b><br>
                 <span>{{message.msg}}</span>
-                <!-- <div class="time" text-right><br>
-                {{message.createdAt}}</div> -->
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -43,15 +46,16 @@
                 <textarea autosize [(ngModel)]="newMsg" class="message-input" color="dark"></textarea>
             </ion-col>
             <ion-col size="2">
-                <ion-button expand="block" fill="clear" color="dark" [disabled]="newMsg === ''" class="msg-btn"
-                (click)="sendMessage()"><ion-icon name="send" slot="icon-only"></ion-icon></ion-button>
+                <ion-button expand="block" fill="clear" color="dark" [disabled]="newMsg === ''" class="msg-btn" (click)="sendMessage()">
+                    <ion-icon name="send" slot="icon-only"></ion-icon>
+                </ion-button>
             </ion-col>
         </ion-row>
     </ion-toolbar>
 </div>
 
 <!--Footer-->
-<ion-tab-bar color="secondary" slot="bottom">   
+<ion-tab-bar color="secondary" slot="bottom">
     <ion-tab-button tab="home" (click)="home()">
         <ion-icon color="dark" name="home"></ion-icon>
     </ion-tab-button>
