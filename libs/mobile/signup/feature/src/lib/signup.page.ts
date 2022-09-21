@@ -31,7 +31,7 @@ export class SignupPageComponent {
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private actionSheetController: ActionSheetController, private alertController: AlertController, private http: HttpClient) {
     this.uid = "";
-    this.imageToShow = "";
+    this.imageToShow = '';
     this.imageString = "";
 
     this.apiKey = "cbc1406a-451d-4d04-8a49-76ac229e64a6";
@@ -166,9 +166,9 @@ export class SignupPageComponent {
       }, {
         text: 'Choose a picture from your gallery',
         icon: 'image-outline',
-        handler: () => {
+        handler: async () => {
           console.log('Choose a picture clicked');
-          this.getPhoto(false);
+          await this.getPhoto(false);
           this.imageToShow = this.showImage();
         }
       }, {
@@ -189,28 +189,29 @@ export class SignupPageComponent {
   async getPhoto(fromCamera:boolean) {
     let sourceIn: CameraSource;
 
-  if(fromCamera){
-    sourceIn = CameraSource.Camera;
-  }
-  else{
-    sourceIn = CameraSource.Photos;
-  }
+    if(fromCamera){
+      sourceIn = CameraSource.Camera;
+    }
+    else{
+      sourceIn = CameraSource.Photos;
+    }
 
-  const capturedPhoto = await Camera.getPhoto({
-    resultType: CameraResultType.DataUrl,
-    source: sourceIn,
-    quality: 100
-  });
+    const capturedPhoto = await Camera.getPhoto({
+      resultType: CameraResultType.DataUrl,
+      source: sourceIn,
+      quality: 100
+    });
 
-  //TODO Do firebase upload here
+    //TODO Do firebase upload here
 
-  const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
-  this.imageString = data;
-  return data;
+    const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
+    this.imageString = data;
+    return data;
   }
 
   //function to show the image that is uploaded 
   showImage(){
+    // TODO: unhide pic
     return this.imageString;
   }
 

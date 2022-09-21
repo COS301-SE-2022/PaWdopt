@@ -1,8 +1,7 @@
-
 <!--Back-->
 <div class="newback">
     <ion-button class="ion-float-left" fill="clear" size="large" (click)="Back()">
-      <ion-icon  name="arrow-back-circle"></ion-icon>
+        <ion-icon name="arrow-back-circle"></ion-icon>
     </ion-button>
 </div>
 
@@ -15,13 +14,12 @@
     <ion-list class="form">
         <ion-item-group class="form-border">
             <ion-item class="form-item form-start">
-                <ion-label position="floating" class="form-input-label" >Name</ion-label>
+                <ion-label position="floating" class="form-input-label">Name</ion-label>
                 <ion-input class="form-input" [(ngModel)]="oName" id="org-name-field" required></ion-input>
             </ion-item>
             <ion-item class="form-item" lines="none">
-                <ion-label position="floating" >About</ion-label>
-                <ion-textarea class="form-input" [(ngModel)]="about" id="about-field" id="txtnotes"
-                auto-grow="true" required>  
+                <ion-label position="floating">About</ion-label>
+                <ion-textarea class="form-input" [(ngModel)]="about" id="about-field" id="txtnotes" auto-grow="true" required>
                 </ion-textarea>
             </ion-item>
             <ion-item class="form-item">

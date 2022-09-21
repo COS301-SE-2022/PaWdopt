@@ -1,4 +1,4 @@
-.container{
+.container {
     height: 100%;
     background-color: #F8F9FA;
     display: flex;
@@ -8,19 +8,33 @@
     overflow: scroll;
 }
 
-.newback{
+.newback {
     background-color: #F8F9FA;
 }
 
-.logo{
+.logo {
     margin-top: 20%;
     margin-bottom: 10%;
 }
 
-.greyButton{
+.greyButton {
     margin-top: 10%;
 }
 
-.back{
+.back {
     margin-top: 5%;
+}
+
+.imageContainer {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    width: 50%;
+    height: 50%;
+}
+
+.uploadedImage {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }

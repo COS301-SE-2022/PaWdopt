@@ -47,7 +47,7 @@ export class owneddogsPageComponent {
 
   async showLoading() {
     const loading = await this.loadingCtrl.create({
-      message: 'Awaiting for dogs, if no dogs appear you will need to add them...',
+      message: 'Waiting for dogs, if no dogs appear you will need to add them...',
       duration: 3000,
     });
 
