@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder/ngx';
+import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { Platform } from '@ionic/angular';
+import * as NodeGeocoder from 'node-geocoder';
 
 @Component({
   selector: 'pawdopt-addorg',
@@ -58,18 +59,20 @@ export class AddorgPageComponent {
     maximumAge: 3600
   };
 
+
   //Geocoder configuration
   geoencoderOptions: NativeGeocoderOptions = {
     useLocale: true,
     maxResults: 5
   };
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, private platform: Platform) {
-    // androidPermissions.checkPermission(androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
-    //   result => console.log('Has permission?',result.hasPermission),
-    //   err => androidPermissions.requestPermission(androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
-    // );
-    // androidPermissions.requestPermissions([androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION, androidPermissions.PERMISSION.ACCESS_FINE_LOCATION]);
+
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform) {
+    
+    //make an http request
+    
+
+
     this.getGeolocation();
     this.orgMembers=[{
       id: "",
@@ -93,8 +96,17 @@ export class AddorgPageComponent {
         this.latitude = resp.coords.latitude;
         this.longitude = resp.coords.longitude;
         this.accuracy = resp.coords.accuracy;
-        alert("lat: "+this.latitude+" lng: "+this.longitude);
-        this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
+        const latLng = this.latitude + "," + this.longitude;
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=AIzaSyBzbLD7pkAKElKOmQhsHTgW81dKR4qe6Ko`)
+        .then((responseText) => {
+            return responseText.json();
+        })
+        .then(jsonData => {
+            this.address = jsonData.results[0].formatted_address;
+        })
+        .catch(error => {
+            console.log(error);
+        })
 
       }).catch((error: any) => {
         alert('Error getting location' + JSON.stringify(error));
@@ -102,36 +114,9 @@ export class AddorgPageComponent {
     });
   }
 
-  //geocoder method to fetch address from coordinates passed as arguments
-  getGeoencoder(latitude : number, longitude: number) {
-    this.platform.ready().then(() => {
-      this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoencoderOptions)
-        .then((result: NativeGeocoderResult[]) => {
-          alert(result.toString());
-          this.address = this.generateAddress(result[0]);
-          alert("Final address: "+this.address);
-        })
-        .catch((error) => {
-          alert('Error getting location' + JSON.stringify(error));
-        });
-    });
-  }
+  
 
-  generateAddress(addressObj : any) {
-    alert("in generateAddress");
-    const obj = [];
-    let address = "";
-    for (const key in addressObj) {
-      obj.push(addressObj[key]);
-    }
-    obj.reverse();
-    for (const val in obj) {
-      if (obj[val].length)
-        address += obj[val] + ', ';
-    }
-    alert("address: "+address.slice(0, -2));
-    return address.slice(0, -2);
-  }
+  //geocoder method to fetch address from coordinates passed as arguments
 
   addOrg(){
     //TODO: Add validation
