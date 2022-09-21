@@ -182,19 +182,19 @@ export class dashboardPageComponent {
           cssClass: 'my-alert-class',
           handler: (value:  any) => {
             console.log("heart");
-    const clickedHeartIconquery = gql`mutation {
-      clickedHeartIcon(userId: "${id}", dogId: "${this.dogID}") {
-        _id
-      }
-    }`;
-    this.apollo.mutate({
-      mutation: clickedHeartIconquery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-      this.getDog();
-    }
-    )
+            const clickedHeartIconquery = gql`mutation {
+              clickedHeartIcon(userId: "${id}", dogId: "${this.dogID}") {
+                _id
+              }
+            }`;
+            this.apollo.mutate({
+              mutation: clickedHeartIconquery,
+              fetchPolicy: 'no-cache'
+            }).subscribe((result) => {
+              console.log(result);
+              this.getDog();
+            }
+            )
         }
       },
       {
@@ -218,20 +218,20 @@ export class dashboardPageComponent {
           cssClass: 'my-alert-class',
           handler: (value:  any) => {
             console.log(id);
-    const clickedTrashIconquery = gql`mutation {
-      clickedTrashIcon(userId: "${id}", dogId: "${this.dogID}") {
-        name
-      }
-    }`;
-    this.apollo.mutate({
-      mutation: clickedTrashIconquery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-      this.userLikes = [];
-      this.getDog();
-    }
-    )
+            const clickedTrashIconquery = gql`mutation {
+              clickedTrashIcon(userId: "${id}", dogId: "${this.dogID}") {
+                name
+              }
+            }`;
+            this.apollo.mutate({
+              mutation: clickedTrashIconquery,
+              fetchPolicy: 'no-cache'
+            }).subscribe((result) => {
+              console.log(result);
+              this.userLikes = [];
+              this.getDog();
+            }
+            )
         }
       },
       {
