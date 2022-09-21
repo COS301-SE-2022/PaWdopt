@@ -26,55 +26,43 @@
 
 
 <ion-content>
-    <div class="userinfo">
-        <div class="table">
-            <ion-item>
-                <ion-label>Gender</ion-label>
-                <ion-select [(ngModel)]="gender" id="gender-select">
-                    <ion-select-option value="Any">Any</ion-select-option>
-                    <ion-select-option value="Male">Male</ion-select-option>
-                    <ion-select-option value="Female">Female</ion-select-option>
-                </ion-select>
-            </ion-item>
-            &nbsp;
-            <ion-item>
-                <ion-label position="floating">Breed</ion-label>
-                <!-- <ion-select [(ngModel)]="breed" id="breed-select">
+    <div class="container">
+        &nbsp;
+        <ion-list class="form">
+            <ion-item-group class="form-border">
+                <ion-item class="form-item">
+                    <ion-label position="floating" class="form-input-label">Gender</ion-label>
+                    <ion-select [(ngModel)]="gender" id="gender-select">
+                        <ion-select-option value="Male">Male</ion-select-option>
+                        <ion-select-option value="Female">Female</ion-select-option>
                         <ion-select-option value="any">Any</ion-select-option>
-                    </ion-select> -->
-                <!-- Will be implemented properly demo 4, for now use static search -->
-                <ion-input></ion-input>
-            </ion-item>
-            &nbsp;
-            <ion-item>
-                <div style="display: flex; flex-direction: column;">
-                    <ion-label>Size of the dog</ion-label>
-                    <!-- <div style="display: flex; align-items: center;">
-                            <ion-label style="margin-right:2%;">Doesn't matter</ion-label>
-                            <ion-checkbox [(ngModel)]="sizeAny" id="size-checkbox">Doesn't matter</ion-checkbox>
-                        </div> -->
-                    <!-- <ion-label>Dog weight in kg</ion-label> -->
+                    </ion-select>
+                </ion-item>
+                <ion-item class="form-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <ion-label position="floating" class="testclass">Size of the dog</ion-label>
+                    </div>
                     <ion-range [dualKnobs]="true" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="size" pin="true"></ion-range>
-                </div>
-            </ion-item>
-            &nbsp;
-            <ion-item>
-                <div style="display: flex; flex-direction: column;">
-                    <ion-label>Age range of dog</ion-label>
+                </ion-item>
+                <ion-item class="form-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <ion-label position="floating" class="testclass">Age range of dog</ion-label>
+                    </div>
                     <ion-range [dualKnobs]="true" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="size2" pin="true"></ion-range>
-                </div>
-            </ion-item>
-            &nbsp;
-            <ion-item>
-                <div style="display: flex; flex-direction: column;">
-                    <ion-label>Location range of dog</ion-label>
-                    <ion-range [dualKnobs]="true" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="size3" pin="true"></ion-range>
-                </div>
-            </ion-item>
-            <div class="annoyingButton">
-                <ion-button class="greyButton" (click)="saveChanges()">Save changes</ion-button>
-            </div>
-        </div>
+                </ion-item>
+                <ion-item class="form-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <ion-label position="floating" class="testclass">Location range of dog</ion-label>
+                    </div>
+                    <ion-range [value]="100" [(ngModel)]="size3" pin="true"></ion-range>
+                </ion-item>
+
+            </ion-item-group>
+        </ion-list>
+        <ion-button class="greyButton" id="returntodefault-button" (click)="returnToDefault()">
+            <ion-icon name="cog-outline"></ion-icon>&nbsp;Return to default settings</ion-button>
+        <ion-button class="greyButton" id="savechanges-button" (click)="saveChanges()">
+            <ion-icon name="add"></ion-icon>&nbsp;Save changes</ion-button>
     </div>
 
 </ion-content>
