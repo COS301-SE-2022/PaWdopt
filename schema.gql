@@ -82,10 +82,11 @@ type AdopterType {
 type ChatType {
   adopterId: String!
   orgId: String!
-  messages: [MessageType!]
+  messages: [MessageObjType!]
+  dogId: String!
 }
 
-type MessageType {
+type MessageObjType {
   sender: String!
   message: String!
 }
@@ -165,10 +166,11 @@ input AdopterInputType {
 input ChatInputType {
   adopterId: String!
   orgId: String!
-  messages: [MessageInputType!]
+  messages: [MessageObjInputType!]
+  dogId: String!
 }
 
-input MessageInputType {
+input MessageObjInputType {
   sender: String!
   message: String!
 }
@@ -218,5 +220,6 @@ type Mutation {
   userSwipesRight(userId: String!, dogId: String!): AdopterType!
   userSwipesLeft(userId: String!, dogId: String!): AdopterType!
   updateDog(dogId: String!, breed: String!, gender: String!, dob: DateTime!, about: String!, height: Float!, weight: Float!, furlength: String!, temperament: [String!]!): DogType!
-  createChat(orgId: String!, adopterId: String!): ChatType!
+  createChat(orgId: String!, adopterId: String!, dogId: String!): ChatType!
+  sendMessage(orgId: String!, adopterId: String!, senderId: String!, message: String!): ChatType!
 }
