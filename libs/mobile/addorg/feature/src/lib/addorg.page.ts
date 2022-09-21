@@ -3,12 +3,14 @@ import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder/ngx';
+import { Platform } from '@ionic/angular';
+
 @Component({
   selector: 'pawdopt-addorg',
   templateUrl: 'addorg.page.html',
   styleUrls: ['addorg.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, AngularFireAuth]
+  providers: [Apollo, AngularFireAuth, NativeGeocoder]
 })
 
 
@@ -50,13 +52,24 @@ export class AddorgPageComponent {
   longitude!: number;
   accuracy!: number;
 
+  options = {
+    timeout: 10000, 
+    enableHighAccuracy: true, 
+    maximumAge: 3600
+  };
+
   //Geocoder configuration
   geoencoderOptions: NativeGeocoderOptions = {
     useLocale: true,
     maxResults: 5
   };
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, private platform: Platform) {
+    // androidPermissions.checkPermission(androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
+    //   result => console.log('Has permission?',result.hasPermission),
+    //   err => androidPermissions.requestPermission(androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
+    // );
+    // androidPermissions.requestPermissions([androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION, androidPermissions.PERMISSION.ACCESS_FINE_LOCATION]);
     this.getGeolocation();
     this.orgMembers=[{
       id: "",
@@ -68,33 +81,44 @@ export class AddorgPageComponent {
     this.orgMembers.pop();
   }
 
+  // <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  // <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  // <uses-feature android:name="android.hardware.location.gps" />
+
   //Get current coordinates of device
   getGeolocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
+    this.platform.ready().then(() => {
+      this.geolocation.getCurrentPosition(this.options).then((resp) => {
 
-      this.latitude = resp.coords.latitude;
-      this.longitude = resp.coords.longitude;
-      this.accuracy = resp.coords.accuracy;
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+        this.accuracy = resp.coords.accuracy;
+        alert("lat: "+this.latitude+" lng: "+this.longitude);
+        this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
 
-      this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
-
-    }).catch((error) => {
-      alert('Error getting location' + JSON.stringify(error));
+      }).catch((error: any) => {
+        alert('Error getting location' + JSON.stringify(error));
+      });
     });
   }
 
   //geocoder method to fetch address from coordinates passed as arguments
   getGeoencoder(latitude : number, longitude: number) {
-    this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoencoderOptions)
-      .then((result: NativeGeocoderResult[]) => {
-        this.address = this.generateAddress(result[0]);
-      })
-      .catch((error: any) => {
-        alert('Error getting location' + JSON.stringify(error));
-      });
+    this.platform.ready().then(() => {
+      this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoencoderOptions)
+        .then((result: NativeGeocoderResult[]) => {
+          alert(result.toString());
+          this.address = this.generateAddress(result[0]);
+          alert("Final address: "+this.address);
+        })
+        .catch((error) => {
+          alert('Error getting location' + JSON.stringify(error));
+        });
+    });
   }
 
   generateAddress(addressObj : any) {
+    alert("in generateAddress");
     const obj = [];
     let address = "";
     for (const key in addressObj) {
@@ -105,6 +129,7 @@ export class AddorgPageComponent {
       if (obj[val].length)
         address += obj[val] + ', ';
     }
+    alert("address: "+address.slice(0, -2));
     return address.slice(0, -2);
   }
 
