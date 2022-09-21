@@ -13,7 +13,6 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
   providers: [Apollo]
 })
 export class chatPageComponent {
-  //Not real-time messaging
   currentUserId?: string;
   userID ?: string;
   orgID !: string;
@@ -53,6 +52,7 @@ export class chatPageComponent {
   @ViewChild(IonContent)
   content!: IonContent;
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth) {
+    this.getChat();
   }
     
 
@@ -65,7 +65,7 @@ export class chatPageComponent {
 
 
   //logic to get the chat messages from the db using orgId and userId
-  async getChat(chateeId : string, DogId : string){
+  getChat(){
     this.messages = [];
     //get the type of user
     this.afAuth.currentUser.then(user => {
@@ -232,14 +232,8 @@ export class chatPageComponent {
         mutation: messageQuery,
         fetchPolicy: 'no-cache'
       }).subscribe((result) => {
-        this.messages.push({
-          user: "You", //currentUser sending a msg
-          msg: this.newMsg
-        });
         this.newMsg = ''; 
-        setTimeout(() => {
-          this.content.scrollToBottom(300);
-        });
+        this.getChat();
       });
   }
 
