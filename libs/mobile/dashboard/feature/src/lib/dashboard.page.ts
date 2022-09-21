@@ -84,6 +84,7 @@ export class dashboardPageComponent {
   }
 
   async getDog(){
+    this.userLikes = [];
     this.dogID = (await this.getObject()).name
     console.log(this.dogID);
     const getDogQuery = gql`query {
@@ -144,7 +145,6 @@ export class dashboardPageComponent {
       this.dog.breed = data.findDogById.breed;
       this.dog.temperament = data.findDogById.temperament;
       this.dog.furLength = data.findDogById.furLength;
-      
       data.findDogById.usersLiked.forEach(element => {
         this.userLikes.push(
           {
@@ -228,7 +228,6 @@ export class dashboardPageComponent {
               fetchPolicy: 'no-cache'
             }).subscribe((result) => {
               console.log(result);
-              this.userLikes = [];
               this.getDog();
             }
             )
