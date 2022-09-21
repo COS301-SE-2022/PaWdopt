@@ -13,7 +13,6 @@ export class userinfoPageComponent {
   user:{
     name: string,
     email: string,
-    IDNum: string,
     pic: string,
     location: {
       lat: number,
@@ -26,7 +25,6 @@ export class userinfoPageComponent {
   } = {
     name: "",
     email: "",
-    IDNum: "",
     pic: "",
     location: {
       lat: 0,
@@ -81,7 +79,6 @@ export class userinfoPageComponent {
       findAdopterById(_id: "${this.t_ID}"){
         name,
         email,
-        IDNum,
         pic,
         location{
           lat,
@@ -103,7 +100,6 @@ export class userinfoPageComponent {
         findAdopterById: {
           name: string,
           email: string,
-          IDNum: string,
           pic: string,
           location: {
             lat: number,
@@ -117,7 +113,6 @@ export class userinfoPageComponent {
       };
       this.user.name = data.findAdopterById.name;
       this.user.email = data.findAdopterById.email;
-      this.user.IDNum = data.findAdopterById.IDNum;
       this.user.pic = data.findAdopterById.pic;
       //this.user.location.lat = data.findAdopterById.location.lat;
       //this.user.location.lng = data.findAdopterById.location.lng;
