@@ -45,7 +45,7 @@ export class HomePage {
     constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth) {
       this.t_ID = "";
       this.currentIndex = -1;
-      this.setObject();
+      // this.setObject();
       this.fireAuth.currentUser.then(user => {
         console.log(user?.uid);
         if(user?.uid){
@@ -70,10 +70,7 @@ export class HomePage {
           lower: 0,
           upper: 0
         },
-        location: {
-          lower: 0,
-          upper: 0
-        }
+        location: 0
         })
       });
     }
@@ -100,8 +97,6 @@ export class HomePage {
     if(filters && filters != undefined){
       if(filters.gender != undefined)
         this.gender = filters.gender;
-      if(filters.breed != undefined)
-        this.breed = filters.breed;
       if(filters.age.lower != undefined)
         this.minAge = filters.age.lower;
       if(filters.age.upper != undefined)
@@ -110,10 +105,10 @@ export class HomePage {
         this.minSize = filters.size.lower;
       if(filters.size.upper != undefined)
         this.maxSize = filters.size.upper;
-      if(filters.distance != undefined)
-        this.maxDistance = filters.location.upper;
+      if(filters.location != undefined)
+        this.maxDistance = filters.location;
     }
-    if(this.gender == "Any")
+    if(this.gender == "any")
       this.gender = "";
   }
 
@@ -261,11 +256,11 @@ export class HomePage {
               splice = true;
             }
           if(this.minAge && this.maxAge)
-            if((element.age < this.minAge || element.age >= this.maxAge) && this.minAge != 0 && this.maxAge != 0){
+            if((element.age < this.minAge || element.age >= this.maxAge) && this.maxAge != 0){
               splice = true;
             }
           if(this.minSize && this.maxSize)
-            if((element.height <= this.minSize || element.height >=this.maxSize) && this.minSize != 0 && this.maxSize != 0){
+            if((element.height <= this.minSize || element.height >=this.maxSize) && this.maxSize != 0){
               splice = true;
             }
           if(!splice){
