@@ -8,6 +8,21 @@
     overflow: scroll;
 }
 
+.testclass {
+    font-size: 21px !important;
+}
+
+ion-range {
+    --bar-background: #f9fbfd;
+    --bar-background-active: #bde0fe;
+    --bar-height: 5px;
+    --bar-border-radius: 5px;
+    --knob-background: #F8F9FA;
+    --knob-size: 30px;
+    --pin-background: #000000;
+    --pin-color: #F8F9FA;
+}
+
 .annoyingButton {
     // margin-top: 10%;
     // margin-bottom: 10%;
@@ -15,7 +30,7 @@
     display: flex;
 }
 
-.middleSlider{
+.middleSlider {
     justify-content: center;
     display: flex;
 }
@@ -25,8 +40,8 @@
 //     margin-bottom: 10%;
 // }
 .greyButton {
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin-top: 7%;
+    margin-bottom: 0%;
 }
 
 .back {
@@ -52,7 +67,7 @@
     margin-bottom: 10%;
 }
 
-.userinfo{
+.userinfo {
     margin: auto;
     width: 330px;
     height: 460px;
