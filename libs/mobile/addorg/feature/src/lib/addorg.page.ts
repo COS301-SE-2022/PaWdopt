@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+import { Platform } from '@ionic/angular';
+import * as NodeGeocoder from 'node-geocoder';
+
 @Component({
   selector: 'pawdopt-addorg',
   templateUrl: 'addorg.page.html',
@@ -50,13 +52,13 @@ export class AddorgPageComponent {
   longitude!: number;
   accuracy!: number;
 
-  //Geocoder configuration
-  geoencoderOptions: NativeGeocoderOptions = {
-    useLocale: true,
-    maxResults: 5
+  options = {
+    timeout: 10000, 
+    enableHighAccuracy: true, 
+    maximumAge: 3600
   };
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform) {
     this.getGeolocation();
     this.orgMembers=[{
       id: "",
@@ -68,44 +70,32 @@ export class AddorgPageComponent {
     this.orgMembers.pop();
   }
 
+  // <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  // <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  // <uses-feature android:name="android.hardware.location.gps" />
+
   //Get current coordinates of device
   getGeolocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-
-      this.latitude = resp.coords.latitude;
-      this.longitude = resp.coords.longitude;
-      this.accuracy = resp.coords.accuracy;
-
-      this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
-
-    }).catch((error) => {
-      alert('Error getting location' + JSON.stringify(error));
-    });
-  }
-
-  //geocoder method to fetch address from coordinates passed as arguments
-  getGeoencoder(latitude : number, longitude: number) {
-    this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoencoderOptions)
-      .then((result: NativeGeocoderResult[]) => {
-        this.address = this.generateAddress(result[0]);
-      })
-      .catch((error: any) => {
+    this.platform.ready().then(() => {
+      this.geolocation.getCurrentPosition(this.options).then((resp) => {
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+        this.accuracy = resp.coords.accuracy;
+        const latLng = this.latitude + "," + this.longitude;
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=AIzaSyBzbLD7pkAKElKOmQhsHTgW81dKR4qe6Ko`)
+        .then((responseText) => {
+            return responseText.json();
+        })
+        .then(jsonData => {
+            this.address = jsonData.results[0].formatted_address;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+      }).catch((error: any) => {
         alert('Error getting location' + JSON.stringify(error));
       });
-  }
-
-  generateAddress(addressObj : any) {
-    const obj = [];
-    let address = "";
-    for (const key in addressObj) {
-      obj.push(addressObj[key]);
-    }
-    obj.reverse();
-    for (const val in obj) {
-      if (obj[val].length)
-        address += obj[val] + ', ';
-    }
-    return address.slice(0, -2);
+    });
   }
 
   addOrg(){
@@ -135,19 +125,6 @@ export class AddorgPageComponent {
     if(this.logo == null || this.logo == undefined){
       this.logo = "";
     }
-
-    //create custom string for orgMembers
-    // 
-    // let orgMembersString = "";
-    // this.orgMembers.forEach(o => {
-    //   o.id = o.email;
-    //   orgMembersString += `{\n_id: "` + o.id + `",\n`;
-    //   orgMembersString += `name: "` + o.name + `",\n`;
-    //   orgMembersString += `email: "` + o.email + `",\n`;
-    //   orgMembersString += `role: "` + o.role + `",\n`;
-    //   orgMembersString += `organisation: "Marcus - return of the king",\n`;
-    //   orgMembersString += `verification: "` + o.verification + `"\n},\n`;
-    // });
 
     const addOrg = gql`mutation{
       createOrg(org:{
