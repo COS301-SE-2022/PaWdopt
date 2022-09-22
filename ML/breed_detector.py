@@ -2,6 +2,8 @@
 import tensorflow as tf
 from tensorflow import keras
 from keras import layers
+from google.cloud import storage
+
 import datetime
 from numpy import genfromtxt
 import csv
@@ -14,7 +16,17 @@ class breed_detector:
     train_ds = None
     test_ds = None
 
-    labels = genfromtxt('labels.csv', delimiter=',', dtype='str')
+    def download_blob(bucket_name, source_blob_name, destination_file_name):
+        """Downloads a blob from the bucket."""
+        storage_client = storage.Client()
+        bucket = storage_client.get_bucket(bucket_name)
+        blob = bucket.blob(source_blob_name)
+        blob.download_to_filename(destination_file_name)
+
+
+    download_blob('pawdopt_ml', 'labels/labels.csv', '/tmp/labels.csv')
+
+    labels = genfromtxt('/tmp/labels.csv', delimiter=',', dtype='str')
     num_classes = len(labels)
     
 
@@ -37,7 +49,7 @@ class breed_detector:
         )
         self.labels = self.test_ds.class_names
         self.num_classes = len(self.labels)
-        with open('labels.csv', 'w') as f:
+        with open('/tmp/labels.csv', 'w') as f:
             write = csv.writer(f)
             write.writerow(self.labels)
     input_shape = image_size + (3,)
@@ -152,7 +164,8 @@ class breed_detector:
         train_ds, epochs=20, callbacks=callbacks, validation_data=test_ds,
         )
 
-    saved_model = keras.models.load_model('./models/breed_classifier_model.h5')
+    download_blob('pawdopt_ml', 'model/breed_classifier_model.h5', '/tmp/breed_classifier_model.h5')
+    saved_model = keras.models.load_model('/tmp/breed_classifier_model.h5')
     def evaluate_image(self, img_path):
         # Load from local
 
