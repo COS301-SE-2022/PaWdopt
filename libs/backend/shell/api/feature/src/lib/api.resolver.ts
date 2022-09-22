@@ -224,7 +224,8 @@ export class ApiResolver {
     @Mutation(() => DogType)
     async clickedHeartIcon(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<DogType> {
         const orgId = (await this.DogService.findDogById(dogId)).organisation._id;
-        await this.DogService.addAdopterToOrgPotentialAdopters(orgId, userId);
+        await this.DogService.addAdopterToOrgPotentialAdopters(orgId, userId, dogId);
+        await this.DogService.createChat(orgId, userId, dogId);
         return this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
          
     }
@@ -473,4 +474,17 @@ export class ApiResolver {
         return this.DogService.sendMessage(orgId, adopterId, senderId, message);
     }
     
+    /**
+     * used in userAdoption page
+     * call rejectAdoption
+     * @param orgId
+     * @param adopterId
+     * @param dogId
+     * @returns Organisation
+     */
+    @Mutation(() => String)
+    async rejectAdoption(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<OrganisationType> {
+        return this.DogService.rejectAdoption(orgId, adopterId, dogId);
+    }
+
 }
