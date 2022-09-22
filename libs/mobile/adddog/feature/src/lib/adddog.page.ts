@@ -103,6 +103,13 @@ export class AdddogPageComponent {
             this.orgId = orgId;
             console.log(this.orgId);
           }
+          let temp = '[';
+          this.inputTemperament.replace(/\s/g, '').split(',').forEach(element => {
+            temp += '"'+element + '",';
+          });
+          temp+= ']';
+          
+          console.log(temp);
           const AddDogMutation = gql`mutation {
             createDog(dog: {
               _id: "new_id",
@@ -115,11 +122,10 @@ export class AdddogPageComponent {
               weight: ${this.inputWeight},
               height: ${this.inputHeight},
               furLength: "${this.inputFurlength}",
-              temperament: "${this.inputTemperament}"}, orgId:"${this.orgId}") {
+              temperament: ${temp}}, orgId:"${this.orgId}") {
                 name
               }
             }`;
-
               console.log(AddDogMutation);
     
           this.apollo.mutate({

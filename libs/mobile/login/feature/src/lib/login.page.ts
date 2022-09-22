@@ -92,12 +92,16 @@ googleSignin(){
           this.router.navigate(['/owneddogs']);
         }
         else{
+          let photoURL = user.user?.photoURL;
+          if(photoURL == null)
+            photoURL = "";
+            
           const addUser = gql`mutation {
             createAdopter(adopter: {
               _id: "${user.user?.uid}",
               name: "${user.user?.displayName}",
               email: "${user.user?.email}",
-              pic: "${user.user?.photoURL}",
+              pic: "${photoURL}",
               uploadedDocs: false,
             })
             {

@@ -47,8 +47,8 @@
                 <p>{{dog.breed}}</p>
                 <h1>Temperament: </h1>
                 <p>
-                    <ion-chip outline color="success">
-                        <ion-label>{{dog.temperament}}</ion-label>
+                    <ion-chip outline color="success" *ngFor="let temp of dog.temperament">
+                        <ion-label>{{ temp }}</ion-label>
                     </ion-chip>
                 </p>
                 <h1>Fur length: </h1>
@@ -62,7 +62,8 @@
         <p><b>Users that liked me!</b></p>
     </div>
     &nbsp;
-    <ion-label class="hint"><ion-icon name="information-circle-outline"></ion-icon>&nbsp;Slide right to start adoption process or left to reject or view info on user.</ion-label>
+    <ion-label class="hint">
+        <ion-icon name="information-circle-outline"></ion-icon>&nbsp;Slide right to start adoption process or left to reject or view info on user.</ion-label>
     <div class="userinfo">
         <div>&nbsp;</div>
         <ion-list *ngFor="let userLike of userLikes">
@@ -81,11 +82,12 @@
                 </ion-item>
                 <ion-item-options side="start">
                     <ion-item-option color="success" (click)="heart(userLike._id)">
-                        <ion-icon slot="icon-only" name="happy" ></ion-icon>
+                        <ion-icon slot="icon-only" name="happy"></ion-icon>
                     </ion-item-option>
                 </ion-item-options>
                 <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="trash(userLike._id)"> <!--_alert()-->
+                    <ion-item-option color="danger" (click)="trash(userLike._id)">
+                        <!--_alert()-->
                         <ion-icon slot="icon-only" name="trash"></ion-icon>
                     </ion-item-option>
                     <ion-item-option color="primary" (click)="userinfo(userLike._id)">
