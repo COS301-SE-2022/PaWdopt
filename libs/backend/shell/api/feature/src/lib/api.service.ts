@@ -727,14 +727,19 @@ export class ApiService {
     /**
      * used in chatlist page
      * find all chats for an organisation
-     * @param {string} orgId The id of the org to find
+     * @param {string} orgmemberId The id of the orgmember to find
      * @return {Promise<Chat[]>}
      */
-    async findChatsByOrgId(orgId: string): Promise<Chat[]> {
+    async findChatsByOrgmemberId(orgmemberId: string): Promise<Chat[]> {
+        const orgmember = await this.OrgMemberModel.findOne({_id: orgmemberId}).exec();
+        if(orgmember == null){
+            throw new Error("OrgMember does not exist");
+        }
+        const org = await this.OrganisationModel.findOne({_id: orgmember.organisation}).exec();
         const chat = await this.ChatModel.find().exec();
         const ret = [];
         chat.forEach(chat => {
-            if(chat.orgId == orgId){    
+            if(chat.orgId == org._id){    
                 ret.push(chat);
             }
         });
@@ -783,7 +788,7 @@ export class ApiService {
         if(chat == null){
             throw new Error("Chat does not exist");
         }else{
-            const msg = await this.MessageModel.create({senderId, message});
+            const msg = await this.MessageModel.create({userId: senderId, message: message});
             chat.messages.push(msg);
             return chat.save();
         }
@@ -804,9 +809,8 @@ export class ApiService {
         chat.dogId = dogId;
         chat.disabled = false;
         const message = "Hello, the adoption process has begun! Please keep an eye out for further communication from us.";
-        const firstMessage = await this.MessageModel.create({orgId, message});
-        chat.messages.push(firstMessage);
-        return this.ChatModel.create(chat);
+        await this.ChatModel.create(chat);
+        return this.sendMessage(orgId, adopterId, orgId, message);
     }
 
     /**
@@ -839,14 +843,14 @@ export class ApiService {
                     const msg = await this.MessageModel.create({orgId, message});
                     chat.messages.push(msg);
                     chat.disabled = true;
-                    chat.save();
+                    await chat.save();
                     org.potentialAdopters.forEach(potentialAdopter => {
                         if(potentialAdopter.adopter._id == adopterId && potentialAdopter.dogId == dogId){
                             org.potentialAdopters.splice(org.potentialAdopters.indexOf(potentialAdopter), 1);
                         }
                     });
                     await this.PotentialAdopterModel.deleteOne({adopter, dogId});
-                    org.save();
+                    await org.save();
                     return org;
                 }
             }
@@ -864,17 +868,17 @@ export class ApiService {
     async acceptAdoption(orgId: string, adopterId: string, dogId: string): Promise<string> {
         //send message in chat to adopter saying adoption has been accepted
 
-        const chat = await this.ChatModel.findOne({orgId, adopterId}).exec();
-                if(chat == null){
-                    throw new Error("Chat does not exist");
-                }
-                else{
-                    const message = "We are happy to inform you that your adoption request has been accepted. Please click the Appointment icon on the bottom right to book an appointment to collect the dog.";
-                    const msg = await this.MessageModel.create({orgId, message});
-                    chat.messages.push(msg);
-                    chat.save();
-                    return "Adoption accepted";
-                }
+        const chat = await this.ChatModel.findOne({orgId, adopterId, dogId}).exec();
+        if(chat == null){
+            throw new Error("Chat does not exist");
+        }
+        else{
+            const message = "We are happy to inform you that your adoption request has been accepted. Please click the Appointment icon on the bottom right to book an appointment to collect the dog.";
+            const msg = await this.MessageModel.create({orgId, message});
+            chat.messages.push(msg);
+            await chat.save();
+            return "Adoption accepted";
+        }
     }
 
     /**
@@ -914,7 +918,7 @@ export class ApiService {
                         const msg = await this.MessageModel.create({orgId, message});
                         chat.messages.push(msg);
                         chat.disabled = true;
-                        chat.save();
+                        await chat.save();
                         org.potentialAdopters.forEach(async potentialAdopter => {
                             if(potentialAdopter.dogId == dogId){
                                 const tempId = potentialAdopter.adopter._id;
@@ -923,24 +927,24 @@ export class ApiService {
                                 const msg = await this.MessageModel.create({orgId, message});
                                 tempChat.messages.push(msg);
                                 tempChat.disabled = true;
-                                tempChat.save();
+                                await tempChat.save();
                                 org.potentialAdopters.splice(org.potentialAdopters.indexOf(potentialAdopter), 1);
                             }
                         });
                         org.totalDogs--;
                         org.totalAdoptions++;
-                        org.save();
+                        await org.save();
                         dog.organisation = null;
-                        dog.save();
+                        await dog.save();
                         const allAdopters = await this.AdopterModel.find({}).exec();
-                        allAdopters.forEach(adopter => {
+                        allAdopters.forEach(async adopter => {
                             adopter.dogsLiked.forEach(likedDog => {
                                 if(likedDog._id == dogId){
                                     adopter.dogsLiked.splice(adopter.dogsLiked.indexOf(likedDog), 1);
                                     adopter.dogsDisliked.push(likedDog);
                                 }
                             });
-                            adopter.save();
+                            await adopter.save();
                         });
                         return "Adoption completed";
                     }
