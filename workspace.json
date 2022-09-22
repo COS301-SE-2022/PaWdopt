@@ -3,7 +3,6 @@
   "projects": {
     "backend": "apps/backend",
     "backend-shell-api-feature": "libs/backend/shell/api/feature",
-    "mobile-add-org-member-feature": "libs/mobile/add-org-member/feature",
     "mobile-adddog-feature": "libs/mobile/adddog/feature",
     "mobile-addorg-feature": "libs/mobile/addorg/feature",
     "mobile-adoptionprocess-feature": "libs/mobile/adoptionprocess/feature",
@@ -17,7 +16,6 @@
     "mobile-owneddogs-feature": "libs/mobile/owneddogs/feature",
     "mobile-preferences-feature": "libs/mobile/preferences/feature",
     "mobile-signup-feature": "libs/mobile/signup/feature",
-    "mobile-uikit-feature": "libs/mobile/uikit/feature",
     "mobile-updateorremovedog-feature": "libs/mobile/updateorremovedog/feature",
     "mobile-uploaddoc-feature": "libs/mobile/uploaddoc/feature",
     "mobile-useradoption-feature": "libs/mobile/useradoption/feature",
