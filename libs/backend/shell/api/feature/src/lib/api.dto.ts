@@ -218,7 +218,7 @@ export class ChatType {
 @InputType('MessageObjInputType')
 export class MessageObjType {
     @Field()
-    sender: string;
+    userId: string;
 
     @Field()
     message: string;
