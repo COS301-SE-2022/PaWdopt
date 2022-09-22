@@ -17,7 +17,7 @@ export class AppController {
   @Post('predict')
   @UseInterceptors(FileInterceptor('image'))
   async postToML(@UploadedFile() imageFile) {
-    const data = imageFile.buffer.toString('base64');
+    const data = imageFile.buffer.toString('base64url');
     const mimetype = imageFile.mimetype;
     return this.mlService.postToML({data, mimetype});
   }
