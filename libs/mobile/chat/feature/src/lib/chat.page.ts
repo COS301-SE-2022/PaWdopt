@@ -23,30 +23,6 @@ export class chatPageComponent {
     msg: string;
   }[] = [];
 
-
-  //messages below will be handled through service/backend with the db
-  // messages = [
-  //   {
-  //     user: 'Jason',
-  //     msg: 'Hello there!'
-  //   },
-  //   {
-  //     user: 'Maxine',
-  //     msg: 'Whats up?'
-  //   },
-  //   {
-  //     user: 'Jason',
-  //     msg: 'Nothing much. Just chilling, wanna jam some games?'
-  //   },
-  //   {
-  //     user: 'Maxine',
-  //     msg: 'Sure. What do you have in mind?'
-  //   },
-  //   {
-  //     user: 'Jason',
-  //     msg: 'League of Legends?'
-  //   }
-  // ];
   newMsg = '';
   currentUser = 'You';
   @ViewChild(IonContent)
