@@ -42,14 +42,16 @@
 <div class="sender">
     <ion-toolbar>
         <ion-row class="ion-align-items-center">
-            <ion-col size="10">
+            <ion-col size="8">
                 <textarea autosize [(ngModel)]="newMsg" class="message-input" color="dark" [disabled]="disabled"></textarea>
             </ion-col>
             <ion-col size="2">
-                <ion-button expand="block" fill="clear" color="dark" [disabled]="newMsg === ''" class="msg-btn" (click)="sendMessage()">
-                    <ion-icon name="send" slot="icon-only"></ion-icon>
-                </ion-button>
-                <ion-button expand="block" fill="clear" color="dark" [disabled]="newMsg === ''" class="msg-btn" (click)="appointmentPage()">
+                    <ion-button expand="block" fill="clear" color="dark" [disabled]="newMsg === ''" class="msg-btn" (click)="sendMessage()">
+                        <ion-icon name="send" slot="icon-only"></ion-icon>
+                    </ion-button>
+            </ion-col>
+            <ion-col size="2">
+                <ion-button expand="block" fill="clear" color="dark" class="msg-btn" (click)="appointmentPage()">
                     <ion-icon name="calendar-outline" slot="icon-only"></ion-icon>
                 </ion-button>
             </ion-col>

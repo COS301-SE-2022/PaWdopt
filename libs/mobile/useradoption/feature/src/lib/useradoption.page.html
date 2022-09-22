@@ -86,13 +86,12 @@
                         <ion-button class="greyButton" (click)="onDecline()">Reject</ion-button>
                     </ion-col>
                 </ion-row>
-                <ion-row>
-                    <ion-col col-6>
-                        <ion-button class="greyButton" [disabled]="isDisabled">Complete adoption</ion-button>
-                    </ion-col>
-                </ion-row>
             </ion-grid>
         </ion-list>
+        <div class="middleButton">
+            <ion-button class="greyButton" [disabled]="isDisabled">Complete adoption</ion-button>
+        </div>
+        
     </div>
 
 </ion-content>
