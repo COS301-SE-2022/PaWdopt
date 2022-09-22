@@ -143,20 +143,20 @@ export class useradoptionPageComponent {
   }
 
   onDecline() {
-    // this.afAuth.currentUser.then((user) => {
-    //   const currentUser = user?.uid;
-    //   const rejectAdoptionQuery = gql ` mutation{
-    //   rejectAdoption(orgId: "${currentUser}", adopterId: "${this.userId}", dogId: "${this.dogId}"){
-    //     name
-    //   }
-    //   }`;
-    //   this.apollo.mutate({
-    //     mutation: rejectAdoptionQuery,
-    //     fetchPolicy: 'no-cache'
-    //   }).subscribe((result) => {
-    //     console.log(result);
-    //   });
-
+    this.afAuth.currentUser.then((user) => {
+      const currentUser = user?.uid;
+      const rejectAdoptionQuery = gql ` mutation{
+      rejectAdoption(orgId: "${currentUser}", adopterId: "${this.userId}", dogId: "${this.dogId}"){
+        name
+      }
+      }`;
+      this.apollo.mutate({
+        mutation: rejectAdoptionQuery,
+        fetchPolicy: 'no-cache'
+      }).subscribe((result) => {
+        console.log(result);
+      });
+    });
   }
 
   async getObject() {

@@ -406,4 +406,8 @@ export class HomePage {
       console.log('there was an error sending the query', error);
     });
   }
+
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
+  }
 }

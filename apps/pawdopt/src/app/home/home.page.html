@@ -20,7 +20,8 @@
 &nbsp;
 
 <ion-content>
-    <ion-label class="hint"><ion-icon name="information-circle-outline"></ion-icon>&nbsp;Slide left to dislike or right to like a dog or make use of the buttons below.</ion-label>
+    <ion-label class="hint">
+        <ion-icon name="information-circle-outline"></ion-icon>&nbsp;Slide left to dislike or right to like a dog or make use of the buttons below.</ion-label>
     <sw-card-wrapper #cardWrapper>
         <div class="card" *ngFor="let avatar of avatars, let index = index" [class.visible]="avatar.visible" [class.hidden]="!avatar.visible" swSwipeable [width]="350" [height]="500" [orientation]="'x'" (swiped)="swiped($event, index)">
             <img [src]="avatar.pic" [alt]="avatar.name">
@@ -66,10 +67,10 @@
     <ion-tab-button tab="home" (click)="home()">
         <ion-icon color="dark" name="home"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button  tab="liked" (click)="likeddogs()">
+    <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button  tab="chats">
+    <ion-tab-button tab="chats" (click)="gotoChat()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>

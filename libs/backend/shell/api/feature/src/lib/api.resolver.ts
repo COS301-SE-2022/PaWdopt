@@ -407,14 +407,14 @@ export class ApiResolver {
     /**
      * used in chat page
      * call findChatsByOrgId()
-     * @param orgId
+     * @param orgmemberId
      * @returns chats
      * @throws error if org does not exist
      * @throws error if org does not have chats
      */
     @Query(() => [ChatType])
-    async findChatsByOrgId(@Args('orgId') orgId: string) : Promise<ChatType[]> {
-        return this.DogService.findChatsByOrgId(orgId);
+    async findChatsByOrgmemberId(@Args('orgmemberId') orgmemberId: string) : Promise<ChatType[]> {
+        return this.DogService.findChatsByOrgmemberId(orgmemberId);
     }
 
     /**
