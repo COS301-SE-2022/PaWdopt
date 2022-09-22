@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, MessageObj, MessageDocument } from './api.schema';
+import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, MessageObj, MessageDocument, PotentialAdopter, PotentialAdopterDocument } from './api.schema';
 
 @Injectable()
 export class ApiService {
@@ -14,6 +14,7 @@ export class ApiService {
         @InjectModel(Location.name) private readonly LocationModel : Model<LocationDocument>,
         @InjectModel(Chat.name) private readonly ChatModel : Model<ChatDocument>,
         @InjectModel(MessageObj.name) private readonly MessageModel : Model<MessageDocument>,
+        @InjectModel(PotentialAdopter.name) private readonly PotentialAdopterModel : Model<PotentialAdopterDocument>,
         ) {}
 
     /**
@@ -350,9 +351,10 @@ export class ApiService {
      * add a adopter to organisations potentialAdopters
      * @param {string} _id The _id of the organisation to update
      * @param {string} userId The _id of the user to add
+     * @param {string} dogId The _id of the dog linked to the potential adopter
      * @return {Promise<Organisation || null>}
      */
-    async addAdopterToOrgPotentialAdopters(_id: string, userId: string): Promise<Organisation | null> {
+    async addAdopterToOrgPotentialAdopters(_id: string, userId: string, dogId: string): Promise<Organisation | null> {
         const org = await this.OrganisationModel.findOne({_id}).exec();
         if(org == null){
             throw new Error("Org does not exist");
@@ -361,7 +363,8 @@ export class ApiService {
         if(user == null){
             throw new Error("User does not exist");
         }
-        org.potentialAdopters.push(user);
+        const potentialAdopter = await this.PotentialAdopterModel.create({dogId: dogId, adopter: user});
+        org.potentialAdopters.push(potentialAdopter);
         return org.save();
     }
 
@@ -799,9 +802,151 @@ export class ApiService {
         chat.orgId = orgId;
         chat.adopterId = adopterId;
         chat.dogId = dogId;
+        chat.disabled = false;
+        const message = "Hello, the adoption process has begun! Please keep an eye out for further communication from us.";
+        const firstMessage = await this.MessageModel.create({orgId, message});
+        chat.messages.push(firstMessage);
         return this.ChatModel.create(chat);
     }
 
+    /**
+     * used in userAdoptions page
+     * reject an adoption process
+     * @param {string} orgId The id of the org to find
+     * @param {string} adopterId The id of the adopter to find
+     * @param {string} dogId The id of the dog
+     * @return {Promise<Organisation || null>}
+     */
+    async rejectAdoption(orgId: string, adopterId: string, dogId: string): Promise<Organisation | null> {
+        //remove potentialAdopter entry 
+        //send message in chat to adopter saying adoption has been rejected
+        const org = await this.OrganisationModel.findOne({_id: orgId}).exec();
+        if(org == null){
+            throw new Error("Org does not exist");
+        }
+        else{
+            const adopter = await this.AdopterModel.findOne({_id: adopterId}).exec();
+            if(adopter == null){
+                throw new Error("Adopter does not exist");
+            }
+            else{
+                const chat = await this.ChatModel.findOne({orgId, adopterId}).exec();
+                if(chat == null){
+                    throw new Error("Chat does not exist");
+                }
+                else{
+                    const message = "We are sorry to inform you that your adoption request has been rejected.";
+                    const msg = await this.MessageModel.create({orgId, message});
+                    chat.messages.push(msg);
+                    chat.disabled = true;
+                    chat.save();
+                    org.potentialAdopters.forEach(potentialAdopter => {
+                        if(potentialAdopter.adopter._id == adopterId && potentialAdopter.dogId == dogId){
+                            org.potentialAdopters.splice(org.potentialAdopters.indexOf(potentialAdopter), 1);
+                        }
+                    });
+                    await this.PotentialAdopterModel.deleteOne({adopter, dogId});
+                    org.save();
+                    return org;
+                }
+            }
+            }
+        }
 
+    /**
+     * used in userAdoptions page
+     * accept an adoption process
+     * @param {string} orgId The id of the org to find
+     * @param {string} adopterId The id of the adopter to find
+     * @param {string} dogId The id of the dog
+     * @return {string}
+     */
+    async acceptAdoption(orgId: string, adopterId: string, dogId: string): Promise<string> {
+        //send message in chat to adopter saying adoption has been accepted
+
+        const chat = await this.ChatModel.findOne({orgId, adopterId}).exec();
+                if(chat == null){
+                    throw new Error("Chat does not exist");
+                }
+                else{
+                    const message = "We are happy to inform you that your adoption request has been accepted. Please click the Appointment icon on the bottom right to book an appointment to collect the dog.";
+                    const msg = await this.MessageModel.create({orgId, message});
+                    chat.messages.push(msg);
+                    chat.save();
+                    return "Adoption accepted";
+                }
+    }
+
+    /**
+     * used in userAdoptions page
+     * completeAdoption process
+     * @param {string} orgId The id of the org to find
+     * @param {string} adopterId The id of the adopter to find
+     * @param {string} dogId The id of the dog
+     * @return {string}
+     */
+    async completeAdoption(orgId: string, adopterId: string, dogId: string): Promise<string> {
+        //remove the dog from all adopters likedDogs and dislikedDogs
+        //remove the dog from all orgs potentialAdopters and send a message in chat to all adopters in potential adopters saying the dog has been adopted
+        //remove the dog from orgs ownedDogs
+        //send a message in the chat to the adopter saying congratulations on adopting the dog
+        const org = await this.OrganisationModel.findOne({_id: orgId}).exec();
+        if(org == null){
+            throw new Error("Org does not exist");
+        }
+        else{
+            const adopter = await this.AdopterModel.findOne({_id: adopterId}).exec();
+            if(adopter == null){
+                throw new Error("Adopter does not exist");
+            }
+            else{
+                const dog = await this.DogModel.findOne({_id: dogId}).exec();
+                if(dog == null){
+                    throw new Error("Dog does not exist");
+                }
+                else{
+                    const chat = await this.ChatModel.findOne({orgId, adopterId}).exec();
+                    if(chat == null){
+                        throw new Error("Chat does not exist");
+                    }
+                    else{
+                        const message = "Congratulations on adopting the dog! We hope you and the dog have a long and happy life together.";
+                        const msg = await this.MessageModel.create({orgId, message});
+                        chat.messages.push(msg);
+                        chat.disabled = true;
+                        chat.save();
+                        org.potentialAdopters.forEach(async potentialAdopter => {
+                            if(potentialAdopter.dogId == dogId){
+                                const tempId = potentialAdopter.adopter._id;
+                                const tempChat = await this.ChatModel.findOne({orgId, tempId}).exec();
+                                const message = "We are sorry to inform you that the dog you were interested in has been adopted.";
+                                const msg = await this.MessageModel.create({orgId, message});
+                                tempChat.messages.push(msg);
+                                tempChat.disabled = true;
+                                tempChat.save();
+                                org.potentialAdopters.splice(org.potentialAdopters.indexOf(potentialAdopter), 1);
+                            }
+                        });
+                        org.totalDogs--;
+                        org.totalAdoptions++;
+                        org.save();
+                        dog.organisation = null;
+                        dog.save();
+                        const allAdopters = await this.AdopterModel.find({}).exec();
+                        allAdopters.forEach(adopter => {
+                            adopter.dogsLiked.forEach(likedDog => {
+                                if(likedDog._id == dogId){
+                                    adopter.dogsLiked.splice(adopter.dogsLiked.indexOf(likedDog), 1);
+                                    adopter.dogsDisliked.push(likedDog);
+                                }
+                            });
+                            adopter.save();
+                        });
+                        return "Adoption completed";
+                    }
+                }
+            }
+        }
+    }
 
 }
