@@ -6,9 +6,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 // Capacitor Imports
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { Filesystem, Directory } from '@capacitor/filesystem';
-import { Storage } from '@capacitor/storage';
-import { handleRetry } from '@nestjs/mongoose/dist/common/mongoose.utils';
+// import { Filesystem, Directory } from '@capacitor/filesystem';
+// import { Storage } from '@capacitor/storage';
+// import { handleRetry } from '@nestjs/mongoose/dist/common/mongoose.utils';
 
 @Component({
   selector: 'pawdopt-adddog',
@@ -18,15 +18,11 @@ import { handleRetry } from '@nestjs/mongoose/dist/common/mongoose.utils';
 })
 export class AdddogPageComponent {
   constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth) {}
-
-
   inputName!: string;
   inputBreed!: string;
   inputGender!: string;
   inputDOB!: Date;
   inputAbout!: string;
-  // inputHeight!: number;
-  // inputWeight!: number;
   inputFurlength!: string;
   inputTemperament!: string;
 
@@ -46,6 +42,7 @@ export class AdddogPageComponent {
 
   fieldvalidate(){
     //TODO: Make validation better
+    //This checks if all fields are empty and then returns false
     let valid = true;
     if(this.inputName == null || this.inputName == ""){
       valid = false;
@@ -73,13 +70,12 @@ export class AdddogPageComponent {
 
 
   addDog(){
-
+    //Adds a dog to the database
     if(!this.fieldvalidate())
       return;
 
     this.afAuth.currentUser.then(user => {
       this.uid = user?.uid;
-      console.log(this.uid);
 
       if(this.uid){
         //Query used to get the orgId
@@ -101,7 +97,6 @@ export class AdddogPageComponent {
           if (data.findOrgMemberById != null) {
             const orgId = data.findOrgMemberById.organisation;
             this.orgId = orgId;
-            console.log(this.orgId);
           }
           let temp = '[';
           this.inputTemperament.replace(/\s/g, '').split(',').forEach(element => {
@@ -109,7 +104,6 @@ export class AdddogPageComponent {
           });
           temp+= ']';
           
-          console.log(temp);
           const AddDogMutation = gql`mutation {
             createDog(dog: {
               _id: "new_id",
@@ -126,7 +120,6 @@ export class AdddogPageComponent {
                 name
               }
             }`;
-              console.log(AddDogMutation);
     
           this.apollo.mutate({
             mutation: AddDogMutation,
@@ -136,17 +129,14 @@ export class AdddogPageComponent {
             }
           );
         });
-        // pass it through to the mutation query
       }else{
         console.log("User not logged in");
       }
       this.router.navigate(["/owneddogs"]);
     });
-
-    
   }
+
   Back(){
-    // TODO Complete add dog validation
     this.router.navigate(["/owneddogs"]);
   }
 
@@ -163,11 +153,11 @@ export class AdddogPageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/orgsettings"]); Not implemented yet
+    //this.router.navigate(["/orgsettings"]); 
   }
 
-  
   async uploadPic(){
+    //Calls ML to get the breed of the dog
     const actionSheet = await this.actionSheetController.create({
       header: 'Upload picture',
       buttons: [{
@@ -220,7 +210,7 @@ export class AdddogPageComponent {
   });
 
   //TODO Do firebase upload here
-
+  
   const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
   this.imageString = data;
   return data;

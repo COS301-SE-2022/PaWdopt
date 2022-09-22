@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { Storage } from '@capacitor/storage';
 
 
@@ -10,7 +9,7 @@ import { Storage } from '@capacitor/storage';
   selector: 'pawdopt-updateorremovedog',
   templateUrl: 'updateorremovedog.page.html',
   styleUrls: ['updateorremovedog.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade]
+  providers: [Apollo]
 })
 export class updateorremovedogPageComponent {
 
@@ -19,8 +18,6 @@ export class updateorremovedogPageComponent {
   inputGender!: string;
   inputDob!: string;
   inputAbout!: string;
-  // inputHeight!: number;
-  // inputWeight!: number;
   loadHeight!: number;
   loadWeight!: number;
   inputHeight!: {
@@ -34,12 +31,7 @@ export class updateorremovedogPageComponent {
   inputFurlength!: string;
   inputTemperament!: string;
   
-  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo: Apollo, private varsFacade: VarsFacade ){
-    // this.varsFacade.dogID$.subscribe(dogID => {
-    //   console.log("hello im here");
-    //   this.dogID = dogID;
-    //   console.log(this.dogID);
-    // });
+  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo: Apollo){
     this.loadDog();
   }
 
@@ -138,8 +130,6 @@ export class updateorremovedogPageComponent {
         const tempDate = new Date(data.findDogById.dob); 
         this.inputDob = (tempDate.getFullYear() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getDate()).toString();
         this.inputGender = data.findDogById.gender;
-        // this.inputHeight.upper = data.findDogById.height; //might not work
-        // this.inputWeight.upper = data.findDogById.weight; //might not work
         this.loadHeight = data.findDogById.height; 
         this.loadWeight = data.findDogById.weight; 
         this.inputBreed = data.findDogById.breed;
@@ -220,15 +210,15 @@ export class updateorremovedogPageComponent {
   }
 
   likeddogs(){
-    this.router.navigate(["/userlikes"]);
+    this.router.navigate(["/dashboard"]);
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    this.router.navigate(["/orgprofile"]);
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    //this.router.navigate(["/userinfo"]); 
   }
 
 

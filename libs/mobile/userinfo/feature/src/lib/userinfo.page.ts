@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { Storage } from '@capacitor/storage'
 @Component({
   selector: 'pawdopt-userinfo',
   templateUrl: 'userinfo.page.html',
   styleUrls: ['userinfo.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade],
+  providers: [Apollo],
 })
 export class userinfoPageComponent {
   user:{
@@ -62,11 +61,8 @@ export class userinfoPageComponent {
   
   t_ID!: string;
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
+  constructor(private router: Router, private apollo: Apollo) {
     this.t_ID = "";
-    // this.varsFacade.userID$.subscribe(userID => {
-    //     this.t_ID = userID;
-    // });
    
    this.getUserId();
    console.log(this.t_ID);
