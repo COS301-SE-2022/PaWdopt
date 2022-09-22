@@ -46,7 +46,7 @@
                 <ion-title class="ion-text-center"><b>{{d.name}}, {{d.age}}</b></ion-title>
                 <p>{{d.breed}}</p>
                 <ion-button class="ion-float-left" fill="clear" (click)="dashboard(d._id)">
-                        <p id="likesperdog"><b><ion-icon name="heart"></ion-icon>&nbsp;{{d.likes}}</b></p>
+                    <p id="likesperdog"><b><ion-icon name="heart"></ion-icon>&nbsp;{{d.likes}}</b></p>
                 </ion-button>
                 <ion-button class="ion-float-right" fill="clear" (click)="update(d._id)">
                     <ion-icon name="create-outline"></ion-icon>
@@ -67,7 +67,7 @@
     <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="chats">
+    <ion-tab-button tab="chats" (click)="chats()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>
