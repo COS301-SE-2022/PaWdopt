@@ -55,6 +55,7 @@
         "cordova-js": "^6.1.0",
         "firebase": "^9.9.0",
         "googleapis": "^108.0.0",
+        "google-auth-library": "^8.5.1",
         "graphql": "^16.5.0",
         "graphql-tools": "^8.2.11",
         "hammerjs": "^2.0.8",
