@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
+import {Apollo} from 'apollo-angular';
 // import { Adopter, OrgMember } from 'libs/backend/shell/api/feature/src/lib/api.schema';
 @Component({
   selector: 'pawdopt-uploaddoc',
   templateUrl: 'uploaddoc.page.html',
   styleUrls: ['uploaddoc.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade]
+  providers: [Apollo]
 })
 export class uploaddocPageComponent {
 
@@ -17,11 +16,8 @@ export class uploaddocPageComponent {
   public static orgName:string;
   public static adopterEmail:string;
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade){
+  constructor(private router: Router, private apollo: Apollo){
     //UserID from User Profile page
-    this.varsFacade.userID$.subscribe(userID => {
-      this.userID = userID;
-    });
   }
 
   signup(){
