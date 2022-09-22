@@ -93,7 +93,7 @@ type ChatType {
 }
 
 type MessageObjType {
-  sender: String!
+  userId: String!
   message: String!
 }
 
@@ -183,7 +183,7 @@ input ChatInputType {
 }
 
 input MessageObjInputType {
-  sender: String!
+  userId: String!
   message: String!
 }
 
@@ -206,7 +206,7 @@ type Query {
   getUserType(id: String!): String!
   findOrgMemberById(_id: String!): OrgMemberType!
   findDogsByOrgId(_id: String!): [DogType!]!
-  findChatsByOrgId(orgId: String!): [ChatType!]!
+  findChatsByOrgmemberId(orgmemberId: String!): [ChatType!]!
   findChatsByAdopterId(adopterId: String!): [ChatType!]!
   findChatByOrgIdAndAdopterId(orgId: String!, adopterId: String!): ChatType!
 }
