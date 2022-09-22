@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { Storage } from '@capacitor/storage'
 import { AlertController } from '@ionic/angular';
-//import { owneddogsPageComponentModule } from '@pawdopt/mobile/owneddogs/feature';
 @Component({
   selector: 'pawdopt-dashboard',
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade],
+  providers: [Apollo],
 })
 export class dashboardPageComponent {
 
-  dogID!: string; //from owned dogs page
+  dogID!: string; 
 
   dog:{
     name:string,
@@ -45,10 +43,8 @@ export class dashboardPageComponent {
 
   userId!: string;
   
-  constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade, private alertController: AlertController ) {
-    /*this.varsFacade.dogID$.subscribe(dogID => {
-      this.dogID = dogID;
-    });*/
+  constructor(private router: Router, private apollo: Apollo, private alertController: AlertController ) {
+
     this.userId = "";
     this.getDog();
   }
@@ -161,7 +157,6 @@ export class dashboardPageComponent {
 
 
   async userinfo(id: string){
-    // TODO Complete dashboard validation
     this.userId = id;
     await this.setObject();
     console.log(id);
@@ -259,16 +254,12 @@ export class dashboardPageComponent {
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    this.router.navigate(["/orgprofile"]);
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    //this.router.navigate(["/userinfo"]); 
   }
-
-  // addDog(){
-  //   this.router.navigate(["/adddog"]);
-  // }
 
 }
 

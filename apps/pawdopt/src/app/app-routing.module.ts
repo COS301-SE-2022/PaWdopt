@@ -48,13 +48,6 @@ const routes: Routes = [
       )
   },
   {
-    path: 'uikit',
-    loadChildren: () =>
-      import('@pawdopt/mobile/uikit/feature').then(
-        (m) => m.uikitPageComponentModule
-      )
-  },
-  {
     path: 'userlikes',
     loadChildren: () =>
       import('@pawdopt/mobile/userlikes/feature').then(

@@ -4,6 +4,7 @@ import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Storage } from '@capacitor/storage';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'pawdopt-home',
@@ -42,7 +43,7 @@ export class HomePage {
   storeIndex: number[] = [];
    t_ID: string;
 
-    constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth) {
+    constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
       this.t_ID = "";
       this.currentIndex = -1;
       // this.setObject();
@@ -51,9 +52,19 @@ export class HomePage {
         if(user?.uid){
           this.t_ID = user.uid;
           console.log(this.t_ID);
+          this.showLoading();
           this.getDogs();
         }
       });
+    }
+
+    async showLoading() {
+      const loading = await this.loadingCtrl.create({
+        message: 'Loading...',
+        duration: 3500,
+      });
+  
+      loading.present();
     }
 
     async setObject() {

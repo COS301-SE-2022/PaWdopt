@@ -11,17 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # -name: Install yarn
-      #   run: npm install yarn -g
-
-      # -name: Install dependicies
-      #   run: yarn install --frozen-lockfile
-
-      # -name: Run backend
-      #   run: yarn run build backend
 
       - run: npm install yarn -g && yarn install --frozen-lockfile && yarn run build backend
       - uses: FirebaseExtended/action-hosting-deploy@v0
+      
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PAWDOPT_7949C }}'

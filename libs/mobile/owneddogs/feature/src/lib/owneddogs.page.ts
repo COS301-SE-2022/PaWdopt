@@ -22,9 +22,7 @@ export class owneddogsPageComponent {
   orgName!: string;
   uid?: string;
 
-
   //get org name for login
-
   dog:{
     _id: string,
     name:string,
@@ -35,20 +33,15 @@ export class owneddogsPageComponent {
     orgId: string
   }[]=[]
 
-  // userLikes:{
-  //   name:string,
-  //   pic:string,
-  // }[]=[];
-
   constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
-    // this.showLoading();
+    this.showLoading();
     this.getDog(false);
   }
 
   async showLoading() {
     const loading = await this.loadingCtrl.create({
       message: 'Waiting for dogs, if no dogs appear you will need to add them...',
-      duration: 1500,
+      duration: 1000,
     });
 
     loading.present();
@@ -127,8 +120,6 @@ export class owneddogsPageComponent {
             // const birthDate = new Date(data.findDog.dob);
             // const age = now.getFullYear() - birthDate.getFullYear();
             const now = new Date();
-    
-    
             
           if(search){
             // filter the dog array based on the search input
@@ -194,8 +185,6 @@ export class owneddogsPageComponent {
   }
 
   update(id: string){
-    // console.log(id);
-    // this.varsFacade.setDogID(id);
     this.setObject(id);
     this.router.navigate(["/updateorremovedog"]);
   }
