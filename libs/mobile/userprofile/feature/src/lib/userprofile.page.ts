@@ -37,10 +37,8 @@ export class userprofilePageComponent {
     this.t_email = "";
 
     this.fireAuth.currentUser.then(user => {
-      // console.log(user?.email);
       if(user?.email){
         this.t_email = user.email;
-        // console.log(this.t_email);
 
         const userProfile =  gql`query{
           findAdopterByEmail(email: "${this.t_email}"){ 
@@ -84,9 +82,6 @@ export class userprofilePageComponent {
   }
 
   back(){
-    // TODO Complete login validation
-    // console.log("login validation");
-    
     this.router.navigate(["/home"]);
   }
   home(){
