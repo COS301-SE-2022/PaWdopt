@@ -31,6 +31,18 @@ type LocationType {
   lng: Float!
 }
 
+type AdopterType {
+  _id: String!
+  name: String!
+  email: String!
+  pic: String
+  location: LocationType
+  documents: [DocType!]
+  dogsLiked: [DogType!]
+  dogsDisliked: [DogType!]
+  uploadedDocs: Boolean!
+}
+
 type DogType {
   _id: String!
   name: String!
@@ -47,6 +59,11 @@ type DogType {
   temperament: [String!]!
 }
 
+type PotentialAdopterType {
+  dogId: String!
+  adopter: AdopterType
+}
+
 type OrganisationType {
   _id: String!
   name: String!
@@ -58,7 +75,7 @@ type OrganisationType {
   location: LocationType!
   rulesReq: String
   contactInfo: ContactInfoType!
-  potentialAdopters: [AdopterType!]
+  potentialAdopters: [PotentialAdopterType!]
   logo: String
 }
 
@@ -67,23 +84,12 @@ type DocType {
   path: String!
 }
 
-type AdopterType {
-  _id: String!
-  name: String!
-  email: String!
-  pic: String
-  location: LocationType
-  documents: [DocType!]
-  dogsLiked: [DogType!]
-  dogsDisliked: [DogType!]
-  uploadedDocs: Boolean!
-}
-
 type ChatType {
   adopterId: String!
   orgId: String!
   messages: [MessageObjType!]
   dogId: String!
+  disabled: Boolean!
 }
 
 type MessageObjType {
@@ -115,6 +121,18 @@ input LocationInputType {
   lng: Float!
 }
 
+input AdopterInputType {
+  _id: String!
+  name: String!
+  email: String!
+  pic: String
+  location: LocationInputType
+  documents: [DocInputType!]
+  dogsLiked: [DogInputType!]
+  dogsDisliked: [DogInputType!]
+  uploadedDocs: Boolean!
+}
+
 input DogInputType {
   _id: String!
   name: String!
@@ -131,6 +149,11 @@ input DogInputType {
   temperament: [String!]!
 }
 
+input PotentialAdopterInputType {
+  dogId: String!
+  adopter: AdopterInputType
+}
+
 input OrganisationInputType {
   _id: String!
   name: String!
@@ -142,7 +165,7 @@ input OrganisationInputType {
   location: LocationInputType!
   rulesReq: String
   contactInfo: ContactInfoInputType!
-  potentialAdopters: [AdopterInputType!]
+  potentialAdopters: [PotentialAdopterInputType!]
   logo: String
 }
 
@@ -151,23 +174,12 @@ input DocInputType {
   path: String!
 }
 
-input AdopterInputType {
-  _id: String!
-  name: String!
-  email: String!
-  pic: String
-  location: LocationInputType
-  documents: [DocInputType!]
-  dogsLiked: [DogInputType!]
-  dogsDisliked: [DogInputType!]
-  uploadedDocs: Boolean!
-}
-
 input ChatInputType {
   adopterId: String!
   orgId: String!
   messages: [MessageObjInputType!]
   dogId: String!
+  disabled: Boolean!
 }
 
 input MessageObjInputType {
@@ -222,4 +234,5 @@ type Mutation {
   updateDog(dogId: String!, breed: String!, gender: String!, dob: DateTime!, about: String!, height: Float!, weight: Float!, furlength: String!, temperament: [String!]!): DogType!
   createChat(orgId: String!, adopterId: String!, dogId: String!): ChatType!
   sendMessage(orgId: String!, adopterId: String!, senderId: String!, message: String!): ChatType!
+  rejectAdoption(orgId: String!, adopterId: String!, dogId: String!): String!
 }

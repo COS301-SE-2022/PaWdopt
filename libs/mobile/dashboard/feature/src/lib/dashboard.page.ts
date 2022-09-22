@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { Storage } from '@capacitor/storage'
 import { AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'pawdopt-dashboard',
   templateUrl: 'dashboard.page.html',
@@ -43,10 +44,19 @@ export class dashboardPageComponent {
 
   userId!: string;
   
-  constructor(private router: Router, private apollo: Apollo, private alertController: AlertController ) {
+  constructor(private router: Router, private apollo: Apollo, private alertController: AlertController, private loadingCtrl: LoadingController ) {
 
     this.userId = "";
     this.getDog();
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading changes...',
+      duration: 4500,
+    });
+
+    loading.present();
   }
 
   async _alert() {
@@ -177,6 +187,7 @@ export class dashboardPageComponent {
           cssClass: 'my-alert-class',
           handler: (value:  any) => {
             console.log("heart");
+            this.showLoading();
             const clickedHeartIconquery = gql`mutation {
               clickedHeartIcon(userId: "${id}", dogId: "${this.dogID}") {
                 _id
@@ -213,6 +224,7 @@ export class dashboardPageComponent {
           cssClass: 'my-alert-class',
           handler: (value:  any) => {
             console.log(id);
+            this.showLoading();
             const clickedTrashIconquery = gql`mutation {
               clickedTrashIcon(userId: "${id}", dogId: "${this.dogID}") {
                 name

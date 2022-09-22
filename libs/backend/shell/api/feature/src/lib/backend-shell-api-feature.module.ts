@@ -11,6 +11,7 @@ import { ContactInfo, ContactInfoSchema } from './api.schema';
 import { Location, LocationSchema } from './api.schema';
 import { Chat, ChatSchema } from './api.schema';
 import { MessageObj, MessageSchema } from './api.schema';
+import { PotentialAdopter, PotentialAdopterSchema } from './api.schema';
 
 
 @Module({
@@ -24,6 +25,7 @@ import { MessageObj, MessageSchema } from './api.schema';
     MongooseModule.forFeature([{ name: Location.name, schema: LocationSchema }]),
     MongooseModule.forFeature([{ name: Chat.name, schema: ChatSchema }]),
     MongooseModule.forFeature([{ name: MessageObj.name, schema: MessageSchema }]),
+    MongooseModule.forFeature([{ name: PotentialAdopter.name, schema: PotentialAdopterSchema }]),
   ],
   controllers: [],
   providers: [ApiService, ApiResolver],

@@ -23,6 +23,8 @@ export class chatPageComponent {
     msg: string;
   }[] = [];
 
+  disabled!: boolean;
+
   newMsg = '';
   currentUser = 'You';
   @ViewChild(IonContent)
@@ -71,7 +73,8 @@ export class chatPageComponent {
                   messages{
                     sender
                     message
-                  }
+                  },
+                  disabled
                 }
               }`;
 
@@ -85,9 +88,11 @@ export class chatPageComponent {
                     messages: {
                       sender: string,
                       message: string
-                    }[]
+                    }[],
+                    disabled: boolean
                   }
                 }
+                this.disabled = data.findChatByOrgIdAndAdopterId.disabled;
                 //add the messages to the messages array using a foreach
                 data.findChatByOrgIdAndAdopterId.messages.forEach((message) => {
                   this.messages.push({
@@ -213,6 +218,10 @@ export class chatPageComponent {
       });
   }
 
+
+  appointmentPage(){
+    this.router.navigate(['/appointmentpage']);
+  }
   signup(){
     // Done in signup
     this.router.navigate(["/signup"]);
