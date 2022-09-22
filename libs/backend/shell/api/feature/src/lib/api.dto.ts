@@ -1,5 +1,5 @@
 import { ObjectType, Field, InputType} from "@nestjs/graphql";
-import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter, Chat, MessageObj } from './api.schema';
+import { Dog, Organisation, Location, ContactInfo, OrgMember, Adopter, Chat, MessageObj, PotentialAdopter } from './api.schema';
 
 @ObjectType('OrgMemberType')
 @InputType('OrgMemberInputType')
@@ -58,6 +58,38 @@ export class LocationType {
     lng: number;
 }
 
+@ObjectType('AdopterType')
+@InputType('AdopterInputType')
+export class AdopterType {
+    @Field()
+    _id: string;
+
+    @Field()
+    name: string;
+
+    @Field()
+    email: string;
+    
+    @Field({nullable:true})
+    pic: string;
+
+    @Field(() => LocationType, {nullable:true})
+    location: Location;
+
+    @Field(() => [DocType], {nullable:true})
+    documents: [DocType];
+    //must be in order of: ID (ID), Proof of res (poR), bank (bank), motivation letter (motiv)
+
+    @Field(() => [DogType], { nullable: true })
+    dogsLiked: [Dog];
+
+    @Field(() => [DogType], { nullable: true })
+    dogsDisliked: [Dog];
+
+    @Field() 
+    uploadedDocs : boolean;//on create account set to false
+}
+
 @ObjectType('DogType')
 @InputType('DogInputType')
 export class DogType {
@@ -101,6 +133,16 @@ export class DogType {
     temperament: [string];
 }
 
+@ObjectType('PotentialAdopterType')
+@InputType('PotentialAdopterInputType')
+export class PotentialAdopterType {
+    @Field()
+    dogId: string;
+
+    @Field(()=> AdopterType, { nullable: true })
+    adopter: Adopter;
+}
+
 @ObjectType('OrganisationType')
 @InputType('OrganisationInputType')
 export class OrganisationType {
@@ -135,8 +177,8 @@ export class OrganisationType {
     @Field(() => ContactInfoType)
     contactInfo: ContactInfo;
 
-    @Field(() => [AdopterType], {nullable: true})
-    potentialAdopters: [Adopter]; //use backend to get all dogs liked with same org 
+    @Field(() => [PotentialAdopterType], {nullable: true})
+    potentialAdopters: [PotentialAdopter]; //use backend to get all dogs liked with same org 
     //check that the user is not 
 
     @Field({ nullable: true })
@@ -153,51 +195,6 @@ export class DocType {
     path: string;
 }
 
-@ObjectType('AdopterType')
-@InputType('AdopterInputType')
-export class AdopterType {
-    @Field()
-    _id: string;
-
-    @Field()
-    name: string;
-
-    @Field()
-    email: string;
-    
-    @Field({nullable:true})
-    pic: string;
-
-    @Field(() => LocationType, {nullable:true})
-    location: Location;
-
-    // @Field({nullable:true})
-    // idDoc: string;
-
-    // @Field({nullable:true})
-    // porDoc: string;
-
-    // @Field({nullable:true})
-    // bankDoc: string;
-
-    // @Field({nullable:true})
-    // motivDoc: string;
-
-    @Field(() => [DocType], {nullable:true})
-    documents: [DocType];
-    //must be in order of: ID (ID), Proof of res (poR), bank (bank), motivation letter (motiv)
-
-    @Field(() => [DogType], { nullable: true })
-    dogsLiked: [Dog];
-
-    @Field(() => [DogType], { nullable: true })
-    dogsDisliked: [Dog];
-
-    @Field() 
-    uploadedDocs : boolean;//on create account set to false
-
-}
-
 @ObjectType('ChatType')
 @InputType('ChatInputType')
 export class ChatType {
@@ -212,6 +209,9 @@ export class ChatType {
 
     @Field()
     dogId: string;
+
+    @Field()
+    disabled: boolean;
 }
 
 @ObjectType('MessageObjType')

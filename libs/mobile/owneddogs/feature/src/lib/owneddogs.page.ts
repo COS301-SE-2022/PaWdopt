@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Storage } from '@capacitor/storage';
 import { LoadingController } from '@ionic/angular';
@@ -11,7 +10,7 @@ import { LoadingController } from '@ionic/angular';
   selector: 'pawdopt-owneddogs',
   templateUrl: 'owneddogs.page.html',
   styleUrls: ['owneddogs.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade, AngularFireAuth],
+  providers: [Apollo, AngularFireAuth],
 
 })
 export class owneddogsPageComponent {
@@ -33,7 +32,7 @@ export class owneddogsPageComponent {
     orgId: string
   }[]=[]
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
+  constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
     this.showLoading();
     this.getDog(false);
   }
@@ -107,7 +106,9 @@ export class owneddogsPageComponent {
                 }
               }[]
             };
-            this.orgName = data.findDogsByOrgId[0].organisation.name;
+            if (data.findDogsByOrgId[0]) {
+              this.orgName = data.findDogsByOrgId[0].organisation.name;
+            }
             // this.dog.name = data.findDog.name;
             // this.dog.pic = data.findDog.pics[0].path;
             // this.dog.breed = data.findDog.breed;
@@ -200,25 +201,24 @@ export class owneddogsPageComponent {
     });
   }
 
-  updateLikes(id: string){
-    this.varsFacade.setDogID(id);
-  }
+  // updateLikes(id: string){
+  //   return
+  // }
 
   addDog(){
     this.router.navigate(["/adddog"]);
   }
   
   home(){
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/owneddogs"]);
   }
 
   likeddogs(){
-    this.router.navigate(["/userlikes"]); 
-    //Will need to change so that likeddogs alternates between company and user
+    this.router.navigate(["/adoptionprocess"]);
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    this.router.navigate(["/orgprofile"]);
   }
 
   preferences(){
