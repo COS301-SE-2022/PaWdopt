@@ -214,8 +214,6 @@ export class chatlistPageComponent {
                 });
               });
             });
-
-
           }
           else{
             //alert to say there is an error
@@ -273,7 +271,7 @@ export class chatlistPageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    //this.router.navigate(["/userinfo"]); 
   }
 
 }

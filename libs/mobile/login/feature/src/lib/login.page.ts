@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { GoogleAuthProvider } from 'firebase/auth';
+import { AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'pawdopt-login',
@@ -15,9 +16,18 @@ export class LoginPageComponent {
 
   inputEmail!: string;
   inputPassword!: string;
-
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth) {
+ 
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private alertController: AlertController, private loadingCtrl: LoadingController) {
     
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading...',
+      duration: 650,
+    });
+
+    loading.present();
   }
   
   getUserType(id?: string){
@@ -43,7 +53,6 @@ export class LoginPageComponent {
           this.router.navigate(['/owneddogs']);
         }
         else{
-          //TODO: Add toast 
           throw new Error("User type not found");
         }
     });
@@ -51,6 +60,7 @@ export class LoginPageComponent {
 
   login()
   {
+    this.showLoading();
     const email = this.inputEmail;
     const password = this.inputPassword;
     
@@ -61,11 +71,22 @@ export class LoginPageComponent {
       catch(e){
         console.log(e);
       }
-    }).catch((error) => {
+    }).catch(async (error) => {
+      const alert = await this.alertController.create({
+        header: 'Incorrect credentials',
+        subHeader: '',
+        message: 'Please try again with the correct information.',
+        backdropDismiss: true,
+        buttons: [
+        {
+          text: 'Ok',
+        }
+      ]
+      });
+      await alert.present();
       console.log("Error signing in");
       console.log(error);
-      //TODO: add toast with error message
-    });    
+    });
 }
 
 googleSignin(){

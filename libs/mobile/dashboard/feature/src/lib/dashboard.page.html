@@ -22,17 +22,12 @@
     <div class="dogname">
         <p><b><ion-icon name="paw"></ion-icon>&nbsp;{{dog.name}}</b></p>
     </div>
-    <!-- <ion-chip class="dog-section-title">
-        <ion-icon name="help-buoy-sharp"></ion-icon>
-        <ion-label>{{dog.name}}</ion-label>
-    </ion-chip> -->
     <div>&nbsp;</div>
     <!--Dog info-->
     <div class="maincontainer">
         <div class="thecard">
             <div class="thefront">
                 <img src={{dog.pic}} />
-                <!-- <ion-title class="ion-text-center"><b>Millie, 2</b></ion-title> -->
                 <p><b>{{dog.organisation}}</b>
                     <ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon>
                 </p>
@@ -87,7 +82,6 @@
                 </ion-item-options>
                 <ion-item-options side="end">
                     <ion-item-option color="danger" (click)="trash(userLike._id)">
-                        <!--_alert()-->
                         <ion-icon slot="icon-only" name="trash"></ion-icon>
                     </ion-item-option>
                     <ion-item-option color="primary" (click)="userinfo(userLike._id)">
