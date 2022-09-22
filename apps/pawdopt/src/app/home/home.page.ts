@@ -36,8 +36,7 @@ export class HomePage {
     pic: string,
     visible: boolean
     }[] = [];
-    //@TODO
-    //Add card at the end to say no more available dogs
+    
   currentIndex: number;
   results : string[] = []; //to show the liked/disliked dogs
   storeIndex: number[] = [];
@@ -124,6 +123,7 @@ export class HomePage {
   }
 
   getDogs(){
+    this.avatars = [];
     const getDogsQuery = gql`query {
       findDogs(na : true){
         _id
