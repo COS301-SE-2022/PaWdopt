@@ -226,6 +226,9 @@ export class owneddogsPageComponent {
     //this.router.navigate(["/userinfo"]); Not implemented yet
   }
 
+  chats(){
+    this.router.navigate(["/chatlist"]);
+  }
   
 }
 
