@@ -26,10 +26,12 @@ export class chatlistPageComponent {
   orgId!: string;
 
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth){}
+  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth){
+    this.getChats();
+  }
 
   //function to fill the list of chats
-  getChats(orgId : string, adopterId : string){
+  getChats(){
     this.listOfChats = [];
     this.afAuth.currentUser.then(user => {
       this.currentUserId = user?.uid;
@@ -50,12 +52,12 @@ export class chatlistPageComponent {
           if(data.getUserType == "Adopter"){
             //get the list of chats for the adopter
             const getChats = gql`query {
-              findChatsByAdopterId(adopterId: "${adopterId}"){
+              findChatsByAdopterId(adopterId: "${this.currentUserId}"){
                 adopterId
                 orgId
                 dogId
                 messages{
-                  sender
+                  userId
                   message
                 }
               }
@@ -72,7 +74,7 @@ export class chatlistPageComponent {
                   orgId: string;
                   dogId: string;
                   messages: {
-                    sender: string;
+                    userId: string;
                     message: string;
                   }[]
                 }[]
@@ -80,7 +82,7 @@ export class chatlistPageComponent {
               //for each chat, get the org name and dog name
               data2.findChatsByAdopterId.forEach((chat) => {
                 const getOrgName = gql`query {
-                  findOrgById(id: "${chat.orgId}"){
+                  findOrgById(_id: "${chat.orgId}"){
                     name
                     logo
                   }
@@ -98,7 +100,7 @@ export class chatlistPageComponent {
                     }
                   }
                   const getDogName = gql`query {
-                    findDogById(id: "${chat.dogId}"){
+                    findDogById(_id: "${chat.dogId}"){
                       name
                       pics
                     }
@@ -131,14 +133,14 @@ export class chatlistPageComponent {
           }
           else if(data.getUserType == "OrgMember"){
             //get the list of chats for the org
-            
+                        
             const getChats = gql`query {
-              findChatsByOrgId(orgId: "${orgId}"){
+              findChatsByOrgmemberId(orgmemberId: "${this.currentUserId}"){
                 adopterId
                 orgId
                 dogId
                 messages{
-                  sender
+                  userId
                   message
                 }
 
@@ -151,20 +153,20 @@ export class chatlistPageComponent {
             }).valueChanges.subscribe((result) => {
               console.log(result);
               const data = result.data as {
-                findChatsByOrgId: {
+                findChatsByOrgmemberId: {
                   adopterId: string;
                   orgId: string;
                   dogId: string;
                   messages: {
-                    sender: string;
+                    userId: string;
                     message: string;
                   }[]
                 }[]
               }
               //for each chat, get the adopter name and dog name
-              data.findChatsByOrgId.forEach((chat) => {
+              data.findChatsByOrgmemberId.forEach((chat) => {
                 const getAdopterName = gql`query {
-                  findAdopterById(id: "${chat.adopterId}"){
+                  findAdopterById(_id: "${chat.adopterId}"){
                     name
                     pic
                   }
@@ -182,7 +184,7 @@ export class chatlistPageComponent {
                     }
                   }
                   const getDogName = gql`query {
-                    findDogById(id: "${chat.dogId}"){
+                    findDogById(_id: "${chat.dogId}"){
                       name
                       pics
                     }
@@ -208,8 +210,6 @@ export class chatlistPageComponent {
                       dogName: data.findDogById.name,
                       dogPic: data.findDogById.pics[0],
                     });
-                    //get the orgid
-                    
                   });
                 });
               });
