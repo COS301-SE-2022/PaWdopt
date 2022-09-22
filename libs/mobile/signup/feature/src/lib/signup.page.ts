@@ -5,6 +5,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { ActionSheetController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { LoadingController } from '@ionic/angular';
 
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
@@ -26,7 +27,7 @@ export class SignupPageComponent {
   imageString!: string;
   apiKey: string;
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private actionSheetController: ActionSheetController, private alertController: AlertController, private http: HttpClient) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private actionSheetController: ActionSheetController, private alertController: AlertController, private http: HttpClient, private loadingCtrl: LoadingController) {
     this.uid = "";
     this.imageToShow = '';
     this.imageString = "";
@@ -34,8 +35,18 @@ export class SignupPageComponent {
     this.apiKey = "cbc1406a-451d-4d04-8a49-76ac229e64a6";
   }
   
-  
+  //An image has to be uploaded in order for the query to go through, double check this!
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading...',
+      duration: 2000,
+    });
+
+    loading.present();
+  }
+
   async signUp(){
+    this.showLoading();
     const boolVal = await this.validate();
     if(!boolVal){
       return;
@@ -59,12 +70,6 @@ export class SignupPageComponent {
       });
       await alert.present();
     });
-
-    // this.fireAuth.currentUser.then((user) => {
-    //   console.log(user?.uid);
-    // });
-    //TODO: Complete login validation
-    
   }
 
   addUser(uid?: string){
@@ -90,7 +95,6 @@ export class SignupPageComponent {
 
   back(){
     // Takes the user to the login page
-    console.log("moving to login");
     this.router.navigate(["/login"]);
   }
 

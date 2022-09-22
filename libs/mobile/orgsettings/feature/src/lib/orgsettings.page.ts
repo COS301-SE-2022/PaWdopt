@@ -127,7 +127,6 @@ export class OrgSettingsPageComponent {
               totalDogs
             }
           }`;
-          // console.log(findOrganistaion);
           this.apollo.watchQuery({
             query: findOrganistaion,
             fetchPolicy: 'no-cache'
