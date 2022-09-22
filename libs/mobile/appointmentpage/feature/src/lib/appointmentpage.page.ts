@@ -31,6 +31,10 @@ export class appointmentpagePageComponent {
     return;
   }
 
+  back(){
+    this.router.navigate(['/chat']);
+  }
+
   signup(){
     // Done in signup
     this.router.navigate(["/signup"]);
