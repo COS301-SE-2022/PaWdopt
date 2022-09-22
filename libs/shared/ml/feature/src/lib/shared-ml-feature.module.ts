@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { SharedMlFeatureService } from './shared-ml-feature.service';
 import { HttpModule } from '@nestjs/axios';
 
+import { PredictionServiceClient } from '@google-cloud/aiplatform'
+
 @Module({
   controllers: [],
   imports: [HttpModule],
-  providers: [SharedMlFeatureService],
+  providers: [SharedMlFeatureService, PredictionServiceClient],
   exports: [SharedMlFeatureService],
 })
 export class SharedMlFeatureModule {
@@ -15,6 +17,7 @@ export class SharedMlFeatureModule {
     data,
     mimetype
   }){
-    return this.mlService.postToML(image);
+    return await this.mlService.postToML(image);
   }
+
 }
