@@ -40,6 +40,46 @@ export class ContactInfo {
 
 @ObjectType()
 @Schema()
+export class Adopter {
+    @Prop()
+    _id: string;
+
+    @Prop()
+    name: string;
+
+    @Prop()
+    email: string;
+    
+    @Prop()
+    pic: string;
+
+    @Prop()
+    location: Location;
+
+    @Prop()
+    documents: [Doc];
+
+    @Prop()
+    dogsLiked: [Dog];
+
+    @Prop()
+    dogsDisliked: [Dog];
+
+    @Prop()
+    uploadedDocs: boolean;
+}
+@ObjectType()
+@Schema()
+export class PotentialAdopter {
+    @Prop()
+    dogId: string;
+
+    @Prop()
+    adopter: Adopter;
+}
+
+@ObjectType()
+@Schema()
 export class Organisation {
     @Prop()
     _id: string;
@@ -72,7 +112,7 @@ export class Organisation {
     contactInfo: ContactInfo;
 
     @Prop()
-    potentialAdopters: [Adopter];
+    potentialAdopters: [PotentialAdopter];
 
     @Prop()
     logo: string;
@@ -134,49 +174,6 @@ export class Dog {
 
 @ObjectType()
 @Schema()
-export class Adopter {
-    @Prop()
-    _id: string;
-
-    @Prop()
-    name: string;
-
-    @Prop()
-    email: string;
-    
-    @Prop()
-    pic: string;
-
-    @Prop()
-    location: Location;
-
-    @Prop()
-    documents: [Doc];
-
-    // @Prop()
-    // idDoc: string;
-
-    // @Prop()
-    // porDoc: string;
-
-    // @Prop()
-    // bankDoc: string;
-
-    // @Prop()
-    // motivDoc: string;
-
-    @Prop()
-    dogsLiked: [Dog];
-
-    @Prop()
-    dogsDisliked: [Dog];
-
-    @Prop()
-    uploadedDocs: boolean;
-}
-
-@ObjectType()
-@Schema()
 export class OrgMember {
     @Prop()
     _id: string;
@@ -211,6 +208,9 @@ export class Chat {
 
     @Prop()
     dogId: string;
+
+    @Prop()
+    disabled: boolean;
 }
 
 @ObjectType()
@@ -241,3 +241,5 @@ export type ChatDocument = Chat & Document;
 export const ChatSchema = SchemaFactory.createForClass(Chat);
 export type MessageDocument = MessageObj & Document;
 export const MessageSchema = SchemaFactory.createForClass(MessageObj);
+export type PotentialAdopterDocument = PotentialAdopter & Document;
+export const PotentialAdopterSchema = SchemaFactory.createForClass(PotentialAdopter);
