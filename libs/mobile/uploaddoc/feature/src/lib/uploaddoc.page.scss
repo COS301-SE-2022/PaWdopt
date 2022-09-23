@@ -11,7 +11,12 @@
 // #login-container{
 //     height:100%;
 // }
-
+.hint {
+    display: flex;
+    justify-content: center;
+    font-size: 11px;
+  }
+  
 .greyButton {
     margin-top: 10%;
     margin-bottom: 10%;
