@@ -70,4 +70,3 @@ schema.gql
 # Env
 env/
 .env
-.env
