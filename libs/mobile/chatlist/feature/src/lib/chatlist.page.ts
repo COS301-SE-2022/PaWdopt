@@ -249,6 +249,11 @@ export class chatlistPageComponent {
     });
   }
 
+
+  back(){
+    //Will need to tell the difference between orguser and adopter and then navigate accordingly.
+    // this.router.navigate(["/tabs/tab1"]);
+  }
   signup(){
     // Done in signup
     this.router.navigate(["/signup"]);

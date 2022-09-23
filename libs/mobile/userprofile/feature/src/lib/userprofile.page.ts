@@ -81,6 +81,11 @@ export class userprofilePageComponent {
     });
   }
 
+
+  chat(){
+    this.router.navigate(["/chatlist"]);
+  }
+  
   back(){
     this.router.navigate(["/home"]);
   }

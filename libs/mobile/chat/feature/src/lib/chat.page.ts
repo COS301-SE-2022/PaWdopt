@@ -243,7 +243,10 @@ export class chatPageComponent {
     }
   }
 
-
+  back(){
+    //Will need to tell the difference between orguser and adopter and then navigate accordingly.
+    // this.router.navigate(["/tabs/tab1"]);
+  }
   appointmentPage(){
     this.router.navigate(['/appointmentpage']);
   }
