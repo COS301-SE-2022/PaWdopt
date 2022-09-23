@@ -243,11 +243,21 @@ export class chatPageComponent {
     }
   }
 
+  async setObject() {
+    await Storage.set({
+    key: 'appointmentId',
+    value: JSON.stringify({
+      userId: this.currentUserId,
+      orgId: this.orgID
+      })
+    });
+  }
+
   back(){
-    //Will need to tell the difference between orguser and adopter and then navigate accordingly.
-    // this.router.navigate(["/tabs/tab1"]);
+     this.router.navigate(["/chatlist"]);
   }
   appointmentPage(){
+    this.setObject();
     this.router.navigate(['/appointmentpage']);
   }
   signup(){
