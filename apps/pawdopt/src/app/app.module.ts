@@ -24,6 +24,7 @@ import { environment } from '../environments/environment.prod';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { APP_CONFIG } from '@pawdopt/config';
 
 @NgModule({
   declarations: [AppComponent],
@@ -61,7 +62,9 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
         };
       },
       deps: [HttpLink],
-    },],
+    },
+    { provide: APP_CONFIG, useValue: environment },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
