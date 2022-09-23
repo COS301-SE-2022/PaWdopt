@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
@@ -6,6 +6,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Platform } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { APP_CONFIG } from '@pawdopt/config';
 
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
@@ -65,7 +66,7 @@ export class AddorgPageComponent {
   };
   imageToShow!: string;
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform, public actionSheetController: ActionSheetController, public alertController: AlertController) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform, public actionSheetController: ActionSheetController, public alertController: AlertController, @Inject(APP_CONFIG) private appConfig: any) {
     this.getGeolocation();
     this.orgMembers=[{
       id: "",
@@ -89,7 +90,7 @@ export class AddorgPageComponent {
         this.longitude = resp.coords.longitude;
         this.accuracy = resp.coords.accuracy;
         const latLng = this.latitude + "," + this.longitude;
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=AIzaSyBzbLD7pkAKElKOmQhsHTgW81dKR4qe6Ko`)
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${this.appConfig.MAPS_API_KEY}`)
         .then((responseText) => {
             return responseText.json();
         })

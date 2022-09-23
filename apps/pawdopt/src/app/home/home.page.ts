@@ -52,7 +52,7 @@ export class HomePage {
           this.t_ID = user.uid;
           console.log(this.t_ID);
           this.showLoading();
-          this.getDogs();
+          // this.getDogs();
         }
       });
     }
@@ -209,7 +209,7 @@ export class HomePage {
             }[]
           }
         }
-        console.log(this.avatars);
+        
         console.log(data.findAdopterById.dogsLiked);
         // this.avatars.forEach(element => {
           data.findAdopterById.dogsLiked.forEach(element2 => {
@@ -250,6 +250,7 @@ export class HomePage {
           pic: string,
           visible: boolean
           }[] = [];
+          this.currentIndex = -1;
         this.avatars.forEach(element => {
           let splice = false;
           // if(this.breed)
@@ -275,10 +276,13 @@ export class HomePage {
               splice = true;
             }
           if(!splice){
+            this.currentIndex++;
             temp.push(element);
           }
         });
+        this.avatars = [];
         this.avatars = temp;
+        console.log(this.avatars);
       });
     });
     //we have filtered out the dogs

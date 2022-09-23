@@ -67,3 +67,7 @@ Thumbs.db
 /schema.gql
 schema.gql
 *.gql
+
+apps/pawdopt/src/environments/environment.prod.ts
+.env
+env/
