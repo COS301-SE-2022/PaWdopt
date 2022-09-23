@@ -136,6 +136,9 @@ export class userlikesPageComponent {
     })
   }
 
+  chat(){
+    this.router.navigate(["/chatlist"]);
+  }
   home(){
     this.router.navigate(["/home"]);
   }

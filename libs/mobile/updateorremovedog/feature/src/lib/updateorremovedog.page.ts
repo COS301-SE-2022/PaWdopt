@@ -202,7 +202,7 @@ export class updateorremovedogPageComponent {
   };
 
   home(){
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/owneddogs"]);
   }
 
   back(){

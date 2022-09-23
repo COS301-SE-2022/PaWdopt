@@ -84,23 +84,23 @@ export class orgprofilePageComponent {
   }
 
   back(){
-    this.router.navigate(['/userlikes']);
+    this.router.navigate(['/owneddogs']);
   }
 
   home(){
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/owneddogs"]);
   }
 
   likeddogs(){
-    this.router.navigate(["/userlikes"]);
+    this.router.navigate(["/adoptionprocess"]);
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    this.router.navigate(["/orgprofile"]);
   }
 
   preferences(){
-    this.router.navigate(["/preferences"]); 
+    // this.router.navigate(["/preferences"]); 
   }
 
 }
