@@ -26,10 +26,15 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { APP_CONFIG } from '@pawdopt/config';
 
+import { NgxEchartsModule } from 'ngx-echarts';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
