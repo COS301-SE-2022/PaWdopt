@@ -1,15 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
 import { Storage } from '@capacitor/storage';
+
+
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts/core';
+
+import { BarChart } from 'echarts/charts';
+import { TitleComponent, TooltipComponent, GridComponent } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
+import 'echarts/theme/macarons.js';
+
 @Component({
   selector: 'pawdopt-orgprofile',
   templateUrl: 'orgprofile.page.html',
   styleUrls: ['orgprofile.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade]
+  providers: [Apollo],
+  
 })
 export class orgprofilePageComponent {
+
+  
   
   orgId!:string;
   dateString!: string;
@@ -34,9 +47,12 @@ export class orgprofilePageComponent {
     totalAdoptions: 0
   }
 
+  
+
   constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade){
     this.getOrg();
   }
+
 
   async getObject() {
     const ret = await Storage.get({ key: 'dogID' });
