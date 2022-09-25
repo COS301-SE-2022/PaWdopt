@@ -4,15 +4,6 @@ import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
 import { Storage } from '@capacitor/storage';
 
-
-import { NgxEchartsModule } from 'ngx-echarts';
-import * as echarts from 'echarts/core';
-
-import { BarChart } from 'echarts/charts';
-import { TitleComponent, TooltipComponent, GridComponent } from 'echarts/components';
-import { CanvasRenderer } from 'echarts/renderers';
-import 'echarts/theme/macarons.js';
-
 @Component({
   selector: 'pawdopt-orgprofile',
   templateUrl: 'orgprofile.page.html',
