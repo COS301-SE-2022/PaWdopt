@@ -70,7 +70,6 @@
         "mongoose": "6.2.2",
         "ng-swipe-card": "^0.0.4",
         "ngx-autosize": "^2.0.2",
-        "ngx-echarts": "^14.0.0",
         "node-geocoder": "^4.2.0",
         "reflect-metadata": "^0.1.13",
         "rxjs": "^7.5.5",
