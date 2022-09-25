@@ -193,7 +193,7 @@ export class owneddogsPageComponent {
     // JSON "set" example
   async setObject(id: string) {
     await Storage.set({
-    key: 'dogID',
+    key: 'orgToPref',
     value: JSON.stringify({
       id: 1,
       name: id
@@ -222,6 +222,7 @@ export class owneddogsPageComponent {
   }
 
   preferences(){
+    this.setObject(this.orgId);
     this.router.navigate(["/orgsettings"]);
     //this.router.navigate(["/userinfo"]); Not implemented yet
   }
