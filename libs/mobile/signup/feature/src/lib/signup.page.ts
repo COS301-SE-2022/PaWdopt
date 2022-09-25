@@ -29,7 +29,6 @@ export class SignupPageComponent {
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private actionSheetController: ActionSheetController, private alertController: AlertController, private http: HttpClient, private loadingCtrl: LoadingController) {
     this.uid = "";
-    this.imageToShow = '';
     this.imageString = "";
 
     this.apiKey = "cbc1406a-451d-4d04-8a49-76ac229e64a6";
@@ -206,6 +205,7 @@ export class SignupPageComponent {
     //TODO Do firebase upload here
 
     const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
+    console.log(data);
     this.imageString = data;
     return data;
   }

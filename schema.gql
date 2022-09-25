@@ -260,6 +260,6 @@ type Mutation {
   deleteDog(dogId: String!): DogType!
   createChat(orgId: String!, adopterId: String!, dogId: String!): ChatType!
   sendMessage(orgId: String!, adopterId: String!, senderId: String!, message: String!): ChatType!
-  rejectAdoption(orgId: String!, adopterId: String!, dogId: String!): String!
+  rejectAdoption(orgmemberId: String!, adopterId: String!, dogId: String!): OrganisationType!
   uploadDoc(adopterId: String!, type: String!, path: String!): String!
 }

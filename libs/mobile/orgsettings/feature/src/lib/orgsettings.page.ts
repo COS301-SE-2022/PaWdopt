@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
-import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { AngularFireAuth } from "@angular/fire/compat/auth";;
+import { APP_CONFIG } from '@pawdopt/config';
 
 @Component({
   selector: 'pawdopt-orgsettings',
@@ -23,6 +24,7 @@ export class OrgSettingsPageComponent {
   instagram!: string;
   twitter!: string;
   logo!: string;
+  address!: string;
 
   orgMembers: [{
     _id: string;
@@ -48,7 +50,7 @@ export class OrgSettingsPageComponent {
   totalDogs: string;
   loggedInUserRole: string;
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, @Inject(APP_CONFIG) private appConfig: any) {
     this.t_ID = "";
     this.t_OrgID = "";
     this.conInfoId = "";
@@ -64,6 +66,7 @@ export class OrgSettingsPageComponent {
     this.orgMembers.pop();
     this.fireAuth.currentUser.then(user => {
       if(user?.uid){
+        console.log("gotten in");
         this.t_ID = user?.uid;
         
         const findOrganistaionId = gql`query{
@@ -166,6 +169,17 @@ export class OrgSettingsPageComponent {
             this.date = data.findOrgById.dateFounded;
             this.lat = data.findOrgById.location.lat;
             this.lng = data.findOrgById.location.lng;
+            const latLng = this.lat + "," + this.lng;
+            fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${this.appConfig.MAPS_API_KEY}`)
+            .then((responseText) => {
+                return responseText.json();
+            })
+            .then(jsonData => {
+                this.address = jsonData.results[0].formatted_address;
+            })
+            .catch(error => {
+                console.log(error);
+            })
             this.totalAdoptions = data.findOrgById.totalAdoptions;
             this.totalDogs = data.findOrgById.totalDogs;
             this.conInfoId = data.findOrgById.contactInfo._id;
@@ -267,7 +281,32 @@ export class OrgSettingsPageComponent {
     // TODO: Upload doc
   }
 
-  Back(){
+  back(){
     this.router.navigate(["/owneddogs"]);
   }
+  
+  signout(){
+    this.router.navigate(["/login"]);
+  }
+
+  chat(){
+    this.router.navigate(["/chatlist"]);
+  }
+
+  home(){
+    this.router.navigate(["/owneddogs"]);
+  }
+
+  likeddogs(){
+    this.router.navigate(["/adoptionprocess"]);
+  }
+
+  preferences(){
+    this.router.navigate(["/orgsettings"]);
+  }
+  
+  profile(){
+    this.router.navigate(["/orgprofile"]);
+  }
+  
 }

@@ -134,6 +134,35 @@ export class uploaddocPageComponent {
         handler: async () => {
           console.log('Choose a picture clicked');
           await this.getPORPhoto(false);
+
+          this.fireAuth.currentUser.then(user => {
+            console.log(user?.uid);
+            if(user?.uid){
+              this.userID = user.uid;
+              console.log(this.userID);
+      
+              //call the uploaddoc query
+              const uploadDocQuery = gql`
+              mutation {
+                uploadDoc(
+                  adopterId: "${this.userID}",
+                  type: "POR",
+                  path: "${this.imagePORString}"
+                )
+      
+              }
+            `;
+            this.apollo.mutate({
+              mutation: uploadDocQuery,
+              fetchPolicy: 'no-cache'
+            }).subscribe(({ data }) => {
+              console.log(data);
+            },(error) => {
+              console.log(error);
+            });
+      
+            }
+          });
         }
       }, {
         text: 'Cancel',
@@ -146,34 +175,7 @@ export class uploaddocPageComponent {
     });
     await actionSheet.present();
 
-    this.fireAuth.currentUser.then(user => {
-      console.log(user?.uid);
-      if(user?.uid){
-        this.userID = user.uid;
-        console.log(this.userID);
-
-        //call the uploaddoc query
-        const uploadDocQuery = gql`
-        mutation {
-          uploadDoc(
-            adopterId: "${this.userID}",
-            type: "POR",
-            path: "${this.imagePORString}"
-          )
-
-        }
-      `;
-      this.apollo.mutate({
-        mutation: uploadDocQuery,
-        fetchPolicy: 'no-cache'
-      }).subscribe(({ data }) => {
-        console.log('got data', data);
-      },(error) => {
-        console.log('there was an error sending the query', error);
-      });
-
-      }
-    });
+    
 
     
 
@@ -198,6 +200,33 @@ export class uploaddocPageComponent {
         handler: async () => {
           console.log('Choose a picture clicked');
           await this.getBSSPhoto(false);
+
+          this.fireAuth.currentUser.then(user => {
+            console.log(user?.uid);
+            if(user?.uid){
+              this.userID = user.uid;
+              console.log(this.userID);
+              //call the uploaddoc query
+          const uploadDocQuery = gql`
+          mutation {
+            uploadDoc(
+              adopterId: "${this.userID}",
+              type: "BSS",
+              path: "${this.imageBSString}"
+            )
+      
+          }
+        `;
+        this.apollo.mutate({
+          mutation: uploadDocQuery,
+          fetchPolicy: 'no-cache'
+        }).subscribe(({ data }) => {
+          console.log('got data', data);
+        },(error) => {
+          console.log('there was an error sending the query', error);
+        });
+            }
+          });
         }
       }, {
         text: 'Cancel',
@@ -210,32 +239,7 @@ export class uploaddocPageComponent {
     });
     await actionSheet.present();
 
-    this.fireAuth.currentUser.then(user => {
-      console.log(user?.uid);
-      if(user?.uid){
-        this.userID = user.uid;
-        console.log(this.userID);
-        //call the uploaddoc query
-    const uploadDocQuery = gql`
-    mutation {
-      uploadDoc(
-        adopterId: "${this.userID}",
-        type: "BSS",
-        path: "${this.imageBSString}"
-      )
-
-    }
-  `;
-  this.apollo.mutate({
-    mutation: uploadDocQuery,
-    fetchPolicy: 'no-cache'
-  }).subscribe(({ data }) => {
-    console.log('got data', data);
-  },(error) => {
-    console.log('there was an error sending the query', error);
-  });
-      }
-    });
+   
 
     
 
@@ -262,6 +266,32 @@ export class uploaddocPageComponent {
         handler: async () => {
           console.log('Choose a picture clicked');
           await this.getMLPhoto(false);
+          this.fireAuth.currentUser.then(user => {
+            console.log(user?.uid);
+            if(user?.uid){
+              this.userID = user.uid;
+              console.log(this.userID);
+              //call the uploaddoc query
+          const uploadDocQuery = gql`
+          mutation {
+            uploadDoc(
+              adopterId: "${this.userID}",
+              type: "ML",
+              path: "${this.imageMLString}"
+            )
+      
+          }
+        `;
+        this.apollo.mutate({
+          mutation: uploadDocQuery,
+          fetchPolicy: 'no-cache'
+        }).subscribe(({ data }) => {
+          console.log('got data', data);
+        },(error) => {
+          console.log('there was an error sending the query', error);
+        });
+            }
+          });
         }
       }, {
         text: 'Cancel',
@@ -274,32 +304,7 @@ export class uploaddocPageComponent {
     });
     await actionSheet.present();
 
-    this.fireAuth.currentUser.then(user => {
-      console.log(user?.uid);
-      if(user?.uid){
-        this.userID = user.uid;
-        console.log(this.userID);
-        //call the uploaddoc query
-    const uploadDocQuery = gql`
-    mutation {
-      uploadDoc(
-        adopterId: "${this.userID}",
-        type: "ML",
-        path: "${this.imageMLString}"
-      )
-
-    }
-  `;
-  this.apollo.mutate({
-    mutation: uploadDocQuery,
-    fetchPolicy: 'no-cache'
-  }).subscribe(({ data }) => {
-    console.log('got data', data);
-  },(error) => {
-    console.log('there was an error sending the query', error);
-  });
-      }
-    });
+    
 
     
 
@@ -325,19 +330,8 @@ export class uploaddocPageComponent {
         handler: async () => {
           console.log('Choose a picture clicked');
           await this.getIDPhoto(false);
-        }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
-    });
-    await actionSheet.present();
 
-    //get the currently logged in user id
+          //get the currently logged in user id
     this.fireAuth.currentUser.then(user => {
       console.log(user?.uid);
       if(user?.uid){
@@ -365,6 +359,19 @@ export class uploaddocPageComponent {
   });
       }
     });
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    
 
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);

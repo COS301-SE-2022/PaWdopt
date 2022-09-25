@@ -132,28 +132,9 @@ export class adoptionprocessPageComponent {
   }
 
 
-  async clickedSwiper(userId: string, dogID: string){
-    const alert = await this.alertController.create({
-      header: 'Adoption Process',
-      subHeader: '',
-      message: 'Are you sure you wish to start the adoption process of this user>',
-      backdropDismiss: true,
-      buttons: [
-        {
-          text: 'Yes',
-          role: 'cancel',
-          cssClass: 'my-alert-class',
-          handler: (value:  any) => {
-            this.setObject(userId, dogID);
-            this.router.navigate(["/useradoption"]);
-        }
-      },
-      {
-        text: 'Cancel',
-      }
-    ]
-    });
-    await alert.present();
+  clickedSwiper(userId: string, dogID: string){
+    this.setObject(userId, dogID);
+    this.router.navigate(["/useradoption"]);
   }
 
   async setObject(userId: string, dogID: string){

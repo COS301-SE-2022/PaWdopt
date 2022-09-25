@@ -491,6 +491,13 @@ export class ApiService {
         if(index2 != -1){
             adopter.dogsDisliked.splice(index2, 1);
         }
+        const index3 = dog.usersLiked.findIndex(function(aUser){
+            return _id == aUser._id;
+        });
+        if(index3 != -1){
+            dog.usersLiked.splice(index3, 1);
+        }
+        dog.save();
         return adopter.save();
     }
 
@@ -671,6 +678,10 @@ export class ApiService {
         if(dog == null){
             throw new Error("Dog does not exist");
         }
+        const dog1 = await this.DogModel.findOne({_id: dogId}).exec();
+        const org = await this.OrganisationModel.findOne({_id: dog1.organisation._id}).exec();
+        org.totalDogs--;
+        org.save();
         return dog.remove();
     }
 
@@ -971,7 +982,10 @@ export class ApiService {
             throw new Error("Adopter does not exist");
         }
         else{
-                 return "Document uploaded";
+            const doc = await this.DocModel.create({type, path});
+            adopter.documents.push(doc);
+            await adopter.save();
+            return "Document uploaded";
         }
     }
 
@@ -982,14 +996,8 @@ export class ApiService {
      * @return {string}
      */
     async createStatistic(orgId: string): Promise<string> {
-        const org = await this.OrganisationModel.findOne({_id: orgId}).exec();
-        if(org == null){
-            throw new Error("Org does not exist");
-        }
-        else{
-            const statistic = await this.StatisticModel.create({orgId});
-            return "Statistic created";
-        }
+        const statistic = await this.StatisticModel.create({orgId});
+        return "Statistic created";
     }
 
     
@@ -1113,7 +1121,28 @@ export class ApiService {
             return statistics;
         }
     }
-    
+
+    /**
+     * used in userAdoption page
+     * get an org by orgmemberId
+     * @param {string} orgMemberId The id of the orgMember to find the org of
+     * @return {Organisation}
+     */
+    async findOrgByOrgmemberId(orgmemberId: string): Promise<Organisation> {
+        const orgMember = await this.OrgMemberModel.findOne({_id: orgmemberId}).exec();
+        if(orgMember == null){
+            throw new Error("OrgMember does not exist");
+        }
+        else{
+            const org = await this.OrganisationModel.findOne({_id: orgMember.organisation}).exec();
+            if(org == null){
+                throw new Error("Org does not exist");
+            }
+            else{
+                return org;
+            }
+        }
+    }
 
     
 

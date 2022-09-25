@@ -20,14 +20,8 @@ export class updateorremovedogPageComponent {
   inputAbout!: string;
   loadHeight!: number;
   loadWeight!: number;
-  inputHeight!: {
-    lower: number;
-    upper: number;
-  };
-  inputWeight!: {
-    lower: number;
-    upper: number;
-  };
+  inputHeight!: number;
+  inputWeight!: number;
   inputFurlength!: string;
   inputTemperament!: string;
   
@@ -60,7 +54,7 @@ export class updateorremovedogPageComponent {
   }  
 
   async getObject() {
-    const ret = await Storage.get({ key: 'dogID' });
+    const ret = await Storage.get({ key: 'fromUpdatePage' });
     if(ret.value){
       return JSON.parse(ret.value);
     }
@@ -93,6 +87,7 @@ export class updateorremovedogPageComponent {
   async loadDog(){
 
     this.dogID = (await this.getObject()).name;
+    console.log(this.dogID);
     const getDogQuery = gql`query {
       findDogById(_id: "${this.dogID}"){
         name
@@ -131,7 +126,9 @@ export class updateorremovedogPageComponent {
         this.inputDob = (tempDate.getFullYear() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getDate()).toString();
         this.inputGender = data.findDogById.gender;
         this.loadHeight = data.findDogById.height; 
+        this.inputHeight = data.findDogById.height;
         this.loadWeight = data.findDogById.weight; 
+        this.inputWeight = data.findDogById.weight;
         this.inputBreed = data.findDogById.breed;
         this.dog.temperament = data.findDogById.temperament;
         this.inputFurlength = data.findDogById.furLength;
