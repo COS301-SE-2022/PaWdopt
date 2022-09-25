@@ -83,7 +83,7 @@ export class dashboardPageComponent {
   }
 
   async getObject() {
-    const ret = await Storage.get({ key: 'dogID' });
+    const ret = await Storage.get({ key: 'ownedToDashboard' });
     if(ret.value){
       return JSON.parse(ret.value);
     }
