@@ -27,7 +27,7 @@
 <ion-content>
     <ion-thumbnail class="logo">
         <!-- <img [src]="user.pic.path" [alt]="user.name"> -->
-        <img class="logo" src="../../assets/spcalogo-meta.png">
+        <img class="logo" src={{logoStr}}>
     </ion-thumbnail>
     <div class="companyprofile">
         <h1><b>{{org.name}}</b></h1>
@@ -40,18 +40,20 @@
             <ion-grid class="middleButton">
                 <ion-row>
                     <ion-col col-6>
-                        <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Start Date</ion-label>
+                        <ion-label position="floating" class="form-input-label">
+                            <ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Start Date</ion-label>
                         <ion-input class="actualDate" value="{{ inputStartDate | date: 'yyyy/MM/dd' }}" id="startdate"></ion-input>
-                        <ion-popover trigger="startdate" size="auto" alignment="center" side="top" >
+                        <ion-popover trigger="startdate" size="auto" alignment="center" side="top">
                             <ng-template>
                                 <ion-datetime color="datetimecolor" presentation="date-time" [(ngModel)]="inputStartDate"></ion-datetime>
                             </ng-template>
                         </ion-popover>
                     </ion-col>
                     <ion-col col-6>
-                        <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Start Date</ion-label>
-                        <ion-input class="actualDate" value="{{ inputEndDate | date: 'yyyy/MM/dd' }}" id="enddate" ></ion-input>
-                        <ion-popover trigger="enddate" size="auto" alignment="center" side="top" >
+                        <ion-label position="floating" class="form-input-label">
+                            <ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Start Date</ion-label>
+                        <ion-input class="actualDate" value="{{ inputEndDate | date: 'yyyy/MM/dd' }}" id="enddate"></ion-input>
+                        <ion-popover trigger="enddate" size="auto" alignment="center" side="top">
                             <ng-template>
                                 <ion-datetime color="datetimecolor" presentation="date-time" [(ngModel)]="inputEndDate"></ion-datetime>
                             </ng-template>
@@ -61,10 +63,13 @@
             </ion-grid>
             <br>
 
-            <ion-button class="greyButton" (click)="updateStats()"><ion-icon name="stats-chart-outline"></ion-icon>&nbsp; See Statistics</ion-button>
+            <ion-button class="greyButton" (click)="updateStats()">
+                <ion-icon name="stats-chart-outline"></ion-icon>&nbsp; See Statistics</ion-button>
             <br>
-            <p><ion-icon name="paw"></ion-icon>&nbsp;{{org.totalDogs}} dogs available</p>
-            <p><ion-icon name="checkmark-outline"></ion-icon>&nbsp;{{org.totalAdoptions}} dogs adopted</p>
+            <p>
+                <ion-icon name="paw"></ion-icon>&nbsp;{{org.totalDogs}} dogs available</p>
+            <p>
+                <ion-icon name="checkmark-outline"></ion-icon>&nbsp;{{org.totalAdoptions}} dogs adopted</p>
             <h2>Gender Statistics</h2>
             <p>{{this.maleDogsAdopted}} Male Dogs adopted</p>
             <p>{{this.femaleDogsAdopted}} Female Dogs adopted</p>
