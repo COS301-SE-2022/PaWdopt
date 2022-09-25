@@ -189,7 +189,7 @@ export class updateorremovedogPageComponent {
 
   deleteDog(){//delete the clicked on dog
     const deleteDogQuery = gql`mutation {
-      deleteDog(_id: "${this.dogID}")){
+      deleteDog(dogId: "${this.dogID}"){
         name
       }
     }`;

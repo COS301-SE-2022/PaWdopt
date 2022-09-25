@@ -57,7 +57,7 @@ export class appointmentpagePageComponent {
     //sendMessage query
     const sendMessage = gql`
       mutation { 
-        sendMessage(orgId: "${orgID} ", userId: "${userID}", senderId: "${userID}", message: "${messageToSend}"){
+        sendMessage(orgId: "${orgID} ", adopterId: "${userID}", senderId: "${userID}", message: "${messageToSend}"){
         chatId
       }
     }`;
