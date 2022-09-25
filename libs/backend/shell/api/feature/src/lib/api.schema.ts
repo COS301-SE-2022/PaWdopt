@@ -224,6 +224,32 @@ export class MessageObj {
 
 }
 
+@ObjectType()
+@Schema()
+export class Statistic {
+    @Prop()
+    orgId: string;
+
+    @Prop()
+    inProcessTimeStamps: [Date];
+
+    @Prop()
+    inProcessDogs: [Dog];
+
+    @Prop()
+    adoptedTimeStamps: [Date];
+
+    @Prop()
+    adoptedDogs: [Dog];
+
+    @Prop()
+    rejectedTimeStamps: [Date];
+
+    @Prop()
+    rejectedDogs: [Dog];
+
+}
+
 
 export type ContactInfoDocument = ContactInfo & Document;
 export const ContactInfoSchema = SchemaFactory.createForClass(ContactInfo);
@@ -243,3 +269,7 @@ export type MessageDocument = MessageObj & Document;
 export const MessageSchema = SchemaFactory.createForClass(MessageObj);
 export type PotentialAdopterDocument = PotentialAdopter & Document;
 export const PotentialAdopterSchema = SchemaFactory.createForClass(PotentialAdopter);
+export type StatisticDocument = Statistic & Document;
+export const StatisticSchema = SchemaFactory.createForClass(Statistic);
+export type DocDocument = Doc & Document;
+export const DocSchema = SchemaFactory.createForClass(Doc);
