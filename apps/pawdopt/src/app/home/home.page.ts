@@ -126,7 +126,7 @@ export class HomePage {
     async showLoading() {
       const loading = await this.loadingCtrl.create({
         message: 'Finding Dogs closest to ' + this.address,
-        duration: 6000,
+        duration: 2000,
       });
   
       loading.present();
@@ -378,13 +378,13 @@ export class HomePage {
   async swiped(event: boolean, index: number) {
     
     console.log(this.t_ID);
-    console.log(this.avatars[index].name + ' swiped ' + event);
+    console.log(this.avatars[index].name + ' swiped ' + event.toString());
      if(event)
-       await this.addDogToLiked(this.currentIndex);
+        await this.addDogToLiked(this.currentIndex);
       else
         await this.addDogToDisliked(this.currentIndex);
     this.avatars[index].visible = false;
-    this.results.push(this.avatars[index].name + ' swiped ' + event); 
+    this.results.push(this.avatars[index].name + ' swiped ' + event.toString()); 
     console.log(index);
     console.log(this.currentIndex);
     this.currentIndex--;
@@ -414,6 +414,19 @@ export class HomePage {
     this.currentIndex++;
     console.log(this.currentIndex + "this is the current index");
     this.avatars[this.currentIndex].visible = true;
+    const thisDog = this.avatars[this.currentIndex].name;
+    const index1 = this.results.findIndex(function(dog){
+      return dog == thisDog + ' swiped false';
+    });
+    const index2 = this.results.findIndex(function(dog){
+      return dog == thisDog + ' swiped true';
+    });
+    if(index1 != -1){
+      this.results.splice(index1, 1);
+    }
+    if(index2 != -1){
+      this.results.splice(index2, 1);
+    }
     const removeDogFromAdopterDogsLikedOrDislikedQuery = gql`mutation{
         removeDogFromAdopterDogsLikedOrDisliked(
           userId: "${this.t_ID}",
@@ -437,6 +450,10 @@ export class HomePage {
       );
       
 
+  }
+
+  locationPicked(){
+    this.showLoading();
   }
 
   home(){
