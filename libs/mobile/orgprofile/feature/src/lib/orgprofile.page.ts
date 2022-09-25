@@ -20,6 +20,7 @@ export class orgprofilePageComponent {
   orgId!:string;
   dateString!: string;
   address!: string;
+  logoStr!: string;
 
   //stats variables
   maleDogsAdopted = 0;
@@ -122,9 +123,10 @@ export class orgprofilePageComponent {
           logo: string
         }
       };
-    //this.org = data.findOrgById; //if error then do each var indiv.
+    this.org = data.findOrgById; //if error then do each var indiv.
     const date = new Date(this.org.dateFounded);
-    this.dateString = (date.getDay() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()).toString();
+    this.logoStr = data.findOrgById.logo;
+    this.dateString = (date.getDay()+1 + "/" + (date.getMonth()) + "/" + date.getFullYear()).toString();
     const latLng = data.findOrgById.location.lat + "," + data.findOrgById.location.lng;
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${this.appConfig.MAPS_API_KEY}`)
         .then((responseText) => {
