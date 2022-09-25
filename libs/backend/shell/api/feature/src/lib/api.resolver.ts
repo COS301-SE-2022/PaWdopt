@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
-import { DogType, OrganisationType, ContactInfoType, AdopterType, OrgMemberType, ChatType, MessageObjType, DocType } from './api.dto';
+import { DogType, OrganisationType, ContactInfoType, AdopterType, OrgMemberType, ChatType, MessageObjType, DocType, StatisticType } from './api.dto';
 // import { Dog,  Organisation, Location, ContactInfo, Adopter} from './api.schema';
 
 import { Types } from 'mongoose';
@@ -369,6 +369,7 @@ export class ApiResolver {
      * @returns dog
      * @throws error if dog does not exist
      */
+    @Mutation(() => DogType)
     async deleteDog(@Args('dogId') dogId: string) : Promise<DogType> {
         return this.DogService.deleteDog(dogId);
     }
@@ -500,6 +501,17 @@ export class ApiResolver {
     @Mutation(() => String)
     async uploadDoc(@Args('adopterId') adopterId: string, @Args('type') type: string, @Args('path') path: string) : Promise<string> {
         return this.DogService.uploadDoc(adopterId, type, path);
+    }
+
+    /**
+     * used in orgProfile page
+     * call getStatistics
+     * @param orgId
+     * @returns statistics
+     */
+    @Query(() => StatisticType)
+    async getStatistic(@Args('orgId') orgId: string) : Promise<StatisticType> {
+        return this.DogService.getStatistic(orgId);
     }
 
     
