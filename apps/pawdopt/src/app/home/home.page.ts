@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Storage } from '@capacitor/storage';
 import { LoadingController } from '@ionic/angular';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Platform } from '@ionic/angular';
+import { APP_CONFIG } from '@pawdopt/config';
 
 @Component({
   selector: 'pawdopt-home',
@@ -34,33 +37,96 @@ export class HomePage {
     age: number,
     organisation:string,
     pic: string,
-    visible: boolean
+    visible: boolean,
+    distanceFromUser: number
     }[] = [];
+
+    // Readable Address
+   address!: string;
+
+   // Location coordinates
+  latitude!: number;
+  longitude!: number;
+  accuracy!: number;
+
+  options = {
+    timeout: 10000, 
+    enableHighAccuracy: true, 
+    maximumAge: 3600
+  };
     
   currentIndex: number;
   results : string[] = []; //to show the liked/disliked dogs
   storeIndex: number[] = [];
    t_ID: string;
 
-    constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
+    constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth, private loadingCtrl: LoadingController, private geolocation: Geolocation, private platform: Platform, @Inject(APP_CONFIG) private appConfig: any) {
       this.t_ID = "";
       this.currentIndex = -1;
+      //this.getGeolocation(); // might have to add this to the ionViewWillEnter
       // this.setObject();
       this.fireAuth.currentUser.then(user => {
         console.log(user?.uid);
         if(user?.uid){
           this.t_ID = user.uid;
           console.log(this.t_ID);
-          this.showLoading();
+          //this.showLoading();
           // this.getDogs();
         }
       });
     }
 
+    // <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  // <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  // <uses-feature android:name="android.hardware.location.gps" />
+
+  //Get current coordinates of device
+  getGeolocation() {
+    this.platform.ready().then(() => {
+      this.geolocation.getCurrentPosition(this.options).then((resp) => {
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+        const latLng = this.latitude + "," + this.longitude;
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${this.appConfig.MAPS_API_KEY}`)
+        .then((responseText) => {
+            return responseText.json();
+        })
+        .then(jsonData => {
+            this.address = jsonData.results[0].formatted_address;
+            console.log("Address:" + this.address);
+            this.showLoading();
+        })
+        .catch(error => {
+            console.log(error);
+        })
+      }).catch((error) => {
+        alert('Error getting location' + JSON.stringify(error));
+      });
+    });
+  }
+
+  getDistanceFromLatLonInKm(lat1 : number,lon1 : number,lat2 : number,lon2 : number) {
+    const R = 6371; // Radius of the earth in km
+    const dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+    const dLon = this.deg2rad(lon2-lon1); 
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    const d = R * c; // Distance in km
+    return d;
+  }
+
+  deg2rad(deg : number) {
+    return deg * (Math.PI/180)
+  }
+
     async showLoading() {
       const loading = await this.loadingCtrl.create({
-        message: 'Loading...',
-        duration: 3500,
+        message: 'Finding Dogs closest to ' + this.address,
+        duration: 6000,
       });
   
       loading.present();
@@ -88,6 +154,7 @@ export class HomePage {
     ionViewWillEnter(){
       this.avatars = [];
       this.currentIndex = -1;
+      this.getGeolocation();
       this.setPrefs();
       this.getDogs();
     }
@@ -134,6 +201,10 @@ export class HomePage {
         breed
         organisation{
           name
+          location{
+            lat
+            lng
+          }
         }
         height
       }
@@ -156,7 +227,11 @@ export class HomePage {
           height: number,
           dob: Date,
           organisation: {
-            name: string
+            name: string,
+            location: {
+              lat: number,
+              lng: number
+            }
           },
           pics: string[]
         }[];
@@ -172,17 +247,23 @@ export class HomePage {
             gender: element.gender,
             breed: element.breed,
             height: element.height,
-            lat: 0,
-            lng: 0,
-            // lat: element.organisation.location.lat
-            // lng: element.organisation.location.lng,
+            lat: element.organisation.location.lat,
+            lng: element.organisation.location.lng,
             age: sage,
             organisation: element.organisation.name,
             pic: element.pics[0],
-            visible: true
+            visible: true,
+            distanceFromUser: this.getDistanceFromLatLonInKm(this.latitude, this.longitude, element.organisation.location.lat, element.organisation.location.lng)
           }
         );
         this.currentIndex++;
+        //sort the avatars array by distanceFromUser in descending order
+        this.avatars.sort((a, b) => (a.distanceFromUser > b.distanceFromUser) ? -1 : 1);
+        this.avatars.forEach(element => {
+          console.log(element.distanceFromUser);
+        });
+
+        
       });
       const findAdopterByIdQuery = gql`query{
         findAdopterById(_id: "${this.t_ID}"){
@@ -248,7 +329,8 @@ export class HomePage {
           age: number,
           organisation:string,
           pic: string,
-          visible: boolean
+          visible: boolean,
+          distanceFromUser: number
           }[] = [];
           this.currentIndex = -1;
         this.avatars.forEach(element => {
@@ -261,10 +343,9 @@ export class HomePage {
             if(element.gender != this.gender && this.gender != ""){
               splice = true;
             }
-          const distance = 0;
           //distnace is calculated from user and orgs lat and lng
           if(this.maxDistance)
-            if(distance >= this.maxDistance && this.maxDistance != 0){
+            if(element.distanceFromUser >= this.maxDistance && this.maxDistance != 0){
               splice = true;
             }
           if(this.minAge && this.maxAge)

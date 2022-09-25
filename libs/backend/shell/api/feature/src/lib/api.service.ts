@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, MessageObj, MessageDocument, PotentialAdopter, PotentialAdopterDocument } from './api.schema';
+import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, MessageObj, MessageDocument, PotentialAdopter, PotentialAdopterDocument, Doc, DocDocument } from './api.schema';
 
 @Injectable()
 export class ApiService {
@@ -15,6 +15,7 @@ export class ApiService {
         @InjectModel(Chat.name) private readonly ChatModel : Model<ChatDocument>,
         @InjectModel(MessageObj.name) private readonly MessageModel : Model<MessageDocument>,
         @InjectModel(PotentialAdopter.name) private readonly PotentialAdopterModel : Model<PotentialAdopterDocument>,
+        @InjectModel(Doc.name) private readonly DocModel : Model<DocDocument>,
         ) {}
 
     /**
@@ -952,5 +953,28 @@ export class ApiService {
             }
         }
     }
+
+    /**
+     * used in uploaddoc page
+     * takes in a type and path and creates a Doc and adds it to an adopters documents array
+     * @param {string} adopterId The id of the adopter to find
+     * @param {string} type The type of document
+     * @param {string} path The path of the document
+     * @return {string}
+     */
+    async uploadDoc(adopterId: string, type: string, path: string): Promise<string> {
+        const adopter = await this.AdopterModel.findOne({_id: adopterId}).exec();
+        if(adopter == null){
+            throw new Error("Adopter does not exist");
+        }
+        else{
+            const doc = await this.DocModel.create({type, path});
+            adopter.documents.push(doc);
+            await adopter.save();
+            return "Document uploaded";
+        }
+    }
+
+    
 
 }

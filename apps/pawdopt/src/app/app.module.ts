@@ -26,6 +26,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { APP_CONFIG } from '@pawdopt/config';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

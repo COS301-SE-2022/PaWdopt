@@ -235,4 +235,5 @@ type Mutation {
   createChat(orgId: String!, adopterId: String!, dogId: String!): ChatType!
   sendMessage(orgId: String!, adopterId: String!, senderId: String!, message: String!): ChatType!
   rejectAdoption(orgId: String!, adopterId: String!, dogId: String!): String!
+  uploadDoc(adopterId: String!, type: String!, path: String!): String!
 }
