@@ -126,13 +126,15 @@ export class AdddogPageComponent {
             fetchPolicy: 'no-cache'
             }).subscribe((result) => {
               console.log(result);
+              
+              this.router.navigate(["/owneddogs"]);
             }
           );
+          
         });
       }else{
         console.log("User not logged in");
       }
-      this.router.navigate(["/owneddogs"]);
     });
   }
 
