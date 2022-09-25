@@ -4,6 +4,11 @@
     margin: auto;
 }
 
+.middleButton{
+    justify-content: center;
+    display: flex;
+}
+
 .companyprofile{
     // justify-content: center;
     // align-content: center;
@@ -13,6 +18,13 @@
     top: 50%;
     left: 50%;
 }
+
+.actualDate{
+    //make the text be in the middle of the input box
+    text-align: center;
+
+}
+
 
 .userinfo{
     margin: auto;

@@ -228,7 +228,13 @@ export class MessageObjType {
 @InputType('StatisticInputType')
 export class StatisticType {
     @Field()
-    orgID: string;
+    orgId: string;
+
+    @Field( () => [Date], { nullable: true })
+    createdTimeStamps: [Date];
+
+    @Field( () => [DogType], { nullable: true })
+    createdDogs: [Dog];
 
     @Field( () => [Date], { nullable: true })
     inProcessTimeStamps: [Date];

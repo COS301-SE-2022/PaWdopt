@@ -151,29 +151,31 @@ export class uploaddocPageComponent {
       if(user?.uid){
         this.userID = user.uid;
         console.log(this.userID);
+
+        //call the uploaddoc query
+        const uploadDocQuery = gql`
+        mutation {
+          uploadDoc(
+            adopterId: "${this.userID}",
+            type: "POR",
+            path: "${this.imagePORString}"
+          )
+
+        }
+      `;
+      this.apollo.mutate({
+        mutation: uploadDocQuery,
+        fetchPolicy: 'no-cache'
+      }).subscribe(({ data }) => {
+        console.log('got data', data);
+      },(error) => {
+        console.log('there was an error sending the query', error);
+      });
+
       }
     });
 
-    //call the uploaddoc query
-    const uploadDocQuery = gql`
-      mutation {
-        uploadDoc(
-          adopterId: "${this.userID}",
-          type: "POR",
-          path: "${this.imagePORString}"
-        )
-
-      }
-    `;
-    this.apollo.mutate({
-      mutation: uploadDocQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe(({ data }) => {
-      console.log('got data', data);
-    },(error) => {
-      console.log('there was an error sending the query', error);
-    });
-
+    
 
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);
@@ -213,28 +215,29 @@ export class uploaddocPageComponent {
       if(user?.uid){
         this.userID = user.uid;
         console.log(this.userID);
-      }
-    });
-
-    //call the uploaddoc query
+        //call the uploaddoc query
     const uploadDocQuery = gql`
-      mutation {
-        uploadDoc(
-          adopterId: "${this.userID}",
-          type: "BSS",
-          path: "${this.imageBSString}"
-        )
+    mutation {
+      uploadDoc(
+        adopterId: "${this.userID}",
+        type: "BSS",
+        path: "${this.imageBSString}"
+      )
 
+    }
+  `;
+  this.apollo.mutate({
+    mutation: uploadDocQuery,
+    fetchPolicy: 'no-cache'
+  }).subscribe(({ data }) => {
+    console.log('got data', data);
+  },(error) => {
+    console.log('there was an error sending the query', error);
+  });
       }
-    `;
-    this.apollo.mutate({
-      mutation: uploadDocQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe(({ data }) => {
-      console.log('got data', data);
-    },(error) => {
-      console.log('there was an error sending the query', error);
     });
+
+    
 
 
     const { role, data } = await actionSheet.onDidDismiss();
@@ -276,28 +279,29 @@ export class uploaddocPageComponent {
       if(user?.uid){
         this.userID = user.uid;
         console.log(this.userID);
-      }
-    });
-
-    //call the uploaddoc query
+        //call the uploaddoc query
     const uploadDocQuery = gql`
-      mutation {
-        uploadDoc(
-          adopterId: "${this.userID}",
-          type: "ML",
-          path: "${this.imageMLString}"
-        )
+    mutation {
+      uploadDoc(
+        adopterId: "${this.userID}",
+        type: "ML",
+        path: "${this.imageMLString}"
+      )
 
+    }
+  `;
+  this.apollo.mutate({
+    mutation: uploadDocQuery,
+    fetchPolicy: 'no-cache'
+  }).subscribe(({ data }) => {
+    console.log('got data', data);
+  },(error) => {
+    console.log('there was an error sending the query', error);
+  });
       }
-    `;
-    this.apollo.mutate({
-      mutation: uploadDocQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe(({ data }) => {
-      console.log('got data', data);
-    },(error) => {
-      console.log('there was an error sending the query', error);
     });
+
+    
 
 
     const { role, data } = await actionSheet.onDidDismiss();
@@ -339,28 +343,30 @@ export class uploaddocPageComponent {
       if(user?.uid){
         this.userID = user.uid;
         console.log(this.userID);
-      }
-    });
 
-    //call the uploaddoc query
+        //call the uploaddoc query
     const uploadDocQuery = gql`
-      mutation {
-        uploadDoc(
-          adopterId: "${this.userID}",
-          type: "ID",
-          path: "${this.imageIDString}"
-        )
+    mutation {
+      uploadDoc(
+        adopterId: "${this.userID}",
+        type: "ID",
+        path: "${this.imageIDString}"
+      )
 
+    }
+  `;
+  this.apollo.mutate({
+    mutation: uploadDocQuery,
+    fetchPolicy: 'no-cache'
+  }).subscribe(({ data }) => {
+    console.log('got data', data);
+  },(error) => {
+    console.log('there was an error sending the query', error);
+  });
       }
-    `;
-    this.apollo.mutate({
-      mutation: uploadDocQuery,
-      fetchPolicy: 'no-cache'
-    }).subscribe(({ data }) => {
-      console.log('got data', data);
-    },(error) => {
-      console.log('there was an error sending the query', error);
     });
+
+    
 
     
 
