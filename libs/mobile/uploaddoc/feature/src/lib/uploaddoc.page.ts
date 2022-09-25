@@ -366,10 +366,6 @@ export class uploaddocPageComponent {
       }
     });
 
-    
-
-    
-
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);
   }
@@ -424,4 +420,3 @@ export class uploaddocPageComponent {
   }
 
 }
-

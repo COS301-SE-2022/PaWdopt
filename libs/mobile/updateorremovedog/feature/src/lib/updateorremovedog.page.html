@@ -64,14 +64,14 @@
                     <div style="display: flex; flex-direction: column;">
                         <ion-label position="floating" class="testclass">Change Height (in cm)*</ion-label>
                       </div>
-                        <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: dog.height}" [(ngModel)]="inputHeight" pin="true"></ion-range>
+                        <ion-range [dualKnobs]="false" [value]="{ lower: dog.height, upper: dog.height}" [(ngModel)]="inputHeight" pin="true"></ion-range>
                         <ion-input class="form-input" disabled="true" id="height-field" clear-on-edit=false value="{{dog.height}}" [(ngModel)]="loadHeight">Current Height: &nbsp;</ion-input>
                 </ion-item>
                 <ion-item class="form-item">
                     <div style="display: flex; flex-direction: column;">
                         <ion-label position="floating" class="testclass">Change Weight (in kg)* </ion-label>
                       </div>
-                        <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: dog.weight }" [(ngModel)]="inputWeight" pin="true" required=""></ion-range>
+                        <ion-range [dualKnobs]="false" [value]="{ lower: dog.weight, upper: dog.weight }" [(ngModel)]="inputWeight" pin="true" required=""></ion-range>
                         <ion-input class="form-input" disabled="true" id="weight-field" clear-on-edit=false value="{{dog.weight}}" [(ngModel)]="loadWeight">Current Weight: &nbsp;</ion-input>
                 </ion-item>
                 <ion-item class="form-item">

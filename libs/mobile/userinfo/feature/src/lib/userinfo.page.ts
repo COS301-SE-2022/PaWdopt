@@ -9,6 +9,13 @@ import { Storage } from '@capacitor/storage'
   providers: [Apollo],
 })
 export class userinfoPageComponent {
+
+
+  IDstring!: string;
+  PORstring!: string;
+  BSSstring!: string;
+  MLstring!: string;
+
   user:{
     name: string,
     email: string,
@@ -35,28 +42,28 @@ export class userinfoPageComponent {
     }]
   };
 
-  ident:{
+  ID:{
     path: string
   } = {
-    path: "../../assets/local-file-not-found.png"
+    path: ""
   };
 
-  poR: {
+  POR: {
     path: string
   } = {
-    path: "../../assets/local-file-not-found.png"
+    path: ""
   };
 
-  bankState: {
+  BSS: {
     path: string
   } = {
-    path: "../../assets/local-file-not-found.png"
+    path: ""
   };
 
-  motivateLet: {
+  ML: {
     path: string
   } = {
-    path: "../../assets/local-file-not-found.png"
+    path: ""
   };
   
   t_ID!: string;
@@ -67,6 +74,27 @@ export class userinfoPageComponent {
    this.getUserId();
    console.log(this.t_ID);
   }
+  
+  showIDImage(){
+    // TODO: unhide pic
+    return this.IDstring;
+  }
+
+  showPORImage(){
+    // TODO: unhide pic
+    return this.PORstring;
+  }
+
+  showBSSImage(){
+    // TODO: unhide pic
+    return this.BSSstring;
+  }
+
+  showMLImage(){
+    // TODO: unhide pic
+    return this.MLstring;
+  }
+
 
   async getUserId() {
     this.t_ID = (await this.getObject()).uId;
@@ -110,6 +138,7 @@ export class userinfoPageComponent {
       this.user.name = data.findAdopterById.name;
       this.user.email = data.findAdopterById.email;
       this.user.pic = data.findAdopterById.pic;
+      this.user.documents = data.findAdopterById.documents;
       //this.user.location.lat = data.findAdopterById.location.lat;
       //this.user.location.lng = data.findAdopterById.location.lng;
       // console.log(this.user);
@@ -119,13 +148,17 @@ export class userinfoPageComponent {
       //Does not compare type and change path
         data.findAdopterById.documents.forEach(element => {
           if(element.type === "ID"){
-            this.ident.path = element.path;
-          }else if(element.type === "poR"){
-            this.poR.path = element.path;
-          }else if(element.type === "bank"){
-            this.bankState.path = element.path;
-          }else if(element.type === "motiv"){
-            this.motivateLet.path = element.path;
+            this.ID.path = element.path;
+            this.IDstring = element.path;
+          }else if(element.type === "POR"){
+            this.POR.path = element.path;
+            this.PORstring = element.path;
+          }else if(element.type === "BSS"){
+            this.BSS.path = element.path;
+            this.BSSstring = element.path;
+          }else if(element.type === "ML"){
+            this.ML.path = element.path;
+            this.MLstring = element.path;
           }
         })
       }
@@ -144,9 +177,9 @@ export class userinfoPageComponent {
     this.router.navigate(["/dashboard"]);
   }
 
-  idclick(){
-    this.router.navigate([this.ident.path]);
-  }
+  // idclick(){
+  //   this.router.navigate([this.ident.path]);
+  // }
 
 }
 
