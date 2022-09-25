@@ -81,7 +81,7 @@ export class orgprofilePageComponent {
 
 
   async getObject() {
-    const ret = await Storage.get({ key: 'dogID' });
+    const ret = await Storage.get({ key: 'orgToPref' });
     if(ret.value){
       return JSON.parse(ret.value);
     }
@@ -90,6 +90,7 @@ export class orgprofilePageComponent {
   async getOrg(){
     
     this.orgId = (await this.getObject()).name;
+    console.log(this.orgId);
     const findOrgByIdQuery = gql`query {
       findOrgById(_id: "${this.orgId}") {
         name
@@ -100,6 +101,7 @@ export class orgprofilePageComponent {
         }
         totalDogs
         totalAdoptions
+        logo
       }
     }`;
     this.apollo.watchQuery({
@@ -116,10 +118,11 @@ export class orgprofilePageComponent {
             lng: number,
           },
           totalDogs: number,
-          totalAdoptions: number
+          totalAdoptions: number,
+          logo: string
         }
       };
-    this.org = data.findOrgById; //if error then do each var indiv.
+    //this.org = data.findOrgById; //if error then do each var indiv.
     const date = new Date(this.org.dateFounded);
     this.dateString = (date.getDay() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()).toString();
     const latLng = data.findOrgById.location.lat + "," + data.findOrgById.location.lng;
