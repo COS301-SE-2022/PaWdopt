@@ -231,6 +231,12 @@ export class Statistic {
     orgId: string;
 
     @Prop()
+    createdTimeStamps: [Date];
+
+    @Prop()
+    createdDogs: [Dog];
+
+    @Prop()
     inProcessTimeStamps: [Date];
 
     @Prop()
