@@ -1,9 +1,10 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
-import { DogType, OrganisationType, ContactInfoType, AdopterType, OrgMemberType, ChatType, MessageObjType } from './api.dto';
+import { DogType, OrganisationType, ContactInfoType, AdopterType, OrgMemberType, ChatType, MessageObjType, DocType } from './api.dto';
 // import { Dog,  Organisation, Location, ContactInfo, Adopter} from './api.schema';
 
 import { Types } from 'mongoose';
+//import { Doc } from './api.schema';
 
 @Resolver()
 export class ApiResolver {
@@ -486,5 +487,22 @@ export class ApiResolver {
     async rejectAdoption(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<OrganisationType> {
         return this.DogService.rejectAdoption(orgId, adopterId, dogId);
     }
+
+    
+    /**
+     * used in uploaddoc page
+     * call uploadDoc
+     * @param adopterId
+     * @param type
+     * @param path
+     * @returns astring
+     */
+    @Mutation(() => String)
+    async uploadDoc(@Args('adopterId') adopterId: string, @Args('type') type: string, @Args('path') path: string) : Promise<string> {
+        return this.DogService.uploadDoc(adopterId, type, path);
+    }
+
+    
+
 
 }
