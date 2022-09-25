@@ -1122,7 +1122,27 @@ export class ApiService {
         }
     }
 
-    
+    /**
+     * used in userAdoption page
+     * get an org by orgmemberId
+     * @param {string} orgMemberId The id of the orgMember to find the org of
+     * @return {Organisation}
+     */
+    async findOrgByOrgmemberId(orgmemberId: string): Promise<Organisation> {
+        const orgMember = await this.OrgMemberModel.findOne({_id: orgmemberId}).exec();
+        if(orgMember == null){
+            throw new Error("OrgMember does not exist");
+        }
+        else{
+            const org = await this.OrganisationModel.findOne({_id: orgMember.organisation}).exec();
+            if(org == null){
+                throw new Error("Org does not exist");
+            }
+            else{
+                return org;
+            }
+        }
+    }
 
     
 
