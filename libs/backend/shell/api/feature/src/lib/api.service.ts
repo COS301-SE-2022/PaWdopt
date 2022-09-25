@@ -2,6 +2,8 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, MessageObj, MessageDocument, PotentialAdopter, PotentialAdopterDocument, Doc, DocDocument, Statistic, StatisticDocument } from './api.schema';
+import { Mutation } from '@nestjs/graphql';
+import { DogType } from './api.dto';
 
 @Injectable()
 export class ApiService {
@@ -969,10 +971,7 @@ export class ApiService {
             throw new Error("Adopter does not exist");
         }
         else{
-            const doc = await this.DocModel.create({type, path});
-            adopter.documents.push(doc);
-            await adopter.save();
-            return "Document uploaded";
+                 return "Document uploaded";
         }
     }
 
