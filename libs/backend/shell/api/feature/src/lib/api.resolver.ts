@@ -163,7 +163,9 @@ export class ApiResolver {
         await this.DogService.updateOrg(orgId, org);
         dog._id = (new Types.ObjectId()).toHexString();
         dog.organisation = org;
-        return this.DogService.createDog(dog);
+        const dog1 = this.DogService.createDog(dog);
+        await this.DogService.addCreatedDog(orgId, dog._id);
+        return dog1;
     }
 
     /**
@@ -227,6 +229,7 @@ export class ApiResolver {
         const orgId = (await this.DogService.findDogById(dogId)).organisation._id;
         await this.DogService.addAdopterToOrgPotentialAdopters(orgId, userId, dogId);
         await this.DogService.createChat(orgId, userId, dogId);
+        await this.DogService.addInProcessDog(dogId, orgId);
         return this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
          
     }
@@ -241,6 +244,7 @@ export class ApiResolver {
         org._id = (new Types.ObjectId()).toHexString();
         org.contactInfo._id = (new Types.ObjectId()).toHexString();
         org.contactInfo = await this.DogService.createContactInfo(org.contactInfo);
+        await this.DogService.createStatistic(org._id);
         return this.DogService.createOrg(org);
     }
 
@@ -371,6 +375,7 @@ export class ApiResolver {
      */
     @Mutation(() => DogType)
     async deleteDog(@Args('dogId') dogId: string) : Promise<DogType> {
+        
         return this.DogService.deleteDog(dogId);
     }
 
@@ -479,14 +484,16 @@ export class ApiResolver {
     /**
      * used in userAdoption page
      * call rejectAdoption
-     * @param orgId
+     * @param orgmemberId
      * @param adopterId
      * @param dogId
      * @returns Organisation
      */
-    @Mutation(() => String)
-    async rejectAdoption(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<OrganisationType> {
-        return this.DogService.rejectAdoption(orgId, adopterId, dogId);
+    @Mutation(() => OrganisationType)
+    async rejectAdoption(@Args('orgmemberId') orgmemberId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<OrganisationType> {
+        const org = await this.DogService.findOrgByOrgmemberId(orgmemberId);
+        await this.DogService.addRejectedDog(dogId, org._id);
+        return this.DogService.rejectAdoption(org._id, adopterId, dogId);
     }
 
     
