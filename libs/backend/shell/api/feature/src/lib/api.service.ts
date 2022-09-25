@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, MessageObj, MessageDocument, PotentialAdopter, PotentialAdopterDocument, Doc, DocDocument } from './api.schema';
+import { Dog, DogDocument, Organisation, OrganisationDocument, Adopter, AdopterDocument, OrgMember, OrgMemberDocument, ContactInfo, ContactInfoDocument, Location, LocationDocument, Chat, ChatDocument, MessageObj, MessageDocument, PotentialAdopter, PotentialAdopterDocument, Doc, DocDocument, Statistic, StatisticDocument } from './api.schema';
 
 @Injectable()
 export class ApiService {
@@ -16,6 +16,7 @@ export class ApiService {
         @InjectModel(MessageObj.name) private readonly MessageModel : Model<MessageDocument>,
         @InjectModel(PotentialAdopter.name) private readonly PotentialAdopterModel : Model<PotentialAdopterDocument>,
         @InjectModel(Doc.name) private readonly DocModel : Model<DocDocument>,
+        @InjectModel(Statistic.name) private readonly StatisticModel : Model<StatisticDocument>
         ) {}
 
     /**
@@ -974,6 +975,146 @@ export class ApiService {
             return "Document uploaded";
         }
     }
+
+    /**
+     * used in addorg page
+     * creates a statistic using an orgID
+     * @param {string} orgId The id of the org to find
+     * @return {string}
+     */
+    async createStatistic(orgId: string): Promise<string> {
+        const org = await this.OrganisationModel.findOne({_id: orgId}).exec();
+        if(org == null){
+            throw new Error("Org does not exist");
+        }
+        else{
+            const statistic = await this.StatisticModel.create({orgId});
+            return "Statistic created";
+        }
+    }
+
+    
+    /**
+     * used in adddog page
+     * adds a dog to a Statistics createdDogs and adds a timestamp of the current date to the createdTimeStamp array
+     * @param {string} dogId The id of the dog to find
+     * @param {string} orgId The id of the statistic for the org to find
+     * @return {string}
+     */
+     async addCreatedDog(dogId: string, orgId: string): Promise<string> {
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        else{
+            const statistics = await this.StatisticModel.findOne({orgId}).exec();
+            if(statistics == null){
+                throw new Error("Statistics does not exist");
+            }
+            else{
+                statistics.createdDogs.push(dog);
+                statistics.createdTimeStamps.push(new Date());
+                await statistics.save();
+                return "Dog added to in process";
+            }
+        }
+    }
+
+
+    /**
+     * used in dashboard page
+     * adds a dog to a Statistics inProcessDogs and adds a timestamp of the current date to the inProcessTimeStamp array
+     * @param {string} dogId The id of the dog to find
+     * @param {string} orgId The id of the statistic for the org to find
+     * @return {string}
+     */
+    async addInProcessDog(dogId: string, orgId: string): Promise<string> {
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        else{
+            const statistics = await this.StatisticModel.findOne({orgId}).exec();
+            if(statistics == null){
+                throw new Error("Statistics does not exist");
+            }
+            else{
+                statistics.inProcessDogs.push(dog);
+                statistics.inProcessTimeStamps.push(new Date());
+                await statistics.save();
+                return "Dog added to in process";
+            }
+        }
+    }
+
+    /**
+     * used in userAdoption page
+     * adds a dog to a Statistics AdoptedDogs and adds a timestamp of the current date to the AdoptedTimeStamp array
+     * @param {string} dogId The id of the dog to find
+     * @param {string} orgId The id of the statistic for the org to find
+     * @return {string}
+     */
+     async addAdoptedDog(dogId: string, orgId: string): Promise<string> {
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        else{
+            const statistics = await this.StatisticModel.findOne({orgId}).exec();
+            if(statistics == null){
+                throw new Error("Statistics does not exist");
+            }
+            else{
+                statistics.adoptedDogs.push(dog);
+                statistics.adoptedTimeStamps.push(new Date());
+                await statistics.save();
+                return "Dog added to adopted";
+            }
+        }
+    }
+
+    /**
+     * used in userAdoption page
+     * adds a dog to a Statistics rejectedDogs and adds a timestamp of the current date to the rejectedTimeStamp array
+     * @param {string} dogId The id of the dog to find
+     * @param {string} orgId The id of the statistic for the org to find
+     * @return {string}
+     */
+     async addRejectedDog(dogId: string, orgId: string): Promise<string> {
+        const dog = await this.DogModel.findOne({_id: dogId}).exec();
+        if(dog == null){
+            throw new Error("Dog does not exist");
+        }
+        else{
+            const statistics = await this.StatisticModel.findOne({orgId}).exec();
+            if(statistics == null){
+                throw new Error("Statistics does not exist");
+            }
+            else{
+                statistics.rejectedDogs.push(dog);
+                statistics.rejectedTimeStamps.push(new Date());
+                await statistics.save();
+                return "Dog added to rejected";
+            }
+        }
+    }
+
+    /**
+     * used in orgProfile page
+     * get a statistic by orgId
+     * @param {string} orgId The id of the org to find
+     * @return {Statistic}
+     */
+    async getStatistic(orgId: string): Promise<Statistic> {
+        const statistics = await this.StatisticModel.findOne({orgId}).exec();
+        if(statistics == null){
+            throw new Error("Statistics does not exist");
+        }
+        else{
+            return statistics;
+        }
+    }
+    
 
     
 
