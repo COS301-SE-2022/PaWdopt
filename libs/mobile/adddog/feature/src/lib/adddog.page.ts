@@ -45,7 +45,39 @@ export class AdddogPageComponent {
     upper: number;
   };
 
+  fieldvalidate(){
+    //TODO: Make validation better
+    let valid = true;
+    if(this.inputName == null || this.inputName == ""){
+      valid = false;
+    }
+    if(this.inputBreed == null || this.inputBreed == ""){
+      valid = false;
+    }
+    if(this.inputDOB == null){
+      valid = false;
+    }
+    if(this.inputAbout == null || this.inputAbout == ""){
+      valid = false;
+    }
+    if(this.inputFurlength == null || this.inputFurlength == ""){
+      valid = false;
+    }
+    if(this.inputTemperament == null || this.inputTemperament == ""){
+      valid = false;
+    }
+    if(this.inputGender == null || this.inputGender == ""){
+      valid = false;
+    }
+    return valid;
+  }  
+
+
   addDog(){
+
+    if(!this.fieldvalidate())
+      return;
+
     this.afAuth.currentUser.then(user => {
       this.uid = user?.uid;
       console.log(this.uid);
