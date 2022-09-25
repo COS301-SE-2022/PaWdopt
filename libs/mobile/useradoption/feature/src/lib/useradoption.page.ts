@@ -98,7 +98,7 @@ export class useradoptionPageComponent {
       this.dog._id = data.findDogById._id;
       this.dog.name = data.findDogById.name;
       //this.dog.age needs to be calculated from dob
-      this.dog.age = new Date(data.findDogById.dob).getFullYear() - new Date().getFullYear();
+      this.dog.age = new Date().getFullYear() - new Date(data.findDogById.dob).getFullYear();
       this.dog.breed = data.findDogById.breed;
       this.dog.pic = data.findDogById.pics[0];
       this.dog.about = data.findDogById.about;
@@ -146,7 +146,7 @@ export class useradoptionPageComponent {
     this.afAuth.currentUser.then((user) => {
       const currentUser = user?.uid;
       const rejectAdoptionQuery = gql ` mutation{
-      rejectAdoption(orgId: "${currentUser}", adopterId: "${this.userId}", dogId: "${this.dogId}"){
+      rejectAdoption(orgmemberId: "${currentUser}", adopterId: "${this.userId}", dogId: "${this.dogId}"){
         name
       }
       }`;
@@ -164,6 +164,20 @@ export class useradoptionPageComponent {
     if (ret.value) {
       return JSON.parse(ret.value);
     }
+  }
+
+  async setObject() {
+    await Storage.set({
+    key: 'userId',
+    value: JSON.stringify({
+      uId: this.userId
+      })
+    });
+  }
+
+  seeInfo(){
+    this.setObject();
+    this.router.navigate(["/userinfo"]);
   }
 
 
