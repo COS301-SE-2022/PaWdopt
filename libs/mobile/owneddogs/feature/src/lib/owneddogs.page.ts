@@ -33,21 +33,27 @@ export class owneddogsPageComponent {
   }[]=[]
 
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
-    this.showLoading();
+
+    // this.showLoading();
+
+    // this.getDog(false);
+  }
+
+  async ionViewWillEnter(){
+    await this.showLoading();
     this.getDog(false);
   }
 
   async showLoading() {
     const loading = await this.loadingCtrl.create({
       message: 'Waiting for dogs, if no dogs appear you will need to add them...',
-      duration: 10000,
+      duration: 2000,
     });
 
     loading.present();
   }
 
   getDog(search: boolean){
-    this.showLoading();
     this.dog=[]
     this.afAuth.currentUser.then(user => {
       this.uid = user?.uid;
@@ -69,6 +75,22 @@ export class owneddogsPageComponent {
             }
           }
           this.orgId = data.findOrgMemberById.organisation;
+          const getOrgNameQuery = gql`query {
+            findOrgById(_id: "${this.orgId}") {
+              name
+            }
+          }`;
+          this.apollo.watchQuery({
+            query: getOrgNameQuery,
+            fetchPolicy: 'no-cache'
+          }).valueChanges.subscribe((result) => {
+            const data = result.data as {
+              findOrgById: {
+                name: string
+              }
+            }
+            this.orgName = data.findOrgById.name;
+            
           const getDogQuery = gql`query {
             findDogsByOrgId(_id: "${this.orgId}") {
               _id
@@ -106,9 +128,6 @@ export class owneddogsPageComponent {
                 }
               }[]
             };
-            if (data.findDogsByOrgId[0]) {
-              this.orgName = data.findDogsByOrgId[0].organisation.name;
-            }
             // this.dog.name = data.findDog.name;
             // this.dog.pic = data.findDog.pics[0].path;
             // this.dog.breed = data.findDog.breed;
@@ -171,22 +190,22 @@ export class owneddogsPageComponent {
               );
             })
           }
+          });
         });
       });
-      }else{
-        console.log("No user logged in");
-      }
-    });    
+    }
+    });
   }
 
+
   dashboard(id: string){
-    this.setObject(id);
+    this.setObject3(id);
     console.log(id);
     this.router.navigate(["/dashboard"]);
   }
 
-  update(id: string){
-    this.setObject(id);
+  async update(id: string){
+    await this.setObject2(id);
     this.router.navigate(["/updateorremovedog"]);
   }
 
@@ -194,6 +213,26 @@ export class owneddogsPageComponent {
   async setObject(id: string) {
     await Storage.set({
     key: 'orgToPref',
+    value: JSON.stringify({
+      id: 1,
+      name: id
+      })
+    });
+  }
+
+  async setObject2(id: string) {
+    await Storage.set({
+    key: 'fromUpdatePage',
+    value: JSON.stringify({
+      id: 1,
+      name: id
+      })
+    });
+  }
+
+  async setObject3(id: string) {
+    await Storage.set({
+    key: 'ownedToDashboard',
     value: JSON.stringify({
       id: 1,
       name: id
@@ -221,8 +260,8 @@ export class owneddogsPageComponent {
     this.router.navigate(["/orgprofile"]);
   }
 
-  preferences(){
-    this.setObject(this.orgId);
+  async preferences(){
+    await this.setObject(this.orgId);
     this.router.navigate(["/orgsettings"]);
     //this.router.navigate(["/userinfo"]); Not implemented yet
   }
