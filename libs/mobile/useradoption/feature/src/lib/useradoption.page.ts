@@ -157,6 +157,7 @@ export class useradoptionPageComponent {
         console.log(result);
       });
     });
+    this.router.navigate(['/owneddogs']);
   }
 
   onDecline() {

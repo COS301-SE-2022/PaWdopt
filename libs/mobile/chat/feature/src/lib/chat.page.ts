@@ -166,6 +166,7 @@ export class chatPageComponent {
                       userId
                       message
                     }
+                    dogId
                   }
                 }`;
 
@@ -180,10 +181,11 @@ export class chatPageComponent {
                         userId: string,
                         message: string
                       }[]
+                      dogId: string
                     }
                   }
                   //add the messages to the messages array using a foreach
-
+                  this.dogId = data.findChatByOrgIdAndAdopterId.dogId;
                   const getAdopterNameQuery = gql`query {
                     findAdopterById(_id: "${this.userID}"){
                       name
@@ -227,7 +229,7 @@ export class chatPageComponent {
   sendMessage(){     
     if(this.currentUserId == this.userID){
       const messageQuery = gql`mutation {
-        sendMessage(orgId: "${this.orgID}", adopterId: "${this.userID}", senderId: "${this.currentUserId}", message: "${this.newMsg}"){
+        sendMessage(orgId: "${this.orgID}", adopterId: "${this.userID}", senderId: "${this.currentUserId}", message: "${this.newMsg}", dogId: "${this.dogId}"){
           orgId
         }
       }`;
@@ -241,7 +243,7 @@ export class chatPageComponent {
       });
     }else{
       const messageQuery = gql`mutation {
-        sendMessage(orgId: "${this.orgID}", adopterId: "${this.userID}", senderId: "${this.orgID}", message: "${this.newMsg}"){
+        sendMessage(orgId: "${this.orgID}", adopterId: "${this.userID}", senderId: "${this.orgID}", message: "${this.newMsg}", dogId: "${this.dogId}"){
           orgId
         }
       }`;
