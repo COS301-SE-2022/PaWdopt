@@ -798,8 +798,8 @@ export class ApiService {
      * @param {string} message The message to send
      * @return {Promise<Chat || null>}
      */
-    async sendMessage(orgId: string, adopterId: string, senderId: string, message: string): Promise<Chat | null> {
-        const chat = await this.ChatModel.findOne({orgId, adopterId}).exec();
+    async sendMessage(orgId: string, adopterId: string, senderId: string, message: string, dogId : string): Promise<Chat | null> {
+        const chat = await this.ChatModel.findOne({orgId : orgId, adopterId : adopterId, dogId : dogId}).exec();
         if(chat == null){
             throw new Error("Chat does not exist");
         }else{
@@ -825,7 +825,7 @@ export class ApiService {
         chat.disabled = false;
         const message = "Hello, the adoption process has begun! Please keep an eye out for further communication from us.";
         await this.ChatModel.create(chat);
-        return this.sendMessage(orgId, adopterId, orgId, message);
+        return this.sendMessage(orgId, adopterId, orgId, message, dogId);
     }
 
     /**
@@ -855,8 +855,7 @@ export class ApiService {
                 }
                 else{
                     const message = "We are sorry to inform you that your adoption request has been rejected.";
-                    const msg = await this.MessageModel.create({orgId, message});
-                    chat.messages.push(msg);
+                    await this.sendMessage(orgId, adopterId, orgId, message, dogId);
                     chat.disabled = true;
                     await chat.save();
                     org.potentialAdopters.forEach(potentialAdopter => {
@@ -889,8 +888,7 @@ export class ApiService {
         }
         else{
             const message = "We are happy to inform you that your adoption request has been accepted. Please click the Appointment icon on the bottom right to book an appointment to collect the dog.";
-            const msg = await this.MessageModel.create({orgId, message});
-            chat.messages.push(msg);
+            await this.sendMessage(orgId, adopterId, orgId, message, dogId);
             await chat.save();
             return "Adoption accepted";
         }
@@ -939,8 +937,7 @@ export class ApiService {
                                 const tempId = potentialAdopter.adopter._id;
                                 const tempChat = await this.ChatModel.findOne({orgId, tempId}).exec();
                                 const message = "We are sorry to inform you that the dog you were interested in has been adopted.";
-                                const msg = await this.MessageModel.create({orgId, message});
-                                tempChat.messages.push(msg);
+                                await this.sendMessage(orgId, adopterId, orgId, message, dogId);
                                 tempChat.disabled = true;
                                 await tempChat.save();
                                 org.potentialAdopters.splice(org.potentialAdopters.indexOf(potentialAdopter), 1);
@@ -949,7 +946,8 @@ export class ApiService {
                         org.totalDogs--;
                         org.totalAdoptions++;
                         await org.save();
-                        dog.organisation = null;
+                        const tempOrg = await this.OrganisationModel.findOne({_id: "63315585d52e1e551f5aad40"}).exec();
+                        dog.organisation = tempOrg;
                         await dog.save();
                         const allAdopters = await this.AdopterModel.find({}).exec();
                         allAdopters.forEach(async adopter => {
@@ -1022,7 +1020,7 @@ export class ApiService {
                 statistics.createdDogs.push(dog);
                 statistics.createdTimeStamps.push(new Date());
                 await statistics.save();
-                return "Dog added to in process";
+                return "Dog added to created";
             }
         }
     }

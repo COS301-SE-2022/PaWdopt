@@ -259,7 +259,9 @@ type Mutation {
   updateDog(dogId: String!, breed: String!, gender: String!, dob: DateTime!, about: String!, height: Float!, weight: Float!, furlength: String!, temperament: [String!]!): DogType!
   deleteDog(dogId: String!): DogType!
   createChat(orgId: String!, adopterId: String!, dogId: String!): ChatType!
-  sendMessage(orgId: String!, adopterId: String!, senderId: String!, message: String!): ChatType!
+  sendMessage(orgId: String!, adopterId: String!, senderId: String!, message: String!, dogId: String!): ChatType!
   rejectAdoption(orgmemberId: String!, adopterId: String!, dogId: String!): OrganisationType!
+  acceptAdoption(orgmemberId: String!, adopterId: String!, dogId: String!): String!
+  completeAdoption(orgmemberId: String!, adopterId: String!, dogId: String!): String!
   uploadDoc(adopterId: String!, type: String!, path: String!): String!
 }

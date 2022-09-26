@@ -24,8 +24,15 @@ export class appointmentpagePageComponent {
   // startTime!: string;
   // endTime!: string;
 
+  orgID!: string;
+  userID!: string;
+  dogId!: string;
+
+  
+  
+
   constructor(private router: Router, private apollo: Apollo){
-    
+
   }
 
   async makeAppointment(){
@@ -49,32 +56,43 @@ export class appointmentpagePageComponent {
     //   }
     // });
     
-    
-    //get the orgID and the userID from local Storage
-    const orgID = (await this.getObject()).orgID;
-    const userID = (await this.getObject()).userID;
-    const messageToSend = "Appointment booked for: " + this.inputName + " at " + this.inputLocation + " on " + this.inputStartDate + " to " + this.inputEndDate;
+    this.orgID = (await this.getObject()).orgId;
+    this.userID = (await this.getObject()).userId;
+    this.dogId = (await this.getObject2()).dogId;
+    console.log(this.orgID + " " + this.userID + " " + this.dogId);
+    // //get the orgID and the userID from local Storage
+    // const orgID = (await this.getObject()).orgID;
+    // const userID = (await this.getObject()).userID;
+    // const dogId = (await this.getObject2()).dogId;
+    const messageToSend = "Appointment booked for: " + this.inputName + " on " + this.inputStartDate + " to " + this.inputEndDate;
     //sendMessage query
     const sendMessage = gql`
       mutation { 
-        sendMessage(orgId: "${orgID} ", adopterId: "${userID}", senderId: "${userID}", message: "${messageToSend}"){
-        chatId
+        sendMessage(orgId: "${this.orgID}", adopterId: "${this.userID}", senderId: "${this.userID}", message: "${messageToSend}", dogId: "${this.dogId}"){
+        adopterId
       }
     }`;
     this.apollo.mutate({
-      mutation: sendMessage
+      mutation: sendMessage,
+      fetchPolicy: 'no-cache'
     }).subscribe(({ data }) => {
       console.log('got data', data);
+      
+      this.router.navigate(['/chat']);
     },(error) => {
       console.log('there was an error sending the query', error);
     });
-    
-    
-    return;
   }
 
   async getObject() {
     const ret = await Storage.get({ key: 'appointmentId' });
+    if(ret.value){
+      return JSON.parse(ret.value);
+    }
+  }
+
+  async getObject2() {
+    const ret = await Storage.get({ key: 'fromChatToApp' });
     if(ret.value){
       return JSON.parse(ret.value);
     }

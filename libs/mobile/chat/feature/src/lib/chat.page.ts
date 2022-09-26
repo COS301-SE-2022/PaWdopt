@@ -17,6 +17,7 @@ export class chatPageComponent {
   userID ?: string;
   orgID !: string;
   chateeName ?: string;
+  dogId ?: string;
   
   messages: { 
     user?: string;
@@ -40,6 +41,15 @@ export class chatPageComponent {
     if(ret.value){
       return JSON.parse(ret.value);
     }
+  }
+
+  async setObject2(){
+    await Storage.set({
+      key: 'fromChatToApp',
+      value: JSON.stringify({
+        dogId: this.dogId
+      })
+    });
   }
 
 
@@ -74,6 +84,7 @@ export class chatPageComponent {
                     message
                   },
                   disabled
+                  dogId
                 }
               }`;
 
@@ -88,10 +99,12 @@ export class chatPageComponent {
                       userId: string,
                       message: string
                     }[],
-                    disabled: boolean
+                    disabled: boolean,
+                    dogId: string
                   }
                 }
                 this.disabled = data.findChatByOrgIdAndAdopterId.disabled;
+                this.dogId = data.findChatByOrgIdAndAdopterId.dogId;
                 //add the messages to the messages array using a foreach
                 
 
@@ -256,8 +269,10 @@ export class chatPageComponent {
   back(){
      this.router.navigate(["/chatlist"]);
   }
-  appointmentPage(){
-    this.setObject();
+
+  async appointmentPage(){
+    await this.setObject();
+    await this.setObject2();
     this.router.navigate(['/appointmentpage']);
   }
   signup(){
