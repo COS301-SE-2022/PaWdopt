@@ -289,7 +289,7 @@ export class OrgSettingsPageComponent {
     this.router.navigate(["/login"]);
   }
 
-  chat(){
+  gotoChat(){
     this.router.navigate(["/chatlist"]);
   }
 

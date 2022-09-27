@@ -125,7 +125,6 @@ export class adoptionprocessPageComponent {
             })
           }
           })
-
         })
       }
     })
@@ -166,7 +165,11 @@ export class adoptionprocessPageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/orgsettings"]);
+  }
+
+  back(){
+    this.router.navigate(["/owneddogs"]);
   }
 
 }
