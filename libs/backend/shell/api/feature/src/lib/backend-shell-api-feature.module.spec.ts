@@ -1,4 +1,3 @@
-import { Adopter } from './api.schema';
 import { Test } from '@nestjs/testing';
 import { BackendShellApiFeatureModule } from './backend-shell-api-feature.module';
 import { ApiService } from './api.service';
@@ -27,7 +26,7 @@ describe('BackendShellApiFeatureModule', () => {
     it('should create an instance', () => {
         expect(app).toBeDefined();
     });
-    
+
     afterAll(async () => {
         await app.close();
     });

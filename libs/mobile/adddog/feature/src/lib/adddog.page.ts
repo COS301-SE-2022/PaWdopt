@@ -1,3 +1,4 @@
+import { HttpException } from '@nestjs/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
@@ -39,7 +40,6 @@ export class AdddogPageComponent {
   };
 
   fieldvalidate(){
-    //TODO: Make validation better
     //This checks if all fields are empty and then returns false
     let valid = true;
     if(this.inputName == null || this.inputName == ""){
@@ -229,13 +229,12 @@ export class AdddogPageComponent {
     bodyContent.append("image", data[1]);
     bodyContent.append("extension", image_type[1]);
 
-    //! TODO Change this to a real endpoint
     return fetch("http://localhost:3333/predict", {
       method: "POST",
       body: bodyContent,
       headers: headersList
     }).then(function(response) {
       return response.text();
-    });
+    }).catch(function(error){throw new HttpException(error, 500)});
   }
 }
