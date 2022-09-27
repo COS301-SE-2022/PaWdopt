@@ -3,13 +3,10 @@ import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-// import { SharedMlFeatureModule } from '@pawdopt/shared/ml/feature';
 
 // Capacitor Imports
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-// import { Filesystem, Directory } from '@capacitor/filesystem';
-// import { Storage } from '@capacitor/storage';
-// import { handleRetry } from '@nestjs/mongoose/dist/common/mongoose.utils';
+
 
 @Component({
   selector: 'pawdopt-adddog',
