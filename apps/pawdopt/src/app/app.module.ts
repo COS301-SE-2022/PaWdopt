@@ -11,10 +11,6 @@ import {HttpLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { SharedDataStoreModule } from '@pawdopt/shared/data-store';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 // import { AngularFireStorageModule } from '@angular/fire/compat/storage';
@@ -36,9 +32,6 @@ import { APP_CONFIG } from '@pawdopt/config';
     HammerModule,
     ApolloModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
-    SharedDataStoreModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,

@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
+import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Storage } from '@capacitor/storage';
 import { LoadingController } from '@ionic/angular';
@@ -13,7 +12,7 @@ import { APP_CONFIG } from '@pawdopt/config';
   selector: 'pawdopt-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  providers: [Apollo, VarsFacade]
+  providers: [Apollo]
 })
 export class HomePage {
 
@@ -61,7 +60,7 @@ export class HomePage {
    t_ID: string;
   loading: Promise<HTMLIonLoadingElement>;
 
-    constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth, private loadingCtrl: LoadingController, private geolocation: Geolocation, private platform: Platform, @Inject(APP_CONFIG) private appConfig: any) {
+    constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private loadingCtrl: LoadingController, private geolocation: Geolocation, private platform: Platform, @Inject(APP_CONFIG) private appConfig: any) {
       this.t_ID = "";
       this.currentIndex = -1;
       this.loading = this.loadingCtrl.create({
