@@ -59,10 +59,14 @@ export class HomePage {
   results : string[] = []; //to show the liked/disliked dogs
   storeIndex: number[] = [];
    t_ID: string;
+  loading: Promise<HTMLIonLoadingElement>;
 
     constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth, private loadingCtrl: LoadingController, private geolocation: Geolocation, private platform: Platform, @Inject(APP_CONFIG) private appConfig: any) {
       this.t_ID = "";
       this.currentIndex = -1;
+      this.loading = this.loadingCtrl.create({
+        message: 'Loading...',
+      });
       //this.getGeolocation(); // might have to add this to the ionViewWillEnter
       // this.setObject();
       this.fireAuth.currentUser.then(user => {
@@ -94,6 +98,9 @@ export class HomePage {
         .then(jsonData => {
             this.address = jsonData.results[0].formatted_address;
             console.log("Address:" + this.address);
+            this.loading = this.loadingCtrl.create({
+              message: 'Finding Dogs closest to ' + this.address,
+            });
             this.showLoading();
         })
         .catch(error => {
@@ -123,14 +130,13 @@ export class HomePage {
     return deg * (Math.PI/180)
   }
 
-    async showLoading() {
-      const loading = await this.loadingCtrl.create({
-        message: 'Finding Dogs closest to ' + this.address,
-        duration: 2000,
-      });
-  
-      loading.present();
-    }
+  async showLoading() {
+    (await this.loading).present();
+  }
+
+  async hideLoading() {
+    (await this.loading).dismiss();
+  }
 
     async setObject() {
       await Storage.set({
@@ -236,7 +242,8 @@ export class HomePage {
           pics: string[]
         }[];
       }
-      
+      if(data.findDogs.length <= 0)
+        this.hideLoading();
       data.findDogs.forEach(element => {
         tempDate = new Date(element.dob);
         sage = myDate.getFullYear() - tempDate.getFullYear();
@@ -364,6 +371,7 @@ export class HomePage {
         this.avatars = [];
         this.avatars = temp;
         console.log(this.avatars);
+        this.hideLoading();
       });
     });
     //we have filtered out the dogs
@@ -453,7 +461,8 @@ export class HomePage {
   }
 
   locationPicked(){
-    this.showLoading();
+    // this.showLoading();
+    // this.hideLoading();
   }
 
   home(){
