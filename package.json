@@ -28,6 +28,8 @@
         "@capacitor/storage": "^1.2.5",
         "@ionic-native/core": "^5.36.0",
         "@ionic-native/geolocation": "^5.36.0",
+        "@ionic-native/native-geocoder": "^5.36.0",
+        "@google-cloud/aiplatform": "^2.1.0",
         "@ionic/angular": "^6.1.7",
         "@nestjs/apollo": "^10.0.13",
         "@nestjs/axios": "^0.1.0",
