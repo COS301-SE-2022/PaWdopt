@@ -84,8 +84,6 @@ export class appointmentpagePageComponent {
     });
     
     this.router.navigate(["/chat"]);
-    
-    return;
   }
 
   async getObject() {
