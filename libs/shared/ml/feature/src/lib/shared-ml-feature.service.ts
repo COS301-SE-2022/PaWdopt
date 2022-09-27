@@ -1,4 +1,4 @@
-import {  Injectable } from '@nestjs/common';
+import {  HttpException, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { PredictionServiceClient } from '@google-cloud/aiplatform'
 import { GoogleAuth } from 'google-auth-library'
@@ -12,39 +12,35 @@ export class SharedMlFeatureService {
 
   constructor(private readonly httpService: HttpService, private client: PredictionServiceClient) {}
 
-    async postToML(image: {
-      data,
-      mimetype
-    }){
+    // async postToML(imageFile){
+    async postToML(image: {image: string, extension:string}){      
 
         // Vertex Version
         // const targetAudience = 'https://breed-detector-gen2-r6xhtxonga-uc.a.run.app'
 
         // Cloud Run Version
-        const targetAudience = 'https://breed-detector-ml-r6xhtxonga-uc.a.run.app'
+        // const targetAudience = 'https://breed-detector-ml-r6xhtxonga-uc.a.run.app'
+
+        // Vertex V2
+        // const targetAudience = 'https://us-central1-pawdopt-7949c.cloudfunctions.net/ml-service'
         
 
-        const url = `${targetAudience}:8080`;
-        const auth = new GoogleAuth();
-        const client = await auth.getIdTokenClient(targetAudience)
+        // const url = `${targetAudience}`;
+        // const auth = new GoogleAuth();
+        // const client = await auth.getIdTokenClient(targetAudience)
 
-        const data = image.data;
-        const image_type = image.mimetype.split("/");
-    
-        const bodyContent = {
-          image: data,
-          extension: image_type[1]
-        }
+        // console.log(imageFile)
         
-        const response = await client.request({url, body:JSON.stringify(bodyContent), method:"POST", headers: {'Content-Type': 'application/json'}})
-        return response.data;
+        // const response = await client.request({url, data: imageFile, method:"POST", headers: {'Content-Type': 'application/json'}})
+        // return response.data;
+      console.log(image)
 
-      //  return await this.httpService.axiosRef.post("http://localhost:5000/predict", 
-        //   bodyContent,{headers: {'content-type': 'multipart/form-data'}}
-        // ).then((response) => {
-        //   console.log(response)
-          // return response.data;
-        // });
+       return await this.httpService.axiosRef.post("http://localhost:5000/predict", 
+          image,{headers: {'content-type': 'application/json'}}
+        ).then((response) => {
+          console.log(response)
+          return response.data;
+        }).catch((error) => new HttpException(error, 500));
 
       // gcloud vertexAI request
       // const projectId = process.env.PROJECT_ID;

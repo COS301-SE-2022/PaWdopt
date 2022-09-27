@@ -13,11 +13,8 @@ import { PredictionServiceClient } from '@google-cloud/aiplatform'
 export class SharedMlFeatureModule {
   constructor(private mlService: SharedMlFeatureService){}
   
-  async postToML(image: {
-    data,
-    mimetype
-  }){
-    return await this.mlService.postToML(image);
+  async postToML(imageFile){
+    return await this.mlService.postToML(imageFile);
   }
 
 }
