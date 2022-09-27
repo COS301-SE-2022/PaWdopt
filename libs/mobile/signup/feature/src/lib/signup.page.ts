@@ -26,22 +26,26 @@ export class SignupPageComponent {
   
   imageString!: string;
   apiKey: string;
+  loading: Promise<HTMLIonLoadingElement>;
+  hideImage: boolean;
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private actionSheetController: ActionSheetController, private alertController: AlertController, private http: HttpClient, private loadingCtrl: LoadingController) {
     this.uid = "";
     this.imageString = "";
-
+    this. hideImage = true;
     this.apiKey = "cbc1406a-451d-4d04-8a49-76ac229e64a6";
+    this.loading = this.loadingCtrl.create({
+      message: 'Loading...',
+    });
   }
   
   //An image has to be uploaded in order for the query to go through, double check this!
   async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Loading...',
-      duration: 2000,
-    });
+    (await this.loading).present();
+  }
 
-    loading.present();
+  async hideLoading() {
+    (await this.loading).dismiss();
   }
 
   async signUp(){
@@ -88,6 +92,7 @@ export class SignupPageComponent {
       mutation: addUser,
     }).subscribe(({data}) => {
       console.log('got data', data);
+      this.hideLoading();
       this.router.navigate(["/home"]);
     });
   }
@@ -213,6 +218,7 @@ export class SignupPageComponent {
   //function to show the image that is uploaded 
   showImage(){
     // TODO: unhide pic
+    this.hideImage = false;
     return this.imageString;
   }
 

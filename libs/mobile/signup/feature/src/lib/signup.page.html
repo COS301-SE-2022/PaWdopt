@@ -9,8 +9,8 @@
     <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
     <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">
         <ion-icon name="cloud-upload-outline"></ion-icon>&nbsp;Upload a picture</ion-button>
-    <div class="imageContainer">
-        <ion-img [src]="imageToShow" class="uploadedImage" id="imageUpload" ></ion-img>
+    <div class="imageContainer" style="height:fit-content; width:fit-content;">
+        <ion-img [src]="imageToShow" class="uploadedImage" id="imageUpload" [hidden]="hideImage"></ion-img>
     </div>
     <ion-list class="form">
         <ion-item-group class="form-border">
