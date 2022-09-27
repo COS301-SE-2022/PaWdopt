@@ -14,7 +14,7 @@ export class SharedMlFeatureModule {
   constructor(private mlService: SharedMlFeatureService){}
   
   async postToML(imageFile){
-    return await this.mlService.postToML(imageFile);
+    return this.mlService.postToML(imageFile);
   }
 
 }
