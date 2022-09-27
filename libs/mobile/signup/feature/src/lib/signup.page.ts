@@ -26,7 +26,6 @@ export class SignupPageComponent {
   imageToShow!: string;
   
   imageString!: string;
-  apiKey: string;
   loading: Promise<HTMLIonLoadingElement>;
   hideImage: boolean;
 
@@ -34,7 +33,6 @@ export class SignupPageComponent {
     this.uid = "";
     this.imageString = "";
     this. hideImage = true;
-    this.apiKey = this.appConfig.EMAILVALIDATOR_API_KEY;
     this.loading = this.loadingCtrl.create({
       message: 'Loading...',
     });
@@ -272,7 +270,7 @@ export class SignupPageComponent {
           {
             params: { email: this.email },
             headers: {
-              Authorization: this.apiKey ? "Bearer " + this.apiKey : [],
+              Authorization: this.appConfig.EMAILVALIDATOR_API_KEY ? "Bearer " + this.appConfig.EMAILVALIDATOR_API_KEY : [],
             },
           }
         )
