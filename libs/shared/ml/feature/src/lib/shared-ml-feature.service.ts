@@ -1,6 +1,5 @@
 import {  HttpException, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { PredictionServiceClient } from '@google-cloud/aiplatform'
 
 import * as dotenv from 'dotenv'
 dotenv.config()
@@ -8,7 +7,7 @@ dotenv.config()
 @Injectable()
 export class SharedMlFeatureService {
 
-  constructor(private readonly httpService: HttpService, private client: PredictionServiceClient) {}
+  constructor(private readonly httpService: HttpService) {}
 
     async postToML(image: {image: string, extension:string}){      
 
