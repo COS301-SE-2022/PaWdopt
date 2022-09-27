@@ -17,6 +17,15 @@
     </ion-toolbar>
 </ion-header>
 
+<!--Back-->
+  <div>
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+      <ion-icon  name="arrow-back-sharp"></ion-icon>
+    </ion-button>
+  </div>
+  
+<div>&nbsp;</div>
+
 <ion-content>
     <!--Search for dogs in user likes-->
     <div class="searchbar">
@@ -63,7 +72,7 @@
     <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="chats" (click)="chat()">
+    <ion-tab-button tab="chats" (click)="gotoChat()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>

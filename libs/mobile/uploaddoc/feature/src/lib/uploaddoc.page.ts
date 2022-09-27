@@ -397,17 +397,8 @@ export class uploaddocPageComponent {
     this.imageMLString = "";
   }
 
-  signup(){
-    // Done in signup
-    this.router.navigate(["/signup"]);
-  }
-  
-  addorg(){
-    this.router.navigate(["/addorg"]);
-  }
-
   home(){
-    this.router.navigate(["/owneddogs"]);
+    this.router.navigate(["/home"]);
   }
 
   likeddogs(){
@@ -419,11 +410,14 @@ export class uploaddocPageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/preferences"]);
   }
 
   back(){
     this.router.navigate(["/userprofile"]);
   }
 
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
+  }
 }

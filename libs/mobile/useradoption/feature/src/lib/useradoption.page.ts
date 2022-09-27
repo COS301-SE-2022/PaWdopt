@@ -213,30 +213,27 @@ export class useradoptionPageComponent {
     this.router.navigate(["/userinfo"]);
   }
 
-
-  signup() {
-    // Done in signup
-    this.router.navigate(["/signup"]);
-  }
-
-  addorg() {
-    this.router.navigate(["/addorg"]);
-  }
-
   home() {
     this.router.navigate(["/owneddogs"]);
   }
 
   likeddogs() {
-    this.router.navigate(["/userlikes"]);
+    this.router.navigate(["/adoptionprocess"]);
   }
 
   profile() {
-    this.router.navigate(["/userprofile"]);
+    this.router.navigate(["/orgprofile"]);
   }
 
   preferences() {
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/orgsettings"]);
   }
 
+  gotoChat() {
+    this.router.navigate(["/chatlist"]);
+  }
+
+  back(){
+    this.router.navigate(["/adoptionprocess"]);
+  }
 }

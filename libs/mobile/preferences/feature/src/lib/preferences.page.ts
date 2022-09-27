@@ -77,19 +77,23 @@ export class PreferencesPageComponent {
   }
 
   home(){
-    this.router.navigate(["/owneddogs"]);
+    this.router.navigate(["/home"]);
   }
 
   likeddogs(){
-    this.router.navigate(["/adoptionprocess"]);
+    this.router.navigate(["/userlikes"]);
   }
 
   profile(){
-    this.router.navigate(["/orgprofile"]);
+    this.router.navigate(["/userprofile"]);
   }
 
   preferences(){
-    //this.router.navigate(["/orgsettings"]); Not implemented yet
+    this.router.navigate(["/preferences"]);
+  }
+
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
   }
 
   async saveChanges(){
