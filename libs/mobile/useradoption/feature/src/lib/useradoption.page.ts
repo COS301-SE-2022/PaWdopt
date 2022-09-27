@@ -157,7 +157,7 @@ export class useradoptionPageComponent {
         console.log(result);
       });
     });
-    this.router.navigate(['/owneddogs']);
+    this.router.navigate(['/adoptionprocess']);
   }
 
   onDecline() {
@@ -175,6 +175,7 @@ export class useradoptionPageComponent {
         console.log(result);
       });
     });
+    this.router.navigate(['/adoptionprocess']);
   }
 
   onComplete(){

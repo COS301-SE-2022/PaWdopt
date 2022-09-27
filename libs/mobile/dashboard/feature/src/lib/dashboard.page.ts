@@ -256,6 +256,9 @@ export class dashboardPageComponent {
     });
   }
 
+  back(){
+    this.router.navigate(["/owneddogs"]);
+  }
   home(){
     this.router.navigate(["/owneddogs"]);
   }
