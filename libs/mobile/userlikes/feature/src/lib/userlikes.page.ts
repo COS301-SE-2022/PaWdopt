@@ -136,10 +136,14 @@ export class userlikesPageComponent {
     })
   }
 
-  chat(){
+  gotoChat(){
     this.router.navigate(["/chatlist"]);
   }
   home(){
+    this.router.navigate(["/home"]);
+  }
+
+  back(){
     this.router.navigate(["/home"]);
   }
 
@@ -152,7 +156,7 @@ export class userlikesPageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/preferences"]);
   }
 
   orgProfile(orgId:string){

@@ -173,13 +173,27 @@ export class userinfoPageComponent {
   }
 
   back(){
-    //Takes you back to the previous page
-    this.router.navigate(["/dashboard"]);
+    this.router.navigate(["/useradoption"]);
   }
 
-  // idclick(){
-  //   this.router.navigate([this.ident.path]);
-  // }
+  home() {
+    this.router.navigate(["/owneddogs"]);
+  }
 
+  likeddogs() {
+    this.router.navigate(["/adoptionprocess"]);
+  }
+
+  profile() {
+    this.router.navigate(["/orgprofile"]);
+  }
+
+  preferences() {
+    this.router.navigate(["/orgsettings"]);
+  }
+
+  gotoChat() {
+    this.router.navigate(["/chatlist"]);
+  }
 }
 

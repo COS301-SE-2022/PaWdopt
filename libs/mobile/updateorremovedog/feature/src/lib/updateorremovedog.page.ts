@@ -207,7 +207,7 @@ export class updateorremovedogPageComponent {
   }
 
   likeddogs(){
-    this.router.navigate(["/dashboard"]);
+    this.router.navigate(["/adoptionprocess"]);
   }
 
   profile(){
@@ -215,7 +215,11 @@ export class updateorremovedogPageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); 
+    this.router.navigate(["/orgsettings"]);
+  }
+
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
   }
 
 

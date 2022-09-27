@@ -263,7 +263,6 @@ export class owneddogsPageComponent {
   async preferences(){
     await this.setObject(this.orgId);
     this.router.navigate(["/orgsettings"]);
-    //this.router.navigate(["/userinfo"]); Not implemented yet
   }
 
   chats(){
