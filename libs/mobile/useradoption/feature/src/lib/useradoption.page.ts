@@ -16,6 +16,7 @@ export class useradoptionPageComponent {
   userId!: string;
   orgName!: string;
   adopterEmail!: string;
+  orgId!: string;
 
   dog: {
     _id: string,
@@ -73,6 +74,9 @@ export class useradoptionPageComponent {
       weight
       furLength
       temperament
+      organisation{
+        _id
+      }
   }
   }`;
     this.apollo.watchQuery({
@@ -91,8 +95,10 @@ export class useradoptionPageComponent {
           height: number,
           weight: number,
           furLength: string,
-          temperament: string
-
+          temperament: string,
+          organisation: {
+            _id: string
+          }
         }
       }
       this.dog._id = data.findDogById._id;
@@ -106,6 +112,7 @@ export class useradoptionPageComponent {
       this.dog.weight = data.findDogById.weight;
       this.dog.furLength = data.findDogById.furLength;
       this.dog.temperament = data.findDogById.temperament;
+      this.orgId = data.findDogById.organisation._id;
 
       const findUserByIdQuery = gql ` query{ 
     findAdopterById(_id: "${this.userId}"){
@@ -138,8 +145,19 @@ export class useradoptionPageComponent {
 
   onAccept() {
     this.isDisabled = false; //for button to confirm adoption, Once accepted, set to false. 
-    //dog needs to be deleted from db
-    //appointment for pickup needs to be made
+    this.afAuth.currentUser.then((user) => {
+      const currentUser = user?.uid;
+      const acceptAdoptionQuery = gql ` mutation{
+      acceptAdoption(orgmemberId: "${currentUser}", adopterId: "${this.userId}", dogId: "${this.dogId}")
+      }`;
+      this.apollo.mutate({
+        mutation: acceptAdoptionQuery,
+        fetchPolicy: 'no-cache'
+      }).subscribe((result) => {
+        console.log(result);
+      });
+    });
+    this.router.navigate(['/owneddogs']);
   }
 
   onDecline() {
@@ -152,6 +170,21 @@ export class useradoptionPageComponent {
       }`;
       this.apollo.mutate({
         mutation: rejectAdoptionQuery,
+        fetchPolicy: 'no-cache'
+      }).subscribe((result) => {
+        console.log(result);
+      });
+    });
+  }
+
+  onComplete(){
+    this.afAuth.currentUser.then((user) => {
+      const currentUser = user?.uid;
+      const completeAdoptionQuery = gql ` mutation{
+      completeAdoption(orgmemberId: "${currentUser}", adopterId: "${this.userId}", dogId: "${this.dogId}")
+      }`;
+      this.apollo.mutate({
+        mutation: completeAdoptionQuery,
         fetchPolicy: 'no-cache'
       }).subscribe((result) => {
         console.log(result);

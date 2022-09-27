@@ -163,8 +163,8 @@ export class ApiResolver {
         await this.DogService.updateOrg(orgId, org);
         dog._id = (new Types.ObjectId()).toHexString();
         dog.organisation = org;
-        const dog1 = this.DogService.createDog(dog);
-        await this.DogService.addCreatedDog(orgId, dog._id);
+        const dog1 = await this.DogService.createDog(dog);
+        await this.DogService.addCreatedDog(dog1._id, orgId);
         return dog1;
     }
 
@@ -477,8 +477,8 @@ export class ApiResolver {
      * @returns chat
     */
     @Mutation(() => ChatType)
-    async sendMessage(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('senderId') senderId: string, @Args('message') message: string) : Promise<ChatType> {
-        return this.DogService.sendMessage(orgId, adopterId, senderId, message);
+    async sendMessage(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('senderId') senderId: string, @Args('message') message: string, @Args('dogId') dogId: string) : Promise<ChatType> {
+        return this.DogService.sendMessage(orgId, adopterId, senderId, message, dogId);
     }
     
     /**
@@ -494,6 +494,35 @@ export class ApiResolver {
         const org = await this.DogService.findOrgByOrgmemberId(orgmemberId);
         await this.DogService.addRejectedDog(dogId, org._id);
         return this.DogService.rejectAdoption(org._id, adopterId, dogId);
+    }
+
+    /**
+     * used in userAdoption page
+     * call acceptAdoption
+     * @param orgmemberId
+     * @param adopterId
+     * @param dogId
+     * @returns Organisation
+     */
+    @Mutation(() => String)
+    async acceptAdoption(@Args('orgmemberId') orgmemberId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<string> {
+        const org = await this.DogService.findOrgByOrgmemberId(orgmemberId);
+        await this.DogService.addAdoptedDog(dogId, org._id);
+        return this.DogService.acceptAdoption(org._id, adopterId, dogId);
+    }
+
+    /**
+     * used in userAdoption page
+     * call completeAdoption
+     * @param orgId 
+     * @param adopterId
+     * @param dogId
+     * @returns Organisation
+     */
+    @Mutation(() => String)
+    async completeAdoption(@Args('orgmemberId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<string> {
+        const org = await this.DogService.findOrgByOrgmemberId(orgId);
+        return this.DogService.completeAdoption(org._id, adopterId, dogId);
     }
 
     
