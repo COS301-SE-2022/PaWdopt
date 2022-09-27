@@ -23,7 +23,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment.prod';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { APP_CONFIG } from '@pawdopt/config';
 
 
@@ -49,7 +48,6 @@ import { APP_CONFIG } from '@pawdopt/config';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation,
-    NativeGeocoder,
     HttpLink,
     {
       provide: APOLLO_OPTIONS,

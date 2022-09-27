@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import {Apollo, gql } from 'apollo-angular';
+import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { ActionSheetController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
 
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { APP_CONFIG } from '@pawdopt/config';
 
 @Component({
   selector: 'pawdopt-signup',
@@ -25,23 +26,25 @@ export class SignupPageComponent {
   imageToShow!: string;
   
   imageString!: string;
-  apiKey: string;
+  loading: Promise<HTMLIonLoadingElement>;
+  hideImage: boolean;
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private actionSheetController: ActionSheetController, private alertController: AlertController, private http: HttpClient, private loadingCtrl: LoadingController) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private actionSheetController: ActionSheetController, private alertController: AlertController, private http: HttpClient, private loadingCtrl: LoadingController,  @Inject(APP_CONFIG) private appConfig: any) {
     this.uid = "";
     this.imageString = "";
-
-    this.apiKey = "cbc1406a-451d-4d04-8a49-76ac229e64a6";
+    this. hideImage = true;
+    this.loading = this.loadingCtrl.create({
+      message: 'Loading...',
+    });
   }
   
   //An image has to be uploaded in order for the query to go through, double check this!
   async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Loading...',
-      duration: 2000,
-    });
+    (await this.loading).present();
+  }
 
-    loading.present();
+  async hideLoading() {
+    (await this.loading).dismiss();
   }
 
   async signUp(){
@@ -88,6 +91,7 @@ export class SignupPageComponent {
       mutation: addUser,
     }).subscribe(({data}) => {
       console.log('got data', data);
+      this.hideLoading();
       this.router.navigate(["/home"]);
     });
   }
@@ -213,6 +217,7 @@ export class SignupPageComponent {
   //function to show the image that is uploaded 
   showImage(){
     // TODO: unhide pic
+    this.hideImage = false;
     return this.imageString;
   }
 
@@ -265,7 +270,7 @@ export class SignupPageComponent {
           {
             params: { email: this.email },
             headers: {
-              Authorization: this.apiKey ? "Bearer " + this.apiKey : [],
+              Authorization: this.appConfig.EMAILVALIDATOR_API_KEY ? "Bearer " + this.appConfig.EMAILVALIDATOR_API_KEY : [],
             },
           }
         )

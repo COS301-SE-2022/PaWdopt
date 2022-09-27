@@ -16,18 +16,21 @@ export class LoginPageComponent {
 
   inputEmail!: string;
   inputPassword!: string;
- 
+  loading: Promise<HTMLIonLoadingElement>;
+  
+
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private alertController: AlertController, private loadingCtrl: LoadingController) {
-    
+    this.loading = this.loadingCtrl.create({
+      message: 'Loading...',
+    });
   }
 
   async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Loading...',
-      duration: 650,
-    });
+    (await this.loading).present();
+  }
 
-    loading.present();
+  async hideLoading() {
+    (await this.loading).dismiss();
   }
   
   getUserType(id?: string){
@@ -39,17 +42,19 @@ export class LoginPageComponent {
    this.apollo.watchQuery({
       query: getUserType,
       fetchPolicy: 'no-cache'
-    }).valueChanges.subscribe((result) => {
+    }).valueChanges.subscribe(async (result) => {
       console.log(result);
       const data = result.data as {
         getUserType: string
       }
       if(data.getUserType == "Adopter")
         {
+          await this.hideLoading();
           this.router.navigate(['/home']);
         }
         else if(data.getUserType == "OrgMember")
         {
+          await this.hideLoading();
           this.router.navigate(['/owneddogs']);
         }
         else{
@@ -113,16 +118,12 @@ googleSignin(){
           this.router.navigate(['/owneddogs']);
         }
         else{
-          let photoURL = user.user?.photoURL;
-          if(photoURL == null)
-            photoURL = "";
-            
           const addUser = gql`mutation {
             createAdopter(adopter: {
               _id: "${user.user?.uid}",
               name: "${user.user?.displayName}",
               email: "${user.user?.email}",
-              pic: "${photoURL}",
+              pic: "",
               uploadedDocs: false,
             })
             {
