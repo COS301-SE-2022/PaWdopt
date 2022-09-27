@@ -22,22 +22,19 @@
     <!--Company name-->
     <div>&nbsp;</div>
     <div class="companyname">
-        <p><b>{{this.orgName}}</b></p>
-        <!-- <h1><b>SPCA</b></h1> -->
+        <p><b><ion-icon name="business-outline"></ion-icon>&nbsp;{{this.orgName}}</b></p>
     </div>
     <div>&nbsp;</div>
 
     <!--Search bar-->
     <div class="searchbar">
-        <ion-searchbar placeholder="Try Millie.." (ionChange)="getDog(true)" [(ngModel)]="inputSearch" (ionClear)="getDog(false)"  animated></ion-searchbar>
+        <!-- Removed the animated to make the placeholder not be centered on load -->
+        <ion-searchbar placeholder="Try Millie Or Dalmatian" (ionChange)="getDog(true)" [(ngModel)]="inputSearch" (ionClear)="getDog(false)" animated></ion-searchbar>
     </div>
     <!--api implement-->
     <div>&nbsp;</div>
 
     <!--Dogs info-->
-    <!-- <div class="container">
-        <ion-button class="greyButton" id="search-dog-button" (click)="search()">Search</ion-button>
-    </div> -->
     <div class="container">
         <ion-button class="greyButton" id="add-dog-button" (click)="addDog()">
             <ion-icon name="add-outline"></ion-icon>&nbsp;Add a dog</ion-button>
@@ -45,15 +42,11 @@
     <div class="maincontainer" *ngFor="let d of dog">
         <div class="thecard">
             <div class="thefront">
-                <!-- <img src="../../assets/husky.jpg" /> -->
                 <img src="{{d.pic}}" />
                 <ion-title class="ion-text-center"><b>{{d.name}}, {{d.age}}</b></ion-title>
-                <!-- <p id="likesperdog"><b><ion-icon name="heart-outline"></ion-icon>&nbsp;{{d.likes}}</b></p> -->
-                <!--api implement-->
                 <p>{{d.breed}}</p>
                 <ion-button class="ion-float-left" fill="clear" (click)="dashboard(d._id)">
-                    <!-- <ion-icon name="list"></ion-icon> -->
-                        <p id="likesperdog"><b><ion-icon name="heart"></ion-icon>&nbsp;{{d.likes}}</b></p>
+                    <p id="likesperdog"><b><ion-icon name="heart"></ion-icon>&nbsp;{{d.likes}}</b></p>
                 </ion-button>
                 <ion-button class="ion-float-right" fill="clear" (click)="update(d._id)">
                     <ion-icon name="create-outline"></ion-icon>
@@ -74,7 +67,7 @@
     <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="chats">
+    <ion-tab-button tab="chats" (click)="chats()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>

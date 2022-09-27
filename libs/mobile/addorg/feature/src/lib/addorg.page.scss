@@ -9,7 +9,7 @@
     overflow-x: hidden;
 }
 
-.newback{
+.newback {
     background-color: #F8F9FA;
 }
 
@@ -75,4 +75,18 @@
     border-style: dashed;
     border-color: #C0B7B1;
     border-width: 1%;
+}
+
+.imageContainer {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    width: 50%;
+    height: 50%;
+}
+
+.uploadedImage {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }

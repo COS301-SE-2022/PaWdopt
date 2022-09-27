@@ -16,28 +16,18 @@
 
 .form {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #8E6E53;
-    padding: 1px;
-    border-radius: 19px;
+    background-color: #C0B7B1;
+    padding: 0px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 3px 0px #020300;
 }
 
 .form-item {
     color: #020300;
     --background: #C0B7B1;
     --highlight-color-focused: #2a0800 !important;
-    
 }
 
-.back{
+.back {
     color: #020300;
-}
-
-.form-start {
-    border-top-left-radius: 21px;
-    border-top-right-radius: 21px;
-}
-
-.form-end {
-    border-bottom-left-radius: 21px;
-    border-bottom-right-radius: 21px;
 }

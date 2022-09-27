@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Storage } from '@capacitor/storage';
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
   selector: 'pawdopt-owneddogs',
   templateUrl: 'owneddogs.page.html',
   styleUrls: ['owneddogs.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade, AngularFireAuth],
+  providers: [Apollo, AngularFireAuth],
 
 })
 export class owneddogsPageComponent {
@@ -21,9 +21,7 @@ export class owneddogsPageComponent {
   orgName!: string;
   uid?: string;
 
-
   //get org name for login
-
   dog:{
     _id: string,
     name:string,
@@ -34,13 +32,25 @@ export class owneddogsPageComponent {
     orgId: string
   }[]=[]
 
-  // userLikes:{
-  //   name:string,
-  //   pic:string,
-  // }[]=[];
+  constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth) {
+    // this.showLoading();
+
+    // this.getDog(false);
+  }
+
+  async ionViewWillEnter(){
+    await this.showLoading();
     this.getDog(false);
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Waiting for dogs, if no dogs appear you will need to add them...',
+      duration: 2000,
+    });
+
+    loading.present();
   }
 
   getDog(search: boolean){
@@ -65,6 +75,22 @@ export class owneddogsPageComponent {
             }
           }
           this.orgId = data.findOrgMemberById.organisation;
+          const getOrgNameQuery = gql`query {
+            findOrgById(_id: "${this.orgId}") {
+              name
+            }
+          }`;
+          this.apollo.watchQuery({
+            query: getOrgNameQuery,
+            fetchPolicy: 'no-cache'
+          }).valueChanges.subscribe((result) => {
+            const data = result.data as {
+              findOrgById: {
+                name: string
+              }
+            }
+            this.orgName = data.findOrgById.name;
+            
           const getDogQuery = gql`query {
             findDogsByOrgId(_id: "${this.orgId}") {
               _id
@@ -102,7 +128,6 @@ export class owneddogsPageComponent {
                 }
               }[]
             };
-            this.orgName = data.findDogsByOrgId[0].organisation.name;
             // this.dog.name = data.findDog.name;
             // this.dog.pic = data.findDog.pics[0].path;
             // this.dog.breed = data.findDog.breed;
@@ -115,22 +140,10 @@ export class owneddogsPageComponent {
             // const birthDate = new Date(data.findDog.dob);
             // const age = now.getFullYear() - birthDate.getFullYear();
             const now = new Date();
-    
-    
             
           if(search){
-            // console.log(this.dog);
-            // this.dog.map((element) => {
-            //   console.log("hello");
-            //   console.log("1" + element.name.toLowerCase() + this.inputSearch.toLowerCase());
-            //   if(!element.name.toLowerCase().includes(this.inputSearch.toLowerCase())){
-            //     console.log(element.name.toLowerCase() + this.inputSearch.toLowerCase());
-            //     this.dog.splice(this.dog.indexOf(element), 1);
-            //   }
-            // });
-            // console.log(this.dog);
             // filter the dog array based on the search input
-
+            this.dog=[]
             data.findDogsByOrgId.forEach(element => {
               const birthDate = new Date(element.dob);
               if(element.name.toLowerCase().includes(this.inputSearch.toLowerCase())){
@@ -145,10 +158,23 @@ export class owneddogsPageComponent {
                     orgId: element.organisation._id
                   }
                 );
+              }else if(element.breed.toLowerCase().includes(this.inputSearch.toLowerCase())){
+                this.dog.push(
+                  {
+                    _id: element._id,
+                    name: element.name,
+                    pic: element.pics[0],
+                    age: now.getFullYear() - birthDate.getFullYear(),
+                    likes: element.usersLiked.length,
+                    breed: element.breed,
+                    orgId: element.organisation._id
+                  }
+                );
               }
-            })  
+            })
           }
           else{
+            this.dog=[];
             data.findDogsByOrgId.forEach(element => {
               const birthDate = new Date(element.dob);
               this.dog.push(
@@ -164,31 +190,29 @@ export class owneddogsPageComponent {
               );
             })
           }
+          });
         });
       });
-      }else{
-        console.log("No user logged in");
-      }
-    });    
+    }
+    });
   }
 
+
   dashboard(id: string){
-    this.setObject(id);
+    this.setObject3(id);
     console.log(id);
     this.router.navigate(["/dashboard"]);
   }
 
-  update(id: string){
-    // console.log(id);
-    // this.varsFacade.setDogID(id);
-    this.setObject(id);
+  async update(id: string){
+    await this.setObject2(id);
     this.router.navigate(["/updateorremovedog"]);
   }
 
     // JSON "set" example
   async setObject(id: string) {
     await Storage.set({
-    key: 'dogID',
+    key: 'orgToPref',
     value: JSON.stringify({
       id: 1,
       name: id
@@ -196,32 +220,54 @@ export class owneddogsPageComponent {
     });
   }
 
-  updateLikes(id: string){
-    this.varsFacade.setDogID(id);
+  async setObject2(id: string) {
+    await Storage.set({
+    key: 'fromUpdatePage',
+    value: JSON.stringify({
+      id: 1,
+      name: id
+      })
+    });
   }
+
+  async setObject3(id: string) {
+    await Storage.set({
+    key: 'ownedToDashboard',
+    value: JSON.stringify({
+      id: 1,
+      name: id
+      })
+    });
+  }
+
+  // updateLikes(id: string){
+  //   return
+  // }
 
   addDog(){
     this.router.navigate(["/adddog"]);
   }
   
   home(){
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/owneddogs"]);
   }
 
   likeddogs(){
-    this.router.navigate(["/userlikes"]); 
-    //Will need to change so that likeddogs alternates between company and user
+    this.router.navigate(["/adoptionprocess"]);
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    this.router.navigate(["/orgprofile"]);
   }
 
-  preferences(){
+  async preferences(){
+    await this.setObject(this.orgId);
     this.router.navigate(["/orgsettings"]);
-    //this.router.navigate(["/userinfo"]); Not implemented yet
   }
 
+  chats(){
+    this.router.navigate(["/chatlist"]);
+  }
   
 }
 

@@ -48,13 +48,6 @@ const routes: Routes = [
       )
   },
   {
-    path: 'uikit',
-    loadChildren: () =>
-      import('@pawdopt/mobile/uikit/feature').then(
-        (m) => m.uikitPageComponentModule
-      )
-  },
-  {
     path: 'userlikes',
     loadChildren: () =>
       import('@pawdopt/mobile/userlikes/feature').then(
@@ -144,6 +137,13 @@ const routes: Routes = [
       import('@pawdopt/mobile/orgsettings/feature').then(
         (m) => m.OrgSettingsPageComponentModule
       )
+    },
+    {
+      path: 'chatlist',
+      loadChildren: () =>
+        import('@pawdopt/mobile/chatlist/feature').then(
+          (m) => m.chatlistPageComponentModule
+        )
     }
 ];
 

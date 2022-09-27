@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { uikitPageComponent } from './uikit.page';
+import { chatlistPageComponent } from './chatlist.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: uikitPageComponent,
+    component: chatlistPageComponent,
   },
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class uikitPageComponentRoutingModule {}
+export class chatlistPageComponentRoutingModule {}

@@ -1,19 +1,24 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { Storage } from '@capacitor/storage'
 @Component({
   selector: 'pawdopt-userinfo',
   templateUrl: 'userinfo.page.html',
   styleUrls: ['userinfo.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade],
+  providers: [Apollo],
 })
 export class userinfoPageComponent {
+
+
+  IDstring!: string;
+  PORstring!: string;
+  BSSstring!: string;
+  MLstring!: string;
+
   user:{
     name: string,
     email: string,
-    IDNum: string,
     pic: string,
     location: {
       lat: number,
@@ -26,7 +31,6 @@ export class userinfoPageComponent {
   } = {
     name: "",
     email: "",
-    IDNum: "",
     pic: "",
     location: {
       lat: 0,
@@ -38,41 +42,59 @@ export class userinfoPageComponent {
     }]
   };
 
-  ident:{
+  ID:{
     path: string
   } = {
-    path: "../../assets/local-file-not-found.png"
+    path: ""
   };
 
-  poR: {
+  POR: {
     path: string
   } = {
-    path: "../../assets/local-file-not-found.png"
+    path: ""
   };
 
-  bankState: {
+  BSS: {
     path: string
   } = {
-    path: "../../assets/local-file-not-found.png"
+    path: ""
   };
 
-  motivateLet: {
+  ML: {
     path: string
   } = {
-    path: "../../assets/local-file-not-found.png"
+    path: ""
   };
   
   t_ID!: string;
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade) {
+  constructor(private router: Router, private apollo: Apollo) {
     this.t_ID = "";
-    // this.varsFacade.userID$.subscribe(userID => {
-    //     this.t_ID = userID;
-    // });
    
    this.getUserId();
    console.log(this.t_ID);
   }
+  
+  showIDImage(){
+    // TODO: unhide pic
+    return this.IDstring;
+  }
+
+  showPORImage(){
+    // TODO: unhide pic
+    return this.PORstring;
+  }
+
+  showBSSImage(){
+    // TODO: unhide pic
+    return this.BSSstring;
+  }
+
+  showMLImage(){
+    // TODO: unhide pic
+    return this.MLstring;
+  }
+
 
   async getUserId() {
     this.t_ID = (await this.getObject()).uId;
@@ -81,7 +103,6 @@ export class userinfoPageComponent {
       findAdopterById(_id: "${this.t_ID}"){
         name,
         email,
-        IDNum,
         pic,
         location{
           lat,
@@ -103,7 +124,6 @@ export class userinfoPageComponent {
         findAdopterById: {
           name: string,
           email: string,
-          IDNum: string,
           pic: string,
           location: {
             lat: number,
@@ -117,8 +137,8 @@ export class userinfoPageComponent {
       };
       this.user.name = data.findAdopterById.name;
       this.user.email = data.findAdopterById.email;
-      this.user.IDNum = data.findAdopterById.IDNum;
       this.user.pic = data.findAdopterById.pic;
+      this.user.documents = data.findAdopterById.documents;
       //this.user.location.lat = data.findAdopterById.location.lat;
       //this.user.location.lng = data.findAdopterById.location.lng;
       // console.log(this.user);
@@ -128,13 +148,17 @@ export class userinfoPageComponent {
       //Does not compare type and change path
         data.findAdopterById.documents.forEach(element => {
           if(element.type === "ID"){
-            this.ident.path = element.path;
-          }else if(element.type === "poR"){
-            this.poR.path = element.path;
-          }else if(element.type === "bank"){
-            this.bankState.path = element.path;
-          }else if(element.type === "motiv"){
-            this.motivateLet.path = element.path;
+            this.ID.path = element.path;
+            this.IDstring = element.path;
+          }else if(element.type === "POR"){
+            this.POR.path = element.path;
+            this.PORstring = element.path;
+          }else if(element.type === "BSS"){
+            this.BSS.path = element.path;
+            this.BSSstring = element.path;
+          }else if(element.type === "ML"){
+            this.ML.path = element.path;
+            this.MLstring = element.path;
           }
         })
       }
@@ -149,13 +173,27 @@ export class userinfoPageComponent {
   }
 
   back(){
-    //Takes you back to the previous page
-    this.router.navigate(["/dashboard"]);
+    this.router.navigate(["/useradoption"]);
   }
 
-  idclick(){
-    this.router.navigate([this.ident.path]);
+  home() {
+    this.router.navigate(["/owneddogs"]);
   }
 
+  likeddogs() {
+    this.router.navigate(["/adoptionprocess"]);
+  }
+
+  profile() {
+    this.router.navigate(["/orgprofile"]);
+  }
+
+  preferences() {
+    this.router.navigate(["/orgsettings"]);
+  }
+
+  gotoChat() {
+    this.router.navigate(["/chatlist"]);
+  }
 }
 

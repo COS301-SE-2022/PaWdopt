@@ -1,9 +1,10 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ApiService } from './api.service';
-import { DogType, OrganisationType, ContactInfoType, AdopterType, OrgMemberType } from './api.dto';
+import { DogType, OrganisationType, ContactInfoType, AdopterType, OrgMemberType, ChatType, MessageObjType, DocType, StatisticType } from './api.dto';
 // import { Dog,  Organisation, Location, ContactInfo, Adopter} from './api.schema';
 
 import { Types } from 'mongoose';
+//import { Doc } from './api.schema';
 
 @Resolver()
 export class ApiResolver {
@@ -162,7 +163,9 @@ export class ApiResolver {
         await this.DogService.updateOrg(orgId, org);
         dog._id = (new Types.ObjectId()).toHexString();
         dog.organisation = org;
-        return this.DogService.createDog(dog);
+        const dog1 = await this.DogService.createDog(dog);
+        await this.DogService.addCreatedDog(dog1._id, orgId);
+        return dog1;
     }
 
     /**
@@ -224,7 +227,9 @@ export class ApiResolver {
     @Mutation(() => DogType)
     async clickedHeartIcon(@Args('userId') userId: string, @Args('dogId') dogId: string) : Promise<DogType> {
         const orgId = (await this.DogService.findDogById(dogId)).organisation._id;
-        await this.DogService.addAdopterToOrgPotentialAdopters(orgId, userId);
+        await this.DogService.addAdopterToOrgPotentialAdopters(orgId, userId, dogId);
+        await this.DogService.createChat(orgId, userId, dogId);
+        await this.DogService.addInProcessDog(dogId, orgId);
         return this.DogService.removeAdopterFromDogsUsersLiked(dogId, userId);
          
     }
@@ -239,6 +244,7 @@ export class ApiResolver {
         org._id = (new Types.ObjectId()).toHexString();
         org.contactInfo._id = (new Types.ObjectId()).toHexString();
         org.contactInfo = await this.DogService.createContactInfo(org.contactInfo);
+        await this.DogService.createStatistic(org._id);
         return this.DogService.createOrg(org);
     }
 
@@ -367,7 +373,9 @@ export class ApiResolver {
      * @returns dog
      * @throws error if dog does not exist
      */
+    @Mutation(() => DogType)
     async deleteDog(@Args('dogId') dogId: string) : Promise<DogType> {
+        
         return this.DogService.deleteDog(dogId);
     }
 
@@ -403,5 +411,146 @@ export class ApiResolver {
         return this.DogService.findDogsByOrgId(_id);
     }
 
+    /**
+     * used in chat page
+     * call findChatsByOrgId()
+     * @param orgmemberId
+     * @returns chats
+     * @throws error if org does not exist
+     * @throws error if org does not have chats
+     */
+    @Query(() => [ChatType])
+    async findChatsByOrgmemberId(@Args('orgmemberId') orgmemberId: string) : Promise<ChatType[]> {
+        return this.DogService.findChatsByOrgmemberId(orgmemberId);
+    }
+
+    /**
+     * used in chat page
+     * call findChatsByAdopterId()
+     * @param adopterId
+     * @returns chats
+     * @throws error if adopter does not exist
+     * @throws error if adopter does not have chats
+     */
+    @Query(() => [ChatType])
+    async findChatsByAdopterId(@Args('adopterId') adopterId: string) : Promise<ChatType[]> {
+        return this.DogService.findChatsByAdopterId(adopterId);
+    }
     
+    /**
+     * used in chat page
+     * call findChatsByOrgIdAndAdopterId()
+     * @param orgId
+     * @param adopterId
+     * @returns chat
+     * @throws error if chat does not exist
+     * @throws error if chat does not have messages
+     * @throws error if chat does not have org
+     * @throws error if chat does not have adopter
+     * @throws error if chat does not have org id
+     */
+    @Query(() => ChatType)
+    async findChatByOrgIdAndAdopterId(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string) : Promise<ChatType> {
+        return this.DogService.findChatByOrgIdAndAdopterId(orgId, adopterId);
+    }
+
+    /**
+     * used in chat page
+     * call createChat()
+     * @param orgId
+     * @param adopterId
+     * @param dogId
+     * @returns chat
+     */
+    @Mutation(() => ChatType)
+    async createChat(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<ChatType> {
+        return this.DogService.createChat(orgId, adopterId, dogId);
+    }
+
+    /**
+     * used in chat page
+     * call sendMessage
+     * @param orgId
+     * @param adopterId
+     * @param senderId
+     * @param message
+     * @returns chat
+    */
+    @Mutation(() => ChatType)
+    async sendMessage(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('senderId') senderId: string, @Args('message') message: string, @Args('dogId') dogId: string) : Promise<ChatType> {
+        return this.DogService.sendMessage(orgId, adopterId, senderId, message, dogId);
+    }
+    
+    /**
+     * used in userAdoption page
+     * call rejectAdoption
+     * @param orgmemberId
+     * @param adopterId
+     * @param dogId
+     * @returns Organisation
+     */
+    @Mutation(() => OrganisationType)
+    async rejectAdoption(@Args('orgmemberId') orgmemberId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<OrganisationType> {
+        const org = await this.DogService.findOrgByOrgmemberId(orgmemberId);
+        await this.DogService.addRejectedDog(dogId, org._id);
+        return this.DogService.rejectAdoption(org._id, adopterId, dogId);
+    }
+
+    /**
+     * used in userAdoption page
+     * call acceptAdoption
+     * @param orgmemberId
+     * @param adopterId
+     * @param dogId
+     * @returns Organisation
+     */
+    @Mutation(() => String)
+    async acceptAdoption(@Args('orgmemberId') orgmemberId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<string> {
+        const org = await this.DogService.findOrgByOrgmemberId(orgmemberId);
+        await this.DogService.addAdoptedDog(dogId, org._id);
+        return this.DogService.acceptAdoption(org._id, adopterId, dogId);
+    }
+
+    /**
+     * used in userAdoption page
+     * call completeAdoption
+     * @param orgId 
+     * @param adopterId
+     * @param dogId
+     * @returns Organisation
+     */
+    @Mutation(() => String)
+    async completeAdoption(@Args('orgmemberId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<string> {
+        const org = await this.DogService.findOrgByOrgmemberId(orgId);
+        return this.DogService.completeAdoption(org._id, adopterId, dogId);
+    }
+
+    
+    /**
+     * used in uploaddoc page
+     * call uploadDoc
+     * @param adopterId
+     * @param type
+     * @param path
+     * @returns astring
+     */
+    @Mutation(() => String)
+    async uploadDoc(@Args('adopterId') adopterId: string, @Args('type') type: string, @Args('path') path: string) : Promise<string> {
+        return this.DogService.uploadDoc(adopterId, type, path);
+    }
+
+    /**
+     * used in orgProfile page
+     * call getStatistics
+     * @param orgId
+     * @returns statistics
+     */
+    @Query(() => StatisticType)
+    async getStatistic(@Args('orgId') orgId: string) : Promise<StatisticType> {
+        return this.DogService.getStatistic(orgId);
+    }
+
+    
+
+
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Storage } from '@capacitor/storage';
 
@@ -9,7 +8,7 @@ import { Storage } from '@capacitor/storage';
   selector: 'pawdopt-userlikes',
   templateUrl: 'userlikes.page.html',
   styleUrls: ['userlikes.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade]
+  providers: [Apollo]
 })
 export class userlikesPageComponent {
   
@@ -30,7 +29,7 @@ export class userlikesPageComponent {
     orgId:string
   }[]=[]
 
-  constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade, private fireAuth: AngularFireAuth){
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth){
     this.fireAuth.currentUser.then(user =>{
       console.log(user?.uid);
         if(user?.uid){
@@ -40,9 +39,6 @@ export class userlikesPageComponent {
         }
     })
 
-    // this.varsFacade.userID$.subscribe(userID => {
-    //   this.userId = userID;
-    // });
   }
 
   getDog(search: boolean){
@@ -140,7 +136,14 @@ export class userlikesPageComponent {
     })
   }
 
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
+  }
   home(){
+    this.router.navigate(["/home"]);
+  }
+
+  back(){
     this.router.navigate(["/home"]);
   }
 
@@ -153,7 +156,7 @@ export class userlikesPageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/preferences"]);
   }
 
   orgProfile(orgId:string){

@@ -31,6 +31,18 @@ type LocationType {
   lng: Float!
 }
 
+type AdopterType {
+  _id: String!
+  name: String!
+  email: String!
+  pic: String
+  location: LocationType
+  documents: [DocType!]
+  dogsLiked: [DogType!]
+  dogsDisliked: [DogType!]
+  uploadedDocs: Boolean!
+}
+
 type DogType {
   _id: String!
   name: String!
@@ -47,6 +59,11 @@ type DogType {
   temperament: [String!]!
 }
 
+type PotentialAdopterType {
+  dogId: String!
+  adopter: AdopterType
+}
+
 type OrganisationType {
   _id: String!
   name: String!
@@ -58,7 +75,7 @@ type OrganisationType {
   location: LocationType!
   rulesReq: String
   contactInfo: ContactInfoType!
-  potentialAdopters: [AdopterType!]
+  potentialAdopters: [PotentialAdopterType!]
   logo: String
 }
 
@@ -67,17 +84,29 @@ type DocType {
   path: String!
 }
 
-type AdopterType {
-  _id: String!
-  name: String!
-  email: String!
-  IDNum: String!
-  pic: String
-  location: LocationType
-  documents: [DocType!]
-  dogsLiked: [DogType!]
-  dogsDisliked: [DogType!]
-  uploadedDocs: Boolean!
+type ChatType {
+  adopterId: String!
+  orgId: String!
+  messages: [MessageObjType!]
+  dogId: String!
+  disabled: Boolean!
+}
+
+type MessageObjType {
+  userId: String!
+  message: String!
+}
+
+type StatisticType {
+  orgId: String!
+  createdTimeStamps: [DateTime!]
+  createdDogs: [DogType!]
+  inProcessTimeStamps: [DateTime!]
+  inProcessDogs: [DogType!]
+  adoptedTimeStamps: [DateTime!]
+  adoptedDogs: [DogType!]
+  rejectedTimeStamps: [DateTime!]
+  rejectedDogs: [DogType!]
 }
 
 input OrgMemberInputType {
@@ -104,6 +133,18 @@ input LocationInputType {
   lng: Float!
 }
 
+input AdopterInputType {
+  _id: String!
+  name: String!
+  email: String!
+  pic: String
+  location: LocationInputType
+  documents: [DocInputType!]
+  dogsLiked: [DogInputType!]
+  dogsDisliked: [DogInputType!]
+  uploadedDocs: Boolean!
+}
+
 input DogInputType {
   _id: String!
   name: String!
@@ -120,6 +161,11 @@ input DogInputType {
   temperament: [String!]!
 }
 
+input PotentialAdopterInputType {
+  dogId: String!
+  adopter: AdopterInputType
+}
+
 input OrganisationInputType {
   _id: String!
   name: String!
@@ -131,7 +177,7 @@ input OrganisationInputType {
   location: LocationInputType!
   rulesReq: String
   contactInfo: ContactInfoInputType!
-  potentialAdopters: [AdopterInputType!]
+  potentialAdopters: [PotentialAdopterInputType!]
   logo: String
 }
 
@@ -140,17 +186,29 @@ input DocInputType {
   path: String!
 }
 
-input AdopterInputType {
-  _id: String!
-  name: String!
-  email: String!
-  IDNum: String!
-  pic: String
-  location: LocationInputType
-  documents: [DocInputType!]
-  dogsLiked: [DogInputType!]
-  dogsDisliked: [DogInputType!]
-  uploadedDocs: Boolean!
+input ChatInputType {
+  adopterId: String!
+  orgId: String!
+  messages: [MessageObjInputType!]
+  dogId: String!
+  disabled: Boolean!
+}
+
+input MessageObjInputType {
+  userId: String!
+  message: String!
+}
+
+input StatisticInputType {
+  orgId: String!
+  createdTimeStamps: [DateTime!]
+  createdDogs: [DogInputType!]
+  inProcessTimeStamps: [DateTime!]
+  inProcessDogs: [DogInputType!]
+  adoptedTimeStamps: [DateTime!]
+  adoptedDogs: [DogInputType!]
+  rejectedTimeStamps: [DateTime!]
+  rejectedDogs: [DogInputType!]
 }
 
 type Query {
@@ -172,6 +230,10 @@ type Query {
   getUserType(id: String!): String!
   findOrgMemberById(_id: String!): OrgMemberType!
   findDogsByOrgId(_id: String!): [DogType!]!
+  findChatsByOrgmemberId(orgmemberId: String!): [ChatType!]!
+  findChatsByAdopterId(adopterId: String!): [ChatType!]!
+  findChatByOrgIdAndAdopterId(orgId: String!, adopterId: String!): ChatType!
+  getStatistic(orgId: String!): StatisticType!
 }
 
 type Mutation {
@@ -195,4 +257,11 @@ type Mutation {
   userSwipesRight(userId: String!, dogId: String!): AdopterType!
   userSwipesLeft(userId: String!, dogId: String!): AdopterType!
   updateDog(dogId: String!, breed: String!, gender: String!, dob: DateTime!, about: String!, height: Float!, weight: Float!, furlength: String!, temperament: [String!]!): DogType!
+  deleteDog(dogId: String!): DogType!
+  createChat(orgId: String!, adopterId: String!, dogId: String!): ChatType!
+  sendMessage(orgId: String!, adopterId: String!, senderId: String!, message: String!, dogId: String!): ChatType!
+  rejectAdoption(orgmemberId: String!, adopterId: String!, dogId: String!): OrganisationType!
+  acceptAdoption(orgmemberId: String!, adopterId: String!, dogId: String!): String!
+  completeAdoption(orgmemberId: String!, adopterId: String!, dogId: String!): String!
+  uploadDoc(adopterId: String!, type: String!, path: String!): String!
 }

@@ -11,7 +11,6 @@ import { Storage } from '@capacitor/storage';
 })
 export class PreferencesPageComponent {
   gender!: string;
-  breed!: string;
   size!: {
     lower: number;
     upper: number;
@@ -20,15 +19,48 @@ export class PreferencesPageComponent {
     lower: number;
     upper: number;
   };
-  size3!: {
-    lower: number;
-    upper: number;
-  };
-  sizeAny!: boolean;
+  size3!: number;
 
   constructor(private router: Router, public actionSheetController: ActionSheetController) {
+    this.returnToDefault();
+    const filters = this.getObject();
+      filters.then((value) => {
+        if(value){
+          if(this.gender != '')
+            this.gender = value.gender;
+          else this.gender = "any";
+          this.size = value.age;
+          this.size2 = value.size;
+          this.size3 = value.location;
+        }
+        else {
+          this.returnToDefault();
+        }
+      });
+  }
+
+  
+
+  async getObject() {
+    const ret = await Storage.get({ key: 'preferences' });
+    if(ret.value){
+      return JSON.parse(ret.value);
+    } else return null;
+  }
+  async setObject() {
+    await Storage.set({
+    key: 'preferences',
+    value: JSON.stringify({
+      gender: this.gender,
+      size: this.size,
+      age: this.size2,
+      location: this.size3
+      })
+    });
+  }
+
+  returnToDefault(){
     this.gender = "any";
-    this.breed = "any";
     this.size = {
       lower: 0,
       upper: 100
@@ -37,24 +69,7 @@ export class PreferencesPageComponent {
       lower: 0,
       upper: 100
     };
-    this.size3 = {
-      lower: 0,
-      upper: 100
-    };
-    this.sizeAny = true;
-  }
-
-  async setObject() {
-    await Storage.set({
-    key: 'preferences',
-    value: JSON.stringify({
-      gender: this.gender,
-      // breed: this.breed,
-      size: this.size,
-      age: this.size2,
-      location: this.size3
-      })
-    });
+    this.size3 = 100;
   }
 
   Back(){
@@ -62,19 +77,23 @@ export class PreferencesPageComponent {
   }
 
   home(){
-    this.router.navigate(["/owneddogs"]);
+    this.router.navigate(["/home"]);
   }
 
   likeddogs(){
-    this.router.navigate(["/adoptionprocess"]);
+    this.router.navigate(["/userlikes"]);
   }
 
   profile(){
-    this.router.navigate(["/orgprofile"]);
+    this.router.navigate(["/userprofile"]);
   }
 
   preferences(){
-    //this.router.navigate(["/orgsettings"]); Not implemented yet
+    this.router.navigate(["/preferences"]);
+  }
+
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
   }
 
   async saveChanges(){

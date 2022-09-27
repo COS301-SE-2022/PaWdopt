@@ -29,49 +29,37 @@
         <p><b>Please attach all required files</b></p>
     </div>
     <br><br>
+    <ion-label class="hint">
+        <ion-icon name="information-circle-outline"></ion-icon>&nbsp;Please upload all documents in image format.</ion-label>
         <!--Documentation-->
         <div class="userinfo">
             <ion-list>
                 <ion-item>
                     <p>ID Copy</p>&nbsp;
-                    <ion-button class="uploadButtons" fill="clear" (click)="back()">
-                        <ion-icon name="trash-outline"></ion-icon>
-                    </ion-button>
-                    <ion-button class="uploadButtons2" fill="clear" (click)="back()">
+                    <!-- <input hidden type="file" #filepicker (change)="back()" /> -->
+                    <ion-button class="uploadButtons2" fill="clear" (click)="uploadID()">
                         <ion-icon name="cloud-upload-outline"></ion-icon>
                     </ion-button>
                 </ion-item>
                 <ion-item>
                     <p>Proof Of Residence</p>&nbsp;
-                    <ion-button class="uploadButtons" fill="clear" (click)="back()">
-                        <ion-icon name="trash-outline"></ion-icon>
-                    </ion-button>
-                    <ion-button class="uploadButtons2" fill="clear" (click)="back()">
+                    <ion-button class="uploadButtons2" fill="clear" (click)="uploadPOR()">
                         <ion-icon name="cloud-upload-outline"></ion-icon>
                     </ion-button>
                 </ion-item>
                 <ion-item>
                     <p>Bank Statements</p>&nbsp;
-                    <ion-button class="uploadButtons" fill="clear" (click)="back()">
-                        <ion-icon name="trash-outline"></ion-icon>
-                    </ion-button>
-                    <ion-button class="uploadButtons2" fill="clear" (click)="back()">
+                    <ion-button class="uploadButtons2" fill="clear" (click)="uploadBSS()">
                         <ion-icon name="cloud-upload-outline"></ion-icon>
                     </ion-button>
                 </ion-item>
                 <ion-item>
                     <p>Motivation Letter</p>&nbsp;
-                    <ion-button class="uploadButtons" fill="clear" (click)="back()">
-                        <ion-icon name="trash-outline"></ion-icon>
-                    </ion-button>
-                    <ion-button class="uploadButtons2" fill="clear" (click)="back()">
+                    <ion-button class="uploadButtons2" fill="clear" (click)="uploadML()">
                         <ion-icon name="cloud-upload-outline"></ion-icon>
                     </ion-button>
                 </ion-item>
             </ion-list>
-            <div class="annoyingButton">
-                <ion-button class="greyButton" (click)="back()">Upload Documents</ion-button>
-            </div>
         </div>
 </ion-content>
 
@@ -84,7 +72,7 @@
     <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="chats">
+    <ion-tab-button tab="chats" (click)="gotoChat()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>

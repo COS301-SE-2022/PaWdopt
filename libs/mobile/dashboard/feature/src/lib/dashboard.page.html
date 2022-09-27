@@ -16,23 +16,26 @@
     </ion-toolbar>
 </ion-header>
 
+<!--Back-->
+<div>
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-button>
+</div>
+
+
 <div>&nbsp;</div>
 <ion-content>
     <!--Dog name-->
     <div class="dogname">
         <p><b><ion-icon name="paw"></ion-icon>&nbsp;{{dog.name}}</b></p>
     </div>
-    <!-- <ion-chip class="dog-section-title">
-        <ion-icon name="help-buoy-sharp"></ion-icon>
-        <ion-label>{{dog.name}}</ion-label>
-    </ion-chip> -->
     <div>&nbsp;</div>
     <!--Dog info-->
     <div class="maincontainer">
         <div class="thecard">
             <div class="thefront">
                 <img src={{dog.pic}} />
-                <!-- <ion-title class="ion-text-center"><b>Millie, 2</b></ion-title> -->
                 <p><b>{{dog.organisation}}</b>
                     <ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon>
                 </p>
@@ -47,8 +50,8 @@
                 <p>{{dog.breed}}</p>
                 <h1>Temperament: </h1>
                 <p>
-                    <ion-chip outline color="success">
-                        <ion-label>{{dog.temperament}}</ion-label>
+                    <ion-chip outline color="success" *ngFor="let temp of dog.temperament">
+                        <ion-label>{{ temp }}</ion-label>
                     </ion-chip>
                 </p>
                 <h1>Fur length: </h1>
@@ -62,7 +65,8 @@
         <p><b>Users that liked me!</b></p>
     </div>
     &nbsp;
-    <ion-label class="hint"><ion-icon name="information-circle-outline"></ion-icon>&nbsp;Slide right to start adoption process or left to reject or view info on user.</ion-label>
+    <ion-label class="hint">
+        <ion-icon name="information-circle-outline"></ion-icon>&nbsp;Slide right to start adoption process or left to reject or view info on user.</ion-label>
     <div class="userinfo">
         <div>&nbsp;</div>
         <ion-list *ngFor="let userLike of userLikes">
@@ -81,11 +85,11 @@
                 </ion-item>
                 <ion-item-options side="start">
                     <ion-item-option color="success" (click)="heart(userLike._id)">
-                        <ion-icon slot="icon-only" name="happy" ></ion-icon>
+                        <ion-icon slot="icon-only" name="happy"></ion-icon>
                     </ion-item-option>
                 </ion-item-options>
                 <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="trash(userLike._id)"> <!--_alert()-->
+                    <ion-item-option color="danger" (click)="trash(userLike._id)">
                         <ion-icon slot="icon-only" name="trash"></ion-icon>
                     </ion-item-option>
                     <ion-item-option color="primary" (click)="userinfo(userLike._id)">
@@ -105,7 +109,7 @@
     <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="chats">
+    <ion-tab-button tab="chats" (click)="gotoChat()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>

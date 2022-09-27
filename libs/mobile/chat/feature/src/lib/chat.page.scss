@@ -2,17 +2,65 @@
 //     // margin-left:auto;
 //     // margin-right:auto;
 //     max-width:700px;
-
 //     text-align: center;
 //     height: 100%;
-
 //     top: 50%;
 // }
 // #login-container{
 //     height:100%;
 // }
+.newback {
+    background-color: white;
+}
 
-.dogname{
+.ion-col{
+    padding: 0px;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+}
+
+.other-message {
+    background: var(--ion-color-othermessage);
+    color: #000;
+}
+
+.my-message {
+    background: var(--ion-color-mymessage);
+    color: #000
+}
+
+.time {
+    color: #dfdfdf;
+    float: right;
+    font-size: small;
+}
+
+.msg-btn {
+    --padding-start: 0.5em;
+    --padding-end: 0.5em;
+}
+
+.message-input {
+    width: 100%;
+    border: 1px solid var(--ion-color-light);
+    border-radius: 10px;
+    background: #fff;
+    resize: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.sender {
+    background: black;
+    border-color: black;
+}
+
+.dogname {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -25,10 +73,9 @@
     border-radius: 5px;
     background-color: #C0B7B1;
     border-color: black;
-
 }
 
-.userinfo{
+.userinfo {
     margin: auto;
     width: 330px;
     height: 460px;
@@ -38,12 +85,11 @@
     border-color: black;
 }
 
-.avatar{
+.avatar {
     --border-radius: 50px;
 }
 
-
-.manipulatebuttons{
+.manipulatebuttons {
     // height: 100%;
     background-color: #F8F9FA;
     display: flex;
@@ -54,7 +100,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.potentialadoptees{
+.potentialadoptees {
     background-color: #F8F9FA;
     display: flex;
     flex-direction: column;
@@ -64,11 +110,11 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.adopteesnew{
+.adopteesnew {
     background-color: #C0B7B1;
 }
 
-.maincontainer{
+.maincontainer {
     //position: absolute;
     //transform: translate(-50%, -50%);
     margin: auto;
@@ -77,10 +123,9 @@
     background: none;
     top: 50%;
     left: 50%;
-    
 }
 
-.thecard{
+.thecard {
     position: relative;
     top: 0;
     left: 0;
@@ -89,14 +134,13 @@
     border-radius: 5px;
     transform-style: preserve-3d;
     transition: all 0.5s ease;
-    
 }
 
 .thecard:active {
     transform: rotateY(180deg);
 }
 
-.thefront{
+.thefront {
     position: absolute;
     top: 0;
     left: 0;
@@ -108,10 +152,9 @@
     background: #F8F9FA;
     text-align: center;
     color: #000;
-    
 }
 
-.theback{
+.theback {
     position: absolute;
     top: 0;
     left: 0;
@@ -124,4 +167,4 @@
     color: #333;
     text-align: center;
     transform: rotateY(180deg);
-  }
+}

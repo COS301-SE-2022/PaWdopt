@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Storage } from '@capacitor/storage';
+import { LoadingController } from '@ionic/angular';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Platform } from '@ionic/angular';
+import { APP_CONFIG } from '@pawdopt/config';
 
 @Component({
   selector: 'pawdopt-home',
@@ -33,27 +37,99 @@ export class HomePage {
     age: number,
     organisation:string,
     pic: string,
-    visible: boolean
+    visible: boolean,
+    distanceFromUser: number
     }[] = [];
-    //@TODO
-    //Add card at the end to say no more available dogs
+
+    // Readable Address
+   address!: string;
+
+   // Location coordinates
+  latitude!: number;
+  longitude!: number;
+  accuracy!: number;
+
+  options = {
+    timeout: 10000, 
+    enableHighAccuracy: true, 
+    maximumAge: 3600
+  };
+    
   currentIndex: number;
   results : string[] = []; //to show the liked/disliked dogs
   storeIndex: number[] = [];
    t_ID: string;
 
-    constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth) {
+    constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private fireAuth: AngularFireAuth, private loadingCtrl: LoadingController, private geolocation: Geolocation, private platform: Platform, @Inject(APP_CONFIG) private appConfig: any) {
       this.t_ID = "";
       this.currentIndex = -1;
-      this.setObject();
+      //this.getGeolocation(); // might have to add this to the ionViewWillEnter
+      // this.setObject();
       this.fireAuth.currentUser.then(user => {
         console.log(user?.uid);
         if(user?.uid){
           this.t_ID = user.uid;
           console.log(this.t_ID);
-          this.getDogs();
+          //this.showLoading();
+          // this.getDogs();
         }
       });
+    }
+
+    // <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  // <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  // <uses-feature android:name="android.hardware.location.gps" />
+
+  //Get current coordinates of device
+  getGeolocation() {
+    this.platform.ready().then(() => {
+      this.geolocation.getCurrentPosition(this.options).then((resp) => {
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+        const latLng = this.latitude + "," + this.longitude;
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${this.appConfig.MAPS_API_KEY}`)
+        .then((responseText) => {
+            return responseText.json();
+        })
+        .then(jsonData => {
+            this.address = jsonData.results[0].formatted_address;
+            console.log("Address:" + this.address);
+            this.showLoading();
+        })
+        .catch(error => {
+            console.log(error);
+        })
+      }).catch((error) => {
+        alert('Error getting location' + JSON.stringify(error));
+      });
+    });
+  }
+
+  getDistanceFromLatLonInKm(lat1 : number,lon1 : number,lat2 : number,lon2 : number) {
+    const R = 6371; // Radius of the earth in km
+    const dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+    const dLon = this.deg2rad(lon2-lon1); 
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    const d = R * c; // Distance in km
+    return d;
+  }
+
+  deg2rad(deg : number) {
+    return deg * (Math.PI/180)
+  }
+
+    async showLoading() {
+      const loading = await this.loadingCtrl.create({
+        message: 'Finding Dogs closest to ' + this.address,
+        duration: 2000,
+      });
+  
+      loading.present();
     }
 
     async setObject() {
@@ -70,10 +146,7 @@ export class HomePage {
           lower: 0,
           upper: 0
         },
-        location: {
-          lower: 0,
-          upper: 0
-        }
+        location: 0
         })
       });
     }
@@ -81,6 +154,7 @@ export class HomePage {
     ionViewWillEnter(){
       this.avatars = [];
       this.currentIndex = -1;
+      this.getGeolocation();
       this.setPrefs();
       this.getDogs();
     }
@@ -100,8 +174,6 @@ export class HomePage {
     if(filters && filters != undefined){
       if(filters.gender != undefined)
         this.gender = filters.gender;
-      if(filters.breed != undefined)
-        this.breed = filters.breed;
       if(filters.age.lower != undefined)
         this.minAge = filters.age.lower;
       if(filters.age.upper != undefined)
@@ -110,14 +182,15 @@ export class HomePage {
         this.minSize = filters.size.lower;
       if(filters.size.upper != undefined)
         this.maxSize = filters.size.upper;
-      if(filters.distance != undefined)
-        this.maxDistance = filters.location.upper;
+      if(filters.location != undefined)
+        this.maxDistance = filters.location;
     }
-    if(this.gender == "Any")
+    if(this.gender == "any")
       this.gender = "";
   }
 
   getDogs(){
+    this.avatars = [];
     const getDogsQuery = gql`query {
       findDogs(na : true){
         _id
@@ -128,6 +201,10 @@ export class HomePage {
         breed
         organisation{
           name
+          location{
+            lat
+            lng
+          }
         }
         height
       }
@@ -150,7 +227,11 @@ export class HomePage {
           height: number,
           dob: Date,
           organisation: {
-            name: string
+            name: string,
+            location: {
+              lat: number,
+              lng: number
+            }
           },
           pics: string[]
         }[];
@@ -166,17 +247,23 @@ export class HomePage {
             gender: element.gender,
             breed: element.breed,
             height: element.height,
-            lat: 0,
-            lng: 0,
-            // lat: element.organisation.location.lat
-            // lng: element.organisation.location.lng,
+            lat: element.organisation.location.lat,
+            lng: element.organisation.location.lng,
             age: sage,
             organisation: element.organisation.name,
             pic: element.pics[0],
-            visible: true
+            visible: true,
+            distanceFromUser: this.getDistanceFromLatLonInKm(this.latitude, this.longitude, element.organisation.location.lat, element.organisation.location.lng)
           }
         );
         this.currentIndex++;
+        //sort the avatars array by distanceFromUser in descending order
+        this.avatars.sort((a, b) => (a.distanceFromUser > b.distanceFromUser) ? -1 : 1);
+        this.avatars.forEach(element => {
+          console.log(element.distanceFromUser);
+        });
+
+        
       });
       const findAdopterByIdQuery = gql`query{
         findAdopterById(_id: "${this.t_ID}"){
@@ -203,7 +290,7 @@ export class HomePage {
             }[]
           }
         }
-        console.log(this.avatars);
+        
         console.log(data.findAdopterById.dogsLiked);
         // this.avatars.forEach(element => {
           data.findAdopterById.dogsLiked.forEach(element2 => {
@@ -242,8 +329,10 @@ export class HomePage {
           age: number,
           organisation:string,
           pic: string,
-          visible: boolean
+          visible: boolean,
+          distanceFromUser: number
           }[] = [];
+          this.currentIndex = -1;
         this.avatars.forEach(element => {
           let splice = false;
           // if(this.breed)
@@ -254,25 +343,27 @@ export class HomePage {
             if(element.gender != this.gender && this.gender != ""){
               splice = true;
             }
-          const distance = 0;
           //distnace is calculated from user and orgs lat and lng
           if(this.maxDistance)
-            if(distance >= this.maxDistance && this.maxDistance != 0){
+            if(element.distanceFromUser >= this.maxDistance && this.maxDistance != 0){
               splice = true;
             }
           if(this.minAge && this.maxAge)
-            if((element.age < this.minAge || element.age >= this.maxAge) && this.minAge != 0 && this.maxAge != 0){
+            if((element.age < this.minAge || element.age >= this.maxAge) && this.maxAge != 0){
               splice = true;
             }
           if(this.minSize && this.maxSize)
-            if((element.height <= this.minSize || element.height >=this.maxSize) && this.minSize != 0 && this.maxSize != 0){
+            if((element.height <= this.minSize || element.height >=this.maxSize) && this.maxSize != 0){
               splice = true;
             }
           if(!splice){
+            this.currentIndex++;
             temp.push(element);
           }
         });
+        this.avatars = [];
         this.avatars = temp;
+        console.log(this.avatars);
       });
     });
     //we have filtered out the dogs
@@ -287,13 +378,13 @@ export class HomePage {
   async swiped(event: boolean, index: number) {
     
     console.log(this.t_ID);
-    console.log(this.avatars[index].name + ' swiped ' + event);
+    console.log(this.avatars[index].name + ' swiped ' + event.toString());
      if(event)
-       await this.addDogToLiked(this.currentIndex);
+        await this.addDogToLiked(this.currentIndex);
       else
         await this.addDogToDisliked(this.currentIndex);
     this.avatars[index].visible = false;
-    this.results.push(this.avatars[index].name + ' swiped ' + event); 
+    this.results.push(this.avatars[index].name + ' swiped ' + event.toString()); 
     console.log(index);
     console.log(this.currentIndex);
     this.currentIndex--;
@@ -323,6 +414,19 @@ export class HomePage {
     this.currentIndex++;
     console.log(this.currentIndex + "this is the current index");
     this.avatars[this.currentIndex].visible = true;
+    const thisDog = this.avatars[this.currentIndex].name;
+    const index1 = this.results.findIndex(function(dog){
+      return dog == thisDog + ' swiped false';
+    });
+    const index2 = this.results.findIndex(function(dog){
+      return dog == thisDog + ' swiped true';
+    });
+    if(index1 != -1){
+      this.results.splice(index1, 1);
+    }
+    if(index2 != -1){
+      this.results.splice(index2, 1);
+    }
     const removeDogFromAdopterDogsLikedOrDislikedQuery = gql`mutation{
         removeDogFromAdopterDogsLikedOrDisliked(
           userId: "${this.t_ID}",
@@ -346,6 +450,10 @@ export class HomePage {
       );
       
 
+  }
+
+  locationPicked(){
+    this.showLoading();
   }
 
   home(){
@@ -399,5 +507,9 @@ export class HomePage {
     }, (error) => {
       console.log('there was an error sending the query', error);
     });
+  }
+
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
   }
 }

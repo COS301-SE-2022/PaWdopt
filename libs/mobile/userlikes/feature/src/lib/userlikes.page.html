@@ -17,6 +17,15 @@
     </ion-toolbar>
 </ion-header>
 
+<!--Back-->
+  <div>
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+      <ion-icon  name="arrow-back-sharp"></ion-icon>
+    </ion-button>
+  </div>
+  
+<div>&nbsp;</div>
+
 <ion-content>
     <!--Search for dogs in user likes-->
     <div class="searchbar">
@@ -63,18 +72,7 @@
     <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="chats">
+    <ion-tab-button tab="chats" (click)="gotoChat()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>
-
-<!-- <ion-card>
-    <img src="../../assets/husky.jpg" />
-    <ion-card-header>
-      <ion-card-title>Wendy, 4</ion-card-title>
-      <ion-card-subtitle>SPCA</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      A very energetic and entertaining husky, she loves walks and is very easily trainable. Extremely loyal and a great family dog.
-    </ion-card-content>
-  </ion-card> -->

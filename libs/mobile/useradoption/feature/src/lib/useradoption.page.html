@@ -16,23 +16,23 @@
     </ion-toolbar>
 </ion-header>
 
- <!--Back-->
- <div>
-    <ion-button class="ion-float-left" fill="clear" size="large">
-      <ion-icon  name="arrow-back-circle"></ion-icon>
+<!--Back-->
+<div>
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
     </ion-button>
-  </div>
+</div>
 
-  &nbsp;
+&nbsp;
 
 <!--Content-->
 <ion-content>
     <div class="maincontainer">
         <div class="thecard">
             <div class="thefront">
-                <img [src]="dog.pic" [alt]="dog.name">
+                <img src="{{dog.pic}}">
                 <ion-title class="ion-text-center"><b>{{dog.name}}, {{dog.age}}</b></ion-title>
-                    <!-- <ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon> -->
+                <!-- <ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon> -->
                 <p>{{dog.about}}</p>
             </div>
             <div class="theback">
@@ -49,17 +49,17 @@
                     </ion-chip>
                 </p>
                 <h1>Fur length: </h1>
-                <p>{{dog.furlength}}</p>
+                <p>{{dog.furLength}}</p>
             </div>
         </div>
-    </div> 
+    </div>
     <div class="userinfo">
         <!-- <div>&nbsp;</div> -->
         <ion-list>
             <ion-item-sliding id="item1">
                 <ion-item href="#">
                     <ion-thumbnail class="avatar">
-                        <img [src]="user.pic" [alt]="user.name">
+                        <img src="{{user.pic}}">
                     </ion-thumbnail>
                     <div>&nbsp;</div>
                     <ion-label>
@@ -69,28 +69,32 @@
                     </ion-label>
                 </ion-item>
                 <ion-item-options side="end">
-                    <ion-item-option color="success">
-                        <ion-icon slot="icon-only" name="book"></ion-icon>
+                    <ion-item-option color="success" (click)="seeInfo()">
+                        <ion-icon slot="icon-only" name="accessibility-outline"></ion-icon>
                     </ion-item-option>
                     <ion-item-option color="warning">
                         <ion-icon slot="icon-only" name="chatbox"></ion-icon>
-                    </ion-item-option>    
+                    </ion-item-option>
                 </ion-item-options>
             </ion-item-sliding>
             <ion-grid class="middleButton">
                 <ion-row>
-                  <ion-col col-6>
-                    <ion-button class="greyButton">Accept</ion-button>
-                  </ion-col>
-                  <ion-col col-6>
-                    <ion-button class="greyButton">Reject</ion-button>
-                  </ion-col>
+                    <ion-col col-6>
+                        <ion-button class="greyButton" (click)="onAccept()">Accept</ion-button>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-button class="greyButton" (click)="onDecline()">Reject</ion-button>
+                    </ion-col>
                 </ion-row>
-              </ion-grid>
+            </ion-grid>
         </ion-list>
+        <div class="middleButton">
+            <ion-button class="greyButton" (click)="onComplete()">Complete adoption</ion-button>
+        </div>
+
     </div>
 
-  </ion-content>
+</ion-content>
 
 
 
@@ -102,7 +106,7 @@
     <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="chats">
+    <ion-tab-button tab="chats" (click)="gotoChat()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>

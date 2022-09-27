@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { Storage } from '@capacitor/storage'
 import { AlertController } from '@ionic/angular';
-//import { owneddogsPageComponentModule } from '@pawdopt/mobile/owneddogs/feature';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'pawdopt-dashboard',
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade],
+  providers: [Apollo],
 })
 export class dashboardPageComponent {
 
-  dogID!: string; //from owned dogs page
+  dogID!: string; 
 
   dog:{
     name:string,
@@ -45,12 +44,18 @@ export class dashboardPageComponent {
 
   userId!: string;
   
-  constructor(private router: Router, private apollo: Apollo,private varsFacade: VarsFacade, private alertController: AlertController ) {
-    /*this.varsFacade.dogID$.subscribe(dogID => {
-      this.dogID = dogID;
-    });*/
+  constructor(private router: Router, private apollo: Apollo, private alertController: AlertController, private loadingCtrl: LoadingController ) {
     this.userId = "";
     this.getDog();
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading changes...',
+      duration: 4500,
+    });
+
+    loading.present();
   }
 
   async _alert() {
@@ -77,13 +82,14 @@ export class dashboardPageComponent {
   }
 
   async getObject() {
-    const ret = await Storage.get({ key: 'dogID' });
+    const ret = await Storage.get({ key: 'ownedToDashboard' });
     if(ret.value){
       return JSON.parse(ret.value);
     }
   }
 
   async getDog(){
+    this.userLikes = [];
     this.dogID = (await this.getObject()).name
     console.log(this.dogID);
     const getDogQuery = gql`query {
@@ -144,7 +150,6 @@ export class dashboardPageComponent {
       this.dog.breed = data.findDogById.breed;
       this.dog.temperament = data.findDogById.temperament;
       this.dog.furLength = data.findDogById.furLength;
-      
       data.findDogById.usersLiked.forEach(element => {
         this.userLikes.push(
           {
@@ -161,7 +166,6 @@ export class dashboardPageComponent {
 
 
   async userinfo(id: string){
-    // TODO Complete dashboard validation
     this.userId = id;
     await this.setObject();
     console.log(id);
@@ -182,19 +186,20 @@ export class dashboardPageComponent {
           cssClass: 'my-alert-class',
           handler: (value:  any) => {
             console.log("heart");
-    const clickedHeartIconquery = gql`mutation {
-      clickedHeartIcon(userId: "${id}", dogId: "${this.dogID}") {
-        _id
-      }
-    }`;
-    this.apollo.mutate({
-      mutation: clickedHeartIconquery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-      this.getDog();
-    }
-    )
+            this.showLoading();
+            const clickedHeartIconquery = gql`mutation {
+              clickedHeartIcon(userId: "${id}", dogId: "${this.dogID}") {
+                _id
+              }
+            }`;
+            this.apollo.mutate({
+              mutation: clickedHeartIconquery,
+              fetchPolicy: 'no-cache'
+            }).subscribe((result) => {
+              console.log(result);
+              this.getDog();
+            }
+            )
         }
       },
       {
@@ -218,20 +223,20 @@ export class dashboardPageComponent {
           cssClass: 'my-alert-class',
           handler: (value:  any) => {
             console.log(id);
-    const clickedTrashIconquery = gql`mutation {
-      clickedTrashIcon(userId: "${id}", dogId: "${this.dogID}") {
-        name
-      }
-    }`;
-    this.apollo.mutate({
-      mutation: clickedTrashIconquery,
-      fetchPolicy: 'no-cache'
-    }).subscribe((result) => {
-      console.log(result);
-      this.userLikes = [];
-      this.getDog();
-    }
-    )
+            this.showLoading();
+            const clickedTrashIconquery = gql`mutation {
+              clickedTrashIcon(userId: "${id}", dogId: "${this.dogID}") {
+                name
+              }
+            }`;
+            this.apollo.mutate({
+              mutation: clickedTrashIconquery,
+              fetchPolicy: 'no-cache'
+            }).subscribe((result) => {
+              console.log(result);
+              this.getDog();
+            }
+            )
         }
       },
       {
@@ -251,6 +256,9 @@ export class dashboardPageComponent {
     });
   }
 
+  back(){
+    this.router.navigate(["/owneddogs"]);
+  }
   home(){
     this.router.navigate(["/owneddogs"]);
   }
@@ -260,16 +268,15 @@ export class dashboardPageComponent {
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    this.router.navigate(["/orgprofile"]);
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/orgsettings"]); 
   }
 
-  // addDog(){
-  //   this.router.navigate(["/adddog"]);
-  // }
-
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
+  }
 }
 

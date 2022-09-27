@@ -6,12 +6,14 @@ import { GraphQLModule} from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-
-import * as dotenv from 'dotenv';
-dotenv.config();
+import { ConfigModule } from '@nestjs/config';
+// import * as dotenv from 'dotenv';
+// dotenv.config();
  
+
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     BackendShellApiFeatureModule,
     SharedMlFeatureModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { Storage } from '@capacitor/storage';
 
 
@@ -10,7 +9,7 @@ import { Storage } from '@capacitor/storage';
   selector: 'pawdopt-updateorremovedog',
   templateUrl: 'updateorremovedog.page.html',
   styleUrls: ['updateorremovedog.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade]
+  providers: [Apollo]
 })
 export class updateorremovedogPageComponent {
 
@@ -19,25 +18,14 @@ export class updateorremovedogPageComponent {
   inputGender!: string;
   inputDob!: string;
   inputAbout!: string;
-  // inputHeight!: number;
-  // inputWeight!: number;
-  inputHeight!: {
-    lower: number;
-    upper: number;
-  };
-  inputWeight!: {
-    lower: number;
-    upper: number;
-  };
+  loadHeight!: number;
+  loadWeight!: number;
+  inputHeight!: number;
+  inputWeight!: number;
   inputFurlength!: string;
   inputTemperament!: string;
   
-  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo: Apollo, private varsFacade: VarsFacade ){
-    // this.varsFacade.dogID$.subscribe(dogID => {
-    //   console.log("hello im here");
-    //   this.dogID = dogID;
-    //   console.log(this.dogID);
-    // });
+  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo: Apollo){
     this.loadDog();
   }
 
@@ -66,7 +54,7 @@ export class updateorremovedogPageComponent {
   }  
 
   async getObject() {
-    const ret = await Storage.get({ key: 'dogID' });
+    const ret = await Storage.get({ key: 'fromUpdatePage' });
     if(ret.value){
       return JSON.parse(ret.value);
     }
@@ -99,6 +87,7 @@ export class updateorremovedogPageComponent {
   async loadDog(){
 
     this.dogID = (await this.getObject()).name;
+    console.log(this.dogID);
     const getDogQuery = gql`query {
       findDogById(_id: "${this.dogID}"){
         name
@@ -136,8 +125,10 @@ export class updateorremovedogPageComponent {
         const tempDate = new Date(data.findDogById.dob); 
         this.inputDob = (tempDate.getFullYear() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getDate()).toString();
         this.inputGender = data.findDogById.gender;
-        this.inputHeight.upper = data.findDogById.height; //might not work
-        this.inputWeight.upper = data.findDogById.weight; //might not work
+        this.loadHeight = data.findDogById.height; 
+        this.inputHeight = data.findDogById.height;
+        this.loadWeight = data.findDogById.weight; 
+        this.inputWeight = data.findDogById.weight;
         this.inputBreed = data.findDogById.breed;
         this.dog.temperament = data.findDogById.temperament;
         this.inputFurlength = data.findDogById.furLength;
@@ -195,7 +186,7 @@ export class updateorremovedogPageComponent {
 
   deleteDog(){//delete the clicked on dog
     const deleteDogQuery = gql`mutation {
-      deleteDog(_id: "${this.dogID}")){
+      deleteDog(dogId: "${this.dogID}"){
         name
       }
     }`;
@@ -208,7 +199,7 @@ export class updateorremovedogPageComponent {
   };
 
   home(){
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/owneddogs"]);
   }
 
   back(){
@@ -216,15 +207,19 @@ export class updateorremovedogPageComponent {
   }
 
   likeddogs(){
-    this.router.navigate(["/userlikes"]);
+    this.router.navigate(["/adoptionprocess"]);
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    this.router.navigate(["/orgprofile"]);
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/orgsettings"]);
+  }
+
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
   }
 
 

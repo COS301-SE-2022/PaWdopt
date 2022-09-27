@@ -1,4 +1,30 @@
+<!--Header-->
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-button fill="clear" color="dark" (click)="preferences()">
+                <ion-icon slot="icon-only" name="settings"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
+        </ion-title>
+        <ion-buttons slot="end" (click)="profile()">
+            <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="person"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<!--Back-->
+<div class="newback">
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+      <ion-icon  name="arrow-back-circle"></ion-icon>
+    </ion-button>
+</div>
+<ion-content>
 <div class="container">
+    <!--Back-->
     <img class="logo" src="../../assets/PaWdopt_transparent(cropped).png">
     <ion-chip class="orgmember-section-title">
         <ion-icon name="help-buoy-sharp"></ion-icon>
@@ -24,13 +50,7 @@
                 </ion-popover>
             </ion-item>
             <ion-item class="form-item">
-                <ion-label>Location</ion-label>
-                <ion-label position="floating" class="form-input-label">Latitude</ion-label>
-                <ion-input class="form-input" [(ngModel)]="lat" id="lat-field" clear-on-edit=false>
-                </ion-input>
-                <ion-label position="floating" class="form-input-label">Longitude</ion-label>
-                <ion-input class="form-input" [(ngModel)]="lng" id="long-field" clear-on-edit=false>
-                </ion-input>
+                <p>{{this.address}}</p>
             </ion-item>
             <ion-item class="form-item">
                 <ion-label position="floating" class="form-input-label">Contact email (optional)</ion-label>
@@ -58,9 +78,11 @@
             </ion-item>
         </ion-item-group>
     </ion-list>
+    &nbsp;
     <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">
         <ion-icon name="image-sharp"></ion-icon>&nbsp; Upload an organisation logo
     </ion-button>
+    &nbsp;
     <ion-button class="greyButton" id="image-upload-button" (click)="uploadDoc()">
         <ion-icon name="document-sharp"></ion-icon>&nbsp; Upload list of adoption rules
     </ion-button>
@@ -105,7 +127,21 @@
             </ion-card>
         </ion-slide>
     </ion-slides>
-
+    &nbsp;
     <ion-button class="greyButton" id="add-org-button" (click)="updateOrg()">Save Changes</ion-button>
-    <ion-button class="greyButton" id="add-org-button" (click)="Back()">Back</ion-button>
+    &nbsp;
+    <ion-button class="greyButton" id="signout-org-button" (click)="signout()">Signout</ion-button>
 </div>
+</ion-content>
+<!--Footer-->
+<ion-tab-bar color="secondary" slot="bottom">
+    <ion-tab-button tab="home" (click)="home()">
+        <ion-icon color="dark" name="home"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="liked" (click)="likeddogs()">
+        <ion-icon color="dark" name="paw"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="chats" (click)="gotoChat()">
+        <ion-icon color="dark" name="chatbox"></ion-icon>
+    </ion-tab-button>
+</ion-tab-bar>

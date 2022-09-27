@@ -1,8 +1,7 @@
-
 <!--Back-->
 <div class="newback">
     <ion-button class="ion-float-left" fill="clear" size="large" (click)="Back()">
-      <ion-icon  name="arrow-back-circle"></ion-icon>
+        <ion-icon name="arrow-back-circle"></ion-icon>
     </ion-button>
 </div>
 
@@ -16,11 +15,12 @@
         <ion-item-group class="form-border">
             <ion-item class="form-item form-start">
                 <ion-label position="floating" class="form-input-label">Name</ion-label>
-                <ion-input class="form-input" [(ngModel)]="oName" id="org-name-field"></ion-input>
+                <ion-input class="form-input" [(ngModel)]="oName" id="org-name-field" required></ion-input>
             </ion-item>
             <ion-item class="form-item" lines="none">
                 <ion-label position="floating">About</ion-label>
-                <ion-input class="form-input" [(ngModel)]="about" id="about-field"></ion-input>
+                <ion-textarea class="form-input" [(ngModel)]="about" id="about-field" id="txtnotes" auto-grow="true" required>
+                </ion-textarea>
             </ion-item>
             <ion-item class="form-item">
                 <ion-label position="floating" class="form-input-label">Date founded</ion-label>
@@ -32,45 +32,42 @@
                 </ion-popover>
             </ion-item>
             <ion-item class="form-item">
-                <ion-label>Location</ion-label>
-                <ion-label position="floating" class="form-input-label">Latitude</ion-label>
-                <ion-input class="form-input" [(ngModel)]="lat" id="lat-field">
-                </ion-input>
-                <ion-label position="floating" class="form-input-label">Longitude</ion-label>
-                <ion-input class="form-input" [(ngModel)]="lng" id="long-field">
-                </ion-input>
+                <p>{{this.address}}</p>
             </ion-item>
             <ion-item class="form-item">
-                <ion-label position="floating" class="form-input-label">Contact email (optional)</ion-label>
+                <ion-label position="floating" class="form-input-label">Contact Email</ion-label>
                 <ion-input class="form-input" [(ngModel)]="email" id="email-field"></ion-input>
             </ion-item>
             <ion-item class="form-item">
-                <ion-label position="floating" class="form-input-label">Contact number (optional)</ion-label>
+                <ion-label position="floating" class="form-input-label">Contact Number</ion-label>
                 <ion-input class="form-input" [(ngModel)]="phone" id="phone-field"></ion-input>
             </ion-item>
             <ion-item class="form-item">
-                <ion-label position="floating" class="form-input-label">Website link (optional)</ion-label>
+                <ion-label position="floating" class="form-input-label">Website Link</ion-label>
                 <ion-input class="form-input" [(ngModel)]="website" id="website-field"></ion-input>
             </ion-item>
             <ion-item class="form-item">
-                <ion-label position="floating" class="form-input-label">Facebook link (optional)</ion-label>
+                <ion-label position="floating" class="form-input-label">Facebook Link</ion-label>
                 <ion-input class="form-input" [(ngModel)]="facebook" id="facebook-field"></ion-input>
             </ion-item>
             <ion-item class="form-item">
-                <ion-label position="floating" class="form-input-label">Instagram link (optional)</ion-label>
+                <ion-label position="floating" class="form-input-label">Instagram Link</ion-label>
                 <ion-input class="form-input" [(ngModel)]="instagram" id="instagram-field"></ion-input>
             </ion-item>
             <ion-item class="form-item form-end">
-                <ion-label position="floating" class="form-input-label">Twitter link (optional)</ion-label>
+                <ion-label position="floating" class="form-input-label">Twitter Link</ion-label>
                 <ion-input class="form-input" [(ngModel)]="twitter" id="twitter-field"></ion-input>
             </ion-item>
         </ion-item-group>
     </ion-list>
     <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">
-        <ion-icon name="image-sharp"></ion-icon> Upload an organisation logo
+        <ion-icon name="image-sharp"></ion-icon>&nbsp; Upload an organisation logo
     </ion-button>
+    <div class="imageContainer">
+        <ion-img [src]="imageToShow" class="uploadedImage" id="imageUpload"></ion-img>
+    </div>
     <ion-button class="greyButton" id="image-upload-button" (click)="uploadDoc()">
-        <ion-icon name="document-sharp"></ion-icon> Upload list of adoption rules
+        <ion-icon name="document-sharp"></ion-icon>&nbsp; Upload list of adoption rules
     </ion-button>
     <ion-chip class="orgmember-section-title">
         <ion-icon name="accessibility-sharp"></ion-icon>

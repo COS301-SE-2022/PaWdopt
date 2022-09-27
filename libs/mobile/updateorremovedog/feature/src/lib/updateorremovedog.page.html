@@ -21,7 +21,7 @@
 <!--Back-->
 <div class="newback">
     <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
-      <ion-icon  name="arrow-back-circle"></ion-icon>
+        <ion-icon name="arrow-back-circle"></ion-icon>
     </ion-button>
 </div>
 
@@ -47,34 +47,33 @@
                         <ion-select-option value="Female">Female</ion-select-option>
                     </ion-select>
                 </ion-item>
-                <ion-item class="form-item" id="open-modal">
-                    <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Date of birth*</ion-label>
-                    <ion-input class="form-input" id="age-field" clear-on-edit=false value="{{dog.dob}}" [(ngModel)]="inputDob"></ion-input>
-                    <ion-modal trigger="open-modal">
-                      <ng-template>
-                        <ion-content>
-                          <ion-datetime display-format="DD-MMM-YY" [(ngModel)]="inputDob" showDefaultButtons="true"></ion-datetime>
-                        </ion-content>
-                      </ng-template>
-                    </ion-modal>
+                <ion-item class="form-item">
+                    <ion-label position="floating" class="form-input-label">
+                        <ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Date of birth*</ion-label>
+                    <ion-input disabled="true" value="{{ inputDob | date: 'yyyy.MM.dd' }}" id="date" class="ion-text-end"></ion-input>
+                    <ion-popover trigger="date" size="auto">
+                        <ng-template>
+                            <ion-datetime color="datetimecolor" presentation="date" [(ngModel)]="inputDob"></ion-datetime>
+                        </ng-template>
+                    </ion-popover>
                 </ion-item>
                 <ion-item class="form-item">
                     <ion-label position="floating" class="form-input-label">About*</ion-label>
                     <ion-input class="form-input" id="about-field" type="text" clear-on-edit=false wrap="hard" value="{{dog.about}}" [(ngModel)]="inputAbout"></ion-input>
                 </ion-item>
                 <ion-item class="form-item">
-                    <!-- <ion-input class="form-input" id="height-field" clear-on-edit=false value="{{dog.height}}" [(ngModel)]="inputWeight"></ion-input> -->
                     <div style="display: flex; flex-direction: column;">
-                        <ion-label position="floating" class="testclass">Height (in cm)*</ion-label>
-                      </div>
-                        <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: dog.height}" [(ngModel)]="inputHeight" pin="true"></ion-range>
+                        <ion-label position="floating" class="testclass">Change Height (in cm)*</ion-label>
+                    </div>
+                    <ion-range [dualKnobs]="false" [value]="dog.height" [(ngModel)]="inputHeight" pin="true"></ion-range>
+                    <ion-input class="form-input" disabled="true" id="height-field" clear-on-edit=false value="{{dog.height}}" [(ngModel)]="loadHeight">Current Height: &nbsp;</ion-input>
                 </ion-item>
                 <ion-item class="form-item">
-                    <!-- <ion-input class="form-input" id="weight-field" clear-on-edit=false value="{{dog.weight}}" [(ngModel)]="inputWeight"></ion-input> -->
                     <div style="display: flex; flex-direction: column;">
-                        <ion-label position="floating" class="testclass">Weight (in kg)*</ion-label>
-                      </div>
-                        <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: dog.weight }" [(ngModel)]="inputWeight" pin="true" required=""></ion-range>
+                        <ion-label position="floating" class="testclass">Change Weight (in kg)* </ion-label>
+                    </div>
+                    <ion-range [dualKnobs]="false" [value]="dog.weight" [(ngModel)]="inputWeight" pin="true" required=""></ion-range>
+                    <ion-input class="form-input" disabled="true" id="weight-field" clear-on-edit=false value="{{dog.weight}}" [(ngModel)]="loadWeight">Current Weight: &nbsp;</ion-input>
                 </ion-item>
                 <ion-item class="form-item">
                     <ion-label position="floating" class="form-input-label">Furlength*</ion-label>
@@ -106,7 +105,7 @@
     <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="chats">
+    <ion-tab-button tab="chats" (click)="gotoChat()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>

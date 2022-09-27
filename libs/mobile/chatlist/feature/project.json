@@ -1,20 +1,20 @@
 {
   "$schema": "..\\..\\..\\..\\node_modules\\nx\\schemas\\project-schema.json",
-  "sourceRoot": "libs/mobile/add-org-member/feature/src",
+  "sourceRoot": "libs/mobile/chatlist/feature/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/mobile/add-org-member/feature/**/*.ts"]
+        "lintFilePatterns": ["libs/mobile/chatlist/feature/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/mobile/add-org-member/feature"],
+      "outputs": ["coverage/libs/mobile/chatlist/feature"],
       "options": {
-        "jestConfig": "libs/mobile/add-org-member/feature/jest.config.ts",
+        "jestConfig": "libs/mobile/chatlist/feature/jest.config.ts",
         "passWithNoTests": true
       }
     }

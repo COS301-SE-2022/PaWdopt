@@ -40,6 +40,46 @@ export class ContactInfo {
 
 @ObjectType()
 @Schema()
+export class Adopter {
+    @Prop()
+    _id: string;
+
+    @Prop()
+    name: string;
+
+    @Prop()
+    email: string;
+    
+    @Prop()
+    pic: string;
+
+    @Prop()
+    location: Location;
+
+    @Prop()
+    documents: [Doc];
+
+    @Prop()
+    dogsLiked: [Dog];
+
+    @Prop()
+    dogsDisliked: [Dog];
+
+    @Prop()
+    uploadedDocs: boolean;
+}
+@ObjectType()
+@Schema()
+export class PotentialAdopter {
+    @Prop()
+    dogId: string;
+
+    @Prop()
+    adopter: Adopter;
+}
+
+@ObjectType()
+@Schema()
 export class Organisation {
     @Prop()
     _id: string;
@@ -72,7 +112,7 @@ export class Organisation {
     contactInfo: ContactInfo;
 
     @Prop()
-    potentialAdopters: [Adopter];
+    potentialAdopters: [PotentialAdopter];
 
     @Prop()
     logo: string;
@@ -134,52 +174,6 @@ export class Dog {
 
 @ObjectType()
 @Schema()
-export class Adopter {
-    @Prop()
-    _id: string;
-
-    @Prop()
-    name: string;
-
-    @Prop()
-    email: string;
-
-    @Prop()
-    IDNum: string;
-    
-    @Prop()
-    pic: string;
-
-    @Prop()
-    location: Location;
-
-    @Prop()
-    documents: [Doc];
-
-    // @Prop()
-    // idDoc: string;
-
-    // @Prop()
-    // porDoc: string;
-
-    // @Prop()
-    // bankDoc: string;
-
-    // @Prop()
-    // motivDoc: string;
-
-    @Prop()
-    dogsLiked: [Dog];
-
-    @Prop()
-    dogsDisliked: [Dog];
-
-    @Prop()
-    uploadedDocs: boolean;
-}
-
-@ObjectType()
-@Schema()
 export class OrgMember {
     @Prop()
     _id: string;
@@ -200,6 +194,69 @@ export class OrgMember {
     verification: Date;
 }
 
+@ObjectType()
+@Schema()
+export class Chat {
+    @Prop()
+    adopterId: string;
+
+    @Prop()
+    orgId: string;
+
+    @Prop()
+    messages: [MessageObj];
+
+    @Prop()
+    dogId: string;
+
+    @Prop()
+    disabled: boolean;
+}
+
+@ObjectType()
+@Schema()
+export class MessageObj {
+    @Prop()
+    userId: string;
+
+    @Prop()
+    message: string;
+
+}
+
+@ObjectType()
+@Schema()
+export class Statistic {
+    @Prop()
+    orgId: string;
+
+    @Prop()
+    createdTimeStamps: [Date];
+
+    @Prop()
+    createdDogs: [Dog];
+
+    @Prop()
+    inProcessTimeStamps: [Date];
+
+    @Prop()
+    inProcessDogs: [Dog];
+
+    @Prop()
+    adoptedTimeStamps: [Date];
+
+    @Prop()
+    adoptedDogs: [Dog];
+
+    @Prop()
+    rejectedTimeStamps: [Date];
+
+    @Prop()
+    rejectedDogs: [Dog];
+
+}
+
+
 export type ContactInfoDocument = ContactInfo & Document;
 export const ContactInfoSchema = SchemaFactory.createForClass(ContactInfo);
 export type LocationDocument = Location & Document;
@@ -212,3 +269,13 @@ export type AdopterDocument = Adopter & Document;
 export const AdopterSchema = SchemaFactory.createForClass(Adopter);
 export type OrgMemberDocument = OrgMember & Document;
 export const OrgMemberSchema = SchemaFactory.createForClass(OrgMember);
+export type ChatDocument = Chat & Document;
+export const ChatSchema = SchemaFactory.createForClass(Chat);
+export type MessageDocument = MessageObj & Document;
+export const MessageSchema = SchemaFactory.createForClass(MessageObj);
+export type PotentialAdopterDocument = PotentialAdopter & Document;
+export const PotentialAdopterSchema = SchemaFactory.createForClass(PotentialAdopter);
+export type StatisticDocument = Statistic & Document;
+export const StatisticSchema = SchemaFactory.createForClass(Statistic);
+export type DocDocument = Doc & Document;
+export const DocSchema = SchemaFactory.createForClass(Doc);

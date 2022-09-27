@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { Storage } from '@capacitor/storage';
+import { LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'pawdopt-adoptionprocess',
   templateUrl: 'adoptionprocess.page.html',
   styleUrls: ['adoptionprocess.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade, AngularFireAuth]
+  providers: [Apollo, AngularFireAuth]
 })
 export class adoptionprocessPageComponent {
 
@@ -24,135 +26,130 @@ export class adoptionprocessPageComponent {
     picsDog: string;
   }[] = [];
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth){
+  constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController,private alertController: AlertController){
     this.getAdoptions();
   }
 
-  // getAdoptions(){//fix this to only show dogs in org and not in usersLiked
-  //   const getOrgByNameQuery = gql`
-  //     query GetOrgByName(orgName: "${this.orgName}") {
-  //       potentialAdopters{
-  //         _id
-  //         name
-  //         pics
-  //         dogsLiked{
-  //           _id
-  //           name
-  //           pics
-  //         }[]
-  //       }`
-  //   this.apollo.watchQuery({
-  //     query: getOrgByNameQuery,
-  //     fetchPolicy: 'no-cache'
-  //   }).valueChanges.subscribe((result) => {
-  //     console.log(result);
-  //     const data = result.data as {
-  //       findOrgByName: {
-  //         potentialAdopters: {
-  //           _id: string;
-  //           name: string;
-  //           pics: string[];
-  //           dogsLiked: {
-  //             _id: string;
-  //             name: string;
-  //             pics: string[];
-  //           }[]
-  //         }[]
-  //       }
-  //     };
-  getAdoptions(){
-    const userId = this.afAuth.currentUser.then(user => {
-      return user?.uid;
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading...',
+      duration: 2000,
     });
 
-    if(userId){
-      const findOrgMemberByIdQuery = gql`query {
-        findOrgMemberById(_id: "${userId}") {
-          _id
-          organisation{
-            _id
-          }
-        }
-      }`
-
-      this.apollo.watchQuery({
-        query: findOrgMemberByIdQuery,
-        fetchPolicy: 'no-cache'
-      }).valueChanges.subscribe((result) => {
-        const data = result.data as {
-          findOrgMemberById: {
-            _id: string;
-            organisation: {
-              _id: string;
-            }
-          }
-        }
-        this.orgId = data.findOrgMemberById.organisation._id;
-
-        const getOrgByNameQuery = gql`
-          query { findOrgById(_id: "${this.orgId}") {
-            potentialAdopters{
-              _id
-              name
-              pics
-              dogsLiked{
-                _id
-                name
-                pics
-              }[]
-            }
-          }`
-        this.apollo.watchQuery({
-          query: getOrgByNameQuery,
-          fetchPolicy: 'no-cache'
-        }).valueChanges.subscribe((result) => {
-          console.log(result);
-          const data = result.data as {
-            findOrgByName: {
-              potentialAdopters: {
-                _id: string;
-                name: string;
-                pics: string[];
-                dogsLiked: {
-                  _id: string;
-                  name: string;
-                  pics: string[];
-                }[]
-              }[]
-            }
-          };
-
-          data.findOrgByName.potentialAdopters.forEach(adopter => {
-            adopter.dogsLiked.forEach(dog => {
-              this.listedAdoptions.push({
-                _idUser: adopter._id,
-                _idDog: dog._id,
-                nameUser: adopter.name,
-                nameDog: dog.name,
-                picsUser: adopter.pics[0],
-                picsDog: dog.pics[0]
-              });
-            });
-          });
-        });
-      });
-    }
+    loading.present();
   }
 
+  getAdoptions(){
+    this.showLoading();
+    this.afAuth.currentUser.then(user => {
+      if(user?.uid){
+        const findOrgMemberByIdQuery = gql`query {
+          findOrgMemberById(_id: "${user?.uid}") {
+            _id
+            organisation
+          }
+        }`
+
+        this.apollo.watchQuery({
+          query: findOrgMemberByIdQuery,
+          fetchPolicy: 'no-cache'
+        }).valueChanges.subscribe((result) => {
+          const data = result.data as {
+            findOrgMemberById: {
+              _id: string;
+              organisation: string;
+            }
+          }
+          if(data.findOrgMemberById){
+          this.orgId = data.findOrgMemberById.organisation;
+          }
+
+          const getOrgByNameQuery = gql`
+            query { findOrgById(_id: "${this.orgId}") {
+              potentialAdopters{
+                dogId
+                adopter {
+                  _id
+                  name
+                  pic
+                }
+              }
+            }
+            }`
+          this.apollo.watchQuery({
+            query: getOrgByNameQuery,
+            fetchPolicy: 'no-cache'
+          }).valueChanges.subscribe((result) => {
+            console.log(result);
+            const data = result.data as {
+              findOrgById: {
+                potentialAdopters: {
+                  dogId: string;
+                  adopter: {
+                    _id: string;
+                    name: string;
+                    pic: string;
+                  }
+                }[]
+              }
+            };
+            if(data.findOrgById){
+            data.findOrgById.potentialAdopters.forEach(adopter => {
+              const getDogByIdQuery = gql`
+                query { findDogById(_id: "${adopter.dogId}") {
+                  _id
+                  name
+                  pics
+                }
+                }`
+              this.apollo.watchQuery({
+                query: getDogByIdQuery,
+                fetchPolicy: 'no-cache'
+              }).valueChanges.subscribe((result) => {
+                const data = result.data as {
+                  findDogById: {
+                    _id: string;
+                    name: string;
+                    pics: string[];
+                  }
+                };
+                this.listedAdoptions.push({
+                  _idUser: adopter.adopter._id,
+                  _idDog: data.findDogById._id,
+                  nameUser: adopter.adopter.name,
+                  nameDog: data.findDogById.name,
+                  picsUser: adopter.adopter.pic,
+                  picsDog: data.findDogById.pics[0]
+                })
+              })
+            })
+          }
+          })
+        })
+      }
+    })
+  }
+
+
   clickedSwiper(userId: string, dogID: string){
-    // this.varsFacade.setUserID(userId);
-    // this.varsFacade.setDogID(dogID);
+    this.setObject(userId, dogID);
     this.router.navigate(["/useradoption"]);
   }
 
-
-  signup(){
-    // Done in signup
-    this.router.navigate(["/signup"]);
+  async setObject(userId: string, dogID: string){
+    await Storage.set({
+    key: 'adoptionId',
+    value: JSON.stringify({
+      userId: userId,
+      dogId: dogID
+      })
+    });
   }
+
   
-  addorg(){
-    this.router.navigate(["/addorg"]);
+
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
   }
 
   home(){
@@ -160,15 +157,19 @@ export class adoptionprocessPageComponent {
   }
 
   likeddogs(){
-    this.router.navigate(["/userlikes"]);
+    this.router.navigate(["/adoptionprocess"]);
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    this.router.navigate(["/orgprofile"]);
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/orgsettings"]);
+  }
+
+  back(){
+    this.router.navigate(["/owneddogs"]);
   }
 
 }

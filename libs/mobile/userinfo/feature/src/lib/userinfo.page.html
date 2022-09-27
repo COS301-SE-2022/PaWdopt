@@ -2,14 +2,14 @@
 <ion-header>
     <ion-toolbar color="secondary">
         <ion-buttons slot="start">
-            <ion-button fill="clear" color="dark">
+            <ion-button fill="clear" color="dark" (click)="preferences()">
                 <ion-icon slot="icon-only" name="settings"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-title class="ion-text-center">
             <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
         </ion-title>
-        <ion-buttons slot="end">
+        <ion-buttons slot="end" (click)="profile()">
             <ion-button fill="clear" color="dark">
                 <ion-icon slot="icon-only" name="person"></ion-icon>
             </ion-button>
@@ -40,17 +40,57 @@
         <!--Documentation-->
         <div class="userinfo">
             <ion-list>
-                <ion-item href="{{ident.path}}">
-                    <p class="docText">ID Copy</p>&nbsp;
+                <ion-item>
+                    <p>ID Copy</p>&nbsp;
+                    <ion-button class="uploadButtons2" fill="clear" id="click-trigger-id">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </ion-button>
+                    <ion-popover trigger="click-trigger-id" triggerAction="click">
+                        <ng-template>
+                            <ion-content>
+                                <ion-img [src]="ID.path"></ion-img>
+                            </ion-content>
+                        </ng-template>
+                    </ion-popover>
                 </ion-item>
-                <ion-item href="{{poR.path}}">
-                    <p class="docText">Proof of Residence</p>&nbsp;
+                <ion-item>
+                    <p>Proof Of Residence</p>&nbsp;
+                    <ion-button class="uploadButtons2" fill="clear" href="{{POR.path}}" id="click-trigger-por">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </ion-button>
+                    <ion-popover trigger="click-trigger-por" triggerAction="click">
+                        <ng-template>
+                            <ion-content>
+                                <ion-img [src]="POR.path"></ion-img>
+                            </ion-content>
+                        </ng-template>
+                    </ion-popover>
                 </ion-item>
-                <ion-item href="{{bankState.path}}">
-                    <p class="docText">Bank Statements</p>&nbsp;
+                <ion-item>
+                    <p>Bank Statements</p>&nbsp;
+                    <ion-button class="uploadButtons2" fill="clear" href="{{BSS.path}}" id="click-trigger-bss">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </ion-button>
+                    <ion-popover trigger="click-trigger-bss" triggerAction="click">
+                        <ng-template>
+                            <ion-content>
+                                <ion-img [src]="BSS.path"></ion-img>
+                            </ion-content>
+                        </ng-template>
+                    </ion-popover>
                 </ion-item>
-                <ion-item href="{{motivateLet.path}}">
-                    <p class="docText">Motivation letter</p>&nbsp;
+                <ion-item>
+                    <p>Motivation Letter</p>&nbsp;
+                    <ion-button class="uploadButtons2" fill="clear" href="{{ML.path}}" id="click-trigger-ml">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </ion-button>
+                    <ion-popover trigger="click-trigger-ml" triggerAction="click">
+                        <ng-template>
+                            <ion-content>
+                                <ion-img [src]="ML.path"></ion-img>
+                            </ion-content>
+                        </ng-template>
+                    </ion-popover>
                 </ion-item>
             </ion-list>
         </div>
@@ -61,13 +101,13 @@
 
 <!-- Footer-->
 <ion-tab-bar color="secondary" slot="bottom">
-    <ion-tab-button tab="home">
+    <ion-tab-button tab="home" (click)="home()">
         <ion-icon color="dark" name="home"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="liked">
+    <ion-tab-button tab="liked" (click)="likeddogs()">
         <ion-icon color="dark" name="paw"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="chats">
+    <ion-tab-button tab="chats" (click)="gotoChat()">
         <ion-icon color="dark" name="chatbox"></ion-icon>
     </ion-tab-button>
 </ion-tab-bar>

@@ -1,103 +1,100 @@
 <!--Header-->
-<ion-header >
-    <ion-toolbar color = "secondary">
-      <ion-buttons slot="start">
-        <ion-button fill="clear" color="dark" (click)="preferences()">
-          <ion-icon slot="icon-only" name="settings"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title class="ion-text-center">
-        <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
-      </ion-title>
-      <ion-buttons slot="end" (click)="profile()">
-        <ion-button fill="clear" color="dark">
-          <ion-icon slot="icon-only" name="person"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-button fill="clear" color="dark" (click)="preferences()">
+                <ion-icon slot="icon-only" name="settings"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img class="logo" src="../../assets/pawdoptheaderlogo.PNG">
+        </ion-title>
+        <ion-buttons slot="end" (click)="profile()">
+            <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="person"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
-  </ion-header>
-  
+</ion-header>
 
 
-  <ion-content>
+
+<ion-content>
     <div class="container">
-      <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()"><ion-icon name="camera"></ion-icon>&nbsp;Upload a picture</ion-button>
-      <ion-list class="form">
-          <ion-item-group class="form-border">
-              <ion-item class="form-item form-start">
-                  <ion-label position="floating" class="form-input-label">Name*</ion-label>
-                  <ion-input class="form-input" id="name-field" clear-on-edit=false [(ngModel)]="inputName" required></ion-input>
-              </ion-item>
-              <ion-item class="form-item">
-                  <ion-label position="floating" class="form-input-label">Breed*</ion-label>
-                  <ion-input class="form-input" id="breed-field" clear-on-edit=false [(ngModel)]="inputBreed" required></ion-input>
-              </ion-item>
-              <ion-item class="form-item">
-                  <ion-label position="floating" class="form-input-label">Gender*</ion-label>
-                  <ion-select [(ngModel)]="inputGender" id="gender-select" required="">
-                    <ion-select-option value="Male">Male</ion-select-option>
-                    <ion-select-option value="Female">Female</ion-select-option>
-                </ion-select>
-              </ion-item>
-              <ion-item class="form-item" id="open-modal">
-                  <ion-label position="floating" class="form-input-label"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Date of birth*</ion-label>
-                  <ion-input class="form-input" id="age-field" clear-on-edit=false [(ngModel)]="inputDOB" required=""></ion-input>
-                  <ion-modal trigger="open-modal">
-                    <ng-template>
-                      <ion-content>
-                        <ion-datetime display-format="DD-MMM-YY" [(ngModel)]="inputDOB" showDefaultButtons="true"></ion-datetime>
-                      </ion-content>
-                    </ng-template>
-                  </ion-modal>
-              </ion-item>
-              <ion-item class="form-item">
-                <div style="display: flex; flex-direction: column;">
-                  <ion-label position="floating" class="testclass">Height (in cm)*</ion-label>
-                </div>
-                  <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputHeight" pin="true" required=""></ion-range>
-              </ion-item>
-              <ion-item class="form-item">
-                <div style="display: flex; flex-direction: column;">
-                  <ion-label position="floating" class="testclass">Weight (in kg)*</ion-label>
-                </div>
-                  <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputWeight" pin="true" required=""></ion-range>
-              </ion-item>
-              <ion-item class="form-item">
-                <ion-label position="floating" class="form-input-label">Fur length*</ion-label>
-                <ion-input class="form-input" id="furlength-field" placeholder="Short, Medium or Long" [(ngModel)]="inputFurlength" required=""></ion-input>
-            </ion-item>
-              <ion-item class="form-item form-end" lines="none">
-                  <ion-label position="floating">Temperament*</ion-label>
-                  <ion-input class="form-input" id="temperament-field" placeholder="Active, Brave, Calm..." [(ngModel)]="inputTemperament" required=""></ion-input>
-              </ion-item>
-              <!-- <ion-item class="form-item form-end">
-                <ion-label position="floating" class="form-input-label">About</ion-label>
-                <ion-input class="form-input" id="about-field" clear-on-edit=false [(ngModel)]="inputAbout"></ion-input>
-            </ion-item> -->
-          </ion-item-group>
-      </ion-list>
-      &nbsp;
-      <ion-list class="form">
-        <ion-item-group class="form-border">
-          <ion-item class="form-item">
-            <ion-label position="floating" class="form-input-label">About*</ion-label>
-            <ion-textarea cols="24" class="form-input" id="about-field" clear-on-edit=false [(ngModel)]="inputAbout" required=""></ion-textarea>
-        </ion-item>
-        </ion-item-group>
-      </ion-list>
-      <ion-button class="greyButton" id="add-dog-button" (click)="addDog()"><ion-icon name="add"></ion-icon>&nbsp; Add a dog</ion-button>  
-  </div>
-  </ion-content>
+        <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">
+            <ion-icon name="camera"></ion-icon>&nbsp;Upload a picture</ion-button>
+        <ion-list class="form">
+            <ion-item-group class="form-border">
+                <ion-item class="form-item form-start">
+                    <ion-label position="floating" class="form-input-label">Name*</ion-label>
+                    <ion-input class="form-input" id="name-field" clear-on-edit=false [(ngModel)]="inputName" required></ion-input>
+                </ion-item>
+                <ion-item class="form-item">
+                    <ion-label position="floating" class="form-input-label">Breed*</ion-label>
+                    <ion-input class="form-input" id="breed-field" clear-on-edit=false [(ngModel)]="inputBreed" required></ion-input>
+                </ion-item>
+                <ion-item class="form-item">
+                    <ion-label position="floating" class="form-input-label">Gender*</ion-label>
+                    <ion-select [(ngModel)]="inputGender" id="gender-select" required="">
+                        <ion-select-option value="Male">Male</ion-select-option>
+                        <ion-select-option value="Female">Female</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item class="form-item">
+                    <ion-label position="floating">About*</ion-label>
+                    <ion-textarea class="form-input" [(ngModel)]="inputAbout" id="about-field" id="txtnotes" auto-grow="true" required>
+                    </ion-textarea>
+                </ion-item>
+                <ion-item class="form-item">
+                    <ion-label position="floating" class="form-input-label">
+                        Date of birth*
+                    </ion-label>
+                    &nbsp;
+                    <ion-button class="greyButton" id="datenew"><ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Add date</ion-button>
+                    <ion-input value="{{ inputDOB | date: 'yyyy-MM-dd' }}" id="date" class="ion-text-center"></ion-input>
+                    <ion-popover trigger="datenew" size="auto">
+                        <ng-template>
+                            <ion-datetime color="datetimecolor" presentation="date" [(ngModel)]="inputDOB"></ion-datetime>
+                        </ng-template>
+                    </ion-popover>
+                </ion-item>
+                <ion-item class="form-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <ion-label position="floating" class="testclass">Height (in cm)*</ion-label>
+                    </div>
+                    <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputHeight" pin="true" required=""></ion-range>
+                </ion-item>
+                <ion-item class="form-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <ion-label position="floating" class="testclass">Weight (in kg)*</ion-label>
+                    </div>
+                    <ion-range [dualKnobs]="false" [value]="{ lower: 0, upper: 100 }" [(ngModel)]="inputWeight" pin="true" required=""></ion-range>
+                </ion-item>
+                <ion-item class="form-item">
+                    <ion-label position="floating" class="form-input-label">Fur length*</ion-label>
+                    <ion-input class="form-input" id="furlength-field" placeholder="Short, Medium or Long" [(ngModel)]="inputFurlength" required=""></ion-input>
+                </ion-item>
+                <ion-item class="form-item form-end" lines="none">
+                    <ion-label position="floating">Temperament*</ion-label>
+                    <ion-input class="form-input" id="temperament-field" placeholder="Active, Brave, Calm..." [(ngModel)]="inputTemperament" required=""></ion-input>
+                </ion-item>
+            </ion-item-group>
+        </ion-list>
+        &nbsp;
+        <ion-button class="greyButton" id="add-dog-button" (click)="addDog()">
+            <ion-icon name="add"></ion-icon>&nbsp; Add a dog</ion-button>
+    </div>
+</ion-content>
 
 <!-- Footer-->
 <ion-tab-bar color="secondary" slot="bottom">
     <ion-tab-button tab="home" (click)="home()">
-    <ion-icon color = "dark" name="home"></ion-icon>
+        <ion-icon color="dark" name="home"></ion-icon>
     </ion-tab-button>
     <ion-tab-button tab="liked" (click)="likeddogs()">
-      <ion-icon color = "dark" name="paw"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button tab="chats">
-        <ion-icon color = "dark" name="chatbox"></ion-icon>
-        </ion-tab-button>
-  </ion-tab-bar>
+        <ion-icon color="dark" name="paw"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="chats">
+        <ion-icon color="dark" name="chatbox"></ion-icon>
+    </ion-tab-button>
+</ion-tab-bar>

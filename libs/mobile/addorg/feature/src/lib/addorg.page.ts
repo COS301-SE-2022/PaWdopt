@@ -1,14 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Platform } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { APP_CONFIG } from '@pawdopt/config';
+
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+
+
 @Component({
   selector: 'pawdopt-addorg',
   templateUrl: 'addorg.page.html',
   styleUrls: ['addorg.page.scss', '../../../../../shared/styles/global.scss'],
   providers: [Apollo, AngularFireAuth]
 })
+
+
 export class AddorgPageComponent {
+  imageString!: string;
+
   oName!: string;
   about!: string;
   date!: Date;
@@ -38,8 +51,23 @@ export class AddorgPageComponent {
     }
   }
   oId!: string;
+   // Readable Address
+   address!: string;
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth) {
+   // Location coordinates
+  latitude!: number;
+  longitude!: number;
+  accuracy!: number;
+
+  options = {
+    timeout: 10000, 
+    enableHighAccuracy: true, 
+    maximumAge: 3600
+  };
+  imageToShow!: string;
+
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform, public actionSheetController: ActionSheetController, public alertController: AlertController, @Inject(APP_CONFIG) private appConfig: any) {
+    this.getGeolocation();
     this.orgMembers=[{
       id: "",
       name: "",
@@ -48,6 +76,34 @@ export class AddorgPageComponent {
       verification: new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()
       }];
     this.orgMembers.pop();
+  }
+
+  // <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  // <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  // <uses-feature android:name="android.hardware.location.gps" />
+
+  //Get current coordinates of device
+  getGeolocation() {
+    this.platform.ready().then(() => {
+      this.geolocation.getCurrentPosition(this.options).then((resp) => {
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+        this.accuracy = resp.coords.accuracy;
+        const latLng = this.latitude + "," + this.longitude;
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${this.appConfig.MAPS_API_KEY}`)
+        .then((responseText) => {
+            return responseText.json();
+        })
+        .then(jsonData => {
+            this.address = jsonData.results[0].formatted_address;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+      }).catch((error) => {
+        alert('Error getting location' + JSON.stringify(error));
+      });
+    });
   }
 
   addOrg(){
@@ -78,19 +134,6 @@ export class AddorgPageComponent {
       this.logo = "";
     }
 
-    //create custom string for orgMembers
-    // 
-    // let orgMembersString = "";
-    // this.orgMembers.forEach(o => {
-    //   o.id = o.email;
-    //   orgMembersString += `{\n_id: "` + o.id + `",\n`;
-    //   orgMembersString += `name: "` + o.name + `",\n`;
-    //   orgMembersString += `email: "` + o.email + `",\n`;
-    //   orgMembersString += `role: "` + o.role + `",\n`;
-    //   orgMembersString += `organisation: "Marcus - return of the king",\n`;
-    //   orgMembersString += `verification: "` + o.verification + `"\n},\n`;
-    // });
-
     const addOrg = gql`mutation{
       createOrg(org:{
         _id: "",
@@ -100,8 +143,8 @@ export class AddorgPageComponent {
         totalAdoptions: 0,
         totalDogs: 0,
         location:{
-          lat: ${Number(this.lat)},
-          lng: ${Number(this.lng)}
+          lat: ${Number(this.latitude)},
+          lng: ${Number(this.longitude)},
         },
         rulesReq: "${this.rulesReq}",
         contactInfo:{
@@ -113,7 +156,7 @@ export class AddorgPageComponent {
           instagram: "${this.instagram}",
           twitter: "${this.twitter}"
         },
-        logo: "${this.logo}"
+        logo: "${this.imageString}"
       })
       {
         _id
@@ -183,15 +226,101 @@ export class AddorgPageComponent {
     slides?.slidePrev();
   }
 
-  uploadPic(){
-    // TODO: Upload pic
-  }
-
-  uploadDoc(){
-    // TODO: Upload doc
-  }
-
   Back(){
     this.router.navigate(["/login"]);
+  }
+
+  showImage(){
+    // TODO: unhide pic
+    return this.imageString;
+  }
+
+  async uploadPic(){
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Upload picture',
+      buttons: [{
+        text: 'Take picture using your camera',
+        icon: 'camera-outline',
+        handler: () => {
+          console.log('Take picture clicked');
+          this.getPhoto(true);
+        }
+      }, {
+        text: 'Choose a picture from your gallery',
+        icon: 'image-outline',
+        handler: async () => {
+          console.log('Choose a picture clicked');
+          await this.getPhoto(false);
+          this.imageToShow = this.showImage();
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role, data } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role and data', role, data);
+  }
+
+  async uploadDoc(){
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Upload picture',
+      buttons: [{
+        text: 'Take picture using your camera',
+        icon: 'camera-outline',
+        handler: () => {
+          console.log('Take picture clicked');
+          this.getPhoto(true);
+        }
+      }, {
+        text: 'Choose a picture from your gallery',
+        icon: 'image-outline',
+        handler: async () => {
+          console.log('Choose a picture clicked');
+          await this.getPhoto(false);
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role, data } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role and data', role, data);
+  }
+
+
+  async getPhoto(fromCamera:boolean) {
+    let sourceIn: CameraSource;
+
+    if(fromCamera){
+      sourceIn = CameraSource.Camera;
+    }
+    else{
+      sourceIn = CameraSource.Photos;
+    }
+
+    const capturedPhoto = await Camera.getPhoto({
+      resultType: CameraResultType.DataUrl,
+      source: sourceIn,
+      quality: 100
+    });
+
+    //TODO Do firebase upload here
+
+    const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
+    this.imageString = data;
+    return data;
   }
 }
