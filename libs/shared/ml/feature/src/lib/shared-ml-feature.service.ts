@@ -14,7 +14,7 @@ export class SharedMlFeatureService {
 
       console.log(image)
 
-       return await this.httpService.axiosRef.post("http://localhost:5000/predict", 
+       return this.httpService.axiosRef.post("http://localhost:5000/predict", 
           image,{headers: {'content-type': 'application/json'}}
         ).then((response) => {
           console.log(response)
