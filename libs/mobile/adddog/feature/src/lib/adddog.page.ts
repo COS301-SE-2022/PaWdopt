@@ -155,7 +155,7 @@ export class AdddogPageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/orgsettings"]); 
+    this.router.navigate(["/orgsettings"]); 
   }
 
   async uploadPic(){

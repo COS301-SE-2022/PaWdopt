@@ -368,8 +368,11 @@ export class orgprofilePageComponent {
   }
 
   preferences(){
-    // this.router.navigate(["/preferences"]); 
+    this.router.navigate(["/orgsettings"]);
   }
 
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
+  }
 }
 

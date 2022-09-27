@@ -82,6 +82,10 @@ export class appointmentpagePageComponent {
     },(error) => {
       console.log('there was an error sending the query', error);
     });
+    
+    this.router.navigate(["/chat"]);
+    
+    return;
   }
 
   async getObject() {
@@ -102,15 +106,6 @@ export class appointmentpagePageComponent {
     this.router.navigate(['/chat']);
   }
 
-  signup(){
-    // Done in signup
-    this.router.navigate(["/signup"]);
-  }
-  
-  addorg(){
-    this.router.navigate(["/addorg"]);
-  }
-
   home(){
     this.router.navigate(["/home"]);
   }
@@ -124,8 +119,11 @@ export class appointmentpagePageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/preferences"]);
   }
 
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
+  }
 }
 

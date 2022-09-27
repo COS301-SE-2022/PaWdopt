@@ -72,13 +72,14 @@ export class userprofilePageComponent {
   }
 
 
-  chat(){
+  gotoChat(){
     this.router.navigate(["/chatlist"]);
   }
   
   back(){
     this.router.navigate(["/home"]);
   }
+  
   home(){
     this.router.navigate(["/home"]);
   }
@@ -96,7 +97,7 @@ export class userprofilePageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    this.router.navigate(["/preferences"]);
   }
   // Usee uploaddoc page
   uploadDocs(){

@@ -45,7 +45,6 @@ export class dashboardPageComponent {
   userId!: string;
   
   constructor(private router: Router, private apollo: Apollo, private alertController: AlertController, private loadingCtrl: LoadingController ) {
-
     this.userId = "";
     this.getDog();
   }
@@ -270,8 +269,11 @@ export class dashboardPageComponent {
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); 
+    this.router.navigate(["/orgsettings"]); 
   }
 
+  gotoChat(){
+    this.router.navigate(["/chatlist"]);
+  }
 }
 
