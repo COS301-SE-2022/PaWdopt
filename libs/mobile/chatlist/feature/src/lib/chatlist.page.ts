@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {Apollo, gql } from 'apollo-angular';
-import { VarsFacade } from '@pawdopt/shared/data-store';
+import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Storage } from '@capacitor/storage';
 
@@ -9,7 +8,7 @@ import { Storage } from '@capacitor/storage';
   selector: 'pawdopt-chatlist',
   templateUrl: 'chatlist.page.html',
   styleUrls: ['chatlist.page.scss', '../../../../../shared/styles/global.scss'],
-  providers: [Apollo, VarsFacade, AngularFireAuth]
+  providers: [Apollo, AngularFireAuth]
 })
 export class chatlistPageComponent {
 
@@ -26,7 +25,7 @@ export class chatlistPageComponent {
   orgId!: string;
 
 
-  constructor(private router: Router, private apollo: Apollo, private varsFacade: VarsFacade, private afAuth: AngularFireAuth){
+  constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth){
     this.getChats();
   }
 
