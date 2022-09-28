@@ -21,6 +21,10 @@ export class orgprofilePageComponent {
   dateString!: string;
   address!: string;
   logoStr!: string;
+  twitter!: string;
+  facebook!: string;
+  instagram!: string;
+  website!: string;
 
   //stats variables
   maleDogsAdopted = 0;
@@ -45,10 +49,10 @@ export class orgprofilePageComponent {
   averageAge = 0;
   mostPopularAge = 0;
 
-  aveTimeAdoptionStart = 0;
-  aveTimeAdoptApprove = 0;
-  aveTimeAdoptReject = 0;
-  aveTimeFullProcess = 0;
+  aveTimeAdoptionStart!: string;
+  aveTimeAdoptApprove!: string;
+  aveTimeAdoptReject!: string;
+  aveTimeFullProcess!: string;
 
   numAdoptStarted = 0;
   numApproval = 0;
@@ -78,6 +82,7 @@ export class orgprofilePageComponent {
 
   constructor(private router: Router, private apollo: Apollo, @Inject(APP_CONFIG) private appConfig: any){
     this.getOrg();
+    this.updateStats();
   }
 
 
@@ -103,6 +108,12 @@ export class orgprofilePageComponent {
         totalDogs
         totalAdoptions
         logo
+        contactInfo {
+          website
+          twitter
+          facebook
+          instagram
+        }
       }
     }`;
     this.apollo.watchQuery({
@@ -121,10 +132,32 @@ export class orgprofilePageComponent {
           totalDogs: number,
           totalAdoptions: number,
           logo: string
+          contactInfo: {
+            website: string,
+            twitter: string,
+            facebook: string,
+            instagram: string
+          }
         }
       };
     this.org = data.findOrgById; //if error then do each var indiv.
     const date = new Date(this.org.dateFounded);
+    this.website = data.findOrgById.contactInfo.website;
+    if(this.website == ""){
+      this.website = "N/A";
+    }
+    this.twitter = data.findOrgById.contactInfo.twitter;
+    if(this.twitter == ""){
+      this.twitter = "N/A";
+    }
+    this.facebook = data.findOrgById.contactInfo.facebook;
+    if(this.facebook == ""){
+      this.facebook = "N/A";
+    }
+    this.instagram = data.findOrgById.contactInfo.instagram;
+    if(this.instagram == ""){
+      this.instagram = "N/A";
+    }
     this.logoStr = data.findOrgById.logo;
     this.dateString = (date.getDay()+1 + "/" + (date.getMonth()) + "/" + date.getFullYear()).toString();
     const latLng = data.findOrgById.location.lat + "," + data.findOrgById.location.lng;
@@ -142,31 +175,36 @@ export class orgprofilePageComponent {
     });
   }
 
-  updateStats(){
+  async updateStats(){
     //get statistic by org id
+    this.orgId = (await this.getObject()).name;
     const getStatsQuery = gql`query {
       getStatistic(orgId: "${this.orgId}") {
         createdTimeStamps
         createdDogs {
-          age
+          _id
+          dob
           breed
           gender
         }
         inProcessTimeStamps
         inProcessDogs {
-          age
+          _id
+          dob
           breed
           gender
         }
         adoptedTimeStamps
         adoptedDogs {
-          age
+          _id
+          dob
           breed
           gender
         }
         rejectedTimeStamps
         rejectedDogs {
-          age
+          _id
+          dob
           breed
           gender
         }
@@ -181,25 +219,29 @@ export class orgprofilePageComponent {
         getStatistic: {
           createdTimeStamps: Date[],
           createdDogs: {
-            age: number,
+            _id: string,
+            dob: Date,
             breed: string,
             gender: string
           }[],
           inProcessTimeStamps: Date[],
           inProcessDogs: {
-            age: number,
+            _id: string,
+            dob: Date,
             breed: string,
             gender: string
           }[],
           adoptedTimeStamps: Date[],
           adoptedDogs: {
-            age: number,
+            _id: string,
+            dob: Date,
             breed: string,
             gender: string
           }[],
           rejectedTimeStamps: Date[],
           rejectedDogs: {
-            age: number,
+            _id: string,
+            dob: Date,
             breed: string,
             gender: string
           }[]
@@ -212,21 +254,23 @@ export class orgprofilePageComponent {
           this.maleDogsAdopted++;
         }
         if(dog.gender == "Female"){
-          this.maleDogsAdopted++;
+          this.femaleDogsAdopted++;
         }
-        this.averageAge += dog.age;
+        //get the current age of the dog from dog.dob
+        const ageOfDog = new Date().getFullYear() - new Date(dog.dob).getFullYear();
+        this.averageAge += ageOfDog;
         count++;
       });
       this.averageAge = this.averageAge/count;
 
       //find most popular age in data.getStatistic.adoptedDogs
       let ageCount = 0;
-      let age = data.getStatistic.adoptedDogs[0].age;
+      let age = new Date().getFullYear() - new Date(data.getStatistic.adoptedDogs[0].dob).getFullYear();
       for(let i = 0; i < data.getStatistic.adoptedDogs.length; i++){
-        const tempAge = data.getStatistic.adoptedDogs[i].age;
+        const tempAge = new Date().getFullYear() - new Date(data.getStatistic.adoptedDogs[i].dob).getFullYear();
         let tempCount = 0;
         for(let j = 0; j < data.getStatistic.adoptedDogs.length; j++){
-          if(tempAge == data.getStatistic.adoptedDogs[j].age){
+          if(tempAge == new Date().getFullYear() - new Date(data.getStatistic.adoptedDogs[j].dob).getFullYear()){
             tempCount++;
           }
         }
@@ -237,10 +281,10 @@ export class orgprofilePageComponent {
       }
       this.mostPopularAge = age;
 
-      //find most popular 5 breeds in data.getStatistic.adoptedDogs
-      this.TopBreeds.breed1 = data.getStatistic.adoptedDogs[0].breed;
-      this.TopBreeds.breed2 = data.getStatistic.adoptedDogs[0].breed;
-      this.TopBreeds.breed3 = data.getStatistic.adoptedDogs[0].breed;
+      //find most popular 3 breeds in data.getStatistic.adoptedDogs
+      this.TopBreeds.breed1 = "";
+      this.TopBreeds.breed2 = "";
+      this.TopBreeds.breed3 = "";
       this.TopBreeds.amount1 = 0;
       this.TopBreeds.amount2 = 0;
       this.TopBreeds.amount3 = 0;
@@ -261,13 +305,13 @@ export class orgprofilePageComponent {
             this.TopBreeds.breed2 = this.TopBreeds.breed1;
             this.TopBreeds.breed1 = tempBreed;
           }
-          else if(tempCount > this.TopBreeds.amount2){
+          else if(tempCount > this.TopBreeds.amount2 && tempBreed != this.TopBreeds.breed1){
             this.TopBreeds.amount3 = this.TopBreeds.amount2;
             this.TopBreeds.amount2 = tempCount;
             this.TopBreeds.breed3 = this.TopBreeds.breed2;
             this.TopBreeds.breed2 = tempBreed;
           }
-          else if(tempCount > this.TopBreeds.amount3){
+          else if(tempCount > this.TopBreeds.amount3 && tempBreed != this.TopBreeds.breed1 && tempBreed != this.TopBreeds.breed2){
             this.TopBreeds.amount3 = tempCount;
             this.TopBreeds.breed3 = tempBreed;
           }
@@ -281,73 +325,74 @@ export class orgprofilePageComponent {
         let aveTimeAdoptApproveCount = 0;
         data.getStatistic.createdDogs.forEach(dog => {
           data.getStatistic.inProcessDogs.forEach(inProcessDog => {
-            if(dog == inProcessDog){
+            if(dog._id == inProcessDog._id){
               const date1 = new Date(data.getStatistic.inProcessTimeStamps[data.getStatistic.inProcessDogs.indexOf(inProcessDog)]);
               const date2 = new Date(data.getStatistic.createdTimeStamps[data.getStatistic.createdDogs.indexOf(dog)]);
               //get the difference between the two dates, and convert to days
               const diffTime = Math.abs(date2.getTime() - date1.getTime());
-              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              console.log("diffTime: " + diffTime);
+              const diffDays = ((diffTime / (1000 * 60 * 60)) % 24);
               aveTimeAdoptApproveTemp += diffDays;
               aveTimeAdoptApproveCount++;
             }
           });
         });
         aveTimeAdoptApproveTemp = aveTimeAdoptApproveTemp / aveTimeAdoptApproveCount;
-        this.aveTimeAdoptionStart = aveTimeAdoptApproveTemp;
+        this.aveTimeAdoptionStart = aveTimeAdoptApproveTemp.toFixed(2);
 
         aveTimeAdoptApproveTemp = 0;
         aveTimeAdoptApproveCount = 0;
         data.getStatistic.inProcessDogs.forEach(dog => {
           data.getStatistic.adoptedDogs.forEach(adoptedDog => {
-            if(dog == adoptedDog){
+            if(dog._id == adoptedDog._id){
               const date1 = new Date(data.getStatistic.adoptedTimeStamps[data.getStatistic.adoptedDogs.indexOf(adoptedDog)]);
               const date2 = new Date(data.getStatistic.inProcessTimeStamps[data.getStatistic.inProcessDogs.indexOf(dog)]);
               //get the difference between the two dates, and convert to days
               const diffTime = Math.abs(date2.getTime() - date1.getTime());
-              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              const diffDays = ((diffTime / (1000 * 60 * 60)) % 24);
               aveTimeAdoptApproveTemp += diffDays;
               aveTimeAdoptApproveCount++;
             }
           });
         });
         aveTimeAdoptApproveTemp = aveTimeAdoptApproveTemp / aveTimeAdoptApproveCount;
-        this.aveTimeAdoptApprove = aveTimeAdoptApproveTemp;
+        this.aveTimeAdoptApprove = aveTimeAdoptApproveTemp.toFixed(2);
 
         aveTimeAdoptApproveTemp = 0;
         aveTimeAdoptApproveCount = 0;
         data.getStatistic.inProcessDogs.forEach(dog => {
           data.getStatistic.rejectedDogs.forEach(rejectedDog => {
-            if(dog == rejectedDog){
+            if(dog._id == rejectedDog._id){
               const date1 = new Date(data.getStatistic.rejectedTimeStamps[data.getStatistic.rejectedDogs.indexOf(rejectedDog)]);
               const date2 = new Date(data.getStatistic.inProcessTimeStamps[data.getStatistic.inProcessDogs.indexOf(dog)]);
               //get the difference between the two dates, and convert to days
               const diffTime = Math.abs(date2.getTime() - date1.getTime());
-              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              const diffDays = ((diffTime / (1000 * 60 * 60)) % 24);
               aveTimeAdoptApproveTemp += diffDays;
               aveTimeAdoptApproveCount++;
             }
           });
         });
         aveTimeAdoptApproveTemp = aveTimeAdoptApproveTemp / aveTimeAdoptApproveCount;
-        this.aveTimeAdoptReject = aveTimeAdoptApproveTemp;
+        this.aveTimeAdoptReject = aveTimeAdoptApproveTemp.toFixed(2);
 
         aveTimeAdoptApproveTemp = 0;
         aveTimeAdoptApproveCount = 0;
         data.getStatistic.createdDogs.forEach(dog => {
           data.getStatistic.adoptedDogs.forEach(adoptedDog => {
-            if(dog == adoptedDog){
+            if(dog._id == adoptedDog._id){
               const date1 = new Date(data.getStatistic.adoptedTimeStamps[data.getStatistic.adoptedDogs.indexOf(adoptedDog)]);
               const date2 = new Date(data.getStatistic.createdTimeStamps[data.getStatistic.createdDogs.indexOf(dog)]);
               //get the difference between the two dates, and convert to days
               const diffTime = Math.abs(date2.getTime() - date1.getTime());
-              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              const diffDays = ((diffTime / (1000 * 60 * 60)) % 24);
               aveTimeAdoptApproveTemp += diffDays;
               aveTimeAdoptApproveCount++;
             }
           });
         });
         aveTimeAdoptApproveTemp = aveTimeAdoptApproveTemp / aveTimeAdoptApproveCount;
-        this.aveTimeFullProcess = aveTimeAdoptApproveTemp;
+        this.aveTimeFullProcess = aveTimeAdoptApproveTemp.toFixed(2);
   });
 }
 
