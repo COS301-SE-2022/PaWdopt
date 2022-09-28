@@ -154,21 +154,22 @@ class breed_detector:
 
     saved_model = keras.models.load_model('./models/breed_classifier_model.h5')
     def evaluate_image(self, img_path):
-        # Load from local
-
-        # Prediction test
 
         # Load image
+        print("Preprocessing")
         img = keras.preprocessing.image.load_img(
             img_path, target_size=self.image_size
         )
         # Convert input to array
+        print("converting to array")
         img_array = keras.preprocessing.image.img_to_array(img)
         img_array = tf.expand_dims(img_array, 0)  # Create batch axis
 
         # Predict Result
+        print("Predicting")
         predictions = self.saved_model.predict(img_array)
         result = predictions.argmax()
         restype = self.labels[result]
+        print("Result: ", restype)
         return restype
 
