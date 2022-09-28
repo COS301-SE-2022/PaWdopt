@@ -785,8 +785,8 @@ export class ApiService {
      * @param {string} adopterId The id of the adopter to find
      * @return {Promise<Chat || null>}
      */
-    async findChatByOrgIdAndAdopterId(orgId: string, adopterId: string): Promise<Chat | null> {
-        return this.ChatModel.findOne({orgId, adopterId}).exec();
+    async findChatByOrgIdAndAdopterId(orgId: string, adopterId: string, dogId: string): Promise<Chat | null> {
+        return this.ChatModel.findOne({orgId, adopterId, dogId}).exec();
     }
 
     /**
@@ -799,7 +799,7 @@ export class ApiService {
      * @return {Promise<Chat || null>}
      */
     async sendMessage(orgId: string, adopterId: string, senderId: string, message: string, dogId : string): Promise<Chat | null> {
-        const chat = await this.ChatModel.findOne({orgId : orgId, adopterId : adopterId, dogId : dogId}).exec();
+        const chat = await this.ChatModel.findOne({adopterId, dogId}).exec();
         if(chat == null){
             throw new Error("Chat does not exist");
         }else{
