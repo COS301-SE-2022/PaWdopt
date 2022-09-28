@@ -1,14 +1,13 @@
+import { HttpException } from '@nestjs/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
-import {Apollo, gql } from 'apollo-angular';
+import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 // Capacitor Imports
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-// import { Filesystem, Directory } from '@capacitor/filesystem';
-// import { Storage } from '@capacitor/storage';
-// import { handleRetry } from '@nestjs/mongoose/dist/common/mongoose.utils';
+
 
 @Component({
   selector: 'pawdopt-adddog',
@@ -17,7 +16,9 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   providers: [Apollo],
 })
 export class AdddogPageComponent {
-  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth) {}
+  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth, /*private mlModule: SharedMlFeatureModule*/) {}
+
+
   inputName!: string;
   inputBreed!: string;
   inputGender!: string;
@@ -41,7 +42,6 @@ export class AdddogPageComponent {
   };
 
   fieldvalidate(){
-    //TODO: Make validation better
     //This checks if all fields are empty and then returns false
     let valid = true;
     if(this.inputName == null || this.inputName == ""){
@@ -231,12 +231,12 @@ export class AdddogPageComponent {
     bodyContent.append("image", data[1]);
     bodyContent.append("extension", image_type[1]);
 
-    return fetch("http://localhost:5000/predict", {
+    return fetch("http://localhost:3333/predict", {
       method: "POST",
       body: bodyContent,
       headers: headersList
     }).then(function(response) {
       return response.text();
-    });
+    }).catch(function(error){throw new HttpException(error, 500)});
   }
 }
