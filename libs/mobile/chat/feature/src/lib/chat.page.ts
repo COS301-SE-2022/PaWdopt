@@ -32,9 +32,12 @@ export class chatPageComponent {
   content!: IonContent;
   userName: string | undefined;
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth) {
+    //this.getChat();
+  }
+
+  ionViewWillEnter() {
     this.getChat();
   }
-    
 
   async getObject() {
     const ret = await Storage.get({ key: 'chatID' });
@@ -75,10 +78,11 @@ export class chatPageComponent {
           if(data.getUserType == "Adopter"){
             //if adopter, then the orgID is in local storage
             this.orgID = (await this.getObject()).chateeId;
+            this.dogId = (await this.getObject()).dogId;
               this.userID = this.currentUserId;
               //get the chat using the orgId and adopterId
               const getChat = gql`query {
-                findChatByOrgIdAndAdopterId(orgId: "${this.orgID}", adopterId: "${this.userID}"){
+                findChatByOrgIdAndAdopterId(orgId: "${this.orgID}", adopterId: "${this.userID}", dogId: "${this.dogId}"){
                   messages{
                     userId
                     message
@@ -103,7 +107,7 @@ export class chatPageComponent {
                     dogId: string
                   }
                 }
-                this.disabled = data.findChatByOrgIdAndAdopterId.disabled;
+                this.disabled = false;
                 this.dogId = data.findChatByOrgIdAndAdopterId.dogId;
                 //add the messages to the messages array using a foreach
                 
@@ -141,6 +145,7 @@ export class chatPageComponent {
               });
           } else if(data.getUserType == "OrgMember"){
             //if orgmember, then the adopterID is in local storage, and the org id can be gotten from the orgmember
+            this.dogId = (await this.getObject()).dogId;
               this.userID = (await this.getObject()).chateeId;
               const getOrgId = gql`query {
                 findOrgMemberById(_id: "${this.currentUserId}"){
@@ -161,7 +166,7 @@ export class chatPageComponent {
                 this.orgID = data.findOrgMemberById.organisation;
                 //get the chat using the orgId and adopterId
                 const getChat = gql`query {
-                  findChatByOrgIdAndAdopterId(orgId: "${this.orgID}", adopterId: "${this.userID}"){
+                  findChatByOrgIdAndAdopterId(orgId: "${this.orgID}", adopterId: "${this.userID}", dogId: "${this.dogId}"){
                     messages{
                       userId
                       message
@@ -287,19 +292,108 @@ export class chatPageComponent {
   }
 
   home(){
-    this.router.navigate(["/owneddogs"]);
+    if(this.currentUserId){
+    const getUserType = gql`query {
+      getUserType(id: "${this.currentUserId}")
+    }`;
+
+    this.apollo.watchQuery({
+      query: getUserType,
+      fetchPolicy: 'no-cache'
+    }).valueChanges.subscribe(async (result) => {
+      console.log(result);
+      const data = result.data as {
+        getUserType: string
+      }
+      if(data.getUserType == "Adopter"){
+        this.router.navigate(["/home"]);
+      }
+      else if(data.getUserType == "OrgMember"){
+        this.router.navigate(["/owneddogs"]);
+      }
+    });
+  }else{
+    this.router.navigate(["/home"]);
+  }
+
   }
 
   likeddogs(){
-    this.router.navigate(["/userlikes"]);
+    if(this.currentUserId){
+      const getUserType = gql`query {
+        getUserType(id: "${this.currentUserId}")
+      }`;
+  
+      this.apollo.watchQuery({
+        query: getUserType,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe(async (result) => {
+        console.log(result);
+        const data = result.data as {
+          getUserType: string
+        }
+        if(data.getUserType == "Adopter"){
+          this.router.navigate(["/userlikes"]);
+        }
+        else if(data.getUserType == "OrgMember"){
+          this.router.navigate(["/adoptionprocess"]);
+        }
+      });
+    }else{
+      this.router.navigate(["/home"]);
+    }
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    if(this.currentUserId){
+      const getUserType = gql`query {
+        getUserType(id: "${this.currentUserId}")
+      }`;
+  
+      this.apollo.watchQuery({
+        query: getUserType,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe(async (result) => {
+        console.log(result);
+        const data = result.data as {
+          getUserType: string
+        }
+        if(data.getUserType == "Adopter"){
+          this.router.navigate(["/userprofile"]);
+        }
+        else if(data.getUserType == "OrgMember"){
+          this.router.navigate(["/orgprofile"]);
+        }
+      });
+    }else{
+      this.router.navigate(["/home"]);
+    }
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); Not implemented yet
+    if(this.currentUserId){
+      const getUserType = gql`query {
+        getUserType(id: "${this.currentUserId}")
+      }`;
+  
+      this.apollo.watchQuery({
+        query: getUserType,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe(async (result) => {
+        console.log(result);
+        const data = result.data as {
+          getUserType: string
+        }
+        if(data.getUserType == "Adopter"){
+          this.router.navigate(["/home"]);
+        }
+        else if(data.getUserType == "OrgMember"){
+          this.router.navigate(["/orgsettings"]);
+        }
+      });
+    }else{
+      this.router.navigate(["/home"]);
+    }
   }
 
 }
