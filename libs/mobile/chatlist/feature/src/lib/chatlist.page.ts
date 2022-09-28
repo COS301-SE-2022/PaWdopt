@@ -250,8 +250,31 @@ export class chatlistPageComponent {
 
 
   back(){
-    //Will need to tell the difference between orguser and adopter and then navigate accordingly.
-    // this.router.navigate(["/tabs/tab1"]);
+    if(this.currentUserId){
+      const getUserType = gql`query {
+        getUserType(id: "${this.currentUserId}")
+      }`;
+
+      this.apollo.watchQuery({
+        query: getUserType,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe((result) => {
+        console.log(result);
+        const data = result.data as {
+          getUserType: string
+        }
+        if(data.getUserType == "Adopter"){
+          this.router.navigate(["/userlikes"]);
+        }
+        else if(data.getUserType == "OrgMember"){
+          this.router.navigate(["/ownedDogs"]);
+        }
+        else{
+          //alert to say there is an error
+          this.router.navigate(["/login"]);
+        }
+      });
+    }
   }
   signup(){
     // Done in signup
@@ -263,19 +286,115 @@ export class chatlistPageComponent {
   }
 
   home(){
-    this.router.navigate(["/owneddogs"]);
+    if(this.currentUserId){
+      const getUserType = gql`query {
+        getUserType(id: "${this.currentUserId}")
+      }`;
+  
+      this.apollo.watchQuery({
+        query: getUserType,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe((result) => {
+        console.log(result);
+        const data = result.data as {
+          getUserType: string
+        }
+        if(data.getUserType == "Adopter"){
+          this.router.navigate(["/home"]);
+        }
+        else if(data.getUserType == "OrgMember"){
+          this.router.navigate(["/owneddogs"]);
+        }
+        else{
+          //alert to say there is an error
+          this.router.navigate(["/login"]);
+        }
+      });
+    }
   }
 
   likeddogs(){
-    this.router.navigate(["/userlikes"]);
+    if(this.currentUserId){
+      const getUserType = gql`query {
+        getUserType(id: "${this.currentUserId}")
+      }`;
+  
+      this.apollo.watchQuery({
+        query: getUserType,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe((result) => {
+        console.log(result);
+        const data = result.data as {
+          getUserType: string
+        }
+        if(data.getUserType == "Adopter"){
+          this.router.navigate(["/userlikes"]);
+        }
+        else if(data.getUserType == "OrgMember"){
+          this.router.navigate(["/adoptionprocess"]);
+        }
+        else{
+          //alert to say there is an error
+          this.router.navigate(["/login"]);
+        }
+      });
+    }
   }
 
   profile(){
-    this.router.navigate(["/userprofile"]);
+    if(this.currentUserId){
+    const getUserType = gql`query {
+      getUserType(id: "${this.currentUserId}")
+    }`;
+
+    this.apollo.watchQuery({
+      query: getUserType,
+      fetchPolicy: 'no-cache'
+    }).valueChanges.subscribe((result) => {
+      console.log(result);
+      const data = result.data as {
+        getUserType: string
+      }
+      if(data.getUserType == "Adopter"){
+        this.router.navigate(["/userprofile"]);
+      }
+      else if(data.getUserType == "OrgMember"){
+        this.router.navigate(["/orgprofile"]);
+      }
+      else{
+        //alert to say there is an error
+        this.router.navigate(["/login"]);
+      }
+    });
+  }
   }
 
   preferences(){
-    //this.router.navigate(["/userinfo"]); 
+    if(this.currentUserId){
+      const getUserType = gql`query {
+        getUserType(id: "${this.currentUserId}")
+      }`;
+  
+      this.apollo.watchQuery({
+        query: getUserType,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe((result) => {
+        console.log(result);
+        const data = result.data as {
+          getUserType: string
+        }
+        if(data.getUserType == "Adopter"){
+          this.router.navigate(["/home"]);
+        }
+        else if(data.getUserType == "OrgMember"){
+          this.router.navigate(["/orgprofile"]);
+        }
+        else{
+          //alert to say there is an error
+          this.router.navigate(["/orgsettings"]);
+        }
+      });
+    } 
   }
 
 }

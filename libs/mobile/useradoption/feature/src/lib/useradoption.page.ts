@@ -200,6 +200,16 @@ export class useradoptionPageComponent {
     }
   }
 
+  async setObject2(chateeId : string, dogId : string) {
+    await Storage.set({
+    key: 'chatID',
+    value: JSON.stringify({
+      chateeId: chateeId,
+      dogId : dogId
+      })
+    });
+  }
+
   async setObject() {
     await Storage.set({
     key: 'userId',
@@ -230,7 +240,8 @@ export class useradoptionPageComponent {
     this.router.navigate(["/orgsettings"]);
   }
 
-  gotoChat() {
+  async gotoChat() {
+    await this.setObject2(this.userId, this.dogId);
     this.router.navigate(["/chatlist"]);
   }
 
