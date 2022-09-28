@@ -232,7 +232,7 @@ type Query {
   findDogsByOrgId(_id: String!): [DogType!]!
   findChatsByOrgmemberId(orgmemberId: String!): [ChatType!]!
   findChatsByAdopterId(adopterId: String!): [ChatType!]!
-  findChatByOrgIdAndAdopterId(orgId: String!, adopterId: String!): ChatType!
+  findChatByOrgIdAndAdopterId(orgId: String!, adopterId: String!, dogId: String!): ChatType!
   getStatistic(orgId: String!): StatisticType!
   findOrgByOrgmemberId(orgmemberId: String!): OrganisationType!
 }
