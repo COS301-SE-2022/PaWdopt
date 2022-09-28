@@ -37,7 +37,10 @@ export class chatPageComponent {
 
   ionViewWillEnter() {
     this.getChat();
+    setInterval(()=> { this.getChat() }, 10 * 1000);
   }
+
+  
 
   async getObject() {
     const ret = await Storage.get({ key: 'chatID' });
