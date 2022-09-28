@@ -55,15 +55,12 @@ export class SignupPageComponent {
     }
 
     await this.fireAuth.createUserWithEmailAndPassword(this.email, this.pass).then((user) => {
-      console.log("User created");
-      console.log(user);
       user.user?.updateProfile({
         displayName: this.uName,
       });
       user.user?.sendEmailVerification();
       this.addUser(user.user?.uid);
     }).catch(async (error) => {
-      console.log(error);
       const alert = await this.alertController.create({
         header: 'Alert',
         subHeader: 'Error',
@@ -90,7 +87,6 @@ export class SignupPageComponent {
     this.apollo.mutate({
       mutation: addUser,
     }).subscribe(({data}) => {
-      console.log('got data', data);
       this.hideLoading();
       this.router.navigate(["/home"]);
     });
@@ -164,14 +160,12 @@ export class SignupPageComponent {
         text: 'Take picture using your camera',
         icon: 'camera-outline',
         handler: () => {
-          console.log('Take picture clicked');
           this.getPhoto(true);
         }
       }, {
         text: 'Choose a picture from your gallery',
         icon: 'image-outline',
         handler: async () => {
-          console.log('Choose a picture clicked');
           await this.getPhoto(false);
           this.imageToShow = this.showImage();
         }
@@ -179,15 +173,10 @@ export class SignupPageComponent {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
       }]
     });
     await actionSheet.present();
 
-    const { role, data } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role and data', role, data);
   }
 
   async getPhoto(fromCamera:boolean) {
@@ -209,7 +198,6 @@ export class SignupPageComponent {
     //TODO Do firebase upload here
 
     const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
-    console.log(data);
     this.imageString = data;
     return data;
   }

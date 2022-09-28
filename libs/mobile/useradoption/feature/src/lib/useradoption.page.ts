@@ -83,7 +83,6 @@ export class useradoptionPageComponent {
       query: findDogByIdQuery,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
       const data = result.data as {
         findDogById: {
           _id: string,
@@ -126,7 +125,6 @@ export class useradoptionPageComponent {
         query: findUserByIdQuery,
         fetchPolicy: 'no-cache'
       }).valueChanges.subscribe((result) => {
-        console.log(result);
         const data = result.data as {
           findAdopterById: {
             _id: string,
@@ -153,8 +151,6 @@ export class useradoptionPageComponent {
       this.apollo.mutate({
         mutation: acceptAdoptionQuery,
         fetchPolicy: 'no-cache'
-      }).subscribe((result) => {
-        console.log(result);
       });
     });
     this.router.navigate(['/adoptionprocess']);
@@ -171,9 +167,7 @@ export class useradoptionPageComponent {
       this.apollo.mutate({
         mutation: rejectAdoptionQuery,
         fetchPolicy: 'no-cache'
-      }).subscribe((result) => {
-        console.log(result);
-      });
+      })
     });
     this.router.navigate(['/adoptionprocess']);
   }
@@ -187,9 +181,7 @@ export class useradoptionPageComponent {
       this.apollo.mutate({
         mutation: completeAdoptionQuery,
         fetchPolicy: 'no-cache'
-      }).subscribe((result) => {
-        console.log(result);
-      });
+      })
     });
   }
 

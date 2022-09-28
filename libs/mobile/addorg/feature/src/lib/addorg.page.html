@@ -67,8 +67,8 @@
     <ion-button class="greyButton" id="image-upload-button" (click)="uploadPic()">
         <ion-icon name="image-sharp"></ion-icon>&nbsp; Upload an organisation logo
     </ion-button>
-    <div class="imageContainer">
-        <ion-img [src]="imageToShow" class="uploadedImage" id="imageUpload"></ion-img>
+    <div class="imageContainer" style="height:fit-content; width:fit-content;">
+        <ion-img [src]="imageToShow" class="uploadedImage" id="imageUpload" [hidden]="hideImage"></ion-img>
     </div>
     <ion-button class="greyButton" id="image-upload-button" (click)="uploadDoc()">
         <ion-icon name="document-sharp"></ion-icon>&nbsp; Upload list of adoption rules

@@ -21,7 +21,6 @@ import { environment } from '../environments/environment.prod';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { APP_CONFIG } from '@pawdopt/config';
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

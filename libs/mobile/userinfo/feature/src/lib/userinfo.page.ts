@@ -72,7 +72,6 @@ export class userinfoPageComponent {
     this.t_ID = "";
    
    this.getUserId();
-   console.log(this.t_ID);
   }
   
   showIDImage(){
@@ -119,7 +118,6 @@ export class userinfoPageComponent {
       query: userInfo,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
-      // console.log(result);
       const  data = result.data as {
         findAdopterById: {
           name: string,
@@ -141,7 +139,6 @@ export class userinfoPageComponent {
       this.user.documents = data.findAdopterById.documents;
       //this.user.location.lat = data.findAdopterById.location.lat;
       //this.user.location.lng = data.findAdopterById.location.lng;
-      // console.log(this.user);
 
       if(data.findAdopterById.documents.length > 0){
 
