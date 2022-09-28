@@ -328,7 +328,7 @@ export class chatlistPageComponent {
           getUserType: string
         }
         if(data.getUserType == "Adopter"){
-          this.router.navigate(["/likeddogs"]);
+          this.router.navigate(["/userlikes"]);
         }
         else if(data.getUserType == "OrgMember"){
           this.router.navigate(["/adoptionprocess"]);
