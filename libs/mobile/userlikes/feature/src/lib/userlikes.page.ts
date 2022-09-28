@@ -159,8 +159,8 @@ export class userlikesPageComponent {
     this.router.navigate(["/preferences"]);
   }
 
-  orgProfile(orgId:string){
-    this.setObject(orgId);
+  async orgProfile(orgId:string){
+    await this.setObject1(orgId);
     console.log(orgId);
     this.router.navigate(["/orgprofile"]);
   }
@@ -168,6 +168,16 @@ export class userlikesPageComponent {
   async setObject(id: string) {
     await Storage.set({
     key: 'dogID',
+    value: JSON.stringify({
+      id: 1,
+      name: id
+      })
+    });
+  }
+
+  async setObject1(id: string) {
+    await Storage.set({
+    key: 'orgToPref',
     value: JSON.stringify({
       id: 1,
       name: id

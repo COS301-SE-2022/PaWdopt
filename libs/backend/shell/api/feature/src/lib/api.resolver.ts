@@ -450,8 +450,8 @@ export class ApiResolver {
      * @throws error if chat does not have org id
      */
     @Query(() => ChatType)
-    async findChatByOrgIdAndAdopterId(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string) : Promise<ChatType> {
-        return this.DogService.findChatByOrgIdAndAdopterId(orgId, adopterId);
+    async findChatByOrgIdAndAdopterId(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<ChatType> {
+        return this.DogService.findChatByOrgIdAndAdopterId(orgId, adopterId, dogId);
     }
 
     /**
@@ -548,6 +548,17 @@ export class ApiResolver {
     @Query(() => StatisticType)
     async getStatistic(@Args('orgId') orgId: string) : Promise<StatisticType> {
         return this.DogService.getStatistic(orgId);
+    }
+
+    /**
+     * used in orgProfile page
+     * call findOrgByOrgmemberId
+     * @param orgmemberId
+     * @returns Organisation
+     */
+    @Query(() => OrganisationType)
+    async findOrgByOrgmemberId(@Args('orgmemberId') orgmemberId: string) : Promise<OrganisationType> {
+        return this.DogService.findOrgByOrgmemberId(orgmemberId);
     }
 
     
