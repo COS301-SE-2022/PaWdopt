@@ -71,3 +71,4 @@ schema.gql
 /apps/pawdopt/src/environments/environment.prod.ts
 .env
 env/
+.dccache
