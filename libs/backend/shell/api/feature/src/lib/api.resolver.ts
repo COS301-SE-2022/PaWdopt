@@ -550,6 +550,17 @@ export class ApiResolver {
         return this.DogService.getStatistic(orgId);
     }
 
+    /**
+     * used in orgProfile page
+     * call findOrgByOrgmemberId
+     * @param orgmemberId
+     * @returns Organisation
+     */
+    @Query(() => OrganisationType)
+    async findOrgByOrgmemberId(@Args('orgmemberId') orgmemberId: string) : Promise<OrganisationType> {
+        return this.DogService.findOrgByOrgmemberId(orgmemberId);
+    }
+
     
 
 
