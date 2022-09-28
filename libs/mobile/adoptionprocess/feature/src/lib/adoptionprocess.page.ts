@@ -80,7 +80,6 @@ export class adoptionprocessPageComponent {
             query: getOrgByNameQuery,
             fetchPolicy: 'no-cache'
           }).valueChanges.subscribe((result) => {
-            console.log(result);
             const data = result.data as {
               findOrgById: {
                 potentialAdopters: {

@@ -45,7 +45,6 @@ export class appointmentpagePageComponent {
     //   fetchPolicy: 'no-cache'
     // }).valueChanges.subscribe(async (result) => {
     //   const data = result.data;
-    //   console.log(data);
     //   if(data){
     //     const data = result.data as {
     //       getFreeBusy: string
@@ -59,7 +58,6 @@ export class appointmentpagePageComponent {
     this.orgID = (await this.getObject()).orgId;
     this.userID = (await this.getObject()).userId;
     this.dogId = (await this.getObject2()).dogId;
-    console.log(this.orgID + " " + this.userID + " " + this.dogId);
     // //get the orgID and the userID from local Storage
     // const orgID = (await this.getObject()).orgID;
     // const userID = (await this.getObject()).userID;
@@ -76,11 +74,8 @@ export class appointmentpagePageComponent {
       mutation: sendMessage,
       fetchPolicy: 'no-cache'
     }).subscribe(({ data }) => {
-      console.log('got data', data);
       
       this.router.navigate(['/chat']);
-    },(error) => {
-      console.log('there was an error sending the query', error);
     });
     
     this.router.navigate(["/chat"]);

@@ -31,10 +31,8 @@ export class userlikesPageComponent {
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth){
     this.fireAuth.currentUser.then(user =>{
-      console.log(user?.uid);
         if(user?.uid){
           this.userId = user.uid;
-          console.log(this.userId);
           this.getDog(false);
         }
     })
@@ -65,7 +63,6 @@ export class userlikesPageComponent {
       query: findDogsLikedByUserQuery,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
       const data = result.data as {
         findDogsLikedByUser: {
           name: string,
@@ -161,7 +158,6 @@ export class userlikesPageComponent {
 
   async orgProfile(orgId:string){
     await this.setObject1(orgId);
-    console.log(orgId);
     this.router.navigate(["/orgprofile"]);
   }
 

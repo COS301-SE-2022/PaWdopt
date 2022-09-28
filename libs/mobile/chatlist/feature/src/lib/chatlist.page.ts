@@ -44,7 +44,6 @@ export class chatlistPageComponent {
           query: getUserType,
           fetchPolicy: 'no-cache'
         }).valueChanges.subscribe((result) => {
-          console.log(result);
           const data = result.data as {
             getUserType: string
           }
@@ -66,7 +65,6 @@ export class chatlistPageComponent {
               query: getChats,
               fetchPolicy: 'no-cache'
             }).valueChanges.subscribe((result) => {
-              console.log(result);
               const data2 = result.data as {
                 findChatsByAdopterId: {
                   adopterId: string;
@@ -91,7 +89,6 @@ export class chatlistPageComponent {
                   query: getOrgName,
                   fetchPolicy: 'no-cache'
                 }).valueChanges.subscribe((result) => {
-                  console.log(result);
                   const data1 = result.data as {
                     findOrgById: {
                       name: string;
@@ -109,7 +106,6 @@ export class chatlistPageComponent {
                     query: getDogName,
                     fetchPolicy: 'no-cache'
                   }).valueChanges.subscribe((result) => {
-                    console.log(result);
                     const data = result.data as {
                       findDogById: {
                         name: string;
@@ -150,7 +146,6 @@ export class chatlistPageComponent {
               query: getChats,
               fetchPolicy: 'no-cache'
             }).valueChanges.subscribe((result) => {
-              console.log(result);
               const data = result.data as {
                 findChatsByOrgmemberId: {
                   adopterId: string;
@@ -175,7 +170,6 @@ export class chatlistPageComponent {
                   query: getAdopterName,
                   fetchPolicy: 'no-cache'
                 }).valueChanges.subscribe((result) => {
-                  console.log(result);
                   const data1 = result.data as {
                     findAdopterById: {
                       name: string;
@@ -193,7 +187,6 @@ export class chatlistPageComponent {
                     query: getDogName,
                     fetchPolicy: 'no-cache'
                   }).valueChanges.subscribe((result) => {
-                    console.log(result);
                     const data = result.data as {
                       findDogById: {
                         name: string;
@@ -259,7 +252,6 @@ export class chatlistPageComponent {
         query: getUserType,
         fetchPolicy: 'no-cache'
       }).valueChanges.subscribe((result) => {
-        console.log(result);
         const data = result.data as {
           getUserType: string
         }
@@ -295,7 +287,6 @@ export class chatlistPageComponent {
         query: getUserType,
         fetchPolicy: 'no-cache'
       }).valueChanges.subscribe((result) => {
-        console.log(result);
         const data = result.data as {
           getUserType: string
         }
@@ -323,7 +314,6 @@ export class chatlistPageComponent {
         query: getUserType,
         fetchPolicy: 'no-cache'
       }).valueChanges.subscribe((result) => {
-        console.log(result);
         const data = result.data as {
           getUserType: string
         }
@@ -351,7 +341,6 @@ export class chatlistPageComponent {
       query: getUserType,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
       const data = result.data as {
         getUserType: string
       }
@@ -379,7 +368,6 @@ export class chatlistPageComponent {
         query: getUserType,
         fetchPolicy: 'no-cache'
       }).valueChanges.subscribe((result) => {
-        console.log(result);
         const data = result.data as {
           getUserType: string
         }
