@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { Storage } from '@capacitor/storage';
 import { APP_CONFIG } from '@pawdopt/config';
+import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Platform } from '@ionic/angular';
+
 
 
 @Component({
@@ -14,7 +18,7 @@ import { APP_CONFIG } from '@pawdopt/config';
 })
 export class orgprofilePageComponent {
 
-  
+  currentUserId?: string;
   inputStartDate!: Date;
   inputEndDate!: Date;
   orgId!:string;
@@ -80,7 +84,7 @@ export class orgprofilePageComponent {
 
   
 
-  constructor(private router: Router, private apollo: Apollo, @Inject(APP_CONFIG) private appConfig: any){
+  constructor(private router: Router, private apollo: Apollo, @Inject(APP_CONFIG) private appConfig: any, private afAuth: AngularFireAuth, private geolocation: Geolocation, private platform: Platform) {
     this.getOrg();
     this.updateStats();
   }
@@ -397,7 +401,34 @@ export class orgprofilePageComponent {
 }
 
   back(){
-    this.router.navigate(['/owneddogs']);
+    //get the user type
+    this.afAuth.currentUser.then(user => {
+      this.currentUserId = user?.uid;
+
+      if(this.currentUserId){
+        const getUserType = gql`query {
+          getUserType(id: "${this.currentUserId}")
+        }`;
+
+        this.apollo.watchQuery({
+          query: getUserType,
+          fetchPolicy: 'no-cache'
+        }).valueChanges.subscribe((result) => {
+          console.log(result);
+          const data = result.data as {
+            getUserType: string
+          }
+          if(data.getUserType == "Adopter"){
+            this.router.navigate(['/userlikes']);
+          }
+          else{
+            this.router.navigate(['/owneddogs']);
+          }
+        });
+      }
+    });
+
+    
   }
 
   home(){
