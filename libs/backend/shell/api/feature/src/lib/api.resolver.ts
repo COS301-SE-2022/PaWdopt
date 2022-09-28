@@ -450,8 +450,8 @@ export class ApiResolver {
      * @throws error if chat does not have org id
      */
     @Query(() => ChatType)
-    async findChatByOrgIdAndAdopterId(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string) : Promise<ChatType> {
-        return this.DogService.findChatByOrgIdAndAdopterId(orgId, adopterId);
+    async findChatByOrgIdAndAdopterId(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<ChatType> {
+        return this.DogService.findChatByOrgIdAndAdopterId(orgId, adopterId, dogId);
     }
 
     /**
