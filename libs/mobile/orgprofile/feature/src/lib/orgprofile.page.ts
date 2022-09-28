@@ -100,7 +100,6 @@ export class orgprofilePageComponent {
   async getOrg(){
     
     this.orgId = (await this.getObject()).name;
-    console.log(this.orgId);
     const findOrgByIdQuery = gql`query {
       findOrgById(_id: "${this.orgId}") {
         name
@@ -124,7 +123,6 @@ export class orgprofilePageComponent {
       query: findOrgByIdQuery,
       fetchPolicy: 'network-only'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
       const data = result.data as {
         findOrgById: {
           name: string,
@@ -171,10 +169,6 @@ export class orgprofilePageComponent {
         })
         .then(jsonData => {
             this.address = jsonData.results[0].formatted_address;
-            console.log("Address:" + this.address);
-        })
-        .catch(error => {
-            console.log(error);
         })
     });
   }
@@ -218,7 +212,6 @@ export class orgprofilePageComponent {
       query: getStatsQuery,
       fetchPolicy: 'network-only'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
       const data = result.data as {
         getStatistic: {
           createdTimeStamps: Date[],
@@ -334,7 +327,6 @@ export class orgprofilePageComponent {
               const date2 = new Date(data.getStatistic.createdTimeStamps[data.getStatistic.createdDogs.indexOf(dog)]);
               //get the difference between the two dates, and convert to days
               const diffTime = Math.abs(date2.getTime() - date1.getTime());
-              console.log("diffTime: " + diffTime);
               const diffDays = ((diffTime / (1000 * 60 * 60)) % 24);
               aveTimeAdoptApproveTemp += diffDays;
               aveTimeAdoptApproveCount++;

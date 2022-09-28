@@ -65,9 +65,11 @@ export class AddorgPageComponent {
     maximumAge: 3600
   };
   imageToShow!: string;
+  hideImage: boolean;
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform, public actionSheetController: ActionSheetController, public alertController: AlertController, @Inject(APP_CONFIG) private appConfig: any) {
     this.getGeolocation();
+    this.hideImage = true;
     this.orgMembers=[{
       id: "",
       name: "",
@@ -98,18 +100,13 @@ export class AddorgPageComponent {
         .then(jsonData => {
             this.address = jsonData.results[0].formatted_address;
         })
-        .catch(error => {
-            console.log(error);
-        })
       }).catch((error) => {
         alert('Error getting location' + JSON.stringify(error));
       });
     });
   }
 
-  addOrg(){
-    //TODO: Add validation
-
+  validate() {
     if(this.rulesReq == null || this.rulesReq == undefined){
       this.rulesReq = "";
     }
@@ -134,6 +131,12 @@ export class AddorgPageComponent {
     if(this.logo == null || this.logo == undefined){
       this.logo = "";
     }
+  }
+
+  addOrg(){
+    //TODO: Add validation
+    this.validate();
+    
 
     const addOrg = gql`mutation{
       createOrg(org:{
@@ -198,7 +201,6 @@ export class AddorgPageComponent {
               _id
             }
           }`;
-          // 
           this.apollo.mutate({
             mutation: createOrgMember,
             fetchPolicy: 'no-cache'
@@ -232,7 +234,7 @@ export class AddorgPageComponent {
   }
 
   showImage(){
-    // TODO: unhide pic
+    this.hideImage = false;
     return this.imageString;
   }
 
@@ -243,14 +245,12 @@ export class AddorgPageComponent {
         text: 'Take picture using your camera',
         icon: 'camera-outline',
         handler: () => {
-          console.log('Take picture clicked');
           this.getPhoto(true);
         }
       }, {
         text: 'Choose a picture from your gallery',
         icon: 'image-outline',
         handler: async () => {
-          console.log('Choose a picture clicked');
           await this.getPhoto(false);
           this.imageToShow = this.showImage();
         }
@@ -258,15 +258,10 @@ export class AddorgPageComponent {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
       }]
     });
     await actionSheet.present();
 
-    const { role, data } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role and data', role, data);
   }
 
   async uploadDoc(){
@@ -276,29 +271,22 @@ export class AddorgPageComponent {
         text: 'Take picture using your camera',
         icon: 'camera-outline',
         handler: () => {
-          console.log('Take picture clicked');
           this.getPhoto(true);
         }
       }, {
         text: 'Choose a picture from your gallery',
         icon: 'image-outline',
         handler: async () => {
-          console.log('Choose a picture clicked');
           await this.getPhoto(false);
         }
       }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
       }]
     });
     await actionSheet.present();
 
-    const { role, data } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role and data', role, data);
   }
 
 

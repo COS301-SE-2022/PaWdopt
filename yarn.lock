@@ -142,10 +142,17 @@
     rxjs "6.6.7"
     source-map "0.7.3"
 
+<<<<<<< HEAD
 "@angular-devkit/core@14.2.4":
   version "14.2.4"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-14.2.4.tgz#95b43bfea524f06d3010cb0bb5c4eb8e33d95a57"
   integrity sha512-NsvN1U42goBcibVR75vDp2NOFeSU+Wcekwf1r3Jbyz6a2l9Unf0v9BOWLXdigFY8xztbrOHJPSIbC+2rkvOUnw==
+=======
+"@angular-devkit/core@14.2.3":
+  version "14.2.3"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-14.2.3.tgz#0041de646bbd0c6723bb7affc7033880b5f50cd1"
+  integrity sha512-E8bnC6F0xNni4IIKAnIDBDkbi6cOePm4Q/Y9IrTk3wquGTfsiMlQpdnRA0nr+FTN/LT3N08O5dEw2Gd4ff4tGA==
+>>>>>>> edb4208e7c7e5b6747324b9ce3b58857b51abd2d
   dependencies:
     ajv "8.11.0"
     ajv-formats "2.1.1"
@@ -186,12 +193,21 @@
     ora "5.4.1"
     rxjs "6.6.7"
 
+<<<<<<< HEAD
 "@angular-devkit/schematics@14.2.4", "@angular-devkit/schematics@^12.0.0 || ^13.0.0 || ^14.0.0":
   version "14.2.4"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-14.2.4.tgz#6d9a9215e9fd5f893ad9d468adc03e992b3e03d2"
   integrity sha512-Pm2C7HBNslQavsqXh6/rcyAavmgzTxU3x7NoWwSBH+fIplLJjEFzHdnW9JJp59A2ONfqO0wND3yWKtjIoDAUqw==
   dependencies:
     "@angular-devkit/core" "14.2.4"
+=======
+"@angular-devkit/schematics@14.2.3", "@angular-devkit/schematics@^12.0.0 || ^13.0.0 || ^14.0.0":
+  version "14.2.3"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-14.2.3.tgz#7222bcb5b87a486eacbc9e878f3a5070f485f0d9"
+  integrity sha512-98ldx+To7xW1BH/DqIToQwHVscPZhXnZP01SeoiUnFlJE5FnXx8Lv7qHAQtE96M+cfE5NR1NKBgfCH3S3rnmFA==
+  dependencies:
+    "@angular-devkit/core" "14.2.3"
+>>>>>>> edb4208e7c7e5b6747324b9ce3b58857b51abd2d
     jsonc-parser "3.1.0"
     magic-string "0.26.2"
     ora "5.4.1"
@@ -3432,12 +3448,21 @@
     jsonc-parser "3.0.0"
 
 "@schematics/angular@^12.0.0 || ^13.0.0 || ^14.0.0":
+<<<<<<< HEAD
   version "14.2.4"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-14.2.4.tgz#025c50144bae1d41cb7f1e362e4437389a7e4559"
   integrity sha512-9n7HyxZvoSR+Ynyvr8oEQ3zy5trSjCQMTF+fZSTCzCBEVHKGxqMyisI6KO4qcGeIQYGXWeBYrMsy9jMQFgK8dQ==
   dependencies:
     "@angular-devkit/core" "14.2.4"
     "@angular-devkit/schematics" "14.2.4"
+=======
+  version "14.2.3"
+  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-14.2.3.tgz#18e625d683a7f9f6ac36e7e2110d84f65ff1c2f2"
+  integrity sha512-lHWeeWrhpyMwJRTK4RpFVptWZo5kTdI+bOOd+lZBTjOAs+PM8r9VXHzB6qhE6P2e3HsceXM59PonvekTUdOJtQ==
+  dependencies:
+    "@angular-devkit/core" "14.2.3"
+    "@angular-devkit/schematics" "14.2.3"
+>>>>>>> edb4208e7c7e5b6747324b9ce3b58857b51abd2d
     jsonc-parser "3.1.0"
 
 "@schematics/angular@~13.3.0":
@@ -5695,6 +5720,26 @@ conf@^10.0.1:
     onetime "^5.1.2"
     pkg-up "^3.1.0"
     semver "^7.3.5"
+<<<<<<< HEAD
+
+configstore@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/configstore/-/configstore-5.0.1.tgz#d365021b5df4b98cdd187d6a3b0e3f6a7cc5ed96"
+  integrity sha512-aMKprgk5YhBNyH25hj8wGt2+D52Sw1DRRIzqBwLp2Ya9mFmY8KPvvtvmna8SxVR9JMZ4kzMD68N22vlaRpkeFA==
+  dependencies:
+    dot-prop "^5.2.0"
+    graceful-fs "^4.1.2"
+    make-dir "^3.0.0"
+    unique-string "^2.0.0"
+    write-file-atomic "^3.0.0"
+    xdg-basedir "^4.0.0"
+
+confusing-browser-globals@^1.0.9:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/confusing-browser-globals/-/confusing-browser-globals-1.0.11.tgz#ae40e9b57cdd3915408a2805ebd3a5585608dc81"
+  integrity sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==
+=======
+>>>>>>> edb4208e7c7e5b6747324b9ce3b58857b51abd2d
 
 configstore@^5.0.1:
   version "5.0.1"
@@ -8780,6 +8825,7 @@ jasmine-marbles@~0.9.1:
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/jasmine-marbles/-/jasmine-marbles-0.9.2.tgz#5adfee5f72c7f24270687fa64a6e8a8613ffa841"
   integrity sha512-T7RjG4fRsdiGGzbQZ6Kj39qYt6O1/KIcR4FkUNsD3DUGkd/AzpwzN+xtk0DXlLWEz5BaVdK1SzMgQDVw879c4Q==
+<<<<<<< HEAD
   dependencies:
     lodash "^4.17.20"
 
@@ -8788,6 +8834,16 @@ jest-changed-files@^27.5.1:
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-27.5.1.tgz#a348aed00ec9bf671cc58a66fcbe7c3dfd6a68f5"
   integrity sha512-buBLMiByfWGCoMsLLzGUUSpAmIAGnbR2KJoMN10ziLhOLvP4e0SlypHnAel8iqQXTrcbmfEY9sSqae5sgUsTvw==
   dependencies:
+=======
+  dependencies:
+    lodash "^4.17.20"
+
+jest-changed-files@^27.5.1:
+  version "27.5.1"
+  resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-27.5.1.tgz#a348aed00ec9bf671cc58a66fcbe7c3dfd6a68f5"
+  integrity sha512-buBLMiByfWGCoMsLLzGUUSpAmIAGnbR2KJoMN10ziLhOLvP4e0SlypHnAel8iqQXTrcbmfEY9sSqae5sgUsTvw==
+  dependencies:
+>>>>>>> edb4208e7c7e5b6747324b9ce3b58857b51abd2d
     "@jest/types" "^27.5.1"
     execa "^5.0.0"
     throat "^6.0.1"
