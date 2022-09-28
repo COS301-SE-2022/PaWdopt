@@ -881,6 +881,10 @@ export class ApiService {
      */
     async acceptAdoption(orgId: string, adopterId: string, dogId: string): Promise<string> {
         //send message in chat to adopter saying adoption has been accepted
+        const org = await this.OrganisationModel.findOne({_id: orgId}).exec();
+        org.totalAdoptions++;
+        org.totalDogs--;
+        org.save();
 
         const chat = await this.ChatModel.findOne({orgId, adopterId, dogId}).exec();
         if(chat == null){
