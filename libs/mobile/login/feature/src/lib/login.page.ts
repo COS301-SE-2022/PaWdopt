@@ -34,7 +34,6 @@ export class LoginPageComponent {
   }
   
   getUserType(id?: string){
-    console.log("running");
     const getUserType = gql`query {
       getUserType(id: "${id}")
     }`;
@@ -43,7 +42,7 @@ export class LoginPageComponent {
       query: getUserType,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe(async (result) => {
-      console.log(result);
+
       const data = result.data as {
         getUserType: string
       }
@@ -89,14 +88,13 @@ export class LoginPageComponent {
       ]
       });
       await alert.present();
-      console.log("Error signing in");
-      console.log(error);
+
+
     });
 }
 
 googleSignin(){
   return this.fireAuth.signInWithPopup(new GoogleAuthProvider()).then((user) => {
-    console.log("running");
     const getUserType = gql`query {
       getUserType(id: "${user.user?.uid}")
     }`;
@@ -105,7 +103,7 @@ googleSignin(){
       query: getUserType,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
+
       const data = result.data as {
         getUserType: string
       }
@@ -138,11 +136,8 @@ googleSignin(){
           });
         }
     });
-  }).catch((error) => {
-    console.log("Error signing in");
-    console.log(error);
-  }
-);}
+  })
+}
 
 signup(){
   // Done in signup

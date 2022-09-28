@@ -66,7 +66,6 @@ export class OrgSettingsPageComponent {
     this.orgMembers.pop();
     this.fireAuth.currentUser.then(user => {
       if(user?.uid){
-        console.log("gotten in");
         this.t_ID = user?.uid;
         
         const findOrganistaionId = gql`query{
@@ -177,9 +176,6 @@ export class OrgSettingsPageComponent {
             .then(jsonData => {
                 this.address = jsonData.results[0].formatted_address;
             })
-            .catch(error => {
-                console.log(error);
-            })
             this.totalAdoptions = data.findOrgById.totalAdoptions;
             this.totalDogs = data.findOrgById.totalDogs;
             this.conInfoId = data.findOrgById.contactInfo._id;
@@ -244,17 +240,10 @@ export class OrgSettingsPageComponent {
         _id
       }
     }`;
-    console.log(updateOrg);
     this.apollo.mutate({
       mutation: updateOrg,
       fetchPolicy: 'no-cache'
     }).subscribe((result) => {
-      const  data = result.data as {
-        updateOrg: {
-          _id: string;
-        }
-      }
-      console.log(data);
       this.router.navigate(['/owneddogs']);
     });
   }

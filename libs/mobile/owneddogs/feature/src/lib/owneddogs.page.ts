@@ -111,7 +111,6 @@ export class owneddogsPageComponent {
             query: getDogQuery,
             fetchPolicy: 'no-cache'
           }).valueChanges.subscribe((result) => {
-            console.log(result);
             const data = result.data as {
               findDogsByOrgId: {
                 _id: string,
@@ -133,8 +132,6 @@ export class owneddogsPageComponent {
             // this.dog.breed = data.findDog.breed;
             // this.dog.age = 0;
             // this.dog.likes = data.findDog.usersLiked.length;
-            // console.log(data);
-            // console.log(data.findDogByOrgName);
             //get the years between a Date and now
             // const now = new Date();
             // const birthDate = new Date(data.findDog.dob);
@@ -200,7 +197,6 @@ export class owneddogsPageComponent {
 
   dashboard(id: string){
     this.setObject3(id);
-    console.log(id);
     this.router.navigate(["/dashboard"]);
   }
 

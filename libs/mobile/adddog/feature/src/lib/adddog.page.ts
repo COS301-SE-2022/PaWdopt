@@ -125,15 +125,12 @@ export class AdddogPageComponent {
             mutation: AddDogMutation,
             fetchPolicy: 'no-cache'
             }).subscribe((result) => {
-              console.log(result);
               
               this.router.navigate(["/owneddogs"]);
             }
           );
           
         });
-      }else{
-        console.log("User not logged in");
       }
     });
   }
@@ -166,7 +163,6 @@ export class AdddogPageComponent {
         text: 'Take picture using your camera',
         icon: 'camera-outline',
         handler: () => {
-          console.log('Take picture clicked');
           this.getPhoto(true).then(data => this.postToML(data)).then(result => {
             this.inputBreed = JSON.parse(result).breed;
           });
@@ -175,7 +171,6 @@ export class AdddogPageComponent {
         text: 'Choose a picture from your gallery',
         icon: 'image-outline',
         handler: () => {
-          console.log('Choose a picture clicked');
           this.getPhoto(false).then(data => this.postToML(data)).then(result => {
             this.inputBreed = JSON.parse(result).breed;
           });
@@ -184,15 +179,10 @@ export class AdddogPageComponent {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
       }]
     });
     await actionSheet.present();
 
-    const { role, data } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role and data', role, data);
   }
 
   async getPhoto(fromCamera:boolean) {

@@ -69,9 +69,6 @@ export class dashboardPageComponent {
           text: 'Ok',
           role: 'cancel',
           cssClass: 'my-alert-class',
-          handler: (value:  any) => {
-            console.log('ok clicked')
-        }
       },
       {
         text: 'Cancel',
@@ -91,7 +88,6 @@ export class dashboardPageComponent {
   async getDog(){
     this.userLikes = [];
     this.dogID = (await this.getObject()).name
-    console.log(this.dogID);
     const getDogQuery = gql`query {
       findDogById(_id: "${this.dogID}") {
         name
@@ -117,7 +113,6 @@ export class dashboardPageComponent {
       query: getDogQuery,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
       const data = result.data as {
         findDogById: {
           name: string,
@@ -139,7 +134,6 @@ export class dashboardPageComponent {
           }
         }
       };
-      console.log(data.findDogById.about)
       
       this.dog.name = data.findDogById.name;
       this.dog.pic = data.findDogById.pics[0];
@@ -168,7 +162,6 @@ export class dashboardPageComponent {
   async userinfo(id: string){
     this.userId = id;
     await this.setObject();
-    console.log(id);
     this.router.navigate(["/userinfo"]);
   }
 
@@ -185,7 +178,6 @@ export class dashboardPageComponent {
           role: 'cancel',
           cssClass: 'my-alert-class',
           handler: (value:  any) => {
-            console.log("heart");
             this.showLoading();
             const clickedHeartIconquery = gql`mutation {
               clickedHeartIcon(userId: "${id}", dogId: "${this.dogID}") {
@@ -196,7 +188,6 @@ export class dashboardPageComponent {
               mutation: clickedHeartIconquery,
               fetchPolicy: 'no-cache'
             }).subscribe((result) => {
-              console.log(result);
               this.getDog();
             }
             )
@@ -222,7 +213,6 @@ export class dashboardPageComponent {
           role: 'cancel',
           cssClass: 'my-alert-class',
           handler: (value:  any) => {
-            console.log(id);
             this.showLoading();
             const clickedTrashIconquery = gql`mutation {
               clickedTrashIcon(userId: "${id}", dogId: "${this.dogID}") {
@@ -233,7 +223,6 @@ export class dashboardPageComponent {
               mutation: clickedTrashIconquery,
               fetchPolicy: 'no-cache'
             }).subscribe((result) => {
-              console.log(result);
               this.getDog();
             }
             )

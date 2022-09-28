@@ -74,7 +74,6 @@ export class chatPageComponent {
           query: getUserType,
           fetchPolicy: 'no-cache'
         }).valueChanges.subscribe(async (result) => {
-          console.log(result);
           const data = result.data as {
             getUserType: string
           }
@@ -99,7 +98,6 @@ export class chatPageComponent {
                 query: getChat,
                 fetchPolicy: 'no-cache'
               }).valueChanges.subscribe((result) => {
-                console.log(result);
                 const data = result.data as {
                   findChatByOrgIdAndAdopterId: {
                     messages: {
@@ -125,7 +123,6 @@ export class chatPageComponent {
                   query: getOrgNameQuery,
                   fetchPolicy: 'no-cache'
                 }).valueChanges.subscribe((result) => {
-                  console.log(result);
                   const data1 = result.data as {
                     findOrgById: {
                       name: string
@@ -160,7 +157,6 @@ export class chatPageComponent {
                 query: getOrgId,
                 fetchPolicy: 'no-cache'
               }).valueChanges.subscribe((result) => {
-                console.log(result);
                 const data = result.data as {
                   findOrgMemberById: {
                     organisation: string
@@ -182,7 +178,6 @@ export class chatPageComponent {
                   query: getChat,
                   fetchPolicy: 'no-cache'
                 }).valueChanges.subscribe((result) => {
-                  console.log(result);
                   const data = result.data as {
                     findChatByOrgIdAndAdopterId: {
                       messages: {
@@ -204,7 +199,6 @@ export class chatPageComponent {
                     query: getAdopterNameQuery,
                     fetchPolicy: 'no-cache'
                   }).valueChanges.subscribe((result) => {
-                    console.log(result);
                     const data1 = result.data as {
                       findAdopterById: {
                         name: string
@@ -304,7 +298,6 @@ export class chatPageComponent {
       query: getUserType,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe(async (result) => {
-      console.log(result);
       const data = result.data as {
         getUserType: string
       }
@@ -331,7 +324,6 @@ export class chatPageComponent {
         query: getUserType,
         fetchPolicy: 'no-cache'
       }).valueChanges.subscribe(async (result) => {
-        console.log(result);
         const data = result.data as {
           getUserType: string
         }
@@ -357,7 +349,6 @@ export class chatPageComponent {
         query: getUserType,
         fetchPolicy: 'no-cache'
       }).valueChanges.subscribe(async (result) => {
-        console.log(result);
         const data = result.data as {
           getUserType: string
         }
@@ -383,7 +374,6 @@ export class chatPageComponent {
         query: getUserType,
         fetchPolicy: 'no-cache'
       }).valueChanges.subscribe(async (result) => {
-        console.log(result);
         const data = result.data as {
           getUserType: string
         }
