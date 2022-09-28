@@ -100,7 +100,6 @@ export class HomePage {
             this.loading = this.loadingCtrl.create({
               message: 'Finding Dogs closest to ' + this.address,
             });
-            this.showLoading();
         })
         .catch(error => {
             console.log(error);
@@ -156,12 +155,14 @@ export class HomePage {
       });
     }
   
-    ionViewWillEnter(){
+    async ionViewWillEnter(){
       this.avatars = [];
       this.currentIndex = -1;
+      await this.showLoading();
       this.getGeolocation();
-      this.setPrefs();
+      await this.setPrefs();
       this.getDogs();
+      await this.hideLoading();
     }
 
   // this.apollo.query(getDogsQuery);
@@ -241,8 +242,8 @@ export class HomePage {
           pics: string[]
         }[];
       }
-      if(data.findDogs.length <= 0)
-        this.hideLoading();
+      //if(data.findDogs.length <= 0)
+        //this.hideLoading();
       data.findDogs.forEach(element => {
         tempDate = new Date(element.dob);
         sage = myDate.getFullYear() - tempDate.getFullYear();
@@ -284,7 +285,7 @@ export class HomePage {
       this.apollo.watchQuery({
         query: findAdopterByIdQuery,
         fetchPolicy: 'no-cache'
-      }).valueChanges.subscribe((result) => {
+      }).valueChanges.subscribe(async (result) => {
         console.log(result);
         const data = result.data as {
           findAdopterById: {
@@ -370,7 +371,6 @@ export class HomePage {
         this.avatars = [];
         this.avatars = temp;
         console.log(this.avatars);
-        this.hideLoading();
       });
     });
     //we have filtered out the dogs
@@ -380,6 +380,8 @@ export class HomePage {
     //if they are not liked or disliked, keep them in the avatars
     //if there are no more dogs, show a message
     //if there are more dogs, show them
+    
+    this.hideLoading();
   }
 
   async swiped(event: boolean, index: number) {
@@ -459,9 +461,13 @@ export class HomePage {
 
   }
 
-  locationPicked(){
-    // this.showLoading();
-    // this.hideLoading();
+  async locationPicked(){
+    this.showLoading();
+    setTimeout(() => {
+      console.log("Delayed for 1 second.");
+      
+    this.hideLoading();
+    }, 1000);
   }
 
   home(){

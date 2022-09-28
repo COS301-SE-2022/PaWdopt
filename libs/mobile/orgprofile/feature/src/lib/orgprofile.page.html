@@ -35,42 +35,17 @@
         <p><b><ion-icon name="location"></ion-icon>&nbsp;{{this.address}}</b></p>
         <p><b>Joined PaWdopt on {{dateString}}</b></p>
         <!-- Make a boolean function to check if these values actually exist -> Backend devs -->
-        <div [hidden]="false"><p><b><ion-icon name="logo-facebook"></ion-icon>&nbsp;Facebook</b></p></div>
-        <div [hidden]="false"><p><b><ion-icon name="logo-instagram"></ion-icon>&nbsp;Instagram</b></p></div>
-        <div [hidden]="false"><p><b><ion-icon name="logo-twitter"></ion-icon>&nbsp;Twitter</b></p></div>
-        <div [hidden]="false"><p><b><ion-icon name="flash-outline"></ion-icon>&nbsp;Website</b></p></div>
+        <div [hidden]="false"><p><b><ion-icon name="logo-facebook"></ion-icon>&nbsp;{{this.facebook}}</b></p></div>
+        <div [hidden]="false"><p><b><ion-icon name="logo-instagram"></ion-icon>&nbsp;{{this.instagram}}</b></p></div>
+        <div [hidden]="false"><p><b><ion-icon name="logo-twitter"></ion-icon>&nbsp;{{this.twitter}}</b></p></div>
+        <div [hidden]="false"><p><b><ion-icon name="flash-outline"></ion-icon>&nbsp;{{this.website}}</b></p></div>
     
         <div class="container">
             <h1>Organisation Statistics</h1>
-            <ion-grid class="middleButton">
-                <ion-row>
-                    <ion-col col-6>
-                        <ion-label position="floating" class="form-input-label">
-                            <ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Start Date</ion-label>
-                        <ion-input class="actualDate" value="{{ inputStartDate | date: 'yyyy/MM/dd' }}" id="startdate"></ion-input>
-                        <ion-popover trigger="startdate" size="auto" alignment="center" side="top">
-                            <ng-template>
-                                <ion-datetime color="datetimecolor" presentation="date-time" [(ngModel)]="inputStartDate"></ion-datetime>
-                            </ng-template>
-                        </ion-popover>
-                    </ion-col>
-                    <ion-col col-6>
-                        <ion-label position="floating" class="form-input-label">
-                            <ion-icon name="calendar-number-outline"></ion-icon>&nbsp;Start Date</ion-label>
-                        <ion-input class="actualDate" value="{{ inputEndDate | date: 'yyyy/MM/dd' }}" id="enddate"></ion-input>
-                        <ion-popover trigger="enddate" size="auto" alignment="center" side="top">
-                            <ng-template>
-                                <ion-datetime color="datetimecolor" presentation="date-time" [(ngModel)]="inputEndDate"></ion-datetime>
-                            </ng-template>
-                        </ion-popover>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+            
             <br>
 
-            <ion-button class="greyButton" (click)="updateStats()">
-                <ion-icon name="stats-chart-outline"></ion-icon>&nbsp; See Statistics</ion-button>
-            <br>
+            
             <p>
                 <ion-icon name="paw"></ion-icon>&nbsp;{{org.totalDogs}} dogs available</p>
             <p>
@@ -87,14 +62,14 @@
             <p>Average Age of dogs: {{this.averageAge}}</p>
             <p>Most Popular age: {{this.mostPopularAge}}</p>
             <h2>Time Statistics</h2>
-            <p>Average time for adoption process to start</p>
-            <p>Average time from adoption process start to approval</p>
-            <p>Average time from adoption process start to rejection</p>
-            <p>Average time from add dog to adopted dog</p>
+            <p>Average time for adoption process to start: {{this.aveTimeAdoptionStart}} Hours</p>
+            <p>Average time from adoption process start to approval: {{this.aveTimeAdoptApprove}} days</p>
+            <p>Average time from adoption process start to rejection: {{this.aveTimeAdoptReject}} days</p>
+            <p>Average time from add dog to adopted dog: {{this.aveTimeFullProcess}} days</p>
             <h2>Adoption Statistics</h2>
-            <p>Amount of adoptionProcesses started</p>
-            <p>Amount of Rejections</p>
-            <p>Amount of approvals</p>
+            <p>Amount of adoption processes started: {{this.numAdoptStarted}}</p>
+            <p>Amount of Rejections: {{this.numRejections}}</p>
+            <p>Amount of approvals: {{this.numApproval}}</p>
 
         </div>
     </div>
