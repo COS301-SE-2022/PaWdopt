@@ -21,7 +21,6 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 export class AddorgPageComponent {
   imageString!: string;
-
   oName!: string;
   about!: string;
   date!: Date;
@@ -35,6 +34,7 @@ export class AddorgPageComponent {
   instagram!: string;
   twitter!: string;
   logo!: string;
+  enterpriseID!: string;
   orgMembers: [{
     id?: string;
     name: string;
