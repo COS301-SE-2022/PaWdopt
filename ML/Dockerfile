@@ -2,12 +2,13 @@ FROM continuumio/miniconda3
 
 COPY ./requirements.txt /app/requirements.txt
 
+ENV MLPORT=5000
+
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app
 
-ENTRYPOINT [ "python" ]
+CMD exec gunicorn --bind :$MLPORT --workers 1 --threads 8 --timeout 0 server:app
 
-CMD ["server.py" ]

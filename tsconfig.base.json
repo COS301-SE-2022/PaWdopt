@@ -19,6 +19,7 @@
       "@pawdopt/backend/shell/api/feature": [
         "libs/backend/shell/api/feature/src/index.ts"
       ],
+      "@pawdopt/config": ["libs/config/index.ts"],
       "@pawdopt/mobile/adddog/feature": [
         "libs/mobile/adddog/feature/src/index.ts"
       ],
@@ -75,7 +76,7 @@
         "libs/mobile/userprofile/feature/src/index.ts"
       ],
       "@pawdopt/shared/data-store": ["libs/shared/data-store/src/index.ts"],
-      "@pawdopt/config": ["libs/config/index.ts"]
+      "@pawdopt/shared/ml/feature": ["libs/shared/ml/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
