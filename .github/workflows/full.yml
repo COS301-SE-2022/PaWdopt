@@ -2,7 +2,7 @@
 name: CI Full Tests
 on: 
   pull_request:
-    branches: [ develop ]
+    types: [ opened, reopened ]
 
 jobs:
   test-all:
