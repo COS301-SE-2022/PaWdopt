@@ -73,9 +73,11 @@ export class LoginPageComponent {
         this.getUserType(user.user?.uid);
       }
       catch(e){
+        this.hideLoading();
         console.log(e);
       }
     }).catch(async (error) => {
+      this.hideLoading();
       const alert = await this.alertController.create({
         header: 'Incorrect credentials',
         subHeader: '',
@@ -91,62 +93,63 @@ export class LoginPageComponent {
 
 
     });
-}
+  }
 
-googleSignin(){
-  return this.fireAuth.signInWithPopup(new GoogleAuthProvider()).then((user) => {
-    const getUserType = gql`query {
-      getUserType(id: "${user.user?.uid}")
-    }`;
-  
-   this.apollo.watchQuery({
-      query: getUserType,
-      fetchPolicy: 'no-cache'
-    }).valueChanges.subscribe((result) => {
+  googleSignin(){
+    return this.fireAuth.signInWithPopup(new GoogleAuthProvider()).then((user) => {
+      this.showLoading();
+      const getUserType = gql`query {
+        getUserType(id: "${user.user?.uid}")
+      }`;
+    
+    this.apollo.watchQuery({
+        query: getUserType,
+        fetchPolicy: 'no-cache'
+      }).valueChanges.subscribe((result) => {
 
-      const data = result.data as {
-        getUserType: string
-      }
-      if(data.getUserType == "Adopter")
-        {
-          this.router.navigate(['/home']);
+        const data = result.data as {
+          getUserType: string
         }
-        else if(data.getUserType == "OrgMember")
-        {
-          this.router.navigate(['/owneddogs']);
-        }
-        else{
-          const addUser = gql`mutation {
-            createAdopter(adopter: {
-              _id: "${user.user?.uid}",
-              name: "${user.user?.displayName}",
-              email: "${user.user?.email}",
-              pic: "",
-              uploadedDocs: false,
-            })
-            {
-              name
-            }
-          }`;
-          this.apollo.mutate({
-            mutation: addUser,
-          }).subscribe(() => {
-            user.user?.sendEmailVerification();
-            this.router.navigate(["/home"]);
-          });
-        }
-    });
-  })
-}
+        if(data.getUserType == "Adopter")
+          {
+            this.hideLoading();
+            this.router.navigate(['/home']);
+          }
+          else if(data.getUserType == "OrgMember")
+          {
+            this.hideLoading();
+            this.router.navigate(['/owneddogs']);
+          }
+          else{
+            const addUser = gql`mutation {
+              createAdopter(adopter: {
+                _id: "${user.user?.uid}",
+                name: "${user.user?.displayName}",
+                email: "${user.user?.email}",
+                pic: "",
+                uploadedDocs: false,
+              })
+              {
+                name
+              }
+            }`;
+            this.apollo.mutate({
+              mutation: addUser,
+            }).subscribe(() => {
+              user.user?.sendEmailVerification();
+              this.hideLoading();
+              this.router.navigate(["/home"]);
+            });
+          }
+      });
+    })
+  }
 
-signup(){
-  // Done in signup
-  this.router.navigate(["/signup"]);
+  signup(){
+    this.router.navigate(["/signup"]);
+  }
+    
+  addorg(){
+    this.router.navigate(["/addorg"]);
+  }
 }
-  
-addorg(){
-  this.router.navigate(["/addorg"]);
-}
-
-}
-

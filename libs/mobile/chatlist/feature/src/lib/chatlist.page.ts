@@ -241,33 +241,6 @@ export class chatlistPageComponent {
     });
   }
 
-
-  back(){
-    if(this.currentUserId){
-      const getUserType = gql`query {
-        getUserType(id: "${this.currentUserId}")
-      }`;
-
-      this.apollo.watchQuery({
-        query: getUserType,
-        fetchPolicy: 'no-cache'
-      }).valueChanges.subscribe((result) => {
-        const data = result.data as {
-          getUserType: string
-        }
-        if(data.getUserType == "Adopter"){
-          this.router.navigate(["/userlikes"]);
-        }
-        else if(data.getUserType == "OrgMember"){
-          this.router.navigate(["/ownedDogs"]);
-        }
-        else{
-          //alert to say there is an error
-          this.router.navigate(["/login"]);
-        }
-      });
-    }
-  }
   signup(){
     // Done in signup
     this.router.navigate(["/signup"]);

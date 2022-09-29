@@ -170,7 +170,13 @@ export class userinfoPageComponent {
   }
 
   back(){
-    this.router.navigate(["/useradoption"]);
+    const back = this.router.getCurrentNavigation()?.previousNavigation?.finalUrl?.toString();
+    if(back === "/dashboard"){
+      this.router.navigate(['/dashboard']);
+    }
+    else if(back === "/useradoption"){
+      this.router.navigate(['/useradoption']);
+    }
   }
 
   home() {

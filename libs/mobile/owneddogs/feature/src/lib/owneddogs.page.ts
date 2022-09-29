@@ -31,26 +31,28 @@ export class owneddogsPageComponent {
     breed:string
     orgId: string
   }[]=[]
+  loading: Promise<HTMLIonLoadingElement>;
 
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
 
     // this.showLoading();
 
     // this.getDog(false);
+    this.loading = this.loadingCtrl.create({
+      message: 'Waiting for dogs, if no dogs appear you will need to add them...',
+    });
   }
 
-  async ionViewWillEnter(){
-    await this.showLoading();
+  ionViewWillEnter(){
     this.getDog(false);
   }
 
   async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Waiting for dogs, if no dogs appear you will need to add them...',
-      duration: 2000,
-    });
+    (await this.loading).present();
+  }
 
-    loading.present();
+  async hideLoading() {
+    (await this.loading).dismiss();
   }
 
   getDog(search: boolean){
@@ -59,7 +61,7 @@ export class owneddogsPageComponent {
       this.uid = user?.uid;
 
       if(this.uid){
-
+        this.showLoading();
         const getOrgDetailsQuery = gql`query {
           findOrgMemberById(_id: "${this.uid}") {
             organisation
@@ -187,6 +189,7 @@ export class owneddogsPageComponent {
               );
             })
           }
+          this.hideLoading();
           });
         });
       });
