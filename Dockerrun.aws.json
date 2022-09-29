@@ -1,0 +1,30 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "containerDefinitions": [
+      {
+        "name": "pawdopt_backend",
+        "image": "pawdopt/backend:latest",
+        "links": [
+          "pawdopt_ml"
+        ],
+        "memory": 1024,
+        "portMappings": [
+          {
+            "hostPort": 3333,
+            "containerPort": 3333
+          }
+        ]
+      },
+      {
+        "name": "pawdopt_ml",
+        "image": "pawdopt/ml:latest",
+        "memory": 2048,
+        "portMappings": [
+        {
+            "hostPort": 5000,
+            "containerPort": 5000
+        }
+        ]
+      }
+  ]
+}

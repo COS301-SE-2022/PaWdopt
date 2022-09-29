@@ -10,5 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app
 
-CMD exec gunicorn --bind :$MLPORT --workers 1 --threads 8 --timeout 0 server:app
+CMD exec gunicorn --bind=127.0.0.1 --workers=3 server:app
 

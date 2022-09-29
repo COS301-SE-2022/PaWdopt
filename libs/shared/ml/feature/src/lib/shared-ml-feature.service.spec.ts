@@ -1,12 +1,14 @@
 import { Test } from '@nestjs/testing';
 import { SharedMlFeatureService } from './shared-ml-feature.service';
+import { HttpService } from '@nestjs/axios';
+
 
 describe('SharedMlFeatureService', () => {
   let service: SharedMlFeatureService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [SharedMlFeatureService],
+      providers: [SharedMlFeatureService, HttpService],
     }).compile();
 
     service = module.get(SharedMlFeatureService);
