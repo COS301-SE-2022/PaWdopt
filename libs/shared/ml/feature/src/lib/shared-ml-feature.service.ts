@@ -13,7 +13,7 @@ export class SharedMlFeatureService {
 
       console.log(image)
 
-       return this.httpService.axiosRef.post("http://localhost:5000/predict", 
+       return this.httpService.axiosRef.post("http://pawdopt-env-gunicorn.eba-33a75fa2.us-east-1.elasticbeanstalk.com/predict", 
           image,{headers: {'content-type': 'application/json'}}
         ).then((response) => {
           console.log(response)

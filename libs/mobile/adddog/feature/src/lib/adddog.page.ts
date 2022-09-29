@@ -221,7 +221,7 @@ export class AdddogPageComponent {
     bodyContent.append("image", data[1]);
     bodyContent.append("extension", image_type[1]);
 
-    return fetch("http://localhost:5000/predict", {
+    return fetch("http://pawdopt-env-gunicorn.eba-33a75fa2.us-east-1.elasticbeanstalk.com/predict", {
       method: "POST",
       body: bodyContent,
       headers: headersList
