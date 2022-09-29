@@ -153,7 +153,7 @@ export class useradoptionPageComponent {
         fetchPolicy: 'no-cache'
       });
     });
-    this.router.navigate(['/adoptionprocess']);
+    //this.router.navigate(['/adoptionprocess']);
   }
 
   onDecline() {
@@ -169,7 +169,7 @@ export class useradoptionPageComponent {
         fetchPolicy: 'no-cache'
       })
     });
-    this.router.navigate(['/adoptionprocess']);
+    //this.router.navigate(['/adoptionprocess']);
   }
 
   onComplete(){

@@ -950,7 +950,7 @@ export class ApiService {
                         org.totalDogs--;
                         org.totalAdoptions++;
                         await org.save();
-                        const tempOrg = await this.OrganisationModel.findOne({_id: "633175178af8fc8c803f8f67"}).exec();
+                        const tempOrg = await this.OrganisationModel.findOne({_id: "6335623e1b933b627d85f576"}).exec();
                         dog.organisation = tempOrg;
                         await dog.save();
                         const allAdopters = await this.AdopterModel.find({}).exec();
