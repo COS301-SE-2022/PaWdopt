@@ -72,4 +72,3 @@ apps/pawdopt/src/environments/environment.prod.ts
 .env
 env/
 .dccache
-apps/pawdopt/src/environments/environment.prod.ts
