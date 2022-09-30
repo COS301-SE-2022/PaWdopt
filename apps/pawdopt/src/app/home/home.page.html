@@ -24,7 +24,7 @@
         <ion-icon name="information-circle-outline"></ion-icon>&nbsp;Slide left to dislike or right to like a dog or make use of the buttons below.</ion-label>
     <sw-card-wrapper #cardWrapper>
         <div class="card" *ngFor="let avatar of avatars, let index = index" [class.visible]="avatar.visible" [class.hidden]="!avatar.visible" swSwipeable [width]="350" [height]="500" [orientation]="'x'" (swiped)="swiped($event, index)">
-            <img [src]="avatar.pic" [alt]="avatar.name">
+            <img [src]="avatar.pic" [alt]="avatar.name" style="width:350px; object-fit:cover;">
             <h2><b>{{avatar.name}}, {{avatar.age}} </b>
                 <div class="ion-float-right"><b>{{avatar.organisation}}<ion-icon class="verified" name="checkmark-circle" color="twitter"></ion-icon></b></div>
             </h2>

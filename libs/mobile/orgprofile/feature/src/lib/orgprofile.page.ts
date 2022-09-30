@@ -15,7 +15,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class orgprofilePageComponent {
 
-  
+  currentUserId?: string;
   inputStartDate!: Date;
   inputEndDate!: Date;
   orgId!:string;
