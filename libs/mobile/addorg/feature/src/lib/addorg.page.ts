@@ -107,6 +107,7 @@ export class AddorgPageComponent {
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${this.appConfig.MAPS_API_KEY}`)
         .then((responseText) => {
             return responseText.json();
+            console.log(responseText);
         })
         .then(jsonData => {
             this.address = jsonData.results[0].formatted_address;
