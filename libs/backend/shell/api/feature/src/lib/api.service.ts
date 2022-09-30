@@ -932,25 +932,53 @@ export class ApiService {
                     }
                     else{
                         const message = "Congratulations on adopting the dog! We hope you and the dog have a long and happy life together.";
-                        const msg = await this.MessageModel.create({orgId, message});
-                        chat.messages.push(msg);
+                        await this.sendMessage(orgId, adopterId, orgId, message, dogId);
                         chat.disabled = true;
                         await chat.save();
+
+                        //foreach 
+                        org.potentialAdopters.forEach(async potentialAdopter => {
+                            if(potentialAdopter.adopter._id == adopter._id){
+                                org.potentialAdopters.splice(org.potentialAdopters.indexOf(potentialAdopter), 1);
+                            }
+                        })
+
                         org.potentialAdopters.forEach(async potentialAdopter => {
                             if(potentialAdopter.dogId == dogId){
                                 const tempId = potentialAdopter.adopter._id;
-                                const tempChat = await this.ChatModel.findOne({orgId, tempId}).exec();
+                                const tempChat = await this.ChatModel.findOne({orgId, tempId, dogId}).exec();
                                 const message = "We are sorry to inform you that the dog you were interested in has been adopted.";
-                                await this.sendMessage(orgId, adopterId, orgId, message, dogId);
+                                await this.sendMessage(orgId, tempId, orgId, message, dogId);
                                 tempChat.disabled = true;
                                 await tempChat.save();
                                 org.potentialAdopters.splice(org.potentialAdopters.indexOf(potentialAdopter), 1);
+                                await org.save();
                             }
                         });
                         org.totalDogs--;
                         org.totalAdoptions++;
                         await org.save();
-                        const tempOrg = await this.OrganisationModel.findOne({_id: "6335623e1b933b627d85f576"}).exec();
+                        let tempOrg = await this.OrganisationModel.findOne({_id: "6335623e1b933b627d85f576"}).exec();
+                        if (tempOrg == null) {
+                            //create new org
+                            const newOrg = new this.OrganisationModel({
+                                _id: "6335623e1b933b627d85f576",
+                                name: "Adopted Dogs",
+                                about: "",
+                                dateFounded: new Date(),
+                                totalAdoptions: 0,
+                                totalDogs: 0,
+                                location: {
+                                    lat: 0,
+                                    lng: 0
+                                },
+                                contactInfo: {
+                                    _id: "xxx"
+                                }
+                            });
+                            await this.OrganisationModel.create(newOrg);
+                            tempOrg = newOrg;
+                        }
                         dog.organisation = tempOrg;
                         await dog.save();
                         const allAdopters = await this.AdopterModel.find({}).exec();
