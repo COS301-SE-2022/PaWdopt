@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, LoadingController } from '@ionic/angular';
 import {Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -17,7 +17,11 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   providers: [Apollo],
 })
 export class AdddogPageComponent {
-  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth) {}
+  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
+    this.loading = this.loadingCtrl.create({
+      message: 'Loading...',
+    });
+  }
   inputName!: string;
   inputBreed!: string;
   inputGender!: string;
@@ -39,6 +43,8 @@ export class AdddogPageComponent {
     lower: number;
     upper: number;
   };
+
+  loading: Promise<HTMLIonLoadingElement>;
 
   fieldvalidate(){
     //TODO: Make validation better
@@ -68,13 +74,21 @@ export class AdddogPageComponent {
     return valid;
   }  
 
+  async showLoading() {
+    (await this.loading).present();
+  }
+
+  async hideLoading() {
+    (await this.loading).dismiss();
+  }
+
 
   addDog(){
     //Adds a dog to the database
     if(!this.fieldvalidate())
       return;
-
     this.afAuth.currentUser.then(user => {
+      this.showLoading();
       this.uid = user?.uid;
 
       if(this.uid){
@@ -125,7 +139,7 @@ export class AdddogPageComponent {
             mutation: AddDogMutation,
             fetchPolicy: 'no-cache'
             }).subscribe((result) => {
-              
+              this.hideLoading();
               this.router.navigate(["/owneddogs"]);
             }
           );

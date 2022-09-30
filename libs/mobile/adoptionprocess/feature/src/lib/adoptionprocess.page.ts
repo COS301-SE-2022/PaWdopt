@@ -25,23 +25,26 @@ export class adoptionprocessPageComponent {
     picsUser: string;
     picsDog: string;
   }[] = [];
+  loading: Promise<HTMLIonLoadingElement>;
 
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController,private alertController: AlertController){
+    this.loading = this.loadingCtrl.create({
+      message: 'Loading...',
+    });
     this.getAdoptions();
   }
 
   async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Loading...',
-      duration: 2000,
-    });
+    (await this.loading).present();
+  }
 
-    loading.present();
+  async hideLoading() {
+    (await this.loading).dismiss();
   }
 
   getAdoptions(){
-    this.showLoading();
     this.afAuth.currentUser.then(user => {
+      this.showLoading();
       if(user?.uid){
         const findOrgMemberByIdQuery = gql`query {
           findOrgMemberById(_id: "${user?.uid}") {
@@ -119,7 +122,8 @@ export class adoptionprocessPageComponent {
                   nameDog: data.findDogById.name,
                   picsUser: adopter.adopter.pic,
                   picsDog: data.findDogById.pics[0]
-                })
+                });
+                this.hideLoading();
               })
             })
           }

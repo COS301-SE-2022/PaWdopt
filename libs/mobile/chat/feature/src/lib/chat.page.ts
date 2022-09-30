@@ -32,7 +32,6 @@ export class chatPageComponent {
   content!: IonContent;
   userName: string | undefined;
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth) {
-    //this.getChat();
   }
 
   ionViewWillEnter() {
@@ -297,7 +296,7 @@ export class chatPageComponent {
     this.apollo.watchQuery({
       query: getUserType,
       fetchPolicy: 'no-cache'
-    }).valueChanges.subscribe(async (result) => {
+    }).valueChanges.subscribe((result) => {
       const data = result.data as {
         getUserType: string
       }
@@ -323,7 +322,7 @@ export class chatPageComponent {
       this.apollo.watchQuery({
         query: getUserType,
         fetchPolicy: 'no-cache'
-      }).valueChanges.subscribe(async (result) => {
+      }).valueChanges.subscribe((result) => {
         const data = result.data as {
           getUserType: string
         }
@@ -348,7 +347,7 @@ export class chatPageComponent {
       this.apollo.watchQuery({
         query: getUserType,
         fetchPolicy: 'no-cache'
-      }).valueChanges.subscribe(async (result) => {
+      }).valueChanges.subscribe((result) => {
         const data = result.data as {
           getUserType: string
         }
@@ -373,12 +372,12 @@ export class chatPageComponent {
       this.apollo.watchQuery({
         query: getUserType,
         fetchPolicy: 'no-cache'
-      }).valueChanges.subscribe(async (result) => {
+      }).valueChanges.subscribe((result) => {
         const data = result.data as {
           getUserType: string
         }
         if(data.getUserType == "Adopter"){
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/preferences"]);
         }
         else if(data.getUserType == "OrgMember"){
           this.router.navigate(["/orgsettings"]);
@@ -389,5 +388,8 @@ export class chatPageComponent {
     }
   }
 
+  gotoChats(){
+    this.router.navigate(["/chatlist"]);
+  }
 }
 

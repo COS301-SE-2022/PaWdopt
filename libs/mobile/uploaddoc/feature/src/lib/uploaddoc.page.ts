@@ -26,6 +26,7 @@ export class uploaddocPageComponent {
   imageToShow!: string;
   
   imageString!: string;
+  uselessVariable = 0;
 
   constructor(private router: Router, private apollo: Apollo, private actionSheetController: ActionSheetController, private fireAuth: AngularFireAuth){
     this.imageIDString = "";
@@ -151,7 +152,9 @@ export class uploaddocPageComponent {
             this.apollo.mutate({
               mutation: uploadDocQuery,
               fetchPolicy: 'no-cache'
-            })      
+            }).subscribe(({ data }) => {
+              this.uselessVariable = 1;
+            });      
             }
           });
         }
@@ -202,7 +205,9 @@ export class uploaddocPageComponent {
         this.apollo.mutate({
           mutation: uploadDocQuery,
           fetchPolicy: 'no-cache'
-        })
+        }).subscribe(({ data }) => {
+          this.uselessVariable = 1;
+        }); 
             }
           });
         }
@@ -251,7 +256,9 @@ export class uploaddocPageComponent {
         this.apollo.mutate({
           mutation: uploadDocQuery,
           fetchPolicy: 'no-cache'
-        })
+        }).subscribe(({ data }) => {
+          this.uselessVariable = 1;
+        }); 
             }
           });
         }
@@ -304,7 +311,9 @@ export class uploaddocPageComponent {
   this.apollo.mutate({
     mutation: uploadDocQuery,
     fetchPolicy: 'no-cache'
-  })
+  }).subscribe(({ data }) => {
+    this.uselessVariable = 1;
+  }); 
       }
     });
         }
