@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {Apollo, gql } from 'apollo-angular';
 import { Storage } from '@capacitor/storage';
+import { LoadingController } from '@ionic/angular';
 // import { Adopter, OrgMember } from 'libs/backend/shell/api/feature/src/lib/api.schema';
 @Component({
   selector: 'pawdopt-appointmentpage',
@@ -27,43 +28,29 @@ export class appointmentpagePageComponent {
   orgID!: string;
   userID!: string;
   dogId!: string;
-
+  loading: Promise<HTMLIonLoadingElement>;
   
-  
 
-  constructor(private router: Router, private apollo: Apollo){
+  constructor(private router: Router, private apollo: Apollo, private loadingCtrl: LoadingController){
+    this.loading = this.loadingCtrl.create({
+      message: 'Loading...',
+    });
+  }
 
+  async showLoading() {
+    (await this.loading).present();
+  }
+
+  async hideLoading() {
+    (await this.loading).dismiss();
   }
 
   async makeAppointment(){
-    //Google freebusy query call
-    // const getFreeBusyOrg = gql`query {
-    //   getFreeBusy(id: "${this.inputEmail}", start: "${this.inputStartDate}", end: "${this.inputEndDate}")
-    // }`;
-    // this.apollo.watchQuery({
-    //   query: getFreeBusyOrg,
-    //   fetchPolicy: 'no-cache'
-    // }).valueChanges.subscribe(async (result) => {
-    //   const data = result.data;
-    //   if(data){
-    //     const data = result.data as {
-    //       getFreeBusy: string
-    //     };
-    //     if(data.getFreeBusy == "free"){
-    //       //make appointment
-    //     }
-    //   }
-    // });
-    
+    this.showLoading();
     this.orgID = (await this.getObject()).orgId;
     this.userID = (await this.getObject()).userId;
     this.dogId = (await this.getObject2()).dogId;
-    // //get the orgID and the userID from local Storage
-    // const orgID = (await this.getObject()).orgID;
-    // const userID = (await this.getObject()).userID;
-    // const dogId = (await this.getObject2()).dogId;
     const messageToSend = "Appointment booked for: " + this.inputName + " on " + this.inputStartDate + " to " + this.inputEndDate;
-    //sendMessage query
     const sendMessage = gql`
       mutation { 
         sendMessage(orgId: "${this.orgID}", adopterId: "${this.userID}", senderId: "${this.userID}", message: "${messageToSend}", dogId: "${this.dogId}"){
@@ -74,11 +61,9 @@ export class appointmentpagePageComponent {
       mutation: sendMessage,
       fetchPolicy: 'no-cache'
     }).subscribe(({ data }) => {
-      
+      this.hideLoading();
       this.router.navigate(['/chat']);
     });
-    
-    this.router.navigate(["/chat"]);
   }
 
   async getObject() {

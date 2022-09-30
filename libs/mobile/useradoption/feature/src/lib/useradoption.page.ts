@@ -53,6 +53,7 @@ export class useradoptionPageComponent {
     pic: "",
     uploadedDoc: false
   }
+  uselessVariable = 0;
 
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth) {
     this.getAdoptions();
@@ -151,9 +152,10 @@ export class useradoptionPageComponent {
       this.apollo.mutate({
         mutation: acceptAdoptionQuery,
         fetchPolicy: 'no-cache'
+      }).subscribe(({ data }) => {
+        this.router.navigate(['/adoptionprocess']);
       });
     });
-    //this.router.navigate(['/adoptionprocess']);
   }
 
   onDecline() {
@@ -167,9 +169,10 @@ export class useradoptionPageComponent {
       this.apollo.mutate({
         mutation: rejectAdoptionQuery,
         fetchPolicy: 'no-cache'
-      })
+      }).subscribe(({ data }) => {
+        this.router.navigate(['/adoptionprocess']);
+      });
     });
-    //this.router.navigate(['/adoptionprocess']);
   }
 
   onComplete(){
@@ -181,7 +184,9 @@ export class useradoptionPageComponent {
       this.apollo.mutate({
         mutation: completeAdoptionQuery,
         fetchPolicy: 'no-cache'
-      })
+      }).subscribe(({ data }) => {
+        this.router.navigate(['/adoptionprocess']);
+      });
     });
   }
 

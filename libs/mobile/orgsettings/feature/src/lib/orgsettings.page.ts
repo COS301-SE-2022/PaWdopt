@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";;
 import { APP_CONFIG } from '@pawdopt/config';
+import { ActionSheetController } from '@ionic/angular';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'pawdopt-orgsettings',
@@ -49,8 +51,9 @@ export class OrgSettingsPageComponent {
   totalAdoptions: string;
   totalDogs: string;
   loggedInUserRole: string;
+  imageToShow!: string;
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, @Inject(APP_CONFIG) private appConfig: any) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, @Inject(APP_CONFIG) private appConfig: any, public actionSheetController: ActionSheetController) {
     this.t_ID = "";
     this.t_OrgID = "";
     this.conInfoId = "";
@@ -262,16 +265,76 @@ export class OrgSettingsPageComponent {
     this.orgMembers.splice(index, 1);
   }
 
-  uploadPic(){
-    // TODO: Upload pic
+  async uploadPic(){
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Upload picture',
+      buttons: [{
+        text: 'Take picture using your camera',
+        icon: 'camera-outline',
+        handler: () => {
+          this.getPhoto(true);
+        }
+      }, {
+        text: 'Choose a picture from your gallery',
+        icon: 'image-outline',
+        handler: async () => {
+          await this.getPhoto(false);
+          this.imageToShow = this.logo;
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+      }]
+    });
+    await actionSheet.present();
   }
 
-  uploadDoc(){
-    // TODO: Upload doc
+  async uploadDoc(){
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Upload picture',
+      buttons: [{
+        text: 'Take picture using your camera',
+        icon: 'camera-outline',
+        handler: () => {
+          this.getPhoto(true);
+        }
+      }, {
+        text: 'Choose a picture from your gallery',
+        icon: 'image-outline',
+        handler: async () => {
+          await this.getPhoto(false);
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+      }]
+    });
+    await actionSheet.present();
   }
 
-  back(){
-    this.router.navigate(["/owneddogs"]);
+  async getPhoto(fromCamera:boolean) {
+    let sourceIn: CameraSource;
+
+    if(fromCamera){
+      sourceIn = CameraSource.Camera;
+    }
+    else{
+      sourceIn = CameraSource.Photos;
+    }
+
+    const capturedPhoto = await Camera.getPhoto({
+      resultType: CameraResultType.DataUrl,
+      source: sourceIn,
+      quality: 100
+    });
+
+    //TODO Do firebase upload here
+
+    const data = capturedPhoto.dataUrl ? capturedPhoto.dataUrl : "";
+    this.logo = data;
+    return data;
   }
   
   signout(){

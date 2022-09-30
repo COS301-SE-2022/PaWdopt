@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { Platform } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { APP_CONFIG } from '@pawdopt/config';
@@ -66,8 +66,9 @@ export class AddorgPageComponent {
   };
   imageToShow!: string;
   hideImage: boolean;
+  loading: Promise<HTMLIonLoadingElement>;
 
-  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform, public actionSheetController: ActionSheetController, public alertController: AlertController, @Inject(APP_CONFIG) private appConfig: any) {
+  constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private geolocation: Geolocation,  private platform : Platform, public actionSheetController: ActionSheetController, public alertController: AlertController, @Inject(APP_CONFIG) private appConfig: any, private loadingCtrl: LoadingController) {
     this.getGeolocation();
     this.hideImage = true;
     this.orgMembers=[{
@@ -78,6 +79,17 @@ export class AddorgPageComponent {
       verification: new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()
       }];
     this.orgMembers.pop();
+    this.loading = this.loadingCtrl.create({
+      message: 'Loading...',
+    });
+  }
+
+  async showLoading() {
+    (await this.loading).present();
+  }
+
+  async hideLoading() {
+    (await this.loading).dismiss();
   }
 
   // <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -137,7 +149,7 @@ export class AddorgPageComponent {
     //TODO: Add validation
     this.validate();
     
-
+    this.showLoading();
     const addOrg = gql`mutation{
       createOrg(org:{
         _id: "",
@@ -205,6 +217,7 @@ export class AddorgPageComponent {
             mutation: createOrgMember,
             fetchPolicy: 'no-cache'
           }).subscribe(() => {
+            this.hideLoading();
             this.router.navigate(["/owneddogs"]);
           });
         })

@@ -72,10 +72,6 @@ export class PreferencesPageComponent {
     this.size3 = 100;
   }
 
-  Back(){
-    this.router.navigate(["/home"]);
-  }
-
   home(){
     this.router.navigate(["/home"]);
   }
