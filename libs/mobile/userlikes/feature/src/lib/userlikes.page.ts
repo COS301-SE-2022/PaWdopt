@@ -140,10 +140,6 @@ export class userlikesPageComponent {
     this.router.navigate(["/home"]);
   }
 
-  back(){
-    this.router.navigate(["/home"]);
-  }
-
   likeddogs(){
     this.router.navigate(["/userlikes"]);
   }

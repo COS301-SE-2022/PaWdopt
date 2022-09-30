@@ -59,6 +59,7 @@ export class HomePage {
   storeIndex: number[] = [];
    t_ID: string;
   loading: Promise<HTMLIonLoadingElement>;
+  uselessvariable = 0;
 
     constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth, private loadingCtrl: LoadingController, private geolocation: Geolocation, private platform: Platform, @Inject(APP_CONFIG) private appConfig: any) {
       this.t_ID = "";
@@ -66,15 +67,9 @@ export class HomePage {
       this.loading = this.loadingCtrl.create({
         message: 'Loading...',
       });
-      //this.getGeolocation(); // might have to add this to the ionViewWillEnter
-      // this.setObject();
       this.fireAuth.currentUser.then(user => {
-        console.log(user?.uid);
         if(user?.uid){
           this.t_ID = user.uid;
-          console.log(this.t_ID);
-          //this.showLoading();
-          // this.getDogs();
         }
       });
     }
@@ -96,13 +91,9 @@ export class HomePage {
         })
         .then(jsonData => {
             this.address = jsonData.results[0].formatted_address;
-            console.log("Address:" + this.address);
             this.loading = this.loadingCtrl.create({
               message: 'Finding Dogs closest to ' + this.address,
             });
-        })
-        .catch(error => {
-            console.log(error);
         })
       }).catch((error) => {
         alert('Error getting location' + JSON.stringify(error));
@@ -176,7 +167,6 @@ export class HomePage {
 
   async setPrefs(){
     const filters = await this.getObject();
-    console.log(filters);
     if(filters && filters != undefined){
       if(filters.gender != undefined)
         this.gender = filters.gender;
@@ -223,7 +213,6 @@ export class HomePage {
       query: getDogsQuery,
       fetchPolicy: 'no-cache'
     }).valueChanges.subscribe((result) => {
-      console.log(result);
       const data = result.data as {
         findDogs: {
           _id: string,
@@ -266,9 +255,6 @@ export class HomePage {
         this.currentIndex++;
         //sort the avatars array by distanceFromUser in descending order
         this.avatars.sort((a, b) => (a.distanceFromUser > b.distanceFromUser) ? -1 : 1);
-        this.avatars.forEach(element => {
-          console.log(element.distanceFromUser);
-        });
 
         
       });
@@ -286,7 +272,6 @@ export class HomePage {
         query: findAdopterByIdQuery,
         fetchPolicy: 'no-cache'
       }).valueChanges.subscribe(async (result) => {
-        console.log(result);
         const data = result.data as {
           findAdopterById: {
             dogsLiked: {
@@ -298,7 +283,6 @@ export class HomePage {
           }
         }
         
-        console.log(data.findAdopterById.dogsLiked);
         // this.avatars.forEach(element => {
           data.findAdopterById.dogsLiked.forEach(element2 => {
             const index = this.avatars.findIndex(function(dog){
@@ -370,7 +354,6 @@ export class HomePage {
         });
         this.avatars = [];
         this.avatars = temp;
-        console.log(this.avatars);
       });
     });
     //we have filtered out the dogs
@@ -386,23 +369,18 @@ export class HomePage {
 
   async swiped(event: boolean, index: number) {
     
-    console.log(this.t_ID);
-    console.log(this.avatars[index].name + ' swiped ' + event.toString());
      if(event)
         await this.addDogToLiked(this.currentIndex);
       else
         await this.addDogToDisliked(this.currentIndex);
     this.avatars[index].visible = false;
     this.results.push(this.avatars[index].name + ' swiped ' + event.toString()); 
-    console.log(index);
-    console.log(this.currentIndex);
     this.currentIndex--;
   }
 
 
   swipeleft() { 
     if(this.currentIndex > -1){
-      console.log(this.currentIndex);
       this.addDogToDisliked(this.currentIndex);
       this.avatars[this.currentIndex].visible = false;
       this.results.push(this.avatars[this.currentIndex].name + ' swiped false');
@@ -421,7 +399,6 @@ export class HomePage {
 
   retry() {//The retry works but the mutation call errors out
     this.currentIndex++;
-    console.log(this.currentIndex + "this is the current index");
     this.avatars[this.currentIndex].visible = true;
     const thisDog = this.avatars[this.currentIndex].name;
     const index1 = this.results.findIndex(function(dog){
@@ -448,13 +425,7 @@ export class HomePage {
         mutation: removeDogFromAdopterDogsLikedOrDislikedQuery,
         fetchPolicy: 'no-cache'
       }).subscribe((result) => {
-        console.log(result);
-        const data = result.data as {
-          removeDogFromAdopterDogsLikedOrDisliked: {
-            _id: string
-          }
-        }
-        console.log(data);
+        this.uselessvariable = 1;
       }
       );
       
@@ -463,10 +434,8 @@ export class HomePage {
 
   async locationPicked(){
     this.showLoading();
-    setTimeout(() => {
-      console.log("Delayed for 1 second.");
-      
-    this.hideLoading();
+    setTimeout(() => {      
+      this.hideLoading();
     }, 1000);
   }
 
@@ -499,9 +468,7 @@ export class HomePage {
       mutation: addDogToLikedMutation,
       fetchPolicy: 'no-cache'
     }).subscribe(({data}) => {
-      console.log('got data', data);
-    }, (error) => {
-      console.log('there was an error sending the query', error);
+      this.uselessvariable = 1;
     });
   }
   
@@ -517,9 +484,7 @@ export class HomePage {
       mutation: addDogToDislikedMutation,
       fetchPolicy: 'no-cache'
     }).subscribe(({data}) => {
-      console.log('got data', data);
-    }, (error) => {
-      console.log('there was an error sending the query', error);
+      this.uselessvariable = 1;
     });
   }
 

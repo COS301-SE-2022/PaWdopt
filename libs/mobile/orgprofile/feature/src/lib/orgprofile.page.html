@@ -18,7 +18,7 @@
 
 <!--Back-->
 <div>
-    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()">
+    <ion-button class="ion-float-left" fill="clear" size="large" (click)="back()" [hidden]="hideBack">
         <ion-icon name="arrow-back-circle"></ion-icon>
     </ion-button>
 </div>
@@ -35,17 +35,25 @@
         <p><b><ion-icon name="location"></ion-icon>&nbsp;{{this.address}}</b></p>
         <p><b>Joined PaWdopt on {{dateString}}</b></p>
         <!-- Make a boolean function to check if these values actually exist -> Backend devs -->
-        <div [hidden]="false"><p><b><ion-icon name="logo-facebook"></ion-icon>&nbsp;{{this.facebook}}</b></p></div>
-        <div [hidden]="false"><p><b><ion-icon name="logo-instagram"></ion-icon>&nbsp;{{this.instagram}}</b></p></div>
-        <div [hidden]="false"><p><b><ion-icon name="logo-twitter"></ion-icon>&nbsp;{{this.twitter}}</b></p></div>
-        <div [hidden]="false"><p><b><ion-icon name="flash-outline"></ion-icon>&nbsp;{{this.website}}</b></p></div>
-    
+        <div [hidden]="false">
+            <p><b><ion-icon name="logo-facebook"></ion-icon>&nbsp;{{this.facebook}}</b></p>
+        </div>
+        <div [hidden]="false">
+            <p><b><ion-icon name="logo-instagram"></ion-icon>&nbsp;{{this.instagram}}</b></p>
+        </div>
+        <div [hidden]="false">
+            <p><b><ion-icon name="logo-twitter"></ion-icon>&nbsp;{{this.twitter}}</b></p>
+        </div>
+        <div [hidden]="false">
+            <p><b><ion-icon name="flash-outline"></ion-icon>&nbsp;{{this.website}}</b></p>
+        </div>
+
         <div class="container">
             <h1>Organisation Statistics</h1>
-            
+
             <br>
 
-            
+
             <p>
                 <ion-icon name="paw"></ion-icon>&nbsp;{{org.totalDogs}} dogs available</p>
             <p>

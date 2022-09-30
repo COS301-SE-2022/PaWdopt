@@ -221,32 +221,6 @@ export class updateorremovedogPageComponent {
     this.router.navigate(["/chatlist"]);
   }
 
-
-  // async uploadPic(){
-  //   const actionSheet = await this.actionSheetController.create({
-  //     header: 'Upload picture',
-  //     buttons: [{
-  //       text: 'Take picture using your camera',
-  //       icon: 'camera-outline',
-  //       handler: () => {
-  //       }
-  //     }, {
-  //       text: 'Choose a picture from your gallery',
-  //       icon: 'image-outline',
-  //       handler: () => {
-  //       }
-  //     }, {
-  //       text: 'Cancel',
-  //       icon: 'close',
-  //       role: 'cancel',
-  //       handler: () => {
-  //       }
-  //     }]
-  //   });
-  //   await actionSheet.present();
-
-  //   const { role, data } = await actionSheet.onDidDismiss();
-  // }
   async uploadPic(){
     const actionSheet = await this.actionSheetController.create({
       header: 'Upload picture',
