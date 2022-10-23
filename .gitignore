@@ -68,8 +68,7 @@ Thumbs.db
 schema.gql
 *.gql
 
-/apps/pawdopt/src/environments/environment.prod.ts
+apps/pawdopt/src/environments/environment.prod.ts
 .env
 env/
 .dccache
-apps/pawdopt/src/environments/environment.prod.ts

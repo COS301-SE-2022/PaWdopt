@@ -9,12 +9,13 @@ export class SharedMlFeatureService {
 
   constructor(private readonly httpService: HttpService) {}
 
-    async postToML(image: {image: string, extension:string}){      
-
-      console.log(image)
-
-       return this.httpService.axiosRef.post("http://localhost:5000/predict", 
-          image,{headers: {'content-type': 'application/json'}}
+    async postToML(image: {image: string, extension:string}){
+      const req = {
+        data: image.image,
+        mimetype: image.extension
+      }      
+       return this.httpService.axiosRef.post("https://pawdopt-env-gunicorn.eba-33a75fa2.us-east-1.elasticbeanstalk.com/predict", 
+          req,{headers: {'content-type': 'application/json'}}
         ).then((response) => {
           console.log(response)
           return response.data;

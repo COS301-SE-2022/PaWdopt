@@ -225,21 +225,25 @@ export class AdddogPageComponent {
   }
 
   async postToML(uri: string){
+    let res: string;
     const data = uri.split(",");
     const type = data[0].split(";");
     const image_type = type[0].split("/");
 
     const headersList = {
     "Accept": "*/*",
+    "Content-Type": "application/json"
       }
 
-    const bodyContent = new FormData();
-    bodyContent.append("image", data[1]);
-    bodyContent.append("extension", image_type[1]);
 
-    return fetch("http://localhost:5000/predict", {
+
+    const bodyContent ={
+      image: data[1].replace(/\+/g, '-').replace(/\//g, '_'),
+      extension: type[0]};
+
+    return fetch("https://pawdopt.herokuapp.com/predict", {
       method: "POST",
-      body: bodyContent,
+      body: JSON.stringify(bodyContent),
       headers: headersList
     }).then(function(response) {
       return response.text();
