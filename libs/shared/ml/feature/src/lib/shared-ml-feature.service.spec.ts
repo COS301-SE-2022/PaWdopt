@@ -24,6 +24,6 @@ describe('SharedMlFeatureService', () => {
       extension: 'jpg',
     });
     expect(response).toBeTruthy();
-  }
+  });
 
 });
