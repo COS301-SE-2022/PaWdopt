@@ -22,6 +22,8 @@ export class AdddogPageComponent {
       message: 'Loading...',
     });
   }
+
+
   inputName!: string;
   inputBreed!: string;
   inputGender!: string;

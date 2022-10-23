@@ -212,6 +212,12 @@ export class ChatType {
 
     @Field()
     disabled: boolean;
+
+    @Field()
+    lastMessageAdopter: number;
+
+    @Field()
+    lastMessageOrg: number;
 }
 
 @ObjectType('MessageObjType')
