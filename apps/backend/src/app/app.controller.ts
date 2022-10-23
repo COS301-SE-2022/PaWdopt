@@ -1,5 +1,4 @@
-import { Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
 import { AppService } from './app.service';
 
@@ -15,10 +14,7 @@ export class AppController {
   }
 
   @Post('predict')
-  @UseInterceptors(FileInterceptor('image'))
-  async postToML(@UploadedFile() imageFile) {
-    const data = imageFile.buffer.toString('base64url');
-    const mimetype = imageFile.mimetype;
-    return this.mlService.postToML({data, mimetype});
+  async postToML(@Body() imageFile) {
+    return this.mlService.postToML(imageFile);
   }
 }
