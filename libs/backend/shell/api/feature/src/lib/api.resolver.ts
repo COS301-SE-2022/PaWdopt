@@ -561,6 +561,30 @@ export class ApiResolver {
         return this.DogService.findOrgByOrgmemberId(orgmemberId);
     }
 
+    /**
+     * used in chatlist
+     * call updateLastMessage
+     * @param chatId
+     * @returns Chat
+     * @throws error if chat does not exist
+     */
+    @Mutation(() => String)
+    async updateLastMessageAdopter(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<string> {
+        return this.DogService.updateLastMessageAdopter(orgId, adopterId, dogId);
+    }
+
+    /**
+     * used in chatlist
+     * call updateLastMessage
+     * @param chatId
+     * @returns Chat
+     * @throws error if chat does not exist
+     */
+     @Mutation(() => String)
+     async updateLastMessageOrg(@Args('orgId') orgId: string, @Args('adopterId') adopterId: string, @Args('dogId') dogId: string) : Promise<string> {
+         return this.DogService.updateLastMessageOrg(orgId, adopterId, dogId);
+     }
+
     
 
 

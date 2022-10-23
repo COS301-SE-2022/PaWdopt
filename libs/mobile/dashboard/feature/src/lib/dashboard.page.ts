@@ -50,6 +50,10 @@ export class dashboardPageComponent {
     this.loading = this.loadingCtrl.create({
       message: 'Loading...',
     });
+    
+  }
+
+  async ionViewWillEnter(){
     this.getDog();
   }
 

@@ -56,6 +56,10 @@ export class useradoptionPageComponent {
   uselessVariable = 0;
 
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth) {
+    // this.getAdoptions();
+  }
+
+  async ionViewWillEnter() {
     this.getAdoptions();
   }
 

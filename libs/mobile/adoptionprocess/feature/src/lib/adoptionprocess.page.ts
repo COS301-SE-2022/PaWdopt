@@ -31,6 +31,10 @@ export class adoptionprocessPageComponent {
     this.loading = this.loadingCtrl.create({
       message: 'Loading...',
     });
+    
+  }
+
+  async ionViewWillEnter(){
     this.getAdoptions();
   }
 
@@ -96,6 +100,9 @@ export class adoptionprocessPageComponent {
               }
             };
             if(data.findOrgById){
+              if(data.findOrgById.potentialAdopters == null){
+                this.hideLoading();
+              }
             data.findOrgById.potentialAdopters.forEach(adopter => {
               const getDogByIdQuery = gql`
                 query { findDogById(_id: "${adopter.dogId}") {
@@ -127,6 +134,7 @@ export class adoptionprocessPageComponent {
               })
             })
           }
+          this.hideLoading();
           })
         })
       }

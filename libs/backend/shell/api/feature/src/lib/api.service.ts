@@ -823,6 +823,8 @@ export class ApiService {
         chat.adopterId = adopterId;
         chat.dogId = dogId;
         chat.disabled = false;
+        chat.lastMessageAdopter = 0;
+        chat.lastMessageOrg = 0;
         const message = "Hello, the adoption process has begun! Please keep an eye out for further communication from us.";
         await this.ChatModel.create(chat);
         return this.sendMessage(orgId, adopterId, orgId, message, dogId);
@@ -1155,7 +1157,7 @@ export class ApiService {
     /**
      * used in userAdoption page
      * get an org by orgmemberId
-     * @param {string} orgMemberId The id of the orgMember to find the org of
+     * @param {string} orgmemberId The id of the orgMember to find the org of
      * @return {Organisation}
      */
     async findOrgByOrgmemberId(orgmemberId: string): Promise<Organisation> {
@@ -1171,6 +1173,42 @@ export class ApiService {
             else{
                 return org;
             }
+        }
+    }
+
+    /**
+     * used in chatList
+     * update the lastMessage value
+     * @param {string} chatId The id of the chat to find
+     * @return {string}
+     */
+    async updateLastMessageAdopter(orgId: string, adopterId: string, dogId: string): Promise<string> {
+        const chat = await this.ChatModel.findOne({orgId, adopterId, dogId}).exec();
+        if(chat == null){
+            throw new Error("Chat does not exist");
+        }
+        else{
+            chat.lastMessageAdopter = chat.messages.length;
+            await chat.save();
+            return "Last message updated";
+        }
+    }
+
+    /**
+     * used in chatList
+     * update the lastMessage value
+     * @param {string} chatId The id of the chat to find
+     * @return {string}
+     */
+     async updateLastMessageOrg(orgId: string, adopterId: string, dogId: string): Promise<string> {
+        const chat = await this.ChatModel.findOne({orgId, adopterId, dogId}).exec();
+        if(chat == null){
+            throw new Error("Chat does not exist");
+        }
+        else{
+            chat.lastMessageOrg = chat.messages.length;
+            await chat.save();
+            return "Last message updated";
         }
     }
 

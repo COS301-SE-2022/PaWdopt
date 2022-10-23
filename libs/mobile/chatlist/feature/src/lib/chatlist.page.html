@@ -27,6 +27,12 @@
         <div class="userinfo">
             <ion-list *ngFor="let l of listOfChats">
                 <ion-item-sliding id="item1">
+                    <ion-label *ngIf="l.newMessages == 0">
+                        <h2 style="color:red; text-align:end;" >no new messages</h2>
+                    </ion-label>
+                    <ion-label *ngIf="l.newMessages > 0">
+                        <h2 style="color:green; text-align:end;" >new messages: {{l.newMessages}}</h2>
+                    </ion-label>
                     <ion-item href="#">
                         <ion-thumbnail class="avatar">
                             <!-- <img src="../../assets/avatar1.jpg"> -->
