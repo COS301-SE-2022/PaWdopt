@@ -14,7 +14,7 @@ export class SharedMlFeatureService {
         data: image.image,
         mimetype: image.extension
       }      
-       return this.httpService.axiosRef.post("http://pawdopt-env-gunicorn.eba-33a75fa2.us-east-1.elasticbeanstalk.com/predict", 
+       return this.httpService.axiosRef.post("https://pawdopt-env-gunicorn.eba-33a75fa2.us-east-1.elasticbeanstalk.com/predict", 
           req,{headers: {'content-type': 'application/json'}}
         ).then((response) => {
           console.log(response)
