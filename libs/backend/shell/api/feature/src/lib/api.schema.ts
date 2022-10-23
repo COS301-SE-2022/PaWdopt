@@ -211,6 +211,12 @@ export class Chat {
 
     @Prop()
     disabled: boolean;
+
+    @Prop()
+    lastMessageAdopter: number;
+
+    @Prop()
+    lastMessageOrg: number;
 }
 
 @ObjectType()

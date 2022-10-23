@@ -140,6 +140,19 @@ export class chatPageComponent {
                       msg: message.message
                     });
                   });
+                  //call the updateLastMessage query
+                  const updateLastMessage = gql`mutation {
+                    updateLastMessageAdopter(orgId: "${this.orgID}", adopterId: "${this.userID}", dogId: "${this.dogId}")
+                  }`;
+
+                  this.apollo.mutate({
+                    mutation: updateLastMessage,
+                    fetchPolicy: 'no-cache'
+                  }).subscribe((result) => {
+                    const data = result.data as {
+                      updateLastMessage: boolean
+                    }
+                  });
                 });
               });
           } else if(data.getUserType == "OrgMember"){
@@ -216,6 +229,19 @@ export class chatPageComponent {
                         msg: message.message
                       });
                     });
+                    //call the updateLastMessage query
+                  const updateLastMessage = gql`mutation {
+                    updateLastMessageOrg(orgId: "${this.orgID}", adopterId: "${this.userID}", dogId: "${this.dogId}")
+                  }`;
+
+                  this.apollo.mutate({
+                    mutation: updateLastMessage,
+                    fetchPolicy: 'no-cache'
+                  }).subscribe((result) => {
+                    const data = result.data as {
+                      updateLastMessage: boolean
+                    }
+                  });
                   });
                 });
               });

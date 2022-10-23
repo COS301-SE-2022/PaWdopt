@@ -30,13 +30,17 @@ export class userlikesPageComponent {
   }[]=[]
 
   constructor(private router: Router, private apollo: Apollo, private fireAuth: AngularFireAuth){
-    this.fireAuth.currentUser.then(user =>{
-        if(user?.uid){
-          this.userId = user.uid;
-          this.getDog(false);
-        }
-    })
+    
 
+  }
+
+  async ionViewWillEnter(){
+    this.fireAuth.currentUser.then(user =>{
+      if(user?.uid){
+        this.userId = user.uid;
+        this.getDog(false);
+      }
+  })
   }
 
   getDog(search: boolean){
