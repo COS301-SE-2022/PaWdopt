@@ -243,6 +243,7 @@ export class AdddogPageComponent {
 
     return fetch("https://pawdopt.herokuapp.com/predict", {
       method: "POST",
+      mode: "no-cors",
       body: JSON.stringify(bodyContent),
       headers: headersList
     }).then(function(response) {

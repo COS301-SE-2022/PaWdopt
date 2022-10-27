@@ -35,6 +35,7 @@ export class adoptionprocessPageComponent {
   }
 
   async ionViewWillEnter(){
+    this.listedAdoptions=[];
     this.getAdoptions();
   }
 
