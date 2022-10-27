@@ -48,8 +48,8 @@ import { APP_CONFIG } from '@pawdopt/config';
           cache: new InMemoryCache(),
           link: httpLink.create({
             // uri: 'http://10.0.2.2:3333/graphql',
-            // uri: 'http://localhost:3333/graphql',
-            uri: 'https://pawdopt.herokuapp.com/graphql',
+             uri: 'http://localhost:3333/graphql',
+            //uri: 'https://pawdopt.herokuapp.com/graphql',
           }),
         };
       },
