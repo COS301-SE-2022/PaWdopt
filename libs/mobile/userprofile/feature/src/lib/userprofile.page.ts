@@ -76,10 +76,6 @@ export class userprofilePageComponent {
     this.router.navigate(["/chatlist"]);
   }
   
-  back(){
-    this.router.navigate(["/home"]);
-  }
-  
   home(){
     this.router.navigate(["/home"]);
   }

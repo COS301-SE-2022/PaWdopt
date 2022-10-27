@@ -19,6 +19,7 @@ export class chatlistPageComponent {
     dogId: string;
     dogName: string;
     dogPic: string;
+    newMessages: number;
   }[] = [];
 
   currentUserId?: string;
@@ -26,6 +27,10 @@ export class chatlistPageComponent {
 
 
   constructor(private router: Router, private apollo: Apollo, private afAuth: AngularFireAuth){
+    // this.getChats();
+  }
+
+  async ionViewWillEnter(){
     this.getChats();
   }
 
@@ -58,6 +63,7 @@ export class chatlistPageComponent {
                   userId
                   message
                 }
+                lastMessageAdopter
               }
             }`;
 
@@ -74,6 +80,7 @@ export class chatlistPageComponent {
                     userId: string;
                     message: string;
                   }[]
+                  lastMessageAdopter: number;
                 }[]
               }
               //for each chat, get the org name and dog name
@@ -120,6 +127,7 @@ export class chatlistPageComponent {
                       dogId: chat.dogId,
                       dogName: data.findDogById.name,
                       dogPic: data.findDogById.pics[0],
+                      newMessages: chat.messages.length - chat.lastMessageAdopter
                     });
                   });
                 });
@@ -138,7 +146,7 @@ export class chatlistPageComponent {
                   userId
                   message
                 }
-
+                lastMessageOrg
               }
             }`;
 
@@ -155,6 +163,7 @@ export class chatlistPageComponent {
                     userId: string;
                     message: string;
                   }[]
+                  lastMessageOrg: number;
                 }[]
               }
               //for each chat, get the adopter name and dog name
@@ -201,6 +210,7 @@ export class chatlistPageComponent {
                       dogId: chat.dogId,
                       dogName: data.findDogById.name,
                       dogPic: data.findDogById.pics[0],
+                      newMessages: chat.messages.length - chat.lastMessageOrg
                     });
                   });
                 });
@@ -241,33 +251,6 @@ export class chatlistPageComponent {
     });
   }
 
-
-  back(){
-    if(this.currentUserId){
-      const getUserType = gql`query {
-        getUserType(id: "${this.currentUserId}")
-      }`;
-
-      this.apollo.watchQuery({
-        query: getUserType,
-        fetchPolicy: 'no-cache'
-      }).valueChanges.subscribe((result) => {
-        const data = result.data as {
-          getUserType: string
-        }
-        if(data.getUserType == "Adopter"){
-          this.router.navigate(["/userlikes"]);
-        }
-        else if(data.getUserType == "OrgMember"){
-          this.router.navigate(["/ownedDogs"]);
-        }
-        else{
-          //alert to say there is an error
-          this.router.navigate(["/login"]);
-        }
-      });
-    }
-  }
   signup(){
     // Done in signup
     this.router.navigate(["/signup"]);

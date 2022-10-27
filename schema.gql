@@ -90,6 +90,8 @@ type ChatType {
   messages: [MessageObjType!]
   dogId: String!
   disabled: Boolean!
+  lastMessageAdopter: Float!
+  lastMessageOrg: Float!
 }
 
 type MessageObjType {
@@ -192,6 +194,8 @@ input ChatInputType {
   messages: [MessageObjInputType!]
   dogId: String!
   disabled: Boolean!
+  lastMessageAdopter: Float!
+  lastMessageOrg: Float!
 }
 
 input MessageObjInputType {
@@ -265,4 +269,6 @@ type Mutation {
   acceptAdoption(orgmemberId: String!, adopterId: String!, dogId: String!): String!
   completeAdoption(orgmemberId: String!, adopterId: String!, dogId: String!): String!
   uploadDoc(adopterId: String!, type: String!, path: String!): String!
+  updateLastMessageAdopter(orgId: String!, adopterId: String!, dogId: String!): String!
+  updateLastMessageOrg(orgId: String!, adopterId: String!, dogId: String!): String!
 }

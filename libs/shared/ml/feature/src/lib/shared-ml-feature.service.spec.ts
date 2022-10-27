@@ -17,4 +17,13 @@ describe('SharedMlFeatureService', () => {
   it('should be defined', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should post to ML', async () => {
+    const response = await service.postToML({
+      image: 'iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX___-_v7-jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD_aNpbtEAAAAASUVORK5CYII',
+      extension: 'jpg',
+    });
+    expect(response).toBeTruthy();
+  });
+
 });

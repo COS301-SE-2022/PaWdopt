@@ -12,7 +12,7 @@ detector = breed_detector()
 
 @app.route('/')
 def home():
-    return jsonify({'message': 'server live'})
+    return {'ML Server': 'Running'}, 200
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -39,5 +39,5 @@ def train():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port)

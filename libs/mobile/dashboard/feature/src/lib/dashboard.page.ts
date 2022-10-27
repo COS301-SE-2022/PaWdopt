@@ -43,19 +43,26 @@ export class dashboardPageComponent {
   }[]=[];
 
   userId!: string;
+  loading: Promise<HTMLIonLoadingElement>;
   
   constructor(private router: Router, private apollo: Apollo, private alertController: AlertController, private loadingCtrl: LoadingController ) {
     this.userId = "";
+    this.loading = this.loadingCtrl.create({
+      message: 'Loading...',
+    });
+    
+  }
+
+  async ionViewWillEnter(){
     this.getDog();
   }
 
   async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Loading changes...',
-      duration: 4500,
-    });
+    (await this.loading).present();
+  }
 
-    loading.present();
+  async hideLoading() {
+    (await this.loading).dismiss();
   }
 
   async _alert() {
@@ -86,6 +93,7 @@ export class dashboardPageComponent {
   }
 
   async getDog(){
+    this.showLoading();
     this.userLikes = [];
     this.dogID = (await this.getObject()).name
     const getDogQuery = gql`query {
@@ -153,6 +161,7 @@ export class dashboardPageComponent {
           }
         );
       })
+      this.hideLoading();
     })
   }
   clickedUserID!: string;
@@ -188,6 +197,7 @@ export class dashboardPageComponent {
               mutation: clickedHeartIconquery,
               fetchPolicy: 'no-cache'
             }).subscribe((result) => {
+              this.hideLoading();
               this.getDog();
             }
             )
@@ -223,6 +233,7 @@ export class dashboardPageComponent {
               mutation: clickedTrashIconquery,
               fetchPolicy: 'no-cache'
             }).subscribe((result) => {
+              this.hideLoading();
               this.getDog();
             }
             )

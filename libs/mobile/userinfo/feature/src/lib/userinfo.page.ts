@@ -170,7 +170,7 @@ export class userinfoPageComponent {
   }
 
   back(){
-    this.router.navigate(["/useradoption"]);
+    this.router.navigate(['/useradoption']);
   }
 
   home() {

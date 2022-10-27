@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, LoadingController } from '@ionic/angular';
 import {Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -17,7 +17,13 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   providers: [Apollo],
 })
 export class AdddogPageComponent {
-  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth) {}
+  constructor(private router: Router, public actionSheetController: ActionSheetController, private apollo : Apollo, private afAuth: AngularFireAuth, private loadingCtrl: LoadingController) {
+    this.loading = this.loadingCtrl.create({
+      message: 'Loading...',
+    });
+  }
+
+
   inputName!: string;
   inputBreed!: string;
   inputGender!: string;
@@ -39,6 +45,8 @@ export class AdddogPageComponent {
     lower: number;
     upper: number;
   };
+
+  loading: Promise<HTMLIonLoadingElement>;
 
   fieldvalidate(){
     //TODO: Make validation better
@@ -68,13 +76,21 @@ export class AdddogPageComponent {
     return valid;
   }  
 
+  async showLoading() {
+    (await this.loading).present();
+  }
+
+  async hideLoading() {
+    (await this.loading).dismiss();
+  }
+
 
   addDog(){
     //Adds a dog to the database
     if(!this.fieldvalidate())
       return;
-
     this.afAuth.currentUser.then(user => {
+      this.showLoading();
       this.uid = user?.uid;
 
       if(this.uid){
@@ -125,7 +141,7 @@ export class AdddogPageComponent {
             mutation: AddDogMutation,
             fetchPolicy: 'no-cache'
             }).subscribe((result) => {
-              
+              this.hideLoading();
               this.router.navigate(["/owneddogs"]);
             }
           );
@@ -209,21 +225,26 @@ export class AdddogPageComponent {
   }
 
   async postToML(uri: string){
+    let res: string;
     const data = uri.split(",");
     const type = data[0].split(";");
     const image_type = type[0].split("/");
 
     const headersList = {
     "Accept": "*/*",
+    "Content-Type": "application/json"
       }
 
-    const bodyContent = new FormData();
-    bodyContent.append("image", data[1]);
-    bodyContent.append("extension", image_type[1]);
 
-    return fetch("http://localhost:5000/predict", {
+
+    const bodyContent ={
+      image: data[1].replace(/\+/g, '-').replace(/\//g, '_'),
+      extension: type[0]};
+
+    return fetch("https://pawdopt.herokuapp.com/predict", {
       method: "POST",
-      body: bodyContent,
+      mode: "no-cors",
+      body: JSON.stringify(bodyContent),
       headers: headersList
     }).then(function(response) {
       return response.text();
